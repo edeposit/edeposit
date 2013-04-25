@@ -1,0 +1,27 @@
+Metadata-Version: 1.1
+Name: edeposit.content
+Version: 2.0
+Summary: Content types for the E-Deposit project
+Home-page: https://www.github.com/jstavel/edeposit.content
+Author: Jan Stavel
+Author-email: stavel.jan@gmail.com
+License: GPL
+Description: Introduction
+        ============
+        
+        
+        
+        This product may contain traces of nuts.
+        
+        Changelog
+        =========
+        
+        1.0dev (unreleased)
+        -------------------
+        
+        - Initial release
+        
+Keywords: edeposit content
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Programming Language :: Python

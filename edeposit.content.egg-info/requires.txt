@@ -1,0 +1,11 @@
+setuptools
+Products.CMFPlone
+plone.app.dexterity [grok]
+plone.app.referenceablebehavior
+plone.app.relationfield
+plone.namedfile [blobs]
+archetypes.schemaextender
+plone.app.registry
+
+[test]
+plone.app.testing
