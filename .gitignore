@@ -9,3 +9,7 @@ include/*
 local
 bootstrap.py
 .installed.cfg
+src/*
+var/*
+.mr.developer.cfg
+develop-eggs/*
