@@ -1,6 +1,9 @@
-Plone 4.2 buildout
-==================
+E-Deposit
+=========
 
-Reading excelent book **Professional Plone 4 Development** I have prepared my buildout to start Plone 4.2 development.
+Installation
+------------
 
-I hope it will help.
+::
+
+	root@jan-XPS-L421X:~# aptitude install python-virtualenv 
