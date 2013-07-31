@@ -19,6 +19,7 @@ from plone.namedfile import field
 from z3c.form import validator
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
+from zope.schema.vocabulary import SimpleVocabulary
 
 # View
 from zope.component import getMultiAdapter
@@ -56,9 +57,10 @@ class IEBook(form.Schema):
         description=_(u"Please enter a name of a part"),
     )
 
-    ebookFormat = schema.TextLine(
+    ebookFormat = schema.Choice(
         title=_(u"EBook format"),
         description=_(u"Please enter a format of an ebook"),
+        vocabulary = SimpleVocabulary.fromValues(['EPub','PDF','PDF/A','Mobi']),
     )
 
     published = schema.TextLine (
@@ -70,6 +72,7 @@ class IEBook(form.Schema):
     publishedTogetherWith = schema.TextLine(
         title=_(u"Published together with"),
         description=_(u"Please enter a name of a ebook that was published with"),
+        required = False,
     )
 
     ebook = field.NamedBlobFile(title=u"EBook file")
