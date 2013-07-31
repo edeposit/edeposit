@@ -20,17 +20,12 @@ Prepare buildout for E-Deposit
 	jan@jan-XPS-L421X:~# git clone https://github.com/jstavel/edeposit.git edeposit
 	jan@jan-XPS-L421X:~# cd /opt/edeposit
 	jan@jan-XPS-L421X:/opt/edeposit# virtualenv .
-	jan@jan-XPS-L421X:/opt/edeposit# wget http://effbot.org/downloads/Imaging-1.1.7.tar.gz
-	jan@jan-XPS-L421X:/opt/edeposit$ tar xfvz Imaging-1.1.7.tar.gz 
-	jan@jan-XPS-L421X:/opt/edeposit$ cd Imaging-1.1.7/
-	jan@jan-XPS-L421X:/opt/edeposit/Imaging-1.1.7$ ../bin/python setup.py install
-	jan@jan-XPS-L421X:/opt/edeposit$ cd ..
-	jan@jan-XPS-L421X:/opt/edeposit$ rm Imaging-1.1.7* -rf
 
 
 Clone packages for E-Deposit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	jan@jan-XPS-L421X:/opt/edeposit$ mkdir src
 	jan@jan-XPS-L421X:/opt/edeposit$ cd src
 	jan@jan-XPS-L421X:/opt/edeposit/src$ git clone https://github.com/jstavel/edeposit.policy.git
 	jan@jan-XPS-L421X:/opt/edeposit/src$ git clone https://github.com/jstavel/edeposit.content.git

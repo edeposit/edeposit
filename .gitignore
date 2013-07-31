@@ -1,0 +1,11 @@
+bin/*
+eggs/*
+lib/*
+*.pyc
+libpeerconnection.log
+macros.el
+parts/*
+include/*
+local
+bootstrap.py
+.installed.cfg
