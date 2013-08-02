@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.0'
+version = '1.0'
 
-setup(name='edeposit.content',
+setup(name='edeposit.newcontent',
       version=version,
-      description="Content types for the E-Deposit project",
+      description="Example Dexterity Product",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
@@ -13,11 +13,12 @@ setup(name='edeposit.content',
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-      keywords='edeposit content',
-      author='Jan Stavel',
-      author_email='stavel.jan@gmail.com',
-      url='https://www.github.com/jstavel/edeposit.content',
+      keywords='',
+      author='',
+      author_email='',
+      url='http://svn.plone.org/svn/collective/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['edeposit'],
@@ -25,24 +26,20 @@ setup(name='edeposit.content',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'Products.CMFPlone',
-          'plone.app.dexterity [grok]',
-          'plone.app.referenceablebehavior',
+          'plone.app.dexterity [grok, relations]',
           'plone.app.relationfield',
-          'plone.namedfile [blobs]', # makes sure we get blob support
-          'archetypes.schemaextender',
-          'plone.app.registry',
+          'plone.namedfile [blobs]',
+          # -*- Extra requirements: -*-
       ],
-      extras_require={
-          'test': ['plone.app.testing',]
-      },
-#      entry_points="""
-#      # -*- Entry points: -*-
-#
-#      [z3c.autoinclude.plugin]
-#      target = plone
-#      """,
-## uncomment these to re-enable support for Paster local commands
-#     setup_requires=["PasteScript"],
-#     paster_plugins=["ZopeSkel"],
+      entry_points="""
+      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
+      # The next two lines may be deleted after you no longer need
+      # addcontent support from paster and before you distribute
+      # your package.
+      setup_requires=["PasteScript"],
+      paster_plugins = ["ZopeSkel"],
+
       )
