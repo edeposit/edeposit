@@ -16,6 +16,8 @@ from plone.namedfile.interfaces import IImageScaleTraversable
 
 from edeposit.content import MessageFactory as _
 
+def urlCodeIsValid(value):
+    return True
 
 # Interface class; used to define content-type schema.
 
@@ -30,9 +32,12 @@ class ILibrary(form.Schema, IImageScaleTraversable):
     # models/library.xml to define the content type.
 
     # form.model("models/library.xml")
-    
-    
-    
+    url = schema.ASCIILine(
+        #    title=_("URL"),
+        #     description=_(u"URL of a library"),
+        constraint=urlCodeIsValid,
+        required = False,
+        )
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific

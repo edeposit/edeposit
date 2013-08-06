@@ -1,4 +1,5 @@
 import unittest2 as unittest
+import doctest
 
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
@@ -23,23 +24,25 @@ from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.event import ObjectInitializedEvent
 
-class TestContent(unittest.TestCase):
-
+class TestLibraryFolder(unittest.TestCase):
     layer = EDEPOSIT_CONTENT_INTEGRATION_TESTING
 
-    def test_hierarchy(self):
+    def test_doctest(self):
+        #doctest.testfile("../LibraryFolder.txt")
+        pass
+
+    def test_creation(self):
         portal = self.layer['portal']
-        
         # Ensure that we can create the various content types without error
-        
         setRoles(portal, TEST_USER_ID, ('Manager',))
-        
-        portal.invokeFactory('edeposit.EBookFolder', 'ebf1', title=u"E-Deposit ebook folder")
-        
+        portal.invokeFactory('edeposit.content.libraryfolder', 'elf1', title=u"E-Deposit Library Folder")
         setRoles(portal, TEST_USER_ID, ('Member',))
-        
-        portal['ebf1'].invokeFactory('edeposit.EBook', 'eb1', title=u"EBook")
-        # portal['cf1']['c1'].invokeFactory('optilux.Promotion', 'p1', title=u"Promotion")
-        
-        # portal['ff1'].invokeFactory('optilux.Film', 'f1', title=u"Film")
-    
+
+    def test_creation_library(self):
+        portal = self.layer['portal']
+        # Ensure that we can create the various content types without error
+        setRoles(portal, TEST_USER_ID, ('Manager',))
+        portal.invokeFactory('edeposit.content.libraryfolder', 'edlf1', title=u"E-Deposit Library Folder")
+        setRoles(portal, TEST_USER_ID, ('Member',))
+        portal['edlf1'].invokeFactory('edeposit.content.libraryfolder', 'edlf2', title=u"E-Deposit Library Folder")
+        portal['edlf1'].invokeFactory('edeposit.content.library', 'edll1', title=u"E-Deposit Library")

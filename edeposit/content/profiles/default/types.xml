@@ -4,7 +4,10 @@
       then configured with the corresponding files in types/*.xml.
    -->
  
- <object name="edeposit.EBookFolder" meta_type="Dexterity FTI"/>
- <object name="edeposit.EBook"       meta_type="Dexterity FTI"/>
-    
+ <object name="edeposit.EBookFolder"           meta_type="Dexterity FTI"/>
+ <object name="edeposit.EBook"                 meta_type="Dexterity FTI"/>
+ <object name="edeposit.content.library"       meta_type="Dexterity FTI"/>
+ <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
+ <object name="edeposit.content.isbn"          meta_type="Dexterity FTI"/>
+ <object name="edeposit.content.author"        meta_type="Dexterity FTI"/>
 </object>

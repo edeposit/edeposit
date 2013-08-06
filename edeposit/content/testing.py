@@ -11,7 +11,7 @@ class EDepositContent(PloneSandboxLayer):
     
     def setUpZope(self, app, configurationContext):
         # Load ZCML
-        import optilux.cinemacontent
+        import edeposit.content
         xmlconfig.file('configure.zcml', edeposit.content, context=configurationContext)
     
     def setUpPloneSite(self, portal):

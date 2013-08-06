@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '0.1'
 
-setup(name='edeposit.newcontent',
+setup(name='edeposit.content',
       version=version,
-      description="Example Dexterity Product",
+      description="E-Deposit Content",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
@@ -18,7 +18,7 @@ setup(name='edeposit.newcontent',
       keywords='',
       author='',
       author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      url='https://github.com/jstavel/edeposit.content',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['edeposit'],
@@ -31,6 +31,9 @@ setup(name='edeposit.newcontent',
           'plone.namedfile [blobs]',
           # -*- Extra requirements: -*-
       ],
+      extras_require = {
+          'test': ['plone.app.testing',]
+      },
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]

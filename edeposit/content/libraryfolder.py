@@ -28,7 +28,11 @@ class ILibraryFolder(form.Schema, IImageScaleTraversable):
     # line below and delete the matching file in the models sub-directory.
     # If you want a model-based interface, edit
     # models/libraryfolder.xml to define the content type.
-
+    # url = schema.URI(
+    #      title=u"URL of a library",
+    #      description = u"Please, enter url that represents this Library",
+    #      required = False,
+    #     )
     # form.model("models/libraryfolder.xml")
 
 
@@ -53,7 +57,7 @@ class LibraryFolder(Container):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-class SampleView(grok.View):
+class View(grok.View):
     """ sample view class """
 
     grok.context(ILibraryFolder)
