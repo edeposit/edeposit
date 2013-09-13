@@ -15,7 +15,8 @@
     <element value="edeposit.content.printingfile"/>
     <element value="edeposit.content.originalfile"/>
     <element value="edeposit.content.previewfile"/>
-    <element value="edeposit.content.authorfolder"/>
+    <element value="edeposit.content.author"/>
+    <element value="Collection"/>
   </property>
   <property name="allow_discussion">True</property>
 

@@ -11,5 +11,4 @@
   <object name="edeposit.content.epublicationfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
   <!-- -*- extra stuff goes here -*- -->
-  <object name="edeposit.content.authorfolder" meta_type="Dexterity FTI" />
 </object>
