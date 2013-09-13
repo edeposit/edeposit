@@ -1,20 +1,20 @@
-File Tests
+OriginalFile Tests
 -----------------
 
 This is a DocTest file, using the Python doctest format.
 
 
-Create a File object and put it in a folder
+Create a OriginalFile object and put it in a folder
 
     Create the object::
 
     >>> from zope.component import createObject
-    >>> container = createObject('edeposit.content.file')
+    >>> container = createObject('edeposit.content.originalfile')
 
     Verify it's type::
 
     >>> container.portal_type
-    'edeposit.content.file'
+    'edeposit.content.originalfile'
 
     Give it a title::
 
@@ -28,7 +28,7 @@ Create a File object and put it in a folder
     >>> cobj = addContentToContainer(folder, container)
 
     >>> cobj
-    <File at /plone/Members/test_user_1_/test-title>
+    <OriginalFile at /plone/Members/test_user_1_/test-title>
 
     >>> folder['test-title'].Title()
     'Test Title'

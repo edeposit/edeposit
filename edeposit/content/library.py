@@ -1,5 +1,5 @@
 from five import grok
-
+from plone.supermodel import model
 from z3c.form import group, field
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -31,10 +31,19 @@ class ILibrary(form.Schema, IImageScaleTraversable):
     # If you want a model-based interface, edit
     # models/library.xml to define the content type.
 
-    # form.model("models/library.xml")
+    model.fieldset('url',
+                   label=_(u"URLs"),
+                   fields=['url','url_of_kramerius'])
     url = schema.ASCIILine(
-        #    title=_("URL"),
-        #     description=_(u"URL of a library"),
+        title=_("URL"),
+        description=_(u"URL of a library"),
+        constraint=urlCodeIsValid,
+        required = False,
+        )
+
+    url_of_kramerius = schema.ASCIILine(
+        title=_("URL of Kramerius"),
+        description=_(u"URL where you can work with Kramerius"),
         constraint=urlCodeIsValid,
         required = False,
         )

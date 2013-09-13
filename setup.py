@@ -29,6 +29,8 @@ setup(name='edeposit.content',
           'plone.app.dexterity [grok, relations]',
           'plone.app.relationfield',
           'plone.namedfile [blobs]',
+          'plone.app.registry',
+          'plone.app.relationfield',
           # -*- Extra requirements: -*-
       ],
       extras_require = {

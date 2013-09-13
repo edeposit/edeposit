@@ -1,28 +1,27 @@
 <?xml version="1.0"?>
-<object name="edeposit.content.libraryfolder"
+<object name="edeposit.content.epublicationfolder"
    meta_type="Dexterity FTI"
    i18n:domain="edeposit.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">E-Deposit Library Folder</property>
+  <property name="title" i18n:translate="">ePublicationFolder</property>
   <property name="description"
-    i18n:translate="">Folder holds libraries</property>
+    i18n:translate="">E-Deposit ePublication Folder</property>
   <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
-  <property name="factory">edeposit.content.libraryfolder</property>
-  <property name="global_allow">True</property>
+  <property name="factory">edeposit.content.epublicationfolder</property>
+  <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="edeposit.content.library"/>
+    <element value="edeposit.content.epublication"/>
   </property>
   <property name="allow_discussion">True</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">edeposit.content.libraryfolder.ILibraryFolder</property>
-  <property name="klass">plone.dexterity.content.Container</property>
+  <property name="schema">edeposit.content.epublicationfolder.IePublicationFolder</property>
+  <property name="klass">edeposit.content.epublicationfolder.ePublicationFolder</property>
 
   <property name="behaviors">
      <element value="plone.app.content.interfaces.INameFromTitle" />
-     <element value="plone.app.referenceablebehaviour.referenceable.IReferenceable" />
      <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
    </property>
 

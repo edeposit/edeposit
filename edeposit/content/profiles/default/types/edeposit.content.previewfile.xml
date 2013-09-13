@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
-<object name="edeposit.content.file"
+<object name="edeposit.content.previewfile"
    meta_type="Dexterity FTI"
    i18n:domain="edeposit.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">File</property>
+  <property name="title" i18n:translate="">PreviewFile</property>
   <property name="description"
-    i18n:translate="">File that holds file of ePublication</property>
+    i18n:translate="">E-Deposit Preview File</property>
   <property name="icon_expr">string:${portal_url}/document_icon.png</property>
-  <property name="factory">edeposit.content.file</property>
+  <property name="factory">edeposit.content.previewfile</property>
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" />
-  <property name="allow_discussion">True</property>
+  <property name="allow_discussion">False</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">edeposit.content.file.IFile</property>
-  <property name="klass">edeposit.content.file.File</property>
+  <property name="schema">edeposit.content.previewfile.IPreviewFile</property>
+  <property name="klass">edeposit.content.previewfile.PreviewFile</property>
 
   <property name="behaviors">
      <element value="plone.app.content.interfaces.INameFromTitle" />
@@ -26,14 +26,13 @@
   <!-- View information -->
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
-  <property name="default_view">view</property>
+  <property name="default_view">documentviewer</property>
   <property name="view_methods">
    <element value="view"/>
+   <element value="documentviewer"/>
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>
-
-
   <!-- Method aliases -->
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="view" to="(selected layout)" />

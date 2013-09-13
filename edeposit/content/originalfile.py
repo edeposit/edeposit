@@ -14,40 +14,59 @@ from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
-
 from edeposit.content import MessageFactory as _
 
 
-# Interface class; used to define content-type schema.
+def urlCodeIsValid(value):
+    return True
 
-class IISBN(form.Schema, IImageScaleTraversable):
+class IOriginalFile(form.Schema, IImageScaleTraversable):
     """
-    Identification number of an ePublication
+    E-Deposit Original File
     """
-    model.fieldset('isbn',
-                   label="ISBN",
-                   fields=['isbn',])
-    isbn = schema.ASCIILine(
-        title=_("ISBN"),
-        description=_(u"Value of ISBN"),
+
+    # If you want a schema-defined interface, delete the model.load
+    # line below and delete the matching file in the models sub-directory.
+    # If you want a model-based interface, edit
+    # models/originalfile.xml to define the content type.
+
+    url = schema.ASCIILine(
+        title=_("URL"),
+        description=_(u"URL of a file source."),
+        constraint=urlCodeIsValid,
+        required = False,
+        )
+    
+    #form.primary('file')
+    file = NamedBlobFile(
+        title=_(u"Original File of an ePublication"),
+        description=_(u"Fill in a file that contains of an epublication"),
         required = True,
         )
+    
+    format = schema.Choice(
+        title=_(u"Format of a file."),
+        vocabulary="edeposit.content.fileTypes"
+        )
 
+# @form.default_value(field=IOriginalFile['title'])
+# def default_title(data):
+#     return _(u'original')
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering
 # in separate view classes.
 
-class ISBN(Container):
-    grok.implements(IISBN)
+class OriginalFile(Container):
+    grok.implements(IOriginalFile)
 
     # Add your class methods and properties here
 
 
 # View class
 # The view will automatically use a similarly named template in
-# isbn_templates.
+# originalfile_templates.
 # Template filenames should be all lower case.
 # The view will render when you request a content object with this
 # interface with "/@@sampleview" appended.
@@ -58,7 +77,7 @@ class ISBN(Container):
 class SampleView(grok.View):
     """ sample view class """
 
-    grok.context(IISBN)
+    grok.context(IOriginalFile)
     grok.require('zope2.View')
 
     # grok.name('view')

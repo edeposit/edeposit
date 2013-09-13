@@ -1,13 +1,15 @@
-<object name="portal_types">
-    
- <!-- This file registers new types with portal_types. The types are
-      then configured with the corresponding files in types/*.xml.
-   -->
- 
- <object name="edeposit.EBookFolder"           meta_type="Dexterity FTI"/>
- <object name="edeposit.EBook"                 meta_type="Dexterity FTI"/>
- <object name="edeposit.content.library"       meta_type="Dexterity FTI"/>
- <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
- <object name="edeposit.content.isbn"          meta_type="Dexterity FTI"/>
- <object name="edeposit.content.author"        meta_type="Dexterity FTI"/>
+<?xml version="1.0" encoding="utf-8"?>
+<object name="portal_types" meta_type="Plone Types Tool">
+  <property name="title">Controls the available content types in your portal</property>
+  <object name="edeposit.content.library" meta_type="Dexterity FTI"/>
+  <object name="edeposit.content.isbn" meta_type="Dexterity FTI"/>
+  <object name="edeposit.content.previewfile" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.originalfile" meta_type="Dexterity FTI"/>
+  <object name="edeposit.content.author" meta_type="Dexterity FTI"/>
+  <object name="edeposit.content.printingfile" meta_type="Dexterity FTI"/>
+  <object name="edeposit.content.epublication" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.epublicationfolder" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
+  <!-- -*- extra stuff goes here -*- -->
+  <object name="edeposit.content.authorfolder" meta_type="Dexterity FTI" />
 </object>

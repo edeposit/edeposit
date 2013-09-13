@@ -23,13 +23,17 @@ class IPrintingFile(form.Schema, IImageScaleTraversable):
     """
     File used for printing of a publication
     """
-
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/printingfile.xml to define the content type.
-
-    form.model("models/printingfile.xml")
+    #form.primary('file')
+    file = NamedBlobFile(
+        title=_(u"Printig File"),
+        description=_(u"Fill in a file that contains of a printing file for a publication"),
+        required = True,
+        )
+    
+    format = schema.Choice(
+        title=_(u"Format of a file."),
+        vocabulary="edeposit.content.fileTypes"
+        )
 
 
 # Custom content-type class; objects created for this content type will

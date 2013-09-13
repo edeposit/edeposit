@@ -2,6 +2,7 @@ setuptools
 plone.app.dexterity [grok, relations]
 plone.app.relationfield
 plone.namedfile [blobs]
+plone.app.registry
 
 [test]
 plone.app.testing

@@ -13,23 +13,27 @@ from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
-
 from edeposit.content import MessageFactory as _
-
-
-# Interface class; used to define content-type schema.
 
 class IAuthor(form.Schema, IImageScaleTraversable):
     """
     Author of ePublication
     """
+    form.fieldset('name',
+                   label=_(u"Name"),
+                   fields=['first_name','last_name'])
+    # form.model("models/library.xml")
+    first_name = schema.ASCIILine(
+        title=_("First Name"),
+        description=_(u"Fill in your first name."),
+        required = True,
+        )
 
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/author.xml to define the content type.
-
-    form.model("models/author.xml")
+    last_name = schema.ASCIILine(
+        title=_("Last Name"),
+        description=_(u"Fill in your last name."),
+        required = True,
+        )
 
 
 # Custom content-type class; objects created for this content type will
