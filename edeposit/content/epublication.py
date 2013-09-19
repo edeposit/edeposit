@@ -143,6 +143,15 @@ class IePublication(form.Schema, IImageScaleTraversable):
         missing_value = None,
         )
 
+    generated_isbn = schema.Bool(
+        title = _(u'Generate ISBN'),
+        description = _(u'Whether ISBN agency should generate ISBN number.'),
+        required = False,
+        readonly = False,
+        default = False,
+        missing_value = False,
+        )
+
     form.fieldset('accessing',
                   label=_(u''),
                   fields = ['libraries_that_can_access_at_library_terminal',
