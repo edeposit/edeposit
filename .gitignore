@@ -13,3 +13,4 @@ src/*
 var/*
 .mr.developer.cfg
 develop-eggs/*
+docs/_build
