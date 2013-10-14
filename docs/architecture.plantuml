@@ -8,8 +8,11 @@ title Architektura systému
 package "E-Deposit" {
 () "HTTP" as HTTP
 
+package "AMQP Middleware" {
 [RabbitMQ] ..> AMQP : používá
 [RabbitMQ] ..> SCP : používá
+}
+
 [RabbitMQ] ..> REST : používá
 [Plone] ..> AMQP : používá
 [Plone] <---> [RabbitMQ] : posílá zprávy

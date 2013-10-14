@@ -1,0 +1,41 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Datový model pro antivirus
+
+class Request {
+      String uuid
+      DateTime created
+      String interfaceOfMsq
+      String serializationOfMsq
+      Binary msg
+}
+
+class MessageWithUrl {
+      String urlOfFile
+}
+
+class MessageWithStream {
+      Binary stream
+}
+
+class Response {
+      String uuid
+      String uuidOfRequest
+      DateTime created
+      String interfaceOfMsg
+      String serializationOfMsq
+      Binary msg
+}
+
+class MessageWithResult {
+      Boolean contentIsClean
+      String info
+}
+
+Request *-- MessageWithUrl : is attribute <b>msg</b> using serialization
+Request *-- MessageWithStream : is attribute <b>msg</b> using serialization
+
+Response *-- MessageWithResult : is attribute <b>msg</b> using serialization
+
+@enduml
