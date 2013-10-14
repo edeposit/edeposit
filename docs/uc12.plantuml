@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+title Reporty činností
+skinparam packageStyle rect
+
+actor :Nakladatel/vydavatel: as nakl
+actor :Pracovník agentury ISBN: as isbn
+actor :Pracovník akvizice: as akv
+actor :Pracovník katalogizace: as katalog
+actor :Systém: as sys
+
+rectangle  {
+	   :nakl: --> (UC13-01 Reporty pro nakladatele/vydavatele)
+	   :akv: --> (UC13-02 Reporty pro akvizici)
+	   :katalog: --> (UC13-03 Reporty pro katalogizaci)
+}
+
+@enduml

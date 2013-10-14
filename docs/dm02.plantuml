@@ -1,0 +1,72 @@
+@startuml
+left to right direction
+title Datový model pokračujícího zdroje
+
+class Library {
+      String title
+      String url
+      String urlOfKramerius
+}
+
+class ISSN {
+      String ISSN
+      boolean isValid()
+}
+
+class File {
+      String url
+      String format
+      String filePath
+}
+
+class Author {
+      String firstName
+      String lastName
+}
+
+class PrintingFile {
+      String url
+      String format
+      String filePath
+}
+
+class EPeriodical {
+      String bookBinding
+      Decimal price
+      String title
+      String subtitle
+      String part
+      String partTitle
+      String edition
+      String volumeNumber
+      String placeOfPublishing
+      String publisher
+      Date   dateOfPublishing
+      String publishedWithCoedition
+      String publishedAtOrder
+      String personWhoProcessedThis
+}
+
+class EPeriodicalPart {
+      String bookBinding
+      Decimal price
+      String title
+      String subtitle
+      String part
+      String partTitle
+      String volumeNumber
+      String placeOfPublishing
+      String publisher
+      Date   dateOfPublishing
+      String publishedWithCoedition
+      String publishedAtOrder
+      String personWhoProcessedThis
+}
+
+Library "0..*" -- "0..*" EPeriodicalPart: canAccess >
+EPeriodicalPart *-- "0..*" File
+EPeriodicalPart *-- "0..*" PrintingFile
+EPeriodical "0..*" *-- "0..*" Author
+EPeriodical "1..*" *-- EPeriodicalPart
+
+@enduml

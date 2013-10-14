@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+title Vytváření souborných a seriálových záznamů
+skinparam packageStyle rect
+
+actor :Nakladatel/vydavatel:
+actor :Pracovník akvizice:
+actor :Pracovník katalogizace:
+
+rectangle  {
+	   :Pracovník katalogizace: -left-> (UC00-01 Aleph: Sloučení souborných a seriálových záznamů)
+	   :Systém: -left-> (UC00-01 Aleph: Import změn v záznamech)
+
+	  :Nakladatel/vydavatel: --> (UC00-01 Stažení smlouvy k vyplnění)
+	  :Pracovník akvizice: -left-> (UC02-02 Registrace nakladatele/vydavatele)
+	  :Pracovník akvizice: -left-> (UC01-03 Pozastavení platnosti smlouvy s nakladatelem/vydavatelem)
+}
+
+:Nakladatel/vydavatel: ---> (ručně: Vyplnění smlouvy)
+:Nakladatel/vydavatel: ---> (úsek akvizice: Návštěva Národní knihovny)
+@enduml
+

@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+title Administrace systému
+skinparam packageStyle rect
+
+actor :Správce systému: as admin
+actor :Systém: as sys
+
+rectangle  {
+	   :admin: --> (UC13-01 Zakázání účtu)
+}
+
+@enduml

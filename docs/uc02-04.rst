@@ -1,0 +1,43 @@
+.. _uc02-04:
+
+UC02-04 Odeslání ohlášky
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: účastníci
+
+   - Producent
+
+.. admonition:: vstupní podmínky
+
+   - Producent se přihlásil do systému
+  
+.. admonition:: tok událostí
+
+   1. Producent uložit novou ohlášku podle :ref:`uc02-02`.
+   2. Systém zobrazí detail ohlášky a tlačítka "K akvizici", "K akvizici a přidělit ISBN"
+   3. Producent klikne na tlačítko "K akvizici"
+   4. Systém ohlášku uloží
+   
+.. admonition:: následné podmínky
+
+   Producent může ohlášku najít v seznamu ohlášek v akvizici.
+
+   Pracovník ISBN agentury má k dispozici novou e-publikaci ke kontrole ISBN - :ref:`uc03-02`
+
+.. raw:: html
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'edeposit'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    

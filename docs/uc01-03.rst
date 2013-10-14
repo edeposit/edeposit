@@ -1,0 +1,59 @@
+.. _uc01-03:
+
+UC01-03 Pozastavení platnosti smlouvy s producentem
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+*účastníci*:
+
+- Pracovník akvizice
+
+*vstupní podmínky*:
+
+- pracovník akvizice je přihlášený do systému
+
+*tok událostí*:
+
+1. Systém zobrazí úvodní stránku jako v :ref:`uc01-02`/1.
+2. Pracovník do vyhledávacího políčka zadá název producenta
+3. Systém zobrazí přehled producentů, kteří odpovídají zadání
+4. Pracovník klikne na linku vybraného producenta
+5. Systém zobrazí detail producenta
+
+   - přihlašovací jméno
+   - název producenta
+   - adresa producenta
+   - url producenta
+   - email kontaktní osoby
+
+   - download kopie podepsané smlouvy
+   - download dodatku ke smlouvě
+
+   - linku na pozastaveni platnosti
+
+4. Pracovník akvizice klikne na linku "Pozastavení platnosti smlouvy"
+5. Systém zobrazí potvrzení o pozastavení platnosti smlouvy a zobrazí detail producenta
+
+   - zobrazí linku na obnovení platnosti smlouvy
+          
+*následné podmínky*:
+
+Producent má k dispozici jen přístup ke svým údajům ke čtení a nemůže si stahovat soubory.
+
+.. raw:: html
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'edeposit'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    

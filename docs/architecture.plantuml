@@ -1,0 +1,52 @@
+@startuml
+left to right direction
+skinparam componentStyle uml2
+title Architektura systému
+() "SCP" as SCP
+() "AMQP" as AMQP
+
+package "E-Deposit" {
+() "HTTP" as HTTP
+
+[RabbitMQ] ..> AMQP : používá
+[RabbitMQ] ..> SCP : používá
+[RabbitMQ] ..> REST : používá
+[Plone] ..> AMQP : používá
+[Plone] <---> [RabbitMQ] : posílá zprávy
+[Plone] <---> [RabbitMQ] : přijímá zprávy
+[Plone] ..> HTTP : používá
+[ftp server]
+[RabbitMQ] --> [ftp server] : čte příchozí ohlášky
+}
+
+package "NKP" {
+[smtp server]
+[smtp server] --> [imap server] : ukládá příchozí emaily
+
+[imap server]
+[RabbitMQ] --> [imap server] : čte nové emaily
+[RabbitMQ] --> [imap server] : maže zpracované emaily
+}
+
+package "NDK" {
+[RabbitMQ] --> [Aleph] : ptá se na metadata
+[RabbitMQ] --> [Aleph] : posílá nové metadata
+[RabbitMQ] --> [LTP] : posílá nové epublikace
+[RabbitMQ] --> [LTP] : stahuje soubory epublikace
+[Aleph]
+[LTP]
+}
+
+[RabbitMQ] --> [Kramerius] : posílá nové epublikace
+[Kramerius] ..> REST : používá
+[Kramerius] ..> SCP : používá
+
+[RabbitMQ] --> [Kramerius-01] : posílá nové epublikace
+[Kramerius-01] ..> REST : používá
+[Kramerius-01] ..> SCP : používá
+
+[RabbitMQ] --> [Kramerius-02] : posílá nové epublikace
+[Kramerius-02] ..> REST : používá
+[Kramerius-02] ..> SCP : používá
+
+@enduml

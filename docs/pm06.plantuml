@@ -1,0 +1,11 @@
+@startuml
+title Dlouhodobá ochrana e-publikace
+
+(*) --> === ZPR ===
+=== ZPR === --> "UC06-01 Export do LTP"
+"UC06-01 Export do LTP" --> === ZPR_E ===
+=== ZPR_E === --> (*)
+note right
+hotovo
+end note
+@enduml

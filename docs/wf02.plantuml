@@ -1,0 +1,79 @@
+@startuml
+title <b>Pracovní cyklus ePublikace</b>
+skinparam DefaultFontSize 16pt
+
+skinparam state {
+  StartColor MediumBlue
+  EndColor MediumBlue
+  BackgroundColor Peru
+  BackgroundColor<< Begin >> Olive
+  BorderColor Peru
+  FontName Impact
+  ArrowColor Green
+}
+
+state "Ohlášení" as declaration #SandyBrown
+declaration : možnost ohlášení ePublikace
+
+state "Akvizice" as acquisition #ECE8DF
+state "Příprava akvizice" as acquisitionPreparing #ECE8DF
+state "Příprava katalogizace" as catalogizationPreparing #ECE8DF
+state "Katalogizace" as catalogization #ECE8DF
+state "Zpřístupnění" as accessing #ECE8DF
+state "Oprava" as declarationWithError #SandyBrown
+state "Generování náhledu" as thumbnailGenerating #SteelBlue
+state "Export do Alephu" as exportToAleph #SteelBlue
+state "Antivirus" as antivirus #SteelBlue
+state "Export do Krameria" as exportToKramerius #SteelBlue
+state "Export do LPT" as exportToLTP #SteelBlue
+state "Kontrola pro LTP" as validationForLTP #SteelBlue
+state "Stažený z oběhu" as withdrawn #ECE8DF
+
+[*] ---> declaration
+
+declaration --> antivirus : << producent >> \n << akvizice >> \n K akvizici
+declaration --> antivirus : << producent >> \n << akvizice >> \n K akvizici a přiřazení ISBN
+
+antivirus --> thumbnailGenerating : << system >> \n Antivirus OK
+antivirus --> declarationWithError : << system >> \n Antivirus Error
+
+thumbnailGenerating ---> exportToAleph : << system >> \n Thumbnail OK
+thumbnailGenerating ---> thumbnailGenerating : << system >> \n Thumbnail Error
+
+exportToAleph ---> acquisitionPreparing : << system >> \n Export to Aleph OK
+exportToAleph --> declarationWithError : << system >> \n Export to Aleph Error
+
+acquisitionPreparing ---> acquisition : << správce akvizice >> \n Potvrdit přidělení
+acquisition ---> declarationWithError : << isbn agentura >> \n Vrátit k opravě
+acquisition ---> declarationWithError : << akvizice >> \n Vrátit k opravě
+acquisition ---> acquisition : << isbn agentura >> \n ISBN je správně
+acquisition ---> acquisition : << akvizice >> \n Metadata jsou správně
+acquisition ---> catalogizationPreparing : << isbn agentura >> \n << akvizice >> (akvizice i ISBN je OK) \n Potvrdit a ke katalogizaci
+acquisition ---> declarationWithError : << producent >> \n Vrátit k opravě
+acquisition ---> withdrawn : << akvizice >> \n Stáhnout z oběhu
+
+declarationWithError ---> antivirus : << producent >> \n Ke akvizici
+declarationWithError ---> antivirus : << producent >> \n Ke akvizici a přiřazení ISBN
+declarationWithError ---> withdrawn : << akvizice >> \n Stáhnout z oběhu
+
+catalogizationPreparing --> catalogization : << administrátor katalogizace >> \n Ke katalogizaci
+catalogization ---> exportToKramerius : << knihovník >> \n  Katalogizace proběhla
+catalogization ---> declarationWithError : << producent >> \n Vrátit k opravě
+catalogization ---> withdrawn : << knihovník >> \n Stáhnout z oběhu
+
+exportToKramerius ---> validationForLTP : << system >> \n Export do Krameria OK
+exportToKramerius ---> exportToKramerius : << system >> \n Export do Krameria Error
+
+validationForLTP ---> exportToLTP : << system >> \n Validace pro LTP OK
+validationForLTP ---> validationForLTP : << system >> \n Validace pro LTP Error
+
+exportToLTP ---> accessing : << system >> \n Export do LTP OK
+exportToLTP ---> exportToLTP : << system >> \n Export do LTP Error
+
+accessing ---> declarationWithError : << producent >> \n Vrátit k opravě
+accessing ---> withdrawn : << knihovník >> \n Stáhnout z oběhu
+
+accessing ---> [*]
+withdrawn ---> [*]
+
+@enduml

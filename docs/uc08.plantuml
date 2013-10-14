@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+title Zpracování opravy elektronické knihy
+skinparam packageStyle rect
+
+actor :Nakladatel/vydavatel:
+actor :Systém:
+actor :Pracovník bibliografického popisu:
+
+rectangle  {
+	   :Systém: -left-> (Načtení podrobných údajů z Aleph) : podrobný bibliografický popis
+	   :Systém: -left-> (Předání dat do LTP)
+	   :Systém: -left-> (UC08-03 Předání dat do Systému zpřístupnění)
+	   :Pracovník bibliografického popisu: -left-> (Prohlížení přijatých oprav knih)
+	   :Nakladatel/vydavatel: -->(Prohlížení průběhu zpracování)
+}
+:Pracovník bibliografického popisu: -left-> (Aleph: Dokončení vkládání bibliografického popisu)
+@enduml
+

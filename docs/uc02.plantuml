@@ -1,0 +1,33 @@
+@startuml
+left to right direction
+title Ohlášení publikace
+skinparam packageStyle rect
+
+actor :Nakladatel/vydavatel: as nakl
+actor :Pracovník agentury ISBN: as isbn
+actor :Pracovník akvizice: as akv
+actor :Systém: as sys
+
+:isbn: -> (NKP: Přidělení rozsahu ISBN)
+:sys: -> (Aleph: Kontrola duplicit ISBN)
+:sys: -> (LTP: Získání souboru)
+
+rectangle  {
+	   :nakl: --> (UC02-01 Ohlášení jednoduché)
+	   :nakl: --> (UC02-02 Ohlášení se soubory)
+	   :nakl: --> (UC02-03 Ohlášení s tiskovou předlohou)
+	   :nakl: --> (UC02-04 Odeslání ohlášky)
+	   :nakl: --> (UC02-05 Odeslání ohlášky s registrací ISBN)
+	   :sys: -left-> (UC02-06 Kontroly souboru)
+	   :sys: -left-> (UC02-07 Načtení metadat ze souboru)
+	   :sys: -left-> (UC02-08 Transformace souboru)
+	   :sys: -left-> (UC02-09 Vytvoření náhledu na soubor)
+	   :nakl: --> (UC02-10 Oprava souboru)
+	   :nakl: --> (UC02-11 Stažení souboru)
+	   :sys: -left-> (UC02-12 Kontrola duplicit ISBN)
+	   :isbn: -left-> (UC02-13 Přidělení ISBN)
+	   :nakl: --> (UC02-14 Detail ohlášené publikace)
+	   :nakl: --> (UC02-15 Dodatečná oprava metadat)
+}
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+title Katalogizace e-publikace
+
+(*) --> "UC04-00 Příprava katalogizace"
+"UC04-00 Příprava katalogizace" --> === CAT ===
+=== CAT === --> "UC04-01 Zadání bibliografického popisu"
+=== CAT === --> "UC04-02 Oprava souboru"
+=== CAT === --> "UC04-03 Stáhnutí souboru"
+=== CAT === --> "UC04-04 Odebrání přístupu k e-publikaci"
+=== CAT === --> "UC04-05 Odmítnutí e-publikace"
+"UC04-01 Zadání bibliografického popisu" --> === CAT_E ===
+"UC04-02 Oprava souboru" --> === CAT_E ===
+"UC04-03 Stáhnutí souboru" ---> === CAT_E ===
+"UC04-04 Odebrání přístupu k e-publikaci" ---> === CAT_E ===
+"UC04-05 Odmítnutí e-publikace" ---> === CAT_E ===
+=== CAT_E === --> (*)
+note right
+     E-publikace je pripravena zpřístupnění (pokud nebyla odmítnuta)
+end note
+@enduml

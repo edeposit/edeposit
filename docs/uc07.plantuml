@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+title Ohlašování pokračujícího zdroje
+skinparam packageStyle rect
+
+actor :Nakladatel/vydavatel: as nakl
+actor :Systém: as sys
+
+rectangle  {
+	   :nakl: --> (UC07-01 Ohlášení nového pokračujícího zdroje)
+	   :nakl: --> (UC07-02 Ohlášení nového dílu)
+	   :nakl: --> (UC07-03 Ohlášení nového dílu přes ftp)
+	   :nakl: --> (UC07-04 Ohlášení nového dílu přes email)
+	   :nakl: --> (UC07-05 Potvrzení ohlášky)
+	   :sys:  --> (UC07-06 Načtení metadat ze souboru)
+	   :sys:  --> (UC07-07 Transformace souboru)
+	   :sys:  --> (UC07-08 Vytvoření náhledu na soubor)
+	   :nakl: --> (UC07-09 Oprava souboru)
+	   :nakl: --> (UC07-10 Stažení souboru)
+	   :nakl: --> (UC07-11 Detail pokračujícího zdroje)
+}
+@enduml

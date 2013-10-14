@@ -1,0 +1,17 @@
+@startuml
+left to right direction
+title Zpřístupnění e-publikace
+skinparam packageStyle rect
+
+actor :Nakladatel/vydavatel:
+actor :Systém:
+actor :Pracovník katalogizace:
+
+rectangle  {
+	   :Systém: -left-> (UC05-01 Export do systému Kramerius)
+	   :Pracovník bibliografického popisu: -left-> (UC05-02 Prohlížení přijatých knih)
+	   :Nakladatel/vydavatel: --> (UC05-03 Prohlížení průběhu zpracování)
+}
+
+@enduml
+

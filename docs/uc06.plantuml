@@ -1,0 +1,10 @@
+@startuml
+left to right direction
+title Dlouhodobá ochrana e-publikace
+skinparam packageStyle rect
+
+actor :Systém: as sys
+
+rectangle  {
+}
+@enduml

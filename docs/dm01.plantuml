@@ -1,0 +1,80 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Datový model E-publikace
+
+class Library {
+      String title
+      String url
+      String urlOfKramerius
+}
+
+class ISBN {
+      String ISBN
+      boolean isValid()
+}
+
+class PreviewFile {
+      String format
+      File file
+}
+
+class OriginalFile {
+      String url
+      String format
+      File file
+}
+
+class Author {
+      String firstName
+      String lastName
+}
+
+class PrintingFile {
+      String url
+      String format
+      File file
+}
+
+class EPublication {
+      String bookBinding
+      Decimal price
+      String title
+      String subtitle
+      String volume
+      String volumeTitle
+      String volumeNumber
+      String edition
+      String placeOfPublishing
+      String publisher
+      Date   dateOfPublishing
+      String publishedWithCoedition
+      String publishedAtOrder
+      String personWhoProcessedThis
+      Relation librariesThatCanAccessAtLibraryTerminal
+      Relation librariesThatCanAccessAtPublic
+      String alephDocNumber
+      Boolean generateISBN
+}
+
+class EPublicationFolder {
+      
+}
+
+class LibraryFolder {
+}
+
+Library "0..*" -- "0..*" EPublication: canAccessAtLibraryTerminal >
+Library "0..*" -- "0..*" EPublication: canAccessAtPublic >
+EPublication *-- "0..*" OriginalFile
+EPublication *-- "0..*" PrintingFile
+EPublication *-- "0..*" Author
+EPublication "0..*" *-- "0..*" PreviewFile: main preview files
+OriginalFile "0..*" *-- "1..*" ISBN
+PrintingFile "0..*" *-- "0..*" ISBN
+OriginalFile "0..*" *-- "1..*" PreviewFile
+PrintingFile "0..*" *-- "1..*" PreviewFile
+EPublicationFolder *-- "0..*" EPublication
+LibraryFolder *-- "0..*" Library
+
+@enduml

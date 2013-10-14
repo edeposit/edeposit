@@ -1,0 +1,28 @@
+@startuml
+title Akvizice e-publikace
+
+(*) --> "UC03-01 Předání metadat k importu do Aleph"
+"UC03-01 Předání metadat k importu do Aleph" --> === CHECK ===
+=== CHECK === --> "UC03-02 Kontrola ISBN"
+=== CHECK === --> "UC03-03-00 Příprava akvizice"
+=== CHECK_A === --> "UC03-03 Kontrola metadat"
+=== CHECK_A === --> "UC03-10 Odstranění duplicity"
+=== CHECK_A === --> "UC03-09 Odmítnutí e-publikace"
+"UC03-02 Kontrola ISBN" --> === CHECK_E ===
+"UC03-03-00 Příprava akvizice" --> === CHECK_A ===
+"UC03-03 Kontrola metadat" --> === CHECK_E ===
+"UC03-10 Odstranění duplicity" --> === CHECK_E ===
+=== CHECK_E === --> === ACCEPT ===
+=== ACCEPT === --> "UC03-05 Kontrola ISBN v souboru"
+=== ACCEPT === --> "UC03-04 Přijetí e-publikace"
+=== ACCEPT === --> "UC03-09 Odmítnutí e-publikace"
+=== ACCEPT === --> "UC03-11 Oprava metadat"
+"UC03-04 Přijetí e-publikace" --> === ACCEPT_E ===
+"UC03-05 Kontrola ISBN v souboru" --> === ACCEPT_E ===
+"UC03-11 Oprava metadat" --> === ACCEPT_E ===
+=== ACCEPT_E === --> (*)
+"UC03-09 Odmítnutí e-publikace" --> (*)
+note right
+     E-publikace je pripravena na katalogizaci
+end note
+@enduml

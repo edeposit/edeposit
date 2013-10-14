@@ -1,0 +1,63 @@
+@startuml
+
+title Ohlášení e-publikace
+
+(*) --> if "jsem přihlášený?" then
+    -->[Ano] "Přihlášení do systému"
+    --> === WORK_WITH_EPUBLICATION_S ===
+    === WORK_WITH_EPUBLICATION_S === --> "UC02-01 Ohlášení jednoduché"
+    === WORK_WITH_EPUBLICATION_S === --> "UC02-02 Ohlášení se soubory"
+    === WORK_WITH_EPUBLICATION_S === --> "UC02-03 Ohlášení s tiskovou předlohou"
+    === WORK_WITH_EPUBLICATION_S === ---> "UC02-10 Oprava souboru"
+    ---> (*)
+    === WORK_WITH_EPUBLICATION_S === ---> "UC02-11 Stažení souboru"
+    ---> (*)
+    === WORK_WITH_EPUBLICATION_S === ---> "UC02-14 Detail ohlášené publikace"
+    ---> (*)
+    
+    "UC02-01 Ohlášení jednoduché" --> === SUBMIT_EPUBLICATION ===
+    "UC02-02 Ohlášení se soubory" --> === SUBMIT_EPUBLICATION ===
+    "UC02-03 Ohlášení s tiskovou předlohou" --> === SUBMIT_EPUBLICATION ===
+    === SUBMIT_EPUBLICATION === --> if "chci přidělit ISBN?" then
+    	-->[Ano] "UC02-05 Odeslání ohlášky s registrací ISBN"
+	--> === FILE_CHECKS ===
+	=== FILE_CHECKS === --> "UC02-06 Kontroly souboru/A"
+	=== FILE_CHECKS === --> "UC02-07 Načtení metadat ze souborů/A"
+	=== FILE_CHECKS === --> "UC02-08 Transformace souboru/A"
+	=== FILE_CHECKS === --> "UC02-09 Vytvoření náhledu na soubor/A"
+	"UC02-06 Kontroly souboru/A" --> === FILE_CHECKS_END ===
+	"UC02-07 Načtení metadat ze souborů/A" --> === FILE_CHECKS_END ===
+	"UC02-08 Transformace souboru/A" --> === FILE_CHECKS_END ===
+	"UC02-09 Vytvoření náhledu na soubor/A" --> === FILE_CHECKS_END ===
+	=== FILE_CHECKS_END ===	---> "UC02-13 Přidělení ISBN"
+	--> (*)
+	note right
+	E-publikace je připravena k akvizici
+	end note
+    else
+	-->[Ne] "UC02-04 Odeslání ohlášky"
+	---> === FILE_CHECKS_B === 
+	=== FILE_CHECKS_B === --> "UC02-06 Kontroly souboru/N"
+	=== FILE_CHECKS_B === --> "UC02-07 Načtení metadat ze souborů/N"
+	=== FILE_CHECKS_B === --> "UC02-08 Transformace souboru/N"
+	=== FILE_CHECKS_B === --> "UC02-09 Vytvoření náhledu na soubor/N"
+	"UC02-06 Kontroly souboru/N" --> === FILE_CHECKS_END_B ===
+	"UC02-07 Načtení metadat ze souborů/N" --> === FILE_CHECKS_END_B ===
+	"UC02-08 Transformace souboru/N" --> === FILE_CHECKS_END_B ===
+	"UC02-09 Vytvoření náhledu na soubor/N" --> === FILE_CHECKS_END_B ===
+	=== FILE_CHECKS_END_B === --> (*)
+    endif
+    
+else
+	-->[Ne] "Úvodní stránka"
+	if "chci se zaregistrovat?" then
+	   	 -->[Ano] "UC01-01,UC01-02 Registrace nakladatele/vydavatele"
+		 "UC01-01,UC01-02 Registrace nakladatele/vydavatele" --> "Přihlášení do systému"
+	else
+		-->[Ne] "UC02-01 Ohlášení jednoduché/bez registrace"
+	endif
+endif
+
+"UC02-01 Ohlášení jednoduché/bez registrace" --> (*)
+
+@enduml

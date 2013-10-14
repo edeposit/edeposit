@@ -1,0 +1,51 @@
+.. _uc04-00:
+
+UC04-00 Příprava katalogizace
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: účastníci
+
+   - Administrátor katalogizace
+
+.. admonition:: vstupní podmínky
+		
+   E-publikace prošla schválením ISBN a akvizicí :ref:`uc03-04`
+
+   Administrátor katalogizace se přihlásil do systému
+
+.. admonition:: tok událostí
+
+   1. Systém zobrazí úvodní stránku jako v :ref:`uc03-03-00`
+   2. Administrátor katalogizace klikne na ePublikaci
+   3. Systém zobrazí informace o ePublikaci
+      - také zobrazí políčko "Přiřazená osoba katalogizace"
+
+   3. Administrátor katalogizace klikne na políčko "Přiřazená osoba katalogizace"
+   4. Systém nabídne pracovníky katalogizace
+   5. Administrátor katalogizace vybere osobu
+   6. Administrátor katalogizace klikne na linku "Příprava katalogizace: Poslat ke katalogizaci"
+   7. Systém odešle ePublikaci ke katalogizaci
+
+.. admonition:: následné podmínky
+
+   ePublikace se zobrazí ve frontě přiřazeného pracovníka katalogizace.
+
+   ePublikace zmizí z fronty administrátora katalogizace.
+
+.. raw:: html
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'edeposit'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    

@@ -1,0 +1,67 @@
+.. _uc02-15:
+
+UC02-15 Dodatečná oprava metadat
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: účastníci
+
+   - Producent
+   - Systém
+
+.. admonition:: vstupní podmínky
+
+   - Nakladatel/vydavatel se přihlásil do systému
+
+   - Nakladatel/vydavatel uložil e-publikaci do systému :ref:`uc02-02`
+
+.. admonition:: tok událostí
+
+   1. Systém zobrazí :ref:`úvodní stránku <uc02-02-01>`
+   2. Nakladatel/vydavatel do vyhledávacího políčka zadá jedno z toho:
+      
+      - část ISBN
+      - část Názvu
+      - část Jména autora
+	
+   3. Systém omezí přehled ohlášených publikací podle zadaného filtru
+   4. Nakladatel/vydavatel klikne na linku vybrané publikace 
+   5. Systém zobrazí detail ohlášené publikace :ref:`uc02-14`
+   6. Nakladatel/vydavatel vyplní formulář pro vložení opravy
+   7. Nakladatel/vydavatel klikne na tlačítko "Opravit"
+   8. Systém uloží opravený soubor
+   9. Systém odešle do systému Aleph informaci o novém souboru
+   10. Systém odešle e-publikaci ke kontrole ISBN v souborech a k akvizici
+
+.. admonition:: následné podmínky
+
+   E-publikace se dostane na začátek schvalování akvizicí.
+
+   - pracovník akvizice má e-publikaci ke schválení
+
+   - pracovník ISBN agentury má e-publikaci ke kontrole ISBN v souboru
+
+   .. note::
+
+      Systém si pamatuje atribut **AlephDocNumber**.
+
+      Ten odešle s metadaty do Alephu.
+
+      Podle toho Aleph pozná, že se jedná o opravu, ne o nový záznam.
+
+.. raw:: html
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'edeposit'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    

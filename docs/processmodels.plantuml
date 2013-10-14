@@ -1,0 +1,47 @@
+@startuml
+title Model procesu E-Deposit
+
+(*) --> if "chci se zaregistrovat?" then
+    -->[Ano] "UC01-02 Registrace nakladatele/vydavatele"
+    --> (*) 
+    note right
+    Nakladatel/vydavatel se bude moci přihlásit do systému.
+    Anebo je v systému nové e-publikace.
+    end note
+else
+	-left->[Ne] "úvodní stránka"
+	"úvodní stránka" --> if "ohlašuji nebo vkládám opravu?" then
+		-->[ohlašuji] === OHL ===
+		=== OHL === --> "UC02 Ohlášení e-publikace"
+		--> "UC03 Akvizice e-publikace"
+		--> "UC04 Katalogizace e-publikace"
+		--> "UC05 Zpřístupnění e-publikace"
+		--> "UC06 Dlouhodobá ochrana e-publikace"
+		--> === OHL_E ===
+
+		=== OHL === --> "UC07 Ohlášení pokračujícího zdroje"
+		--> "UC08 Akvizice pokračujícího zdroje"
+		--> "UC09 Katalogizace pokračujícího zdroje"
+		--> "UC10 Zpřístupňování pokračujícího zdroje"
+		--> "UC11 Dlouhodobá ochrana pokračujícího zdroje"
+		--> === OHL_E ===
+		--> (*)
+	else
+		-->[vkládám opravu] === OPR ===
+		=== OPR === --> "UC02-10 Oprava souboru"
+		--> "UC03 Akvizice e-publikace:oprava"
+		--> "UC04 Katalogizace e-publikace:oprava"
+		--> "UC05 Zpřístupnění e-publikace:oprava"
+		--> "UC06 Dlouhodobá ochrana e-publikace:oprava"
+		--> === OPR_E ===
+		=== OPR === --> "UC07-10 Oprava souboru"
+		--> "UC08 Akvizice pokračujícího zdroje:oprava"
+		--> "UC09 Katalogizace pokračujícího zdroje:oprava"
+		--> "UC10 Zpřístupňování pokračujícího zdroje:oprava"
+		--> "UC11 Dlouhodobá ochrana pokračujícího zdroje:oprava"
+		--> === OPR_E ===
+		=== OPR_E === --> (*)
+	endif
+endif
+
+@enduml

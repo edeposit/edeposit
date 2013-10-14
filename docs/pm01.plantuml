@@ -1,0 +1,25 @@
+@startuml
+title Registrace nakladatele/vydavatele
+
+(*) --> if "je vyplněná smlouva?" then
+
+partition "NKP: UC01-02 Registrace nakladatele/vydavatele" {
+    -->[Ano] "vyplnění údajů o nakladateli"
+    --> "načtení kopie smlouvy do systému"
+    --> "vygenerování přílohy smlouvy s přístupovými údaji"
+    --> "předvedení práce s aplikací"
+}
+    --> (*) 
+    note right
+    Nakladatel/vydavatel se bude moci přihlásit do systému.
+    end note
+
+else
+	-left->[Ne] "UC01-01 stažení smlouvy k vyplnění"
+	--> "Vyplnění smlouvy"
+	--> "Podpis smlouvy"
+	-->  "vyplnění údajů o nakladateli"
+endif
+
+
+@enduml

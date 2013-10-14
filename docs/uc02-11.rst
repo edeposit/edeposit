@@ -1,0 +1,54 @@
+.. _uc02-11:
+
+UC02-11 Stažení souboru
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: účastníci
+
+   - Producent
+
+.. admonition:: vstupní podmínky
+
+   - Producent se přihlásil do systému
+
+   - Producent uložil e-publikaci do systému :ref:`uc02-02`
+
+.. admonition:: tok událostí
+
+   1. Producent vyhledá detail ohlášené publikace jako v :ref:`uc02-08`
+   2. Producent u vybranéhou souboru klikne na linku k získání souboru
+   3. Systém se obrátí na LTP se žádostí ke stažení souboru
+   4. Systém oznámí, že byla odeslána žádost ke stažení
+   5. Systém soubor uloží v sekci "Ke stažení"
+   6. POKUD se soubor v sekci "Ke stažení" objeví rychle:
+
+      6.1. Systém přesměruje stránku do sekce "Ke stažení"
+      
+   7. POKUD se soubor neobjeví v sekci "Ke stažení" rychle:
+
+      7.1. Producent chvíli počká
+      7.2. Producent klikne na linku "Ke stažení"
+      
+   9. Systém nabídne soubor ke stažení
+   
+.. admonition:: následné podmínky
+
+   Producent má ve svém počítači stažený soubor.
+
+.. raw:: html
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'edeposit'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    

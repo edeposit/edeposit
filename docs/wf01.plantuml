@@ -1,0 +1,133 @@
+@startuml
+title <b>Pracovní cyklus producenta</b>
+skinparam DefaultFontSize 16pt
+
+skinparam state {
+  StartColor MediumBlue
+  EndColor MediumBlue
+  BackgroundColor Peru
+  BackgroundColor<< Begin >> Olive
+  BorderColor Peru
+  FontName Impact
+  ArrowColor Green
+}
+
+state "registrace" as registration #SandyBrown
+registration : možnost zadání údajů o producentovi
+
+state "Ke schválení" as waitingForApproving #ECE8DF
+waitingForApproving : kontrola a schválení akvizicí
+
+state "Schváleno" as approved #LimeGreen
+approved : registrace je schálena
+approved : producent může ohlašovat
+
+state "K opravě" as waitingForCorrection #Crimson
+waitingForCorrection : registrace obsahuje chyby
+waitingForCorrection : producent je může opravit
+
+state "Pozastaveno" as blocked #SlateGray
+blocked : registrace je dočasně pozastavena
+blocked : producent nemůže ohlašovat
+
+state "Odmítnuto" as rejected #SlateGray
+rejected : registrace je odmítnuta
+rejected : producent nemůže ohlašovat
+
+[*] --> registration
+registration ---> waitingForApproving : << producent >>\n ke schválení
+waitingForApproving ---> approved : << akvizice >>\n schválit
+waitingForApproving ---> waitingForCorrection : << akvizice >>\n ke kontrole
+waitingForApproving ---> blocked : << akvizice >>\n zablokovat
+waitingForApproving ---> rejected : << akvizice >>\n odmítnout
+
+waitingForCorrection ---> waitingForApproving : << producent >> \n ke schválení
+
+blocked ---> rejected : << akvizice >>\nodmítnout
+blocked ---> approved : << akvizice >>\nschválit
+blocked ---> waitingForCorrection : << akvizice >> \n ke kontrole
+
+approved --> blocked : << akvizice >> \n pozastavit
+rejected -->[*]
+approved --> rejected : << akvizice >> \nodmítnout
+@enduml
+
+
+state "Identifikace formátu" as identifyFileFormat #SteelBlue
+
+state "Zadání ISBN" as isbn #SandyBrown
+isbn: ISBN není povinné,\nale pokud se vloží, je potřeba, aby bylo správně
+
+state "Práce s popisnými metadaty" as editMetadata #SandyBrown
+editMetadata : zobrazení metadat načtených ze souboru
+editMetadata : zobrazení metadat načtených z Aleph
+editMetadata : možnost doplnit metadata ručně
+
+state "Nastavení podmínek užití" as usingPermissions #SandyBrown
+
+state "Zadání bibliografických dat" as addBibliographics #SandyBrown
+
+state "Akvizice" as acquisition #SandyBrown
+
+state "Kontrola ISBN" as isbnValidation #SandyBrown
+
+state "Katalogizace" as toCatalog #SandyBrown
+
+state "Zpřístupnění" as publishing #Yellow
+
+state "Hotovo" as published #LimeGreen
+
+[*] --> loadFileExternal : automaticky načtená kniha
+[*] --> isbnRegistration : jedná se o nové ISBN
+[*] --> loadFile : jedná se o knihu s ISBN, nebo bez něj
+
+isbnRegistration --> loadFile : registrace ISBN/OK
+isbnRegistration --> isbn : zadání ISBN
+isbnRegistration -[#blue]-> isbnRegistration : kontrola zadaných dat
+
+loadFile -[#blue]-> loadFile : antivir/Chyba
+loadFile --> loadFile : načtení dalšího souboru
+loadFile --> identifyFileFormat : antivir/OK
+
+loadFileExternal -[#blue]-> loadFileExternal : antivir/Chyba
+loadFileExternal --> identifyFileFormat : antivir/OK
+
+identifyFileFormat -[#blue]-> identifyFileFormat : kontrola formátu/Chyba
+identifyFileFormat --> isbn : kontrola formátu/OK
+identifyFileFormat --> isbnRegistration : k registraci ISBN
+
+isbn -[#blue]-> isbn : generování pomocné PDF kopie
+isbn -[#blue]-> isbn : kontrola ISBN/Chyba
+isbn -[#blue]-> isbn : načtení metadat ze souboru
+isbn --> editMetadata : kontrola ISBN/OK
+isbn -[#red]-> loadFile : oprava souboru
+
+editMetadata -[#red]-> loadFile : oprava souboru
+editMetadata -[#blue]-> editMetadata : načtení metadat z Aleph
+editMetadata -[#blue]-> editMetadata : kontrola metadat
+editMetadata --> usingPermissions : zpřístupnit\nkontrola metadat OK
+
+editMetadata --> usingPermissions : zpřístupnit omezeně\nkontrola metadat OK
+editMetadata --> usingPermissions : zpřístupnit jako Open Access\nkontrola metadat OK
+
+usingPermissions -[#red]-> editMetadata : zpátky k úpravě metadat
+usingPermissions -[#red]-> loadFile : oprava souboru
+usingPermissions --> addBibliographics : k akvizici
+usingPermissions -[#blue]-> usingPermissions : informace Alephu, že se objevila nová kniha k vyplneni metadat
+
+addBibliographics -[#blue]-> addBibliographics : export do Aleph
+addBibliographics -[#red]-> loadFile : oprava souboru
+addBibliographics --> acquisition : kontrola vůči LTP/OK\nexport do Aleph/OK\nkontrola vůči Kramerius/OK
+addBibliographics -[#blue]-> addBibliographics : kontrola vůči LTP
+addBibliographics -[#blue]-> addBibliographics : kontrola vůči Kramerius
+
+acquisition --> isbnValidation
+isbnValidation -[#red]-> isbn : kontrola ISBN/Chyba
+isbnValidation --> toCatalog
+toCatalog --> publishing
+
+publishing -[#blue]-> publishing : export do LTP
+publishing -[#blue]-> publishing : export do Kramerius
+publishing --> published : <font color=green>all exports are OK</font>
+published --> [*]
+published -[#red]-> loadFile : oprava souboru / nacteni souboru z LTP

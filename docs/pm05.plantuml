@@ -1,0 +1,15 @@
+@startuml
+title Zpřístupnění e-publikace
+
+(*) --> === ZPR ===
+=== ZPR === --> "UC05-01 Export do systémů Kramerius"
+--> === ZPR_E ===
+=== ZPR === --> "UC05-02 Prohlížení přijatých knih"
+--> === ZPR_E ===
+=== ZPR === --> "UC05-03 Prohlížení průběhu zpracování"
+--> === ZPR_E ===
+=== ZPR_E === --> (*)
+note right
+     E-publikace je pripravena ke zpřístupnění (pokud nebyla odmítnuta)
+end note
+@enduml

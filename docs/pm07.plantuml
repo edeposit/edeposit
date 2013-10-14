@@ -1,0 +1,28 @@
+@startuml
+title Ohlášení pokračujícího zdroje
+
+(*) --> "Přihlášení do systému"
+--> === OHL ===
+=== OHL === --> "UC07-01 Ohlášení nového pokračujícího zdroje"
+--> === OHL_E ===
+=== OHL === --> "UC07-02 Ohlášení nového dílu"
+--> === OHL_E ===
+=== OHL === ---> "UC07-03 Ohlášení nového dílu přes ftp"
+--> === OHL_E ===
+=== OHL === --> "UC07-04 Ohlášení nového dílu přes email"
+--> === OHL_E ===
+=== OHL === ---> "UC07-06 Načtení metadat ze souboru"
+--> === OHL_E ===
+=== OHL === ---> "UC07-09 Oprava souboru"
+--> === OHL_E ===
+=== OHL === ---> "UC07-10 Stažení souboru"
+--> === OHL_E ===
+
+=== OHL_E === --> "UC07-05 Potvrzení ohlášky"
+--> "UC07-07 Transformace souboru"
+--> (*)
+
+note right
+e-publikace jde k akvizici
+end note
+@enduml

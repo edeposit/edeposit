@@ -1,0 +1,78 @@
+.. _uc07-03:
+
+UC07-03 Ohlášení dalšího dílu přes **ftp**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: účastníci
+
+   - Producent
+   - Systém
+
+.. admonition:: vstupní podmínky
+
+   - Producent má uzavřenou smlouvu s Národní knihovnou
+   - Producent ohlásil nový pokračující zdroj :ref:`uc07-01`
+ 
+.. admonition:: tok událostí
+
+   .. _uc07-03-01:
+   
+   1. Producent se přihlásí na uvedený ftp server.
+
+      .. note::
+	 
+	 adresa ftp serveru je uvedena v dodatku smlouvy z Národní knihovnou
+
+   2. Producent přepne do adresáře
+      
+      .. note:: 
+
+	 jméno adresáře je přímo hodnota ISSN
+
+	 struktura adresárů:
+
+	 - *ISSN* ... přímo hodnota dotyčného ISSN
+	   
+	   - ohlaseni-dalsiho-dilu
+	     
+	     - tiskova-predloha
+	     - original
+
+   3. Producent se dále zanoří do adresáře ``ohlaseni-dalsiho-dilu``
+   4. V tomto adresáři producent otevře jeden ze dvou adresářů:
+
+      - tiskova-predloha
+      - original
+
+   5. Ve vybraném adresáři producent uloží soubor.
+   6. Systém tento adresář sleduje
+   7. Systém načte soubor
+      
+      7.1. POKUD načtení projde v pořádku, systém soubor smaže
+      
+      7.2. POKUD načtení skončí s chybou, systém soubor ponechá a přiloží pod stejným jménem log soubor
+   
+      
+.. admonition:: následné podmínky
+
+   Nový díl je připravek k akvizici.
+
+
+.. raw:: html
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'edeposit'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
