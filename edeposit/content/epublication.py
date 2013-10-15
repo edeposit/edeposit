@@ -14,6 +14,8 @@ from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 from z3c.relationfield.schema import RelationChoice, RelationList
 from plone.formwidget.contenttree import ObjPathSourceBinder, UUIDSourceBinder
+from plone.formwidget.autocomplete import AutocompleteFieldWidget, AutocompleteMultiFieldWidget
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from edeposit.content.library import ILibrary
 from edeposit.content import MessageFactory as _
@@ -157,6 +159,7 @@ class IePublication(form.Schema, IImageScaleTraversable):
                   fields = ['libraries_that_can_access_at_library_terminal',
                             'libraries_that_can_access_at_public',
                             ])
+    #form.widget(libraries_that_can_access_at_library_terminal=AutocompleteMultiFieldWidget)    
     libraries_that_can_access_at_library_terminal = RelationList(
         title = _(u'Libraries that can access at library terminal'),
         description = _(u'Choose libraries that can show an ePublication at its terminal.'),
@@ -164,11 +167,11 @@ class IePublication(form.Schema, IImageScaleTraversable):
         readonly = False,
         default = [],
         value_type = RelationChoice(
-            title = _(u'Related'),
-            source = UUIDSourceBinder(object_provides=ILibrary.__identifier__),
+            title = _(u'Related libraries'),
+            source = ObjPathSourceBinder(object_provides=ILibrary.__identifier__),
             )
         )
-    
+    #form.widget(libraries_that_can_access_at_public=AutocompleteMultiFieldWidget)    
     libraries_that_can_access_at_public = RelationList(
         title = _(u'Libraries that can access at public'),
         description = _(u'Choose libraries that can show an ePublication at public.'),
@@ -176,11 +179,25 @@ class IePublication(form.Schema, IImageScaleTraversable):
         readonly = False,
         default = [],
         value_type = RelationChoice(
-            title = _(u'Related'),
-            source = UUIDSourceBinder(object_provides=ILibrary.__identifier__),
+            title = _(u'Related libraries at public'),
+            source = ObjPathSourceBinder(object_provides=ILibrary.__identifier__),
             )
         )
-                  
+
+    form.fieldset('riv',
+                  label=_(u'RIV'),
+                  fields = ['category_for_riv',
+                            ])
+
+    category_for_riv = schema.ASCIILine(
+        title = _(u'RIV category'),
+        description = _(u'Category of an ePublication for RIV'),
+        required = False,
+        readonly = False,
+        default = None,
+        missing_value = None,
+        )
+    
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering
@@ -202,12 +219,18 @@ class ePublication(Container):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-class SampleView(grok.View):
-    """ sample view class """
+# class EditAtOnce(grok.View):
+#     """ sample view class """
+#     grok.context(IePublication)
+#     grok.require('zope2.View')
+#     grok.name('edit-at-once')
+#     # Add view methods here
 
-    grok.context(IePublication)
-    grok.require('zope2.View')
-
-    # grok.name('view')
-
+# class ViewAtOnce(grok.View):
+#     """ sample view class """
+#     grok.context(IePublication)
+#     grok.require('zope2.View')
+#     grok.name('view-at-once')
     # Add view methods here
+    
+    

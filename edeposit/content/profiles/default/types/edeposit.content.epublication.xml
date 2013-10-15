@@ -25,16 +25,17 @@
   <property name="klass">edeposit.content.epublication.ePublication</property>
 
   <property name="behaviors">
-     <element value="plone.app.content.interfaces.INameFromTitle" />
-     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-   </property>
-
+    <element value="plone.app.content.interfaces.INameFromTitle" />
+    <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
+  </property>
+  
   <!-- View information -->
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
   <property name="default_view">view</property>
   <property name="view_methods">
    <element value="view"/>
+   <element value="view-at-once"/>
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>

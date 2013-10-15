@@ -15,6 +15,7 @@ edeposit/content/__init__.py
 edeposit/content/author.py
 edeposit/content/epublication.py
 edeposit/content/epublicationfolder.py
+edeposit/content/handlers.py
 edeposit/content/isbn.py
 edeposit/content/library.py
 edeposit/content/libraryfolder.py

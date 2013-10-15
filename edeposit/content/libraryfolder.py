@@ -57,12 +57,12 @@ class LibraryFolder(Container):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-class View(grok.View):
-    """ sample view class """
+# class View(grok.View):
+#     """ sample view class """
 
-    grok.context(ILibraryFolder)
-    grok.require('zope2.View')
+#     grok.context(ILibraryFolder)
+#     grok.require('zope2.View')
 
-    # grok.name('view')
+#     # grok.name('view')
 
-    # Add view methods here
+#     # Add view methods here
