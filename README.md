@@ -29,6 +29,7 @@ Clone packages for E-Deposit
 	jan@jan-XPS-L421X:/opt/edeposit$ cd src
 	jan@jan-XPS-L421X:/opt/edeposit/src$ git clone https://github.com/jstavel/edeposit.policy.git
 	jan@jan-XPS-L421X:/opt/edeposit/src$ git clone https://github.com/jstavel/edeposit.content.git
+	jan@jan-XPS-L421X:/opt/edeposit/src$ git clone https://github.com/jstavel/edeposit.user.git
 	
 Buildout of E-Deposit
 ~~~~~~~~~~~~~~~~~~~~~
