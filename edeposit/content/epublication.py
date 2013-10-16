@@ -20,7 +20,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from edeposit.content.library import ILibrary
 from edeposit.content import MessageFactory as _
 
-
 # Interface class; used to define content-type schema.
 
 class IePublication(form.Schema, IImageScaleTraversable):
@@ -122,7 +121,7 @@ class IePublication(form.Schema, IImageScaleTraversable):
         )
 
     form.fieldset('technical',
-                  label=_(''),
+                  label=_('Technical'),
                   fields = [ 'person_who_processed_this',
                              'aleph_doc_number',
                              ]
@@ -155,7 +154,7 @@ class IePublication(form.Schema, IImageScaleTraversable):
         )
 
     form.fieldset('accessing',
-                  label=_(u''),
+                  label=_(u'Accessing'),
                   fields = ['libraries_that_can_access_at_library_terminal',
                             'libraries_that_can_access_at_public',
                             ])

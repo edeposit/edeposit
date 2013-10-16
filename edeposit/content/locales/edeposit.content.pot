@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: Tue Oct 15 14:47:03 2013\n"
+"POT-Creation-Date: Wed Oct 16 19:35:18 2013\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Zope 3 Developers <zope-dev@zope.org>\n"
@@ -43,137 +43,145 @@ msgstr ""
 msgid "Fill in your last name."
 msgstr ""
 
-#: edeposit.content:/epublication.py:104
+#: edeposit.content:/epublication.py:103
 msgid "Price"
 msgstr ""
 
-#: edeposit.content:/epublication.py:109
+#: edeposit.content:/epublication.py:108
 msgid "Currency"
 msgstr ""
 
-#: edeposit.content:/epublication.py:110
+#: edeposit.content:/epublication.py:109
 msgid "Fill in currency of a price."
 msgstr ""
 
-#: edeposit.content:/epublication.py:115
-#: edeposit.content:/epublication.py:120
+#: edeposit.content:/epublication.py:114
+#: edeposit.content:/epublication.py:119
 msgid "Edition"
 msgstr ""
 
-#: edeposit.content:/epublication.py:131
+#: edeposit.content:/epublication.py:124
+msgid "Technical"
+msgstr ""
+
+#: edeposit.content:/epublication.py:130
 msgid "Person who processed this."
 msgstr ""
 
-#: edeposit.content:/epublication.py:132
+#: edeposit.content:/epublication.py:131
 msgid "Fill in a name of a person who processed this ePublication."
 msgstr ""
 
-#: edeposit.content:/epublication.py:140
+#: edeposit.content:/epublication.py:139
 msgid "Aleph DocNumber"
 msgstr ""
 
-#: edeposit.content:/epublication.py:141
+#: edeposit.content:/epublication.py:140
 msgid "Internal DocNumber that Aleph refers to metadata of this ePublication"
 msgstr ""
 
-#: edeposit.content:/epublication.py:149
+#: edeposit.content:/epublication.py:148
 msgid "Generate ISBN"
 msgstr ""
 
-#: edeposit.content:/epublication.py:150
+#: edeposit.content:/epublication.py:149
 msgid "Whether ISBN agency should generate ISBN number."
 msgstr ""
 
-#: edeposit.content:/epublication.py:164
+#: edeposit.content:/epublication.py:157
+msgid "Accessing"
+msgstr ""
+
+#: edeposit.content:/epublication.py:163
 msgid "Libraries that can access at library terminal"
 msgstr ""
 
-#: edeposit.content:/epublication.py:165
+#: edeposit.content:/epublication.py:164
 msgid "Choose libraries that can show an ePublication at its terminal."
 msgstr ""
 
-#: edeposit.content:/epublication.py:170
+#: edeposit.content:/epublication.py:169
 msgid "Related libraries"
 msgstr ""
 
-#: edeposit.content:/epublication.py:176
+#: edeposit.content:/epublication.py:175
 msgid "Libraries that can access at public"
 msgstr ""
 
-#: edeposit.content:/epublication.py:177
+#: edeposit.content:/epublication.py:176
 msgid "Choose libraries that can show an ePublication at public."
 msgstr ""
 
-#: edeposit.content:/epublication.py:182
+#: edeposit.content:/epublication.py:181
 msgid "Related libraries at public"
 msgstr ""
 
-#: edeposit.content:/epublication.py:188
+#: edeposit.content:/epublication.py:187
 msgid "RIV"
 msgstr ""
 
-#: edeposit.content:/epublication.py:193
+#: edeposit.content:/epublication.py:192
 msgid "RIV category"
 msgstr ""
 
-#: edeposit.content:/epublication.py:194
+#: edeposit.content:/epublication.py:193
 msgid "Category of an ePublication for RIV"
 msgstr ""
 
-#: edeposit.content:/epublication.py:32
+#: edeposit.content:/epublication.py:31
 msgid "Book Binding"
 msgstr ""
 
-#: edeposit.content:/epublication.py:33
+#: edeposit.content:/epublication.py:32
 msgid "Fill in binding of a book."
 msgstr ""
 
-#: edeposit.content:/epublication.py:38
+#: edeposit.content:/epublication.py:37
 msgid "Subtitle"
 msgstr ""
 
-#: edeposit.content:/epublication.py:42
+#: edeposit.content:/epublication.py:41
 msgid "Publishing"
 msgstr ""
 
-#: edeposit.content:/epublication.py:51
+#: edeposit.content:/epublication.py:50
 msgid "Place of Publishing"
 msgstr ""
 
-#: edeposit.content:/epublication.py:56
+#: edeposit.content:/epublication.py:55
 msgid "Publisher"
 msgstr ""
 
-#: edeposit.content:/epublication.py:61
+#: edeposit.content:/epublication.py:60
 msgid "Publishing Date"
 msgstr ""
 
-#: edeposit.content:/epublication.py:66
+#: edeposit.content:/epublication.py:65
 msgid "Published with Coedition"
 msgstr ""
 
-#: edeposit.content:/epublication.py:67
+#: edeposit.content:/epublication.py:66
 msgid "Fill in a coedition of an ePublication"
 msgstr ""
 
-#: edeposit.content:/epublication.py:75
+#: edeposit.content:/epublication.py:74
 msgid "Published at order"
 msgstr ""
 
-#: edeposit.content:/epublication.py:76
+#: edeposit.content:/epublication.py:75
 msgid "Fill in an order an ePublication was published at."
 msgstr ""
 
-#: edeposit.content:/epublication.py:85
-#: edeposit.content:/epublication.py:89
+#: edeposit.content:/epublication.py:84
+#: edeposit.content:/epublication.py:88
 msgid "Volume"
 msgstr ""
 
-#: edeposit.content:/epublication.py:94
+#: edeposit.content:/epublication.py:93
 msgid "Volume Title"
 msgstr ""
 
-#: edeposit.content:/epublication.py:99
+#: edeposit.content:/epublication.py:98
 msgid "Volume Number"
 msgstr ""
 
