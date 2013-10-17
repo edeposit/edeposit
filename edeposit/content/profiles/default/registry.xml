@@ -1,26 +1,27 @@
-<registry>
-    <record name="edeposit.content.fileTypes">
-        <field type="plone.registry.field.Tuple">
-            <title>E-Deposit File Types</title>
-            <value_type type="plone.registry.field.TextLine" />
-        </field>
-        <value>
-            <element key="PDF">PDF</element>
-            <element key="ePub">ePub</element>
-            <element key="Mobi">Mobi</element>
-            <element key="pdf2000">pdf2000</element>
-        </value>
-    </record>
-    <record name="edeposit.content.currencies">
-        <field type="plone.registry.field.Tuple">
-            <title>E-Deposit Currencies</title>
-            <value_type type="plone.registry.field.TextLine" />
-        </field>
-        <value>
-            <element>CZK</element>
-            <element>USD</element>
-            <element>GBP</element>
-            <element>EUR</element>
-        </value>
-    </record>
+<registry xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="plone">
+  <record name="edeposit.content.fileTypes">
+    <field type="plone.registry.field.Tuple">
+      <title i18n:translate="">E-Deposit File Types</title>
+      <value_type type="plone.registry.field.TextLine" />
+    </field>
+    <value>
+      <element key="PDF">PDF</element>
+      <element key="ePub">ePub</element>
+      <element key="Mobi">Mobi</element>
+      <element key="pdf2000">pdf2000</element>
+    </value>
+  </record>
+  <record name="edeposit.content.currencies">
+    <field type="plone.registry.field.Tuple">
+      <title i18n:translate="">E-Deposit Currencies</title>
+      <value_type type="plone.registry.field.TextLine" />
+    </field>
+    <value>
+      <element>CZK</element>
+      <element>USD</element>
+      <element>GBP</element>
+      <element>EUR</element>
+    </value>
+  </record>
 </registry>
