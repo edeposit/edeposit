@@ -25,7 +25,7 @@ class IPrintingFile(form.Schema, IImageScaleTraversable):
     """
     #form.primary('file')
     file = NamedBlobFile(
-        title=_(u"Printig File"),
+        title=_(u"Printing File"),
         description=_(u"Fill in a file that contains of a printing file for a publication"),
         required = True,
         )

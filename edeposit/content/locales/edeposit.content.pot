@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-17 11:16+0000\n"
+"POT-Creation-Date: 2013-10-18 12:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,10 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
+#: edeposit/content/profiles/default/types/edeposit.content.epublicationfolder.xml
+msgid "E-Deposit - ePublication Folder"
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.libraryfolder.xml
 msgid "E-Deposit Library Folder"
 msgstr ""
@@ -67,10 +71,6 @@ msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.epublication.xml
 msgid "E-Deposit ePublication"
-msgstr ""
-
-#: edeposit/content/profiles/default/types/edeposit.content.epublicationfolder.xml
-msgid "E-Deposit ePublication Folder"
 msgstr ""
 
 #: edeposit/content/epublication.py:114
@@ -205,7 +205,7 @@ msgid "Price"
 msgstr ""
 
 #: edeposit/content/printingfile.py:28
-msgid "Printig File"
+msgid "Printing File"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.printingfile.xml

@@ -5,8 +5,7 @@
 
   <!-- Basic metadata -->
   <property name="title" i18n:translate="">ePublicationFolder</property>
-  <property name="description"
-    i18n:translate="">E-Deposit ePublication Folder</property>
+  <property name="description" i18n:translate="">E-Deposit - ePublication Folder</property>
   <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
   <property name="factory">edeposit.content.epublicationfolder</property>
   <property name="global_allow">False</property>
