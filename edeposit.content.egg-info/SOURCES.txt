@@ -15,10 +15,14 @@ edeposit/content/__init__.py
 edeposit/content/author.py
 edeposit/content/book.py
 edeposit/content/bookfolder.py
+edeposit/content/eperiodical.py
+edeposit/content/eperiodicalfolder.py
+edeposit/content/eperiodicalpart.py
 edeposit/content/epublication.py
 edeposit/content/epublicationfolder.py
 edeposit/content/handlers.py
 edeposit/content/isbn.py
+edeposit/content/issn.py
 edeposit/content/library.py
 edeposit/content/libraryfolder.py
 edeposit/content/originalfile.py
