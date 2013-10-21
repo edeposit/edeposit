@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2013-10-18 12:26+0000\n"
-"PO-Revision-Date: 2013-10-15 14:52+0200\n"
+"POT-Creation-Date: 2013-10-21 11:19+0000\n"
+"PO-Revision-Date: 2013-10-21 13:18+0200\n"
 "Last-Translator: Jan Stavěl <stavel.jan@gmail.com>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -29,49 +29,99 @@ msgstr ""
 "Language: cs\n"
 "Generated-By: zope/app/locales/extract.py\n"
 
-#: edeposit/content/epublication.py:157
+#: edeposit/content/eperiodical.py:121
+#: edeposit/content/eperiodicalpart.py:140
+#: edeposit/content/epublication.py:153
 msgid "Accessing"
 msgstr "Zpřístupnění"
 
-#: edeposit/content/epublication.py:139
+#: edeposit/content/book.py:136
+#: edeposit/content/eperiodical.py:112
+#: edeposit/content/eperiodicalpart.py:131
 msgid "Aleph DocNumber"
 msgstr "Aleph DocNumber"
 
 #: edeposit/content/profiles/default/types/edeposit.content.author.xml
 msgid "Author"
-msgstr "E-Deposit - Autor"
+msgstr "Autor"
 
 #: edeposit/content/profiles/default/types/edeposit.content.author.xml
 msgid "Author of ePublication"
-msgstr "E-Deposit - Autor ePublikace"
+msgstr "Autor ePublikace"
 
+#: edeposit/content/profiles/default/types/edeposit.content.book.xml
+msgid "Book"
+msgstr "Kniha"
+
+#: edeposit/content/book.py:28
+#: edeposit/content/eperiodicalpart.py:33
 #: edeposit/content/epublication.py:31
 msgid "Book Binding"
 msgstr "Knižní vazba"
 
-#: edeposit/content/epublication.py:193
+#: edeposit/content/profiles/default/types/edeposit.content.bookfolder.xml
+msgid "BookFolder"
+msgstr "Složka knihy"
+
+#: edeposit/content/book.py:160
+msgid "Category of a Book for RIV"
+msgstr "Kategorie knihy pro RIV"
+
+#: edeposit/content/eperiodical.py:157
+#: edeposit/content/eperiodicalpart.py:176
+#: edeposit/content/epublication.py:189
 msgid "Category of an ePublication for RIV"
 msgstr "Kategorie ePublikace pro RIV"
 
-#: edeposit/content/epublication.py:164
+#: edeposit/content/eperiodical.py:128
+#: edeposit/content/eperiodicalpart.py:147
+#: edeposit/content/epublication.py:160
 msgid "Choose libraries that can show an ePublication at its terminal."
 msgstr "Vyberte knihovny, které mohou ePublikaci zpřístupnit na svých terminálech."
 
-#: edeposit/content/epublication.py:176
+#: edeposit/content/eperiodical.py:140
+#: edeposit/content/eperiodicalpart.py:159
+#: edeposit/content/epublication.py:172
 msgid "Choose libraries that can show an ePublication at public."
 msgstr "Vyberte knihovny, které mohou ePublikaci zpřístupnit veřejně."
 
-#: edeposit/content/epublication.py:108
+#: edeposit/content/book.py:105
+#: edeposit/content/eperiodicalpart.py:110
+#: edeposit/content/epublication.py:114
 msgid "Currency"
 msgstr "Měna"
 
+#: edeposit/content/profiles/default/types/edeposit.content.book.xml
+msgid "E-Deposit - Book"
+msgstr "E-Deposit - Kniha"
+
+#: edeposit/content/profiles/default/types/edeposit.content.bookfolder.xml
+msgid "E-Deposit - Book Folder"
+msgstr "E-Deposit - Složka knih"
+
+#: edeposit/content/profiles/default/types/edeposit.content.issn.xml
+msgid "E-Deposit - ISSN"
+msgstr "E-Deposit - ISSN"
+
+#: edeposit/content/profiles/default/types/edeposit.content.eperiodical.xml
+msgid "E-Deposit - ePeriodical"
+msgstr "E-Deposit - Pokračující zdroj"
+
+#: edeposit/content/profiles/default/types/edeposit.content.eperiodicalfolder.xml
+msgid "E-Deposit - ePeriodical Folder"
+msgstr "E-Deposit - Složka s pokračujícími zdroji"
+
+#: edeposit/content/profiles/default/types/edeposit.content.eperiodicalpart.xml
+msgid "E-Deposit - ePeriodical Part"
+msgstr "E-Deposit - Vydání pokračujícího zdroje"
+
 #: edeposit/content/profiles/default/types/edeposit.content.epublicationfolder.xml
 msgid "E-Deposit - ePublication Folder"
-msgstr "E-Deposit - Složka ePublikací"
+msgstr "E-Deposit - Složka s ePublikacemi"
 
 #: edeposit/content/profiles/default/types/edeposit.content.libraryfolder.xml
 msgid "E-Deposit Library Folder"
-msgstr "E-Deposit - Složka knihoven"
+msgstr "E-Deposit - Složka s knihovnami"
 
 #: edeposit/content/profiles/default/types/edeposit.content.originalfile.xml
 msgid "E-Deposit Original File"
@@ -85,15 +135,23 @@ msgstr "E-Deposit - Soubor s náhledem"
 msgid "E-Deposit ePublication"
 msgstr "E-Deposit - ePublikace"
 
-#: edeposit/content/epublication.py:114
+#: edeposit/content/book.py:111
+#: edeposit/content/eperiodical.py:36
+#: edeposit/content/eperiodicalpart.py:44
 msgid "Edition"
 msgstr "Edice"
 
 #: edeposit/content/profiles/default/types/edeposit.content.printingfile.xml
 msgid "File used for printing of a publication"
-msgstr "Soubor určený pro tisk publikace."
+msgstr "Soubor určený pro tisk publikace"
 
-#: edeposit/content/epublication.py:66
+#: edeposit/content/book.py:63
+msgid "Fill in a coedition of a book"
+msgstr "Doplňte koedici, ve které je kniha vydána"
+
+#: edeposit/content/eperiodical.py:60
+#: edeposit/content/eperiodicalpart.py:68
+#: edeposit/content/epublication.py:72
 msgid "Fill in a coedition of an ePublication"
 msgstr "Doplňte s jakou knihou v koedici byla tato ePublikace vydána."
 
@@ -109,19 +167,41 @@ msgstr "Doplňte tiskovou předlohu ePublikace."
 msgid "Fill in a file that contains of an epublication"
 msgstr "Doplňte soubor který obsahuje ePublikaci"
 
-#: edeposit/content/epublication.py:131
+#: edeposit/content/book.py:128
+msgid "Fill in a name of a person who processed this book."
+msgstr "Doplňte jméno osoby, která tuto knihu zpracovala"
+
+#: edeposit/content/eperiodicalpart.py:123
+msgid "Fill in a name of a person who processed this ePeriodical part."
+msgstr "Doplňte jméno osoby, která zpracovala toto vydání"
+
+#: edeposit/content/eperiodical.py:104
+msgid "Fill in a name of a person who processed this ePeriodical."
+msgstr "Doplňte jméno osoby, která zpracovala tento periodický zdroj"
+
+#: edeposit/content/epublication.py:127
 msgid "Fill in a name of a person who processed this ePublication."
 msgstr "Doplňte jméno osoby, která publikaci zpracovala."
 
-#: edeposit/content/epublication.py:75
+#: edeposit/content/book.py:72
+msgid "Fill in an order a book was published at."
+msgstr "Doplňte číslo vydání této knihy"
+
+#: edeposit/content/eperiodical.py:69
+#: edeposit/content/eperiodicalpart.py:77
+#: edeposit/content/epublication.py:81
 msgid "Fill in an order an ePublication was published at."
 msgstr "Doplňte číslo vydání ePublikace."
 
+#: edeposit/content/book.py:29
+#: edeposit/content/eperiodicalpart.py:34
 #: edeposit/content/epublication.py:32
 msgid "Fill in binding of a book."
 msgstr "Doplňte knižní vazbu"
 
-#: edeposit/content/epublication.py:109
+#: edeposit/content/book.py:106
+#: edeposit/content/eperiodicalpart.py:111
+#: edeposit/content/epublication.py:115
 msgid "Fill in currency of a price."
 msgstr "Doplňte v jaké je cena měně."
 
@@ -139,7 +219,7 @@ msgstr "Jméno"
 
 #: edeposit/content/profiles/default/types/edeposit.content.libraryfolder.xml
 msgid "Folder holds libraries"
-msgstr "Složka obsahuje informace o knihovnách."
+msgstr "Složka obsahuje záznamy o knihovnách"
 
 #: edeposit/content/originalfile.py:48
 #: edeposit/content/previewfile.py:34
@@ -147,24 +227,41 @@ msgstr "Složka obsahuje informace o knihovnách."
 msgid "Format of a file."
 msgstr "Formát souboru."
 
-#: edeposit/content/epublication.py:148
+#: edeposit/content/book.py:145
+#: edeposit/content/epublication.py:144
 msgid "Generate ISBN"
 msgstr "Přiřadit ISBN"
 
 #: edeposit/content/isbn.py:31
 #: edeposit/content/profiles/default/types/edeposit.content.isbn.xml
 msgid "ISBN"
-msgstr "E-Deposit - ISBN"
+msgstr "ISBN"
+
+#: edeposit/content/profiles/default/types/edeposit.content.issn.xml
+msgid "ISSN"
+msgstr "ISSN"
 
 #: edeposit/content/profiles/default/types/edeposit.content.isbn.xml
 msgid "Identification number of an ePublication"
-msgstr "Jedinečné číslo ePublikace"
+msgstr "Identifikátor ePublikace"
 
 #: edeposit/content/profiles/default/types/edeposit.content.library.xml
 msgid "Informations about library"
 msgstr "Informace o knihovně"
 
-#: edeposit/content/epublication.py:140
+#: edeposit/content/book.py:137
+msgid "Internal DocNumber that Aleph refers to metadata of this book"
+msgstr "Interní číslo, podle kterého systém Aleph zařadí tuto knihu"
+
+#: edeposit/content/eperiodical.py:113
+msgid "Internal DocNumber that Aleph refers to metadata of this ePeriodical"
+msgstr "Interní číslo, podle kterého Aleph zařadí informace o tomto pokračujícím zdroji"
+
+#: edeposit/content/eperiodicalpart.py:132
+msgid "Internal DocNumber that Aleph refers to metadata of this ePeriodical part"
+msgstr "Interní číslo podle kterého systém Aleph zařadí informace o tomto vydání pokračujícího zdroje"
+
+#: edeposit/content/epublication.py:136
 msgid "Internal DocNumber that Aleph refers to metadata of this ePublication"
 msgstr "Interní číslo, podle nějž si Aleph zařadí metadata této ePublikace"
 
@@ -172,17 +269,21 @@ msgstr "Interní číslo, podle nějž si Aleph zařadí metadata této ePublika
 msgid "Last Name"
 msgstr "Příjmení"
 
-#: edeposit/content/epublication.py:163
+#: edeposit/content/eperiodical.py:127
+#: edeposit/content/eperiodicalpart.py:146
+#: edeposit/content/epublication.py:159
 msgid "Libraries that can access at library terminal"
 msgstr "Knihovny, které mohou ePublikaci zpřístupnit na svém terminálu."
 
-#: edeposit/content/epublication.py:175
+#: edeposit/content/eperiodical.py:139
+#: edeposit/content/eperiodicalpart.py:158
+#: edeposit/content/epublication.py:171
 msgid "Libraries that can access at public"
 msgstr "Knihovny, které mohou ePublikaci zpřístupnit veřejně."
 
 #: edeposit/content/profiles/default/types/edeposit.content.library.xml
 msgid "Library"
-msgstr "E-Deposit - Knihovna"
+msgstr "Knihovna"
 
 #: edeposit/content/author.py:23
 msgid "Name"
@@ -196,11 +297,15 @@ msgstr "Originál ePublikace"
 msgid "OriginalFile"
 msgstr "E-Deposit - Soubor s originálem"
 
-#: edeposit/content/epublication.py:130
+#: edeposit/content/book.py:127
+#: edeposit/content/eperiodical.py:103
+#: edeposit/content/eperiodicalpart.py:122
 msgid "Person who processed this."
 msgstr "Osoba, která publikaci zpracovala."
 
-#: edeposit/content/epublication.py:50
+#: edeposit/content/book.py:47
+#: edeposit/content/eperiodical.py:49
+#: edeposit/content/eperiodicalpart.py:57
 msgid "Place of Publishing"
 msgstr "Místo vydání"
 
@@ -212,51 +317,71 @@ msgstr "Náhled souboru"
 msgid "PreviewFile"
 msgstr "E-Deposit - Soubor s náhledem"
 
-#: edeposit/content/epublication.py:103
+#: edeposit/content/book.py:100
+#: edeposit/content/eperiodicalpart.py:105
+#: edeposit/content/epublication.py:109
 msgid "Price"
 msgstr "Cena"
 
 #: edeposit/content/printingfile.py:28
 msgid "Printing File"
-msgstr "Tisková předloha"
+msgstr "E-Deposit - Tisková předloha"
 
 #: edeposit/content/profiles/default/types/edeposit.content.printingfile.xml
 msgid "PrintingFile"
 msgstr "E-Deposit - Tisková předloha"
 
-#: edeposit/content/epublication.py:74
+#: edeposit/content/book.py:71
+#: edeposit/content/eperiodical.py:68
+#: edeposit/content/eperiodicalpart.py:76
 msgid "Published at order"
 msgstr "Číslo vydání."
 
-#: edeposit/content/epublication.py:65
+#: edeposit/content/book.py:62
+#: edeposit/content/eperiodical.py:59
+#: edeposit/content/eperiodicalpart.py:67
 msgid "Published with Coedition"
 msgstr "Vydáno v koedici s"
 
-#: edeposit/content/epublication.py:55
+#: edeposit/content/book.py:52
+#: edeposit/content/eperiodical.py:54
+#: edeposit/content/epublication.py:61
 msgid "Publisher"
 msgstr "Vydavatel"
 
-#: edeposit/content/epublication.py:41
+#: edeposit/content/book.py:38
+#: edeposit/content/eperiodical.py:41
+#: edeposit/content/eperiodicalpart.py:49
 msgid "Publishing"
 msgstr "Vydání"
 
-#: edeposit/content/epublication.py:60
+#: edeposit/content/book.py:57
+#: edeposit/content/eperiodicalpart.py:62
+#: edeposit/content/epublication.py:66
 msgid "Publishing Date"
 msgstr "Datum vydání"
 
-#: edeposit/content/epublication.py:187
+#: edeposit/content/book.py:154
+#: edeposit/content/eperiodical.py:151
+#: edeposit/content/eperiodicalpart.py:170
 msgid "RIV"
 msgstr "RIV"
 
-#: edeposit/content/epublication.py:192
+#: edeposit/content/book.py:159
+#: edeposit/content/eperiodical.py:156
+#: edeposit/content/eperiodicalpart.py:175
 msgid "RIV category"
 msgstr "kategorie pro RIV"
 
-#: edeposit/content/epublication.py:169
+#: edeposit/content/eperiodical.py:133
+#: edeposit/content/eperiodicalpart.py:152
+#: edeposit/content/epublication.py:165
 msgid "Related libraries"
 msgstr "Vybrané knihovny"
 
-#: edeposit/content/epublication.py:181
+#: edeposit/content/eperiodical.py:145
+#: edeposit/content/eperiodicalpart.py:164
+#: edeposit/content/epublication.py:177
 msgid "Related libraries at public"
 msgstr "Vybrané knihovny pro veřejné zpřístupnění."
 
@@ -268,13 +393,17 @@ msgstr "Přehled všech ISBN"
 msgid "Review of authors"
 msgstr "Přehled autorů"
 
-#: edeposit/content/epublication.py:37
+#: edeposit/content/book.py:34
+#: edeposit/content/eperiodical.py:31
+#: edeposit/content/eperiodicalpart.py:39
 msgid "Subtitle"
 msgstr "Podtitulek"
 
-#: edeposit/content/epublication.py:124
+#: edeposit/content/book.py:121
+#: edeposit/content/eperiodical.py:97
+#: edeposit/content/eperiodicalpart.py:116
 msgid "Technical"
-msgstr "Technické"
+msgstr "Technické údaje"
 
 #: edeposit/content/library.py:38
 #: edeposit/content/originalfile.py:34
@@ -305,21 +434,40 @@ msgstr "Cesty URL"
 msgid "Value of ISBN"
 msgstr "Hodnota ISBN"
 
-#: edeposit/content/epublication.py:84
+#: edeposit/content/book.py:81
+#: edeposit/content/eperiodical.py:78
+#: edeposit/content/eperiodicalpart.py:86
 msgid "Volume"
 msgstr "Svazek"
 
-#: edeposit/content/epublication.py:98
+#: edeposit/content/book.py:95
+#: edeposit/content/eperiodical.py:92
+#: edeposit/content/eperiodicalpart.py:100
 msgid "Volume Number"
 msgstr "Číslo svazku"
 
-#: edeposit/content/epublication.py:93
+#: edeposit/content/book.py:90
+#: edeposit/content/eperiodical.py:87
+#: edeposit/content/eperiodicalpart.py:95
 msgid "Volume Title"
 msgstr "Titul svazku"
 
-#: edeposit/content/epublication.py:149
+#: edeposit/content/book.py:146
+#: edeposit/content/epublication.py:145
 msgid "Whether ISBN agency should generate ISBN number."
 msgstr "Má ISBN agentura přiřadit ISBN?"
+
+#: edeposit/content/profiles/default/types/edeposit.content.eperiodical.xml
+msgid "ePeriodical"
+msgstr "E-Deposit - Pokračující zdroj"
+
+#: edeposit/content/profiles/default/types/edeposit.content.eperiodicalfolder.xml
+msgid "ePeriodicalFolder"
+msgstr "E-Deposit - Složka pokračujících zdrojů"
+
+#: edeposit/content/profiles/default/types/edeposit.content.eperiodicalpart.xml
+msgid "ePeriodicalPart"
+msgstr "E-Deposit - Vydání pokračujícího zdroje"
 
 #: edeposit/content/profiles/default/types/edeposit.content.epublication.xml
 msgid "ePublication"
