@@ -13,7 +13,7 @@ class ISSN {
       boolean isValid()
 }
 
-class File {
+class OriginalFile {
       String url
       String format
       String filePath
@@ -30,18 +30,16 @@ class PrintingFile {
       String filePath
 }
 
+class EPeriodicalFolder {
+}
+
 class EPeriodical {
-      String bookBinding
-      Decimal price
       String title
       String subtitle
-      String part
-      String partTitle
       String edition
       String volumeNumber
       String placeOfPublishing
       String publisher
-      Date   dateOfPublishing
       String publishedWithCoedition
       String publishedAtOrder
       String personWhoProcessedThis
@@ -61,12 +59,15 @@ class EPeriodicalPart {
       String publishedWithCoedition
       String publishedAtOrder
       String personWhoProcessedThis
+      String categoryForRIV
 }
 
 Library "0..*" -- "0..*" EPeriodicalPart: canAccess >
-EPeriodicalPart *-- "0..*" File
+EPeriodicalPart *-- "0..*" OriginalFile
 EPeriodicalPart *-- "0..*" PrintingFile
-EPeriodical "0..*" *-- "0..*" Author
+EPeriodicalPart "0..*" *-- "0..*" Author
 EPeriodical "1..*" *-- EPeriodicalPart
+EPeriodical "1..*" *-- ISSN
+EPeriodicalFolder "1..*" *-- EPeriodical
 
 @enduml
