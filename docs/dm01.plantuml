@@ -55,6 +55,7 @@ class EPublication {
       Relation librariesThatCanAccessAtPublic
       String alephDocNumber
       Boolean generateISBN
+      String categoryForRIV
 }
 
 class EPublicationFolder {

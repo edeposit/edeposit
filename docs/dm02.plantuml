@@ -61,6 +61,7 @@ class EPeriodicalPart {
       String publishedWithCoedition
       String publishedAtOrder
       String personWhoProcessedThis
+      String categoryForRIV
 }
 
 Library "0..*" -- "0..*" EPeriodicalPart: canAccess >

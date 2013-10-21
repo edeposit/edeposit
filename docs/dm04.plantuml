@@ -36,6 +36,7 @@ class Book {
       String personWhoProcessedThis
       String alephDocNumber
       Boolean generateISBN
+      String categoryForRIV
 }
 
 class BookFolder {
