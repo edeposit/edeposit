@@ -1,0 +1,49 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Datový model Knihy
+
+class ISBN {
+      String ISBN
+      boolean isValid()
+}
+
+class Author {
+      String firstName
+      String lastName
+}
+
+class PrintingFile {
+      String url
+      String format
+      File file
+}
+
+class Book {
+      String bookBinding
+      Decimal price
+      String title
+      String subtitle
+      String volume
+      String volumeTitle
+      String volumeNumber
+      String edition
+      String placeOfPublishing
+      String publisher
+      Date   dateOfPublishing
+      String publishedWithCoedition
+      String publishedAtOrder
+      String personWhoProcessedThis
+      String alephDocNumber
+      Boolean generateISBN
+}
+
+class BookFolder {
+      
+}
+Book *-- "0..*" PrintingFile
+Book *-- "0..*" Author
+Book "0..*" *-- "1..*" ISBN
+BookFolder *-- "0..*" Book
+
+@enduml
