@@ -11,4 +11,10 @@
   <object name="edeposit.content.epublicationfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
   <!-- -*- extra stuff goes here -*- -->
+  <object name="edeposit.content.eperiodicalfolder" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.issn" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.eperiodicalpart" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.eperiodical" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.bookfolder" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.book" meta_type="Dexterity FTI" />
 </object>

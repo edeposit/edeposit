@@ -13,6 +13,8 @@ edeposit.content.egg-info/requires.txt
 edeposit.content.egg-info/top_level.txt
 edeposit/content/__init__.py
 edeposit/content/author.py
+edeposit/content/book.py
+edeposit/content/bookfolder.py
 edeposit/content/epublication.py
 edeposit/content/epublicationfolder.py
 edeposit/content/handlers.py

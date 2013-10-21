@@ -14,7 +14,6 @@
   <!-- Include files -->
   <include file="permissions.zcml" />
 
-
   <browser:page
         for="edeposit.content.epublication.IePublication"
         name="view-at-once"
@@ -41,10 +40,12 @@
       description="Installs the edeposit.content package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  <!-- -*- extra stuff goes here -*- -->
+
   <subscriber
       for=".epublication.IePublication
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.added"/>
+
+  <!-- -*- extra stuff goes here -*- -->
 
 </configure>

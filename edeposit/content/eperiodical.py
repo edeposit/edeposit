@@ -15,24 +15,18 @@ from plone.namedfile.interfaces import IImageScaleTraversable
 from z3c.relationfield.schema import RelationChoice, RelationList
 from plone.formwidget.contenttree import ObjPathSourceBinder, UUIDSourceBinder
 from plone.formwidget.autocomplete import AutocompleteFieldWidget, AutocompleteMultiFieldWidget
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from edeposit.content.library import ILibrary
+
 from edeposit.content import MessageFactory as _
+
 
 # Interface class; used to define content-type schema.
 
-class IePublication(form.Schema, IImageScaleTraversable):
+class IePeriodical(form.Schema, IImageScaleTraversable):
     """
-    E-Deposit ePublication
+    E-Deposit - ePeriodical
     """
-
-    book_binding = schema.ASCIILine(
-        title = _(u"Book Binding"),
-        description = _(u"Fill in binding of a book."),
-        required = False,
-        )
-    
     subtitle = schema.ASCIILine (
         title = _(u"Subtitle"),
         required = False,
@@ -46,7 +40,6 @@ class IePublication(form.Schema, IImageScaleTraversable):
     form.fieldset('Publishing',
                   label=_(u"Publishing"),
                   fields = [ 'publisher',
-                             'date_of_publishing',
                              'published_with_coedition',
                              'published_at_order',
                              'place_of_publishing',
@@ -62,11 +55,6 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = False,
         )
 
-    date_of_publishing = schema.Date (
-        title = _(u"Publishing Date"),
-        required = False,
-        )
-    
     published_with_coedition = schema.ASCIILine(
         title = _(u'Published with Coedition'),
         description = _(u'Fill in a coedition of an ePublication'),
@@ -105,17 +93,6 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = False,
         )
 
-    price = schema.Decimal(
-        title = _(u"Price"),
-        required = False,
-        )
-
-    currency = schema.Choice(
-        title = _(u'Currency'),
-        description = _(u'Fill in currency of a price.'),
-        vocabulary='edeposit.content.currencies'
-        )
-
     form.fieldset('technical',
                   label=_('Technical'),
                   fields = [ 'person_who_processed_this',
@@ -124,7 +101,7 @@ class IePublication(form.Schema, IImageScaleTraversable):
                   )
     person_who_processed_this = schema.ASCIILine(
         title = _(u'Person who processed this.'),
-        description = _(u'Fill in a name of a person who processed this ePublication.'),
+        description = _(u'Fill in a name of a person who processed this ePeriodical.'),
         required = False,
         readonly = False,
         default = None,
@@ -133,20 +110,11 @@ class IePublication(form.Schema, IImageScaleTraversable):
 
     aleph_doc_number = schema.ASCIILine(
         title = _(u'Aleph DocNumber'),
-        description = _(u'Internal DocNumber that Aleph refers to metadata of this ePublication'),
+        description = _(u'Internal DocNumber that Aleph refers to metadata of this ePeriodical'),
         required = False,
         readonly = False,
         default = None,
         missing_value = None,
-        )
-
-    generated_isbn = schema.Bool(
-        title = _(u'Generate ISBN'),
-        description = _(u'Whether ISBN agency should generate ISBN number.'),
-        required = False,
-        readonly = False,
-        default = False,
-        missing_value = False,
         )
 
     form.fieldset('accessing',
@@ -192,21 +160,23 @@ class IePublication(form.Schema, IImageScaleTraversable):
         default = None,
         missing_value = None,
         )
-    
+
+
+
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering
 # in separate view classes.
 
-class ePublication(Container):
-    grok.implements(IePublication)
+class ePeriodical(Container):
+    grok.implements(IePeriodical)
 
     # Add your class methods and properties here
 
 
 # View class
 # The view will automatically use a similarly named template in
-# epublication_templates.
+# eperiodical_templates.
 # Template filenames should be all lower case.
 # The view will render when you request a content object with this
 # interface with "/@@sampleview" appended.
@@ -214,18 +184,12 @@ class ePublication(Container):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-# class EditAtOnce(grok.View):
-#     """ sample view class """
-#     grok.context(IePublication)
-#     grok.require('zope2.View')
-#     grok.name('edit-at-once')
-#     # Add view methods here
+class SampleView(grok.View):
+    """ sample view class """
 
-# class ViewAtOnce(grok.View):
-#     """ sample view class """
-#     grok.context(IePublication)
-#     grok.require('zope2.View')
-#     grok.name('view-at-once')
+    grok.context(IePeriodical)
+    grok.require('zope2.View')
+
+    # grok.name('view')
+
     # Add view methods here
-    
-    
