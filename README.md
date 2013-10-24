@@ -37,3 +37,4 @@ Buildout of E-Deposit
 	jan@jan-XPS-L421X:/opt/edeposit$ wget http://downloads.buildout.org/1/bootstrap.py
 	jan@jan-XPS-L421X:/opt/edeposit$ ./bin/python bootstrap.py 
 	jan@jan-XPS-L421X:/opt/edeposit$ ./bin/buildout 
+
