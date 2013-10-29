@@ -46,6 +46,17 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.added"/>
 
+  <subscriber
+      for=".epublicationfolder.IePublicationFolder
+           zope.container.interfaces.IObjectModifiedEvent"
+      handler=".handlers.addedEPublicationFolder"/>
+
+  <subscriber
+      for=".epublicationfolder.IePublicationFolder
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedEPublicationFolder"/>
+
+
   <!-- -*- extra stuff goes here -*- -->
 
 </configure>
