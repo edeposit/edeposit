@@ -6,9 +6,9 @@ title Datový model pro antivirus
 class Request {
       String uuid
       String created
-      String interfaceOfMsq
-      String serializationOfMsq
-      Binary msg
+      String interface
+      String serialization
+      Binary data
 }
 
 class MessageWithUrl {
