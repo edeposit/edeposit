@@ -5,7 +5,7 @@ title Datový model pro antivirus
 
 class Request {
       String uuid
-      DateTime created
+      String created
       String interfaceOfMsq
       String serializationOfMsq
       Binary msg
