@@ -36,7 +36,7 @@
    <element value="view"/>
   </property>
   <property name="default_view_fallback">False</property>
-  <property name="add_permission">cmf.RequestReview</property>
+  <property name="add_permission">edeposit.AddEPeriodical</property>
 
 
   <!-- Method aliases -->
