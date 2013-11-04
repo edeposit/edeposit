@@ -6,13 +6,23 @@
     <!-- Define new permissions -->
     
     <permission
-        id="edeposit.AddEBookFolder"
-        title="E-Deposit: Add EBook Folder"
+        id="edeposit.AddBookFolder"
+        title="E-Deposit: Add Book Folder"
         />
 
     <permission
-        id="edeposit.AddEBook"
-        title="E-Deposit: Add EBook"
+        id="edeposit.AddBook"
+        title="E-Deposit: Add Book"
+        />
+
+    <permission
+        id="edeposit.AddEPublication"
+        title="E-Deposit: Add ePublication"
+        />
+
+    <permission
+        id="edeposit.AddEPeriodical"
+        title="E-Deposit: Add ePeriodical"
         />
 
 </configure>

@@ -25,8 +25,6 @@ from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.event import ObjectInitializedEvent
 
-from edeposit.content.file import IFile
-
 class TestLibraryFolder(unittest.TestCase):
     layer = EDEPOSIT_CONTENT_INTEGRATION_TESTING
 
@@ -49,7 +47,5 @@ class TestLibraryFolder(unittest.TestCase):
         setRoles(portal, TEST_USER_ID, ('Member',))
         portal['edlf1'].invokeFactory('edeposit.content.libraryfolder', 'edlf2', title=u"E-Deposit Library Folder")
         portal['edlf1'].invokeFactory('edeposit.content.library', 'edll1', title=u"E-Deposit Library")
-        portal['edlf1'].invokeFactory('edeposit.content.file', 'ff1')
 
         #self.assertTrue(INameFromFileName.providedBy(portal['edlf1']['ff1']))
-        import pdb; pdb.set_trace()

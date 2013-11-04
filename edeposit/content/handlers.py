@@ -19,7 +19,6 @@ def added(context,event):
                                   'v': '../'}
                                  ]
                           )
-
     context.invokeFactory('Collection','isbns', 
                           title=_(u"Review of ISBNs"),
                           query=[{'i': 'portal_type', 
