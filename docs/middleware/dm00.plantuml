@@ -77,14 +77,13 @@ package edeposit.amqp.interfaces {
 }
 
 
-IRequest -- IDataWithUrl : < describes an attribute <b>data</b>
-IRequest -- IDataWithStream : < describes an attribute <b>data</b>
-IRequest -left- TypeOfSerialization : <b>serialization</b> is one of
-IRequest -left- InterfaceOfRequestData : <b>interface</b> is one of
+IMessage -- IDataWithUrl : < describes an attribute <b>data</b>
+IMessage -- IDataWithStream : < describes an attribute <b>data</b>
+IMessage -left- TypeOfSerialization : <b>serialization</b> is one of
+IMessage -left- InterfaceOfRequestData : <b>interface</b> is one of
 
-IResponse -- IDataWithValidationResult : < describes an attribute <b>data</b>
-IResponse -left- TypeOfSerialization : <b>serialization</b> is one of
-IResponse -left- InterfaceOfResponseData : <b>interface</b> is one of
+IMessage -- IDataWithValidationResult : < describes an attribute <b>data</b>
+IMessage -left- InterfaceOfResponseData : <b>interface</b> is one of
 
 package edeposit.amqp.actors {
         interface ISender {
