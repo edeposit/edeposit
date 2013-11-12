@@ -93,7 +93,6 @@ package edeposit.amqp.actors {
         Sends a given message to <b>message broker</b>. 
         Implementation knows what exchange in <b>message broker</b> uses.
         end note
-
         
         interface IDataExecutor {
                   result execute(IData data)
