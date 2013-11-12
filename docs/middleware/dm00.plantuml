@@ -15,18 +15,26 @@ enum InterfaceOfRequestData {
      antivir.check
      aleph.search
      pdfbox.validate
+     pdfbox.validateAndExtractMetadata
+     pdfbox.extractMetadata
      epubcheck.validate
+     epubcheck.validateAndExtractMetadata
+     epubcheck.extractMetadata
 }
 
 enum InterfaceOfResponseData {
      antivir.check
      aleph.search
      pdfbox.validate
+     pdfbox.validateWithMetadata
+     pdfbox.metadata     
      epubcheck.validate
+     epubcheck.validateWithMetadata
+     epubcheck.metadata     
 }
 }
 
-class Request {
+interface IMessage {
       String uuid
       String created
       String interface
@@ -34,38 +42,70 @@ class Request {
       Binary data
 }
 
+interface IRequest {
+}
+
+interface IResponse {
+      String uuidOfRequest
+}
+
+IMessage <|-right- IRequest
+IMessage <|-left- IResponse
 
 package edeposit.amqp.interfaces {
-        interface MessageWithUrl {
-              String urlOfFile
-              }
+        
+        interface IData {
+        }       
 
-        interface MessageWithStream {
+        interface IDataWithUrl {
+              String urlOfFile
+        }
+
+        interface IDataWithStream {
               Binary stream
         }
 
-        interface MessageWithValidationResult {
+        interface IDataWithValidationResult {
                   Boolean isValid
                   Strings errors
                   String message
         }
+
+        IData <|-right- IDataWithUrl
+        IData <|-right- IDataWithStream
+        IData <|-right- IDataWithValidationResult
 }
 
-class Response {
-      String uuid
-      String uuidOfRequest
-      String created
-      String interface
-      String serialization
-      Binary data
+
+IRequest -- IDataWithUrl : < describes an attribute <b>data</b>
+IRequest -- IDataWithStream : < describes an attribute <b>data</b>
+IRequest -left- TypeOfSerialization : <b>serialization</b> is one of
+IRequest -left- InterfaceOfRequestData : <b>interface</b> is one of
+
+IResponse -- IDataWithValidationResult : < describes an attribute <b>data</b>
+IResponse -left- TypeOfSerialization : <b>serialization</b> is one of
+IResponse -left- InterfaceOfResponseData : <b>interface</b> is one of
+
+package edeposit.amqp.actors {
+        interface ISender {
+                send(IMessage message)                            
+        }
+        note bottom
+        Sends a given message to <b>message broker</b>. 
+        Implementation knows what exchange in <b>message broker</b> uses.
+        end note
+
+        
+        interface IDataExecutor {
+                  result execute(IData data)
+        }
+        note bottom
+        It handles data from <b>Request</b>
+        end note
+
+        interface IRequestExecutor {
+                  execute(IRequest request)                  
+        }
 }
 
-Request -- MessageWithUrl : is attribute <b>data</b> using serialization
-Request -- MessageWithStream : is attribute <b>data</b> using serialization
-Request -left- TypeOfSerialization : <b>serialization</b> is one of
-Request -left- InterfaceOfRequestData : <b>interface</b> is one of
-
-Response -- MessageWithValidationResult : is attribute <b>data</b> using serialization
-Response -left- TypeOfSerialization : <b>interface</b> is one of
-Response -left- InterfaceOfResponseData : <b>interface</b> is one of
 @enduml
