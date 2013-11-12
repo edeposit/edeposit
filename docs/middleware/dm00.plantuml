@@ -1,0 +1,71 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Základní datový model pro komunikaci s AMQP
+
+package edeposit.amqp.types {
+enum TypeOfSerialization {
+     JSON
+     BSON
+     XML
+     Protobuf
+}
+
+enum InterfaceOfRequestData {
+     antivir.check
+     aleph.search
+     pdfbox.validate
+     epubcheck.validate
+}
+
+enum InterfaceOfResponseData {
+     antivir.check
+     aleph.search
+     pdfbox.validate
+     epubcheck.validate
+}
+}
+
+class Request {
+      String uuid
+      String created
+      String interface
+      String serialization
+      Binary data
+}
+
+
+package edeposit.amqp.interfaces {
+        interface MessageWithUrl {
+              String urlOfFile
+              }
+
+        interface MessageWithStream {
+              Binary stream
+        }
+
+        interface MessageWithValidationResult {
+                  Boolean isValid
+                  Strings errors
+                  String message
+        }
+}
+
+class Response {
+      String uuid
+      String uuidOfRequest
+      String created
+      String interface
+      String serialization
+      Binary data
+}
+
+Request -- MessageWithUrl : is attribute <b>data</b> using serialization
+Request -- MessageWithStream : is attribute <b>data</b> using serialization
+Request -left- TypeOfSerialization : <b>serialization</b> is one of
+Request -left- InterfaceOfRequestData : <b>interface</b> is one of
+
+Response -- MessageWithValidationResult : is attribute <b>data</b> using serialization
+Response -left- TypeOfSerialization : <b>interface</b> is one of
+Response -left- InterfaceOfResponseData : <b>interface</b> is one of
+@enduml

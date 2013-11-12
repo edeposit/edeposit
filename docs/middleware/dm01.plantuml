@@ -35,9 +35,9 @@ class MessageWithResult {
       String info
 }
 
-Request *-- MessageWithUrl : is attribute <b>msg</b> using serialization
-Request *-- MessageWithStream : is attribute <b>msg</b> using serialization
+Request *-- MessageWithUrl : is attribute <b>data</b> using serialization
+Request *-- MessageWithStream : is attribute <b>data</b> using serialization
 
-Response *-- MessageWithResult : is attribute <b>msg</b> using serialization
+Response *-- MessageWithResult : is attribute <b>data</b> using serialization
 
 @enduml
