@@ -37,25 +37,37 @@ class PrintingFile {
 }
 
 class EPublication {
-      String bookBinding CS_CZ:"vazba"
-      Decimal price CS_CZ:"cena"
-      String title CS_CZ:"titul"
-      String subtitle CS_CZ:"podtitulek"
-      String volume CS_CZ:"vydání"
-      String volumeTitle CS_CZ:"název vydáni"
-      String volumeNumber CS_CZ:"číslo vydáni"
-      String edition CS_CZ:"edice:
-      String placeOfPublishing CS_CZ:"místo vydání"
-      String publisher CS_CZ:"vydavatel"
-      Date   dateOfPublishing CS_CZ:"datum vydání"
-      String publishedWithCoedition CS_CZ:"vydáno v koedici s:"
-      String publishedAtOrder CS_CZ:"pořadí vydání"
-      String personWhoProcessedThis CS_CZ:"osoba co dokument zpracovala"
+      String title  "M21:245 $a"
+      String subtitle 
+      String bookBinding 
+      Decimal price 
+      String volume
+      String volumeTitle
+      String volumeNumber
+      String edition "M21:490 $a"
+      String editionNumber "M21:490 $v"
+      String subedition "M21:490 $a"
+      String subeditionNumber "M21:490 $v"
+      String placeOfPublishing "M21:264 $a"
+      String publisher "M21:264 $b"
+      Date   dateOfPublishing "M21:264 $c"
+      String publishedWithCoedition 
+      String publishedAtOrder 
+      String personWhoProcessedThis
       Relation librariesThatCanAccessAtLibraryTerminal
       Relation librariesThatCanAccessAtPublic
-      String alephDocNumber CS_CZ:"aleph interní číslo"
-      Boolean generateISBN CS_CZ:"přidělit ISBN"
-      String categoryForRIV CS_CZ:"kategorie pro RIV"
+      String alephDocNumber
+      Boolean generateISBN
+      String categoryForRIV
+      String placeOfDistribution "M21:264 $a"
+      String distributor "M21:264 $b"
+      Date dateOfDistribution "M21:264 $c"
+      String placeOfProduction "M21:264 $a"
+      String producer "M21:264 $b"
+      Date dateOfProduction "M21:264 $c"
+      Date dateOfCopyright "M21:264 $c"
+      String development "M21:020 $a"
+      String mediaType "M21:338 $a"
 }
 
 class EPublicationFolder {
