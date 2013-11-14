@@ -40,6 +40,7 @@ Případy užití
    uc11
    uc12
    uc13
+   uc14
 
 .. raw:: html
 
