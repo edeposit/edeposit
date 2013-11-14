@@ -37,25 +37,25 @@ class PrintingFile {
 }
 
 class EPublication {
-      String bookBinding
-      Decimal price
-      String title
-      String subtitle
-      String volume
-      String volumeTitle
-      String volumeNumber
-      String edition
-      String placeOfPublishing
-      String publisher
-      Date   dateOfPublishing
-      String publishedWithCoedition
-      String publishedAtOrder
-      String personWhoProcessedThis
+      String bookBinding CS_CZ:"vazba"
+      Decimal price CS_CZ:"cena"
+      String title CS_CZ:"titul"
+      String subtitle CS_CZ:"podtitulek"
+      String volume CS_CZ:"vydání"
+      String volumeTitle CS_CZ:"název vydáni"
+      String volumeNumber CS_CZ:"číslo vydáni"
+      String edition CS_CZ:"edice:
+      String placeOfPublishing CS_CZ:"místo vydání"
+      String publisher CS_CZ:"vydavatel"
+      Date   dateOfPublishing CS_CZ:"datum vydání"
+      String publishedWithCoedition CS_CZ:"vydáno v koedici s:"
+      String publishedAtOrder CS_CZ:"pořadí vydání"
+      String personWhoProcessedThis CS_CZ:"osoba co dokument zpracovala"
       Relation librariesThatCanAccessAtLibraryTerminal
       Relation librariesThatCanAccessAtPublic
-      String alephDocNumber
-      Boolean generateISBN
-      String categoryForRIV
+      String alephDocNumber CS_CZ:"aleph interní číslo"
+      Boolean generateISBN CS_CZ:"přidělit ISBN"
+      String categoryForRIV CS_CZ:"kategorie pro RIV"
 }
 
 class EPublicationFolder {
