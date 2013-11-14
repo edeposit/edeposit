@@ -8,7 +8,7 @@ actor :Systém: as sys
 
 rectangle  {
 	   :nakl: --> (UC14-01 Načtení všech publikací producenta)
-	   :sys: -->  (UC14-02 Načtení všech publikací producenta ze systému Aleph)
+	   :sys: -left->  (UC14-02 Načtení všech publikací producenta ze systému Aleph)
 }
 
 @enduml
