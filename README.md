@@ -49,5 +49,21 @@ Installation of RabbitMQ
         install rabbimq-server (latest version)
         
         - add running server into supervisord configuration (in buildout deployment.cfg)
+        store configuration files:
+
+              buildout.d/rabbitmq/enabled_plugins
+              buildout.d/rabbitmq/rabbitmq.config
+
+        into: /etc/rabbitmq
         
-                
+        - run rabbitmq
+        - login into web: http://localhost:15672
+
+          | user     | quest |
+          | password | quest |
+
+        - load configuration for file:
+          
+                buildout.d/rabbitmq/rabbitmq_edeposit.json
+        
+        That's it!                
