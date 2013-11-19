@@ -1,16 +1,10 @@
-UC01 - Registrace producenta
-...................................................
+.. _seq02:
 
-.. image:: uc01.png
+SEQ02 - Získání všech ohlášek pro producenta ze systému Aleph
+........................................................................................................
 
-.. toctree::
 
-   uc01-01
-   uc01-02
-   uc01-03
-   uc01-04
-   uc01-05
-
+.. image:: seq02.png
 
 .. raw:: html
 

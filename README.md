@@ -38,3 +38,16 @@ Buildout of E-Deposit
 	jan@jan-XPS-L421X:/opt/edeposit$ ./bin/python bootstrap.py 
 	jan@jan-XPS-L421X:/opt/edeposit$ ./bin/buildout 
 
+
+Installation of RabbitMQ
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+        root@jan-XPS-L421X:~# aptitude install erlang 
+        
+        download release from http://www.rabbitmq.com/download.html
+        
+        install rabbimq-server (latest version)
+        
+        - add running server into supervisord configuration (in buildout deployment.cfg)
+        
+                

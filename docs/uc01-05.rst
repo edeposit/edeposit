@@ -1,12 +1,12 @@
-.. _uc01-02:
+.. _uc01-05:
 
-UC01-02 Registrace producenta
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+UC01-05 Registrace pracovníka nakladatele/vydavatele
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 *účastníci*:
 
-- Správce nakladatele/vydavatele
+- Pracovník akvizice
 
 *vstupní podmínky*:
 

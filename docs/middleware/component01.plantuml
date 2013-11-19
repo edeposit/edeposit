@@ -3,11 +3,11 @@ left to right direction
 skinparam componentStyle uml2
 title Nastavení front v RabbitMQ
 
-
 package "vhost: antivir" {
         interface "clamav-check" as CC
         [check] --> CC
         [check-result]
+}
         cloud {
               interface "clamav-check-consument-01" as Cons_CC_01
               interface "clamav-check-consument-02" as Cons_CC_02
@@ -19,7 +19,6 @@ package "vhost: antivir" {
               Cons_CC_02 ---> [check-result]
               Cons_CC_03 ---> [check-result]
         }
-}
 
 package "vhost: pdf" {
         interface "pdfbox-validate" as PDFBOX_VAL
@@ -27,38 +26,38 @@ package "vhost: pdf" {
         interface "pdfbox-extract-metadata" as PDFBOX_META
 
         [validate]
-        [validate and extract metadata]
-        [extract metadata]
+        [validate-and-extract-metadata]
+        [extract-metadata]
         [validators-result]
 
         [validate] --> PDFBOX_VAL
-        [validate and extract metadata] --> PDFBOX_VAL_META
-        [extract metadata] --> PDFBOX_META
+        [validate-and-extract-metadata] --> PDFBOX_VAL_META
+        [extract-metadata] --> PDFBOX_META
 
+}
         cloud {
               interface "pdfbox-validate-consument-01" as PDFBOX_VAL_Cons_01
               interface "pdfbox-validate-consument-02" as PDFBOX_VAL_Cons_02
-              interface "pdfbox-validate-extract-metadata-consument-01" as PDFBOX_VAL_META_Cons_01
-              interface "pdfbox-validate-extract-metadata-consument-02" as PDFBOX_VAL_META_Cons_02
-              interface "pdfbox-extract-metadata-consument-01" as PDFBOX_META_Cons_01
-              interface "pdfbox-extract-metadata-consument-02" as PDFBOX_META_Cons_02
-
               PDFBOX_VAL ..> PDFBOX_VAL_Cons_01
               PDFBOX_VAL ..> PDFBOX_VAL_Cons_02
-
-              PDFBOX_VAL_META ..> PDFBOX_VAL_META_Cons_01
-              PDFBOX_VAL_META ..> PDFBOX_VAL_META_Cons_02
-
-              PDFBOX_META ..> PDFBOX_META_Cons_01
-              PDFBOX_META ..> PDFBOX_META_Cons_02
-              
               PDFBOX_VAL_Cons_01 ---> [validators-result]
               PDFBOX_VAL_Cons_02 ---> [validators-result]
+}
+        cloud {
+              interface "pdfbox-validate-extract-metadata-consument-01" as PDFBOX_VAL_META_Cons_01
+              interface "pdfbox-validate-extract-metadata-consument-02" as PDFBOX_VAL_META_Cons_02
+              PDFBOX_VAL_META ..> PDFBOX_VAL_META_Cons_01
+              PDFBOX_VAL_META ..> PDFBOX_VAL_META_Cons_02
               PDFBOX_VAL_META_Cons_01 ---> [validators-result]
               PDFBOX_VAL_META_Cons_02 ---> [validators-result]
+}
+        cloud {
+              interface "pdfbox-extract-metadata-consument-01" as PDFBOX_META_Cons_01
+              interface "pdfbox-extract-metadata-consument-02" as PDFBOX_META_Cons_02
+              PDFBOX_META ..> PDFBOX_META_Cons_01
+              PDFBOX_META ..> PDFBOX_META_Cons_02
               PDFBOX_META_Cons_01 ---> [validators-result]
               PDFBOX_META_Cons_02 ---> [validators-result]
-        }
 }
 
 package "vhost: edeposit" {
@@ -70,6 +69,18 @@ package "vhost: edeposit" {
 package "vhost: aleph" {
         [search]
         [search-response]
+        interface "aleph-search" as aleph_search
+        [search] --> aleph_search
 }
+        cloud {
+              interface "aleph-search-consument-01" as ALEPH_SEARCH_Cons_01      
+              interface "aleph-search-consument-02" as ALEPH_SEARCH_Cons_02
+              
+              aleph_search ..> ALEPH_SEARCH_Cons_01
+              aleph_search ..> ALEPH_SEARCH_Cons_02
+
+              ALEPH_SEARCH_Cons_01 --> [search-response]
+              ALEPH_SEARCH_Cons_02 --> [search-response]
+        }       
 
 @enduml

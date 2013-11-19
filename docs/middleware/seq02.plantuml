@@ -1,0 +1,21 @@
+@startuml
+title Nastavení front v RabbitMQ
+skinparam componentStyle uml2
+
+actor "Systém" as System
+participant IMessage <<vhost: aleph>> <<exchange: search>>
+participant SearchQueue <<queue: search>>
+System -> IMessage : send
+activate IMessage
+
+IMessage -> SearchQueue
+activate SearchQueue
+
+deactivate IMessage
+
+participant Consument <<script: aleph-search-consument-01>>
+
+SearchQueue 
+
+        
+@enduml

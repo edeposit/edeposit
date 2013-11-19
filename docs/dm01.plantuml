@@ -38,7 +38,7 @@ class PrintingFile {
 
 class EPublication {
       String title  "M21:245 $a"
-      String subtitle 
+      String subtitle "M21:245 $n $p"
       String bookBinding 
       Decimal price 
       String volume
