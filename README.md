@@ -65,5 +65,6 @@ Installation of RabbitMQ
         - load configuration for file:
           
                 buildout.d/rabbitmq/rabbitmq_edeposit.json
-        
+
+        Producents and consuments will create its own bindings and queues.
         That's it!                
