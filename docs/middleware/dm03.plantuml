@@ -1,0 +1,38 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Datový model pro Aleph
+
+package edeposit.amqp.aleph.interfaces {
+
+ interface AlephSearcher {
+           search(query)
+           ..
+           adapts query into IAlephQuery and send it into Aleph.
+           @returns IAlephGroupResponse message
+           ..
+ }
+ interface ValidateRequestWithUrl {
+           String urlOfFile
+ }
+
+ interface ValidateRequestWithStream {
+           Binary stream
+ }
+ 
+ interface ValidateResponse {
+           Boolean isValid
+           String info
+           Strings errors
+ }
+ interface ValidateResponseWithMetadata {
+           Boolean isValid
+           String info
+           Strings errors
+           Boolean isEncrypted
+           String title
+           String author
+ }
+}
+
+@enduml
