@@ -4,7 +4,7 @@ skinparam componentStyle uml2
 
 actor "Systém" as System
 participant IMessage <<vhost: aleph>> <<exchange: search>>
-participant SearchQueue <<queue: search>>
+participant "IMessage" as SearchQueue <<queue: search>>
 System -> IMessage : send
 activate IMessage
 
@@ -15,7 +15,7 @@ deactivate IMessage
 
 participant Consument <<script: aleph-search-consument-01>>
 
-SearchQueue 
+SearchQueue -> Consument : callback(
 
-        
+
 @enduml
