@@ -11,7 +11,7 @@ enum TypeOfSerialization {
      Protobuf
 }
 
-enum InterfaceOfRequestData {
+enum InterfaceOfData {
      antivir.check
      aleph.search
      pdfbox.validate
@@ -21,19 +21,10 @@ enum InterfaceOfRequestData {
      epubcheck.validateAndExtractMetadata
      epubcheck.extractMetadata
 }
-
-enum InterfaceOfResponseData {
-     antivir.check
-     aleph.search
-     pdfbox.validate
-     pdfbox.validateWithMetadata
-     pdfbox.metadata     
-     epubcheck.validate
-     epubcheck.validateWithMetadata
-     epubcheck.metadata     
-}
 }
 
+
+package edeposit.amqp.interfaces {
 interface IMessage {
       String uuid
       String created
@@ -51,8 +42,6 @@ interface IResponse {
 
 IMessage <|-right- IRequest
 IMessage <|-left- IResponse
-
-package edeposit.amqp.interfaces {
         
         interface IData {
         }       
@@ -79,11 +68,10 @@ package edeposit.amqp.interfaces {
 
 IMessage -- IDataWithUrl : < describes an attribute <b>data</b>
 IMessage -- IDataWithStream : < describes an attribute <b>data</b>
-IMessage -left- TypeOfSerialization : <b>serialization</b> is one of
-IMessage -left- InterfaceOfRequestData : <b>interface</b> is one of
+IMessage -left- TypeOfSerialization : < <b>serialization</b> is one of
+IMessage -left- InterfaceOfData : < <b>interface</b> is one of
 
 IMessage -- IDataWithValidationResult : < describes an attribute <b>data</b>
-IMessage -left- InterfaceOfResponseData : <b>interface</b> is one of
 
 package edeposit.amqp.actors {
         interface ISender {
