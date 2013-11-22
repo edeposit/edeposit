@@ -68,8 +68,8 @@ IMessage <|-left- IResponse
 
 IMessage -- IDataWithUrl : < describes an attribute <b>data</b>
 IMessage -- IDataWithStream : < describes an attribute <b>data</b>
-IMessage -left- TypeOfSerialization : < <b>serialization</b> is one of
-IMessage -left- InterfaceOfData : < <b>interface</b> is one of
+IMessage -left- TypeOfSerialization : <b>serialization</b> is one of >
+IMessage -left- InterfaceOfData : <b>interface</b> is one of >
 
 IMessage -- IDataWithValidationResult : < describes an attribute <b>data</b>
 
