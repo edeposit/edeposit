@@ -4,11 +4,11 @@ left to right direction
 title Základní datový model pro komunikaci s AMQP
 
 package edeposit.amqp.types {
-enum TypeOfSerialization {
-     JSON
-     BSON
-     XML
-     Protobuf
+enum ContentType {
+     application/json
+     application/bson
+     text/xml
+     application/protobuf
 }
 
 enum InterfaceOfData {
@@ -26,17 +26,13 @@ enum InterfaceOfData {
 
 package edeposit.amqp.interfaces {
 
-interface IAMQPMessage {
-          String replyTo
-          String contentType
-          String deliveryMode
-}
-
 Interface IMessage {
+      String replyTo
+      String contentType
+      String deliveryMode
       String uuid
       String created
-      String interface
-      String serialization
+      String [] otherValues
       Binary data
 }
 
@@ -75,7 +71,7 @@ IMessage <|-left- IResponse
 
 IMessage -- IDataWithUrl : < describes an attribute <b>data</b>
 IMessage -- IDataWithStream : < describes an attribute <b>data</b>
-IMessage -left- TypeOfSerialization : <b>serialization</b> is one of >
+IMessage -left- ContentType : <b>contentType</b> is one of >
 IMessage -left- InterfaceOfData : <b>interface</b> is one of >
 
 IMessage -- IDataWithValidationResult : < describes an attribute <b>data</b>
@@ -87,6 +83,7 @@ package edeposit.amqp.actors {
         note bottom
         Sends a given message to <b>message broker</b>. 
         Implementation knows what exchange in <b>message broker</b> uses.
+        It adapts a message to IMessage type.
         end note
         
         interface IDataExecutor {
