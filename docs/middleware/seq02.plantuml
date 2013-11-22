@@ -1,21 +1,87 @@
 @startuml
-title Nastavení front v RabbitMQ
+title Dotazy do systému Aleph
 skinparam componentStyle uml2
 
 actor "Systém" as System
-participant IMessage <<vhost: aleph>> <<exchange: search>>
-participant "IMessage" as SearchQueue <<queue: search>>
-System -> IMessage : send
+box "RabbitMQ"
+    participant IMessage <<vhost: aleph>> <<exchange: search>>
+    participant "IMessage" as SearchQueue <<search>>
+    participant IResponse <<search-results>>
+end box
+
+System -> IMessage : send(IRequest)
 activate IMessage
 
 IMessage -> SearchQueue
 activate SearchQueue
-
 deactivate IMessage
 
-participant Consument <<script: aleph-search-consument-01>>
+box "<<script: aleph-search-consument-01>>"
+    participant IRequest
+    participant IAlephQuery
+    participant IAlephResponseSet 
+    participant DocNumber
+    participant IAlephRecord
+end box
 
-SearchQueue -> Consument : callback(
+SearchQueue -> IRequest : callback(\t channel,\n\t\t method_frame,\n\t\t header_frame,\n\t\t body)
 
+activate IRequest
+
+IRequest -> IAlephQuery : IAlephQuery 
+activate IAlephQuery
+
+database Aleph
+IAlephQuery -> Aleph : IAlephResponseSet
+Aleph -> IAlephResponseSet : IAlephResponseSet
+
+activate IAlephResponseSet
+
+IAlephResponseSet -> Aleph : getDocNumbers
+deactivate IAlephQuery
+
+
+Aleph -> DocNumber
+activate DocNumber
+DocNumber -> Aleph : IAlephRecordLoader.load 
+Aleph -> IAlephRecord
+activate IAlephRecord
+IAlephRecord -> IResponse : edeposit.amqp.actors.ISender.send
+deactivate DocNumber
+deactivate IAlephRecord
+
+Aleph -> DocNumber
+activate DocNumber
+DocNumber -> Aleph : IAlephRecordLoader.load 
+Aleph -> IAlephRecord
+activate IAlephRecord
+IAlephRecord -> IResponse : edeposit.amqp.actors.ISender.send
+deactivate DocNumber
+deactivate IAlephRecord
+
+IAlephResponseSet -> Aleph : getDocNumbers
+deactivate IAlephResponseSet
+
+Aleph -> DocNumber
+activate DocNumber
+DocNumber -> Aleph : IAlephRecordLoader.load 
+Aleph -> IAlephRecord
+activate IAlephRecord
+IAlephRecord -> IResponse : edeposit.amqp.actors.ISender.send
+deactivate DocNumber
+deactivate IAlephRecord
+
+Aleph -> DocNumber
+activate DocNumber
+DocNumber -> Aleph : IAlephRecordLoader.load 
+Aleph -> IAlephRecord
+activate IAlephRecord
+IAlephRecord -> IResponse : edeposit.amqp.actors.ISender.send
+deactivate DocNumber
+deactivate IAlephRecord
+
+IRequest -> SearchQueue : basic_ack(delivery_tag=method.delivery_tag)
+deactivate SearchQueue
+deactivate IRequest
 
 @enduml

@@ -1,6 +1,6 @@
 .. _seq02:
 
-SEQ02 - Získání všech ohlášek pro producenta ze systému Aleph
+SEQ02 - Získání všech publikací pro producenta ze systému Aleph
 ........................................................................................................
 
 
