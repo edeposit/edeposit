@@ -25,7 +25,14 @@ enum InterfaceOfData {
 
 
 package edeposit.amqp.interfaces {
-interface IMessage {
+
+interface IAMQPMessage {
+          String replyTo
+          String contentType
+          String deliveryMode
+}
+
+Interface IMessage {
       String uuid
       String created
       String interface
