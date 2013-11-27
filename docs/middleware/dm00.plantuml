@@ -46,6 +46,7 @@ Interface IMessage {
       String created
       String interface
       String [] otherValues
+      String serializer
       Binary data
 }
 
