@@ -44,6 +44,7 @@ Interface IMessage {
       String deliveryMode
       String uuid
       String created
+      String interface
       String [] otherValues
       Binary data
 }
@@ -78,6 +79,19 @@ IMessage <|-left- IResponse
         IData <|-right- IDataWithUrl
         IData <|-right- IDataWithStream
         IData <|-right- IDataWithValidationResult
+
+        interface IValues {
+              String replyTo
+              String contentType
+              String deliveryMode
+              String uuid
+              String created
+              String interface
+              String [] otherValues
+        }
+        note bottom
+        It helps to get values needed for IMessage
+        end note
 }
 
 
