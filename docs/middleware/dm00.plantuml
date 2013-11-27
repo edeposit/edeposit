@@ -25,6 +25,18 @@ enum InterfaceOfData {
 
 
 package edeposit.amqp.interfaces {
+Interface IConnectionConfig {
+      String url
+      ..
+      amqp://guest:guest@localhost:5672/vhost/      
+      ..
+}
+
+Interface IExchangeConfig {
+      String name
+      String type
+      Boolean durable
+}
 
 Interface IMessage {
       String replyTo
@@ -97,5 +109,28 @@ package edeposit.amqp.actors {
                   execute(IRequest request)                  
         }
 }
+
+package edeposit.amqp.serializers {
+        interface ISerializer {
+                  result serialize()
+        }
+        note bottom
+        It serialize data using standard algorithms. JSON, BSON, protobuf, ...
+        end note
+
+        interface IJSONSerializer {
+        }       
+
+        interface IBSONSerializer {
+        }       
+
+        interface IProtobufSerializer {
+        }       
+        
+        ISerializer <|-- IJSONSerializer
+        ISerializer <|-- IBSONSerializer
+        ISerializer <|-- IProtobufSerializer
+}        
+        
 
 @enduml
