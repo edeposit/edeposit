@@ -23,8 +23,7 @@ enum InterfaceOfData {
 }
 }
 
-
-package edeposit.amqp.interfaces {
+package edeposit.amqp.config {
 Interface IConnectionConfig {
       String url
       ..
@@ -37,31 +36,43 @@ Interface IExchangeConfig {
       String type
       Boolean durable
 }
+}
 
-Interface IMessage {
-      String replyTo
-      String contentType
+package edeposit.amqp.message {
+Interface IDeliveryMetadata {
       String deliveryMode
+      String replyTo
+      String routingKey
+}
+
+Interface IEncodingMetadata {
+      String contentEncoding
+}
+
+Interface IMetadata {
+      String contentType
       String uuid
       String created
-      String interface
-      String [] otherValues
-      String serializer
-      Binary data
 }
 
-interface IRequest {
+Interface IData {
 }
 
-interface IResponse {
-      String uuidOfRequest
+interface IDataWithRelation {
+      String uuidOfParent
+      ..
+      This message relates to other message. 
+      It is used as response to some message usually.
+      ..
 }
 
-IMessage <|-right- IRequest
-IMessage <|-left- IResponse
-        
-        interface IData {
-        }       
+interface IMessage {
+}
+
+IMessage *.. IData : > contains
+IMessage *.. IDeliveryMetadata : > contains
+IMessage *.. IMetadata : > contains
+IMessage *.. IEncodingMetadata : > contains
 
         interface IDataWithUrl {
               String urlOfFile
@@ -77,52 +88,34 @@ IMessage <|-left- IResponse
                   String message
         }
 
-        IData <|-right- IDataWithUrl
-        IData <|-right- IDataWithStream
-        IData <|-right- IDataWithValidationResult
+IDataWithRelation <|- IDataWithValidationResult
 
-        interface IValues {
-              String replyTo
-              String contentType
-              String deliveryMode
-              String uuid
-              String created
-              String interface
-              String [] otherValues
-        }
-        note bottom
-        It helps to get values needed for IMessage
-        end note
+IData <|-- IDataWithRelation
+IData <|-- IDataWithUrl
+IData <|-- IDataWithStream
+
 }
-
-
-IMessage -- IDataWithUrl : < describes an attribute <b>data</b>
-IMessage -- IDataWithStream : < describes an attribute <b>data</b>
-IMessage -left- ContentType : <b>contentType</b> is one of >
-IMessage -left- InterfaceOfData : <b>interface</b> is one of >
-
-IMessage -- IDataWithValidationResult : < describes an attribute <b>data</b>
 
 package edeposit.amqp.actors {
         interface ISender {
-                send(IMessage message)                            
+                send(IData data)
         }
-        note bottom
-        Sends a given message to <b>message broker</b>. 
+        note right
+        Sends a given message to <b>message broker</b>.
         Implementation knows what exchange in <b>message broker</b> uses.
-        It adapts a message to IMessage type.
+        Implementation adapts data to:
+        - ISerializer to serialize a data
+        - IMetadata to prepare headers for message
+        - IDeliveryMetadata to prepare delivery way for message
         end note
         
-        interface IDataExecutor {
-                  result execute(IData data)
+        interface IHandler {
+                  handle(IData data, IMetadata metadata, IDeliveryMetadata deliveryMetadata)
         }
-        note bottom
-        It handles data from <b>Request</b>
+        note right
+        It handles data from AMQP queue.
+        Data will be created regarding to IMetadata::contentType.
         end note
-
-        interface IRequestExecutor {
-                  execute(IRequest request)                  
-        }
 }
 
 package edeposit.amqp.serializers {
@@ -146,6 +139,7 @@ package edeposit.amqp.serializers {
         ISerializer <|-- IBSONSerializer
         ISerializer <|-- IProtobufSerializer
 }        
-        
+
+ISerializer .. IData : > adapts        
 
 @enduml
