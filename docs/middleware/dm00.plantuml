@@ -21,6 +21,21 @@ enum InterfaceOfData {
      epubcheck.validateAndExtractMetadata
      epubcheck.extractMetadata
 }
+
+interface IJSONString {
+          ..
+          marker interface for string with json
+          ..
+          String stream
+}
+
+        class JSONString {
+              String stream
+              JSONStream(stream=stream)
+        }
+
+        JSONString ..|> IJSONString
+
 }
 
 package edeposit.amqp.config {
@@ -67,6 +82,10 @@ interface IDataWithRelation {
 }
 
 interface IMessage {
+          IDeliveryMetadata deliveryMetadata
+          IEncodingMetadata encodingMetadata
+          IMetadata metadata
+          IData data
 }
 
 IMessage *.. IData : > contains
@@ -75,7 +94,7 @@ IMessage *.. IMetadata : > contains
 IMessage *.. IEncodingMetadata : > contains
 
         interface IDataWithUrl {
-              String urlOfFile
+              String url
         }
 
         interface IDataWithStream {
@@ -122,22 +141,17 @@ package edeposit.amqp.serializers {
         interface ISerializer {
                   result serialize()
         }
-        note bottom
+        note right
         It serialize data using standard algorithms. JSON, BSON, protobuf, ...
         end note
 
-        interface IJSONSerializer {
-        }       
+        interface Deserializer {
+                  data deserialize()
+        }
+        note right
+        It creates data using standard algorithms. JSON, BSON, protobuf, ...
+        end note
 
-        interface IBSONSerializer {
-        }       
-
-        interface IProtobufSerializer {
-        }       
-        
-        ISerializer <|-- IJSONSerializer
-        ISerializer <|-- IBSONSerializer
-        ISerializer <|-- IProtobufSerializer
 }        
 
 ISerializer .. IData : > adapts        
