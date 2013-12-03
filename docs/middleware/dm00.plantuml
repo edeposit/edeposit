@@ -71,10 +71,14 @@ Interface IMetadata {
 }
 
 Interface IData {
+      String uuid
+      .. 
+      identifier of a data content
+      ..
 }
 
 interface IDataWithRelation {
-      String uuidOfParent
+      String relatedUUID
       ..
       This message relates to other message. 
       It is used as response to some message usually.
