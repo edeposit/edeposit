@@ -1,7 +1,7 @@
-.. _uc02-12:
+.. _uc02-16:
 
-UC02-12 Kontrola duplicity ISBN
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+UC02-16 Automatická kontrola ISBN
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. admonition:: účastníci
 
@@ -10,11 +10,27 @@ UC02-12 Kontrola duplicity ISBN
 
 .. admonition:: vstupní podmínky
 
-   - Producent otevřel úvodní stránku
+   - Nakladatel/vydavatel uložil e-publikaci do systému :ref:`uc02-02`
 
 .. admonition:: tok událostí
 
-   1. Systém zobrazí stránku jako v :ref:`uc01-01`
+   1. Systém zkontroluje zadaná ISBN :
+      
+      - ISBN je validní samo o sobě
+      - ISBN patří do řady přidělené producentovi
+      
+   2. Systém se dotáže systému Aleph, zda existuje záznam s daným ISBN
+
+      POKUD existuje záznam s duplicitním ISBN:
+
+            2.1. Systém si duplicitní záznam uschová
+            2.2. Systém nastaví vloženému záznamu příznak "duplicitní záznam"
+
+.. admonition:: následné podmínky
+
+   E-publikace se dostane do stavu "Potvrzení ISBN"
+
+   - Producent má e-publikaci ve frontě "K potvrzení ISBN"
 
 .. raw:: html
 

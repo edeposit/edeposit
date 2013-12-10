@@ -22,6 +22,8 @@ UC02-02 Ohlášení se soubory
       - linku pro odhlášení
       - linku pro ohlášení publikace
       - přehled ohlášených publikací
+      - přehled ohlášených publikací k upřesnění ISBN
+      - přehled ohlášených publikací k opravě
       - políčko k vyhledávání ohlášených publikací
       - linku pro ohlášení pokračujícího zdroje
       - přehled ohlášených pokračujících zdrojů
