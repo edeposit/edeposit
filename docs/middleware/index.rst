@@ -19,5 +19,5 @@ Contents:
    components
    datamodels
    sequences
-
+   modules
 
