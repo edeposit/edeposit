@@ -19,7 +19,9 @@ UC01-01 Stažení smlouvy k vyplnění
    - linku se smlouvou pro producenta ke stažení
    - linku pro přihlášení
    - linku pro registraci
-  
+
+   :download:`home page <tests/home-page.png>`
+   
 2. Producent klikne na "Smlouva pro producenta"
 3. Systém poskytne smlouvu k uložení
 

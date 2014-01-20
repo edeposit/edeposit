@@ -7,6 +7,12 @@ Akceptační testy
    
    tests/at01
 
+
+:download:`test report <tests/report.html>`
+
+:download:`test log <tests/log.html>`
+
+
 .. raw:: html
 
 	<div id="disqus_thread"></div>

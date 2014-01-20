@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20140120 10:08:14.278" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
-<suite source="/opt/edeposit/docs/tests/uc01-01.robot" id="s1" name="Uc01-01">
+<robot generated="20140120 10:35:35.250" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
+<suite source="/opt/edeposit/docs/tests/at01.robot" id="s1" name="At01">
 <test id="s1-t1" timeout="" name="Domovská stránka">
 <kw type="setup" name="Selenium2Library.Open Browser" timeout="">
 <doc>Opens a new browser instance to given URL.</doc>
@@ -8,48 +8,48 @@
 <arg>${PLONE_URL}</arg>
 <arg>firefox</arg>
 </arguments>
-<msg timestamp="20140120 10:08:14.466" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140120 10:08:16.845" starttime="20140120 10:08:14.465"></status>
+<msg timestamp="20140120 10:35:35.412" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140120 10:35:37.947" starttime="20140120 10:35:35.411"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
 <doc>Verifies link identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140120 10:08:16.923" level="INFO">Current page contains link 'Registrovat'.</msg>
-<status status="PASS" endtime="20140120 10:08:16.924" starttime="20140120 10:08:16.853"></status>
+<msg timestamp="20140120 10:35:38.009" level="INFO">Current page contains link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140120 10:35:38.010" starttime="20140120 10:35:37.948"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
 <doc>Verifies link identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Přihlášení</arg>
 </arguments>
-<msg timestamp="20140120 10:08:16.937" level="INFO">Current page contains link 'Přihlášení'.</msg>
-<status status="PASS" endtime="20140120 10:08:16.937" starttime="20140120 10:08:16.924"></status>
+<msg timestamp="20140120 10:35:38.049" level="INFO">Current page contains link 'Přihlášení'.</msg>
+<status status="PASS" endtime="20140120 10:35:38.049" starttime="20140120 10:35:38.011"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
 <doc>Verifies link identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Smlouva s Národní knihovnou</arg>
 </arguments>
-<msg timestamp="20140120 10:08:16.945" level="INFO">Current page contains link 'Smlouva s Národní knihovnou'.</msg>
-<status status="PASS" endtime="20140120 10:08:16.945" starttime="20140120 10:08:16.937"></status>
+<msg timestamp="20140120 10:35:38.070" level="INFO">Current page contains link 'Smlouva s Národní knihovnou'.</msg>
+<status status="PASS" endtime="20140120 10:35:38.070" starttime="20140120 10:35:38.049"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=h1</arg>
 </arguments>
-<msg timestamp="20140120 10:08:16.950" level="INFO">Current page contains element 'css=h1'.</msg>
-<status status="PASS" endtime="20140120 10:08:16.950" starttime="20140120 10:08:16.945"></status>
+<msg timestamp="20140120 10:35:38.077" level="INFO">Current page contains element 'css=h1'.</msg>
+<status status="PASS" endtime="20140120 10:35:38.078" starttime="20140120 10:35:38.070"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
 <doc>Takes a screenshot of the current page and embeds it into the log.</doc>
 <arguments>
 <arg>home-page.png</arg>
 </arguments>
-<msg timestamp="20140120 10:08:17.041" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="home-page.png"&gt;&lt;img src="home-page.png" width="800px"&gt;&lt;/a&gt;</msg>
-<status status="PASS" endtime="20140120 10:08:17.041" starttime="20140120 10:08:16.950"></status>
+<msg timestamp="20140120 10:35:38.167" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="home-page.png"&gt;&lt;img src="home-page.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140120 10:35:38.168" starttime="20140120 10:35:38.078"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Title Should Be" timeout="">
 <doc>Verifies that current page title equals `title`.</doc>
@@ -60,22 +60,22 @@
 <doc>Takes a screenshot of the current page and embeds it into the log.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140120 10:08:17.124" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
-<status status="PASS" endtime="20140120 10:08:17.125" starttime="20140120 10:08:17.048"></status>
+<msg timestamp="20140120 10:35:38.267" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140120 10:35:38.267" starttime="20140120 10:35:38.184"></status>
 </kw>
-<msg timestamp="20140120 10:08:17.126" level="FAIL">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</msg>
-<status status="FAIL" endtime="20140120 10:08:17.127" starttime="20140120 10:08:17.041"></status>
+<msg timestamp="20140120 10:35:38.268" level="FAIL">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</msg>
+<status status="FAIL" endtime="20140120 10:35:38.269" starttime="20140120 10:35:38.169"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
 <doc>Closes all open browsers and resets the browser cache.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140120 10:08:17.158" starttime="20140120 10:08:17.128"></status>
+<status status="PASS" endtime="20140120 10:35:38.297" starttime="20140120 10:35:38.270"></status>
 </kw>
 <doc></doc>
 <tags>
 </tags>
-<status status="FAIL" endtime="20140120 10:08:17.158" critical="yes" starttime="20140120 10:08:14.444">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</status>
+<status status="FAIL" endtime="20140120 10:35:38.298" critical="yes" starttime="20140120 10:35:35.396">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</status>
 </test>
 <test id="s1-t2" timeout="" name="Registrace producenta">
 <kw type="setup" name="Selenium2Library.Open Browser" timeout="">
@@ -84,29 +84,29 @@
 <arg>${PLONE_URL}</arg>
 <arg>firefox</arg>
 </arguments>
-<msg timestamp="20140120 10:08:17.179" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140120 10:08:19.725" starttime="20140120 10:08:17.179"></status>
+<msg timestamp="20140120 10:35:38.317" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140120 10:35:40.871" starttime="20140120 10:35:38.316"></status>
 </kw>
 <kw type="kw" name="Dialogs.Pause Execution" timeout="">
 <doc>Pauses test execution until user clicks `Ok` button.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140120 10:08:23.068" starttime="20140120 10:08:19.726"></status>
+<status status="PASS" endtime="20140120 10:35:42.746" starttime="20140120 10:35:40.872"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140120 10:08:23.071" level="INFO">Clicking link 'Registrovat'.</msg>
-<status status="PASS" endtime="20140120 10:08:25.026" starttime="20140120 10:08:23.070"></status>
+<msg timestamp="20140120 10:35:42.748" level="INFO">Clicking link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140120 10:35:44.846" starttime="20140120 10:35:42.748"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>Registrace producenta</arg>
 </arguments>
-<msg timestamp="20140120 10:08:26.323" level="INFO">&lt;!DOCTYPE html&gt;
+<msg timestamp="20140120 10:35:45.916" level="INFO">&lt;!DOCTYPE html&gt;
 &lt;html lang="cs" xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;&lt;head&gt;
     &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
 
@@ -288,7 +288,7 @@
 
             &lt;div id="content-core"&gt;
                 
-                    &lt;p&gt;Chyba byla zaprotokolována jako záznam číslo &lt;code&gt;1390208904.990.527471122068&lt;/code&gt;.&lt;/p&gt;
+                    &lt;p&gt;Chyba byla zaprotokolována jako záznam číslo &lt;code&gt;1390210544.670.835979291523&lt;/code&gt;.&lt;/p&gt;
 
                     &lt;p&gt;Pokud potřebujete tuto chybu ohlásit na adresu &lt;span&gt; &lt;a href="http://localhost:55001/plone/contact-info"&gt;místních správců&lt;/a&gt;&lt;/span&gt;, nezapomeňte do své zprávy uvést číslo tohoto záznamu.&lt;/p&gt;
 
@@ -366,27 +366,27 @@
 <doc>Takes a screenshot of the current page and embeds it into the log.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140120 10:08:26.406" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
-<status status="PASS" endtime="20140120 10:08:26.406" starttime="20140120 10:08:26.324"></status>
+<msg timestamp="20140120 10:35:46.010" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140120 10:35:46.011" starttime="20140120 10:35:45.918"></status>
 </kw>
-<msg timestamp="20140120 10:08:26.408" level="FAIL">Page should have contained text 'Registrace producenta' but did not</msg>
-<status status="FAIL" endtime="20140120 10:08:26.408" starttime="20140120 10:08:25.026"></status>
+<msg timestamp="20140120 10:35:46.012" level="FAIL">Page should have contained text 'Registrace producenta' but did not</msg>
+<status status="FAIL" endtime="20140120 10:35:46.012" starttime="20140120 10:35:44.846"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
 <doc>Closes all open browsers and resets the browser cache.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140120 10:08:26.437" starttime="20140120 10:08:26.409"></status>
+<status status="PASS" endtime="20140120 10:35:46.045" starttime="20140120 10:35:46.014"></status>
 </kw>
 <doc></doc>
 <tags>
 </tags>
-<status status="FAIL" endtime="20140120 10:08:26.437" critical="yes" starttime="20140120 10:08:17.162">Page should have contained text 'Registrace producenta' but did not</status>
+<status status="FAIL" endtime="20140120 10:35:46.045" critical="yes" starttime="20140120 10:35:38.302">Page should have contained text 'Registrace producenta' but did not</status>
 </test>
 <doc></doc>
 <metadata>
 </metadata>
-<status status="FAIL" endtime="20140120 10:08:26.440" starttime="20140120 10:08:14.278"></status>
+<status status="FAIL" endtime="20140120 10:35:46.047" starttime="20140120 10:35:35.251"></status>
 </suite>
 <statistics>
 <total>
@@ -396,7 +396,7 @@
 <tag>
 </tag>
 <suite>
-<stat fail="2" pass="0" id="s1" name="Uc01-01">Uc01-01</stat>
+<stat fail="2" pass="0" id="s1" name="At01">At01</stat>
 </suite>
 </statistics>
 <errors>
