@@ -12,6 +12,8 @@ Akceptační testy
 
 :download:`test log <tests/log.html>`
 
+:download:`screenshot 1 <tests/selenium-screenshot-1.png>`
+:download:`screenshot 2 <tests/selenium-screenshot-2.png>`
 
 .. raw:: html
 
