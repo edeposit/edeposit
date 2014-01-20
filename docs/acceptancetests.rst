@@ -1,16 +1,11 @@
-UC01 - Registrace producenta
-................................................................................
+.. _acceptancetests:
 
-.. image:: uc01.png
+Akceptační testy
+................................
 
 .. toctree::
    
-   uc01-requirements
-   uc01-01
-   uc01-02
-   uc01-03
-   uc01-04
-   uc01-05
+   tests/at01
 
 .. raw:: html
 
@@ -29,3 +24,4 @@ UC01 - Registrace producenta
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     
+

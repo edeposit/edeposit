@@ -6,12 +6,11 @@ class AgreementFile {
       String agreement
 }
 
-class User {
+class ProducentUser {
       String firstName
       String lastName
       String phone
       Boolean accept
-      String producent
 }
 
 class Producent {
@@ -23,6 +22,16 @@ class Producent {
 
 class ProducentFolder {
 }
+
+class ProducentAdministrator {
+}
+
+class ProducentAssistant {
+}
+
+ProducentUser <|-- ProducentAdministrator
+ProducentUser <|-- ProducentAssistant
+
 
 Producent "0..*" *-- "0..*" AgreementFile
 Producent "0..*" *-- "0..*" User
