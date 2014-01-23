@@ -26,16 +26,16 @@ class ProducentFolder {
 class ProducentAdministrator {
 }
 
-class ProducentAssistant {
+class ProducentEditor {
 }
 
 ProducentUser <|-- ProducentAdministrator
-ProducentUser <|-- ProducentAssistant
+ProducentUser <|-- ProducentEditor
 
 
 Producent "0..*" *-- "0..*" AgreementFile
-Producent "0..*" *-- "0..*" User
-User "0..1" -- "0..1" Producent
+Producent "0..*" *-- "0..*" ProducentAdministrator
+Producent "0..*" *-- "0..*" ProducentEditor
 ProducentFolder "0..*" *-- "0..*" Producent
 
 @enduml

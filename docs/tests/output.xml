@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20140120 10:35:35.250" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
+<robot generated="20140123 18:02:34.297" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
 <suite source="/opt/edeposit/docs/tests/at01.robot" id="s1" name="At01">
 <test id="s1-t1" timeout="" name="Domovská stránka">
 <kw type="setup" name="Selenium2Library.Open Browser" timeout="">
@@ -8,105 +8,112 @@
 <arg>${PLONE_URL}</arg>
 <arg>firefox</arg>
 </arguments>
-<msg timestamp="20140120 10:35:35.412" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140120 10:35:37.947" starttime="20140120 10:35:35.411"></status>
+<msg timestamp="20140123 18:02:34.472" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140123 18:02:42.346" starttime="20140123 18:02:34.471"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
 <doc>Verifies link identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140120 10:35:38.009" level="INFO">Current page contains link 'Registrovat'.</msg>
-<status status="PASS" endtime="20140120 10:35:38.010" starttime="20140120 10:35:37.948"></status>
+<msg timestamp="20140123 18:02:42.386" level="INFO">Current page contains link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140123 18:02:42.386" starttime="20140123 18:02:42.347"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
 <doc>Verifies link identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Přihlášení</arg>
 </arguments>
-<msg timestamp="20140120 10:35:38.049" level="INFO">Current page contains link 'Přihlášení'.</msg>
-<status status="PASS" endtime="20140120 10:35:38.049" starttime="20140120 10:35:38.011"></status>
+<msg timestamp="20140123 18:02:42.402" level="INFO">Current page contains link 'Přihlášení'.</msg>
+<status status="PASS" endtime="20140123 18:02:42.403" starttime="20140123 18:02:42.387"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
 <doc>Verifies link identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Smlouva s Národní knihovnou</arg>
 </arguments>
-<msg timestamp="20140120 10:35:38.070" level="INFO">Current page contains link 'Smlouva s Národní knihovnou'.</msg>
-<status status="PASS" endtime="20140120 10:35:38.070" starttime="20140120 10:35:38.049"></status>
+<msg timestamp="20140123 18:02:42.416" level="INFO">Current page contains link 'Smlouva s Národní knihovnou'.</msg>
+<status status="PASS" endtime="20140123 18:02:42.416" starttime="20140123 18:02:42.403"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
+<doc>Verifies link identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Producenti</arg>
+</arguments>
+<msg timestamp="20140123 18:02:42.429" level="INFO">Current page contains link 'Producenti'.</msg>
+<status status="PASS" endtime="20140123 18:02:42.429" starttime="20140123 18:02:42.417"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=h1</arg>
 </arguments>
-<msg timestamp="20140120 10:35:38.077" level="INFO">Current page contains element 'css=h1'.</msg>
-<status status="PASS" endtime="20140120 10:35:38.078" starttime="20140120 10:35:38.070"></status>
+<msg timestamp="20140123 18:02:42.436" level="INFO">Current page contains element 'css=h1'.</msg>
+<status status="PASS" endtime="20140123 18:02:42.436" starttime="20140123 18:02:42.430"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
 <doc>Takes a screenshot of the current page and embeds it into the log.</doc>
 <arguments>
 <arg>home-page.png</arg>
 </arguments>
-<msg timestamp="20140120 10:35:38.167" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="home-page.png"&gt;&lt;img src="home-page.png" width="800px"&gt;&lt;/a&gt;</msg>
-<status status="PASS" endtime="20140120 10:35:38.168" starttime="20140120 10:35:38.078"></status>
+<msg timestamp="20140123 18:02:42.540" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="home-page.png"&gt;&lt;img src="home-page.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140123 18:02:42.540" starttime="20140123 18:02:42.437"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Title Should Be" timeout="">
 <doc>Verifies that current page title equals `title`.</doc>
 <arguments>
 <arg>E-Deposit - portál pro ohlašování elektronických publikací</arg>
 </arguments>
-<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
-<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
-<arguments>
-</arguments>
-<msg timestamp="20140120 10:35:38.267" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
-<status status="PASS" endtime="20140120 10:35:38.267" starttime="20140120 10:35:38.184"></status>
+<msg timestamp="20140123 18:02:42.554" level="INFO">Page title is 'E-Deposit - portál pro ohlašování elektronických publikací'.</msg>
+<status status="PASS" endtime="20140123 18:02:42.554" starttime="20140123 18:02:42.540"></status>
 </kw>
-<msg timestamp="20140120 10:35:38.268" level="FAIL">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</msg>
-<status status="FAIL" endtime="20140120 10:35:38.269" starttime="20140120 10:35:38.169"></status>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Vítejte na stránkách E-Deposit</arg>
+</arguments>
+<msg timestamp="20140123 18:02:42.567" level="INFO">Current page contains text 'Vítejte na stránkách E-Deposit'.</msg>
+<status status="PASS" endtime="20140123 18:02:42.567" starttime="20140123 18:02:42.554"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
 <doc>Closes all open browsers and resets the browser cache.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140120 10:35:38.297" starttime="20140120 10:35:38.270"></status>
+<status status="PASS" endtime="20140123 18:02:42.603" starttime="20140123 18:02:42.568"></status>
 </kw>
 <doc></doc>
 <tags>
 </tags>
-<status status="FAIL" endtime="20140120 10:35:38.298" critical="yes" starttime="20140120 10:35:35.396">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</status>
+<status status="PASS" endtime="20140123 18:02:42.603" critical="yes" starttime="20140123 18:02:34.424"></status>
 </test>
-<test id="s1-t2" timeout="" name="Registrace producenta">
+<test id="s1-t2" timeout="" name="UC01-01 Stažení smlouvy">
 <kw type="setup" name="Selenium2Library.Open Browser" timeout="">
 <doc>Opens a new browser instance to given URL.</doc>
 <arguments>
 <arg>${PLONE_URL}</arg>
 <arg>firefox</arg>
 </arguments>
-<msg timestamp="20140120 10:35:38.317" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140120 10:35:40.871" starttime="20140120 10:35:38.316"></status>
-</kw>
-<kw type="kw" name="Dialogs.Pause Execution" timeout="">
-<doc>Pauses test execution until user clicks `Ok` button.</doc>
-<arguments>
-</arguments>
-<status status="PASS" endtime="20140120 10:35:42.746" starttime="20140120 10:35:40.872"></status>
+<msg timestamp="20140123 18:02:42.623" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140123 18:02:45.186" starttime="20140123 18:02:42.623"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
-<arg>Registrovat</arg>
+<arg>Smlouva s Národní knihovnou</arg>
 </arguments>
-<msg timestamp="20140120 10:35:42.748" level="INFO">Clicking link 'Registrovat'.</msg>
-<status status="PASS" endtime="20140120 10:35:44.846" starttime="20140120 10:35:42.748"></status>
+<msg timestamp="20140123 18:02:45.187" level="INFO">Clicking link 'Smlouva s Národní knihovnou'.</msg>
+<status status="PASS" endtime="20140123 18:02:47.401" starttime="20140123 18:02:45.186"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
-<doc>Verifies that current page contains `text`.</doc>
+<kw type="kw" name="Page Should Not Contain Error" timeout="">
+<doc></doc>
 <arguments>
-<arg>Registrace producenta</arg>
 </arguments>
-<msg timestamp="20140120 10:35:45.916" level="INFO">&lt;!DOCTYPE html&gt;
+<kw type="kw" name="Selenium2Library.Page Should Not Contain" timeout="">
+<doc>Verifies the current page does not contain `text`.</doc>
+<arguments>
+<arg>Litujeme, ale tato stránka neexistuje...</arg>
+</arguments>
+<msg timestamp="20140123 18:02:47.695" level="INFO">&lt;!DOCTYPE html&gt;
 &lt;html lang="cs" xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;&lt;head&gt;
     &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
 
@@ -115,20 +122,20 @@
     
 
     
-        &lt;meta name="description" content="Welcome to E-Deposit" /&gt;
+        &lt;meta name="description" content="Vítejte na stránkách E-Deposit" /&gt;
 
   
-    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/reset-cachekey-c280a760a074a7d53308212ec50f2759.css" media="screen" type="text/css" rel="stylesheet" /&gt;
-    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/base-cachekey-467b5b291f08d8d9f0e199bf095fd32a.css" type="text/css" rel="stylesheet" /&gt;
-    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/resourceplone.app.jquerytools.overlays-cachekey-0fef26c65cdce86f577e9138fd9cdda7.css" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/reset-cachekey-c06b7e1e6762ee6ef3a1e39538dbb066.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/base-cachekey-a656e6d9f51b1838ebe4fbed803d013c.css" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/resourceplone.app.jquerytools.overlays-cachekey-bcebbeee546c0cc65af0fc807564b24a.css" type="text/css" rel="stylesheet" /&gt;
 
   
   
-    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceplone.app.jquery-cachekey-855ba94a504256a164c9c0c04c701541.js" type="text/javascript"&gt;&lt;/script&gt;
-    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/collective.js.jqueryui.custom.min-cachekey-0b969496f8590b1007ca4e7051c3560f.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceplone.app.jquery-cachekey-e85237970e04878809e3bb73f050b024.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/collective.js.jqueryui.custom.min-cachekey-6f3f05cc373e7057424269d8a6ec60a7.js" type="text/javascript"&gt;&lt;/script&gt;
 
 
-&lt;title&gt;E-Deposit Site&lt;/title&gt;
+&lt;title&gt;E-Deposit - portál pro ohlašování elektronických publikací&lt;/title&gt;
         
     &lt;link href="http://localhost:55001/plone" rel="canonical" /&gt;
 
@@ -146,11 +153,11 @@
 
 
 
-    &lt;link type="application/rss+xml" title="E-Deposit Site - RSS 1.0" href="http://localhost:55001/plone/RSS" rel="alternate" /&gt;
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 1.0" href="http://localhost:55001/plone/RSS" rel="alternate" /&gt;
 
-    &lt;link type="application/rss+xml" title="E-Deposit Site - RSS 2.0" href="http://localhost:55001/plone/rss.xml" rel="alternate" /&gt;
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 2.0" href="http://localhost:55001/plone/rss.xml" rel="alternate" /&gt;
 
-    &lt;link type="application/rss+xml" title="E-Deposit Site - Atom" href="http://localhost:55001/plone/atom.xml" rel="alternate" /&gt;
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - Atom" href="http://localhost:55001/plone/atom.xml" rel="alternate" /&gt;
 
 
     &lt;link title="Prohledejte portál" href="http://localhost:55001/plone/@@search" rel="search" /&gt;
@@ -176,9 +183,9 @@
 &lt;div class="cell width-full position-0"&gt;
             &lt;div id="portal-header"&gt;
     &lt;p class="hiddenStructure"&gt;
-  &lt;a href="http://localhost:55001/plone/@@register-with-producent#content" accesskey="2"&gt;Přejít na obsah&lt;/a&gt; |
+  &lt;a href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb#content" accesskey="2"&gt;Přejít na obsah&lt;/a&gt; |
 
-  &lt;a href="http://localhost:55001/plone/@@register-with-producent#portal-globalnav" accesskey="6"&gt;Přejít na navigaci&lt;/a&gt;
+  &lt;a href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb#portal-globalnav" accesskey="6"&gt;Přejít na navigaci&lt;/a&gt;
 &lt;/p&gt;
 
 &lt;div id="portal-personaltools-wrapper"&gt;
@@ -231,13 +238,13 @@
 
 &lt;/div&gt;
 
-&lt;a href="http://localhost:55001/plone" accesskey="1" title="E-Deposit Site" id="portal-logo"&gt;
-    &lt;img width="215" height="56" title="E-Deposit Site" alt="E-Deposit Site" src="http://localhost:55001/plone/logo.png" /&gt;&lt;/a&gt;
+&lt;a href="http://localhost:55001/plone" accesskey="1" title="E-Deposit - portál pro ohlašování elektronických publikací" id="portal-logo"&gt;
+    &lt;img width="215" height="56" title="E-Deposit - portál pro ohlašování elektronických publikací" alt="E-Deposit - portál pro ohlašování elektronických publikací" src="http://localhost:55001/plone/logo.png" /&gt;&lt;/a&gt;
 
 
     &lt;p class="hiddenStructure"&gt;Navigation&lt;/p&gt;
 
-    &lt;ul id="portal-globalnav"&gt;&lt;li class="selected" id="portaltab-index_html"&gt;&lt;a title="" href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+    &lt;ul id="portal-globalnav"&gt;&lt;li class="selected" id="portaltab-index_html"&gt;&lt;a title="" href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;&lt;/li&gt;&lt;li class="plain" id="portaltab-producents"&gt;&lt;a title="" href="http://localhost:55001/plone/producents"&gt;Producenti&lt;/a&gt;&lt;/li&gt;&lt;li class="plain" id="portaltab-ePublications-in-declarating"&gt;&lt;a title="" href="http://localhost:55001/plone/ePublications-in-declarating"&gt;ePublications in declaring&lt;/a&gt;&lt;/li&gt;&lt;li class="plain" id="portaltab-ePublications-waiting-for-approving"&gt;&lt;a title="" href="http://localhost:55001/plone/ePublications-waiting-for-approving"&gt;ePublications waiting for preparing of acquisition&lt;/a&gt;&lt;/li&gt;&lt;li class="plain" id="portaltab-ePublications-with-errors"&gt;&lt;a title="" href="http://localhost:55001/plone/ePublications-with-errors"&gt;ePublications with errors&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 
 
 &lt;/div&gt;
@@ -282,22 +289,134 @@
 
         
 
-        
+            
 
-            &lt;h1 class="documentFirstHeading"&gt;Omlouváme se, ale zřejmě došlo k chybě...&lt;/h1&gt;
-
-            &lt;div id="content-core"&gt;
                 
-                    &lt;p&gt;Chyba byla zaprotokolována jako záznam číslo &lt;code&gt;1390210544.670.835979291523&lt;/code&gt;.&lt;/p&gt;
 
-                    &lt;p&gt;Pokud potřebujete tuto chybu ohlásit na adresu &lt;span&gt; &lt;a href="http://localhost:55001/plone/contact-info"&gt;místních správců&lt;/a&gt;&lt;/span&gt;, nezapomeňte do své zprávy uvést číslo tohoto záznamu.&lt;/p&gt;
+                &lt;h1 class="documentFirstHeading"&gt;Litujeme, ale tato stránka neexistuje...&lt;/h1&gt;
 
+                &lt;div id="content-core"&gt;
+                    &lt;p&gt;Je nám líto, ale stránka kterou se chystáte navštívit není na uvedené adrese dostupná. Můžete použít níže uvedené odkazy a zkusit najít co hledáte.&lt;/p&gt;
+
+                    &lt;p&gt;Pokud jste si jisti, že máte správnou webovou adresu, ale přesto došlo k chybě, kontaktujte &lt;span&gt; &lt;a href="http://localhost:55001/plone/contact-info"&gt;místních správců&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+
+                    &lt;p&gt;Děkujeme.&lt;/p&gt;
+
+                    &lt;!-- Offer search results for suggestions --&gt;
                     
 
-                
+                        &lt;h3&gt;Možná se pokoušíte vyhledat...&lt;/h3&gt;
 
-                
-            &lt;/div&gt;
+                        &lt;dl&gt;
+
+                        
+
+                        
+                            
+                                &lt;dt class="contenttype-edeposit-user-producentfolder"&gt;
+                                  &lt;img width="16" height="16" alt="E-Deposit - Složka producentů text/texmacs" src="http://localhost:55001/plone/folder_icon.png" /&gt;
+                                   &lt;a class="state-" href="http://localhost:55001/plone/producents"&gt;Producenti&lt;/a&gt;
+
+                                    
+
+                                &lt;/dt&gt;
+
+                                &lt;dd&gt;&lt;/dd&gt;
+
+                            
+                        
+                        
+                            
+                                &lt;dt class="contenttype-collection"&gt;
+                                  
+                                   &lt;a class="state-" href="http://localhost:55001/plone/producents/producents-in-declaring"&gt;Producents in declaring&lt;/a&gt;
+
+                                    
+
+                                &lt;/dt&gt;
+
+                                &lt;dd&gt;&lt;/dd&gt;
+
+                            
+                        
+                        
+                            
+                                &lt;dt class="contenttype-collection"&gt;
+                                  
+                                   &lt;a class="state-" href="http://localhost:55001/plone/producents/approved-producents"&gt;Approved producents&lt;/a&gt;
+
+                                    
+
+                                &lt;/dt&gt;
+
+                                &lt;dd&gt;&lt;/dd&gt;
+
+                            
+                        
+                        
+                            
+                                &lt;dt class="contenttype-collection"&gt;
+                                  
+                                   &lt;a class="state-" href="http://localhost:55001/plone/producents/producents-waiting-for-approving"&gt;Producents waiting for approving&lt;/a&gt;
+
+                                    
+
+                                &lt;/dt&gt;
+
+                                &lt;dd&gt;&lt;/dd&gt;
+
+                            
+                        
+                        
+                            
+                                &lt;dt class="contenttype-collection"&gt;
+                                  
+                                   &lt;a class="state-" href="http://localhost:55001/plone/ePublications-in-declarating"&gt;ePublications in declaring&lt;/a&gt;
+
+                                    
+
+                                &lt;/dt&gt;
+
+                                &lt;dd&gt;&lt;/dd&gt;
+
+                            
+                        
+                        
+                            
+                                &lt;dt class="contenttype-collection"&gt;
+                                  
+                                   &lt;a class="state-" href="http://localhost:55001/plone/ePublications-waiting-for-approving"&gt;ePublications waiting for preparing of acquisition&lt;/a&gt;
+
+                                    
+
+                                &lt;/dt&gt;
+
+                                &lt;dd&gt;&lt;/dd&gt;
+
+                            
+                        
+                        
+                            
+                                &lt;dt class="contenttype-collection"&gt;
+                                  
+                                   &lt;a class="state-" href="http://localhost:55001/plone/ePublications-with-errors"&gt;ePublications with errors&lt;/a&gt;
+
+                                    
+
+                                &lt;/dt&gt;
+
+                                &lt;dd&gt;&lt;/dd&gt;
+
+                            
+                        
+
+                        &lt;/dl&gt;
+
+                    
+                &lt;/div&gt;
+            
+
+        
 
         
         
@@ -366,37 +485,242 @@
 <doc>Takes a screenshot of the current page and embeds it into the log.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140120 10:35:46.010" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
-<status status="PASS" endtime="20140120 10:35:46.011" starttime="20140120 10:35:45.918"></status>
+<msg timestamp="20140123 18:02:47.814" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140123 18:02:47.814" starttime="20140123 18:02:47.697"></status>
 </kw>
-<msg timestamp="20140120 10:35:46.012" level="FAIL">Page should have contained text 'Registrace producenta' but did not</msg>
-<status status="FAIL" endtime="20140120 10:35:46.012" starttime="20140120 10:35:44.846"></status>
+<msg timestamp="20140123 18:02:47.815" level="FAIL">Page should not have contained text 'Litujeme, ale tato stránka neexistuje...'</msg>
+<status status="FAIL" endtime="20140123 18:02:47.815" starttime="20140123 18:02:47.403"></status>
+</kw>
+<status status="FAIL" endtime="20140123 18:02:47.815" starttime="20140123 18:02:47.402"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
 <doc>Closes all open browsers and resets the browser cache.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140120 10:35:46.045" starttime="20140120 10:35:46.014"></status>
+<status status="PASS" endtime="20140123 18:02:47.844" starttime="20140123 18:02:47.816"></status>
 </kw>
 <doc></doc>
 <tags>
 </tags>
-<status status="FAIL" endtime="20140120 10:35:46.045" critical="yes" starttime="20140120 10:35:38.302">Page should have contained text 'Registrace producenta' but did not</status>
+<status status="FAIL" endtime="20140123 18:02:47.845" critical="yes" starttime="20140123 18:02:42.606">Page should not have contained text 'Litujeme, ale tato stránka neexistuje...'</status>
+</test>
+<test id="s1-t3" timeout="" name="Registrace producenta">
+<kw type="setup" name="Selenium2Library.Open Browser" timeout="">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+<arg>firefox</arg>
+</arguments>
+<msg timestamp="20140123 18:02:47.865" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140123 18:02:50.502" starttime="20140123 18:02:47.864"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>Registrovat</arg>
+</arguments>
+<msg timestamp="20140123 18:02:50.504" level="INFO">Clicking link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140123 18:02:52.420" starttime="20140123 18:02:50.503"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Registrace producenta</arg>
+</arguments>
+<msg timestamp="20140123 18:02:52.771" level="INFO">Current page contains text 'Registrace producenta'.</msg>
+<status status="PASS" endtime="20140123 18:02:52.771" starttime="20140123 18:02:52.421"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Button" timeout="">
+<doc>Verifies button identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Registrovat</arg>
+</arguments>
+<msg timestamp="20140123 18:02:52.788" level="INFO">Current page contains input 'Registrovat'.</msg>
+<status status="PASS" endtime="20140123 18:02:52.788" starttime="20140123 18:02:52.772"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-home_page</arg>
+<arg>http://www.e-deposit.cz</arg>
+</arguments>
+<msg timestamp="20140123 18:02:52.789" level="INFO">Typing text 'http://www.e-deposit.cz' into text field 'css=#producent-widgets-home_page'</msg>
+<status status="PASS" endtime="20140123 18:02:53.649" starttime="20140123 18:02:52.788"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-location</arg>
+<arg>Praha</arg>
+</arguments>
+<msg timestamp="20140123 18:02:53.650" level="INFO">Typing text 'Praha' into text field 'css=#producent-widgets-location'</msg>
+<status status="PASS" endtime="20140123 18:02:53.956" starttime="20140123 18:02:53.650"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-contact</arg>
+<arg>Jan Stavěl</arg>
+</arguments>
+<msg timestamp="20140123 18:02:53.957" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#producent-widgets-contact'</msg>
+<status status="PASS" endtime="20140123 18:02:54.404" starttime="20140123 18:02:53.957"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>Adresa</arg>
+</arguments>
+<msg timestamp="20140123 18:02:54.406" level="INFO">Clicking link 'Adresa'.</msg>
+<status status="PASS" endtime="20140123 18:02:56.260" starttime="20140123 18:02:54.405"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#form-widgets-street</arg>
+<arg>Pašovice 71</arg>
+</arguments>
+<msg timestamp="20140123 18:02:56.262" level="INFO">Typing text 'Pašovice 71' into text field 'css=#form-widgets-street'</msg>
+<status status="PASS" endtime="20140123 18:02:56.714" starttime="20140123 18:02:56.261"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#form-widgets-city</arg>
+<arg>Prakšice</arg>
+</arguments>
+<msg timestamp="20140123 18:02:56.715" level="INFO">Typing text 'Prakšice' into text field 'css=#form-widgets-city'</msg>
+<status status="PASS" endtime="20140123 18:02:57.101" starttime="20140123 18:02:56.715"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#form-widgets-country</arg>
+<arg>Česká republika</arg>
+</arguments>
+<msg timestamp="20140123 18:02:57.102" level="INFO">Typing text 'Česká republika' into text field 'css=#form-widgets-country'</msg>
+<status status="PASS" endtime="20140123 18:02:57.660" starttime="20140123 18:02:57.102"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>Default</arg>
+</arguments>
+<msg timestamp="20140123 18:02:57.661" level="INFO">Clicking link 'Default'.</msg>
+<status status="PASS" endtime="20140123 18:02:57.980" starttime="20140123 18:02:57.661"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>Přidat</arg>
+</arguments>
+<msg timestamp="20140123 18:02:57.981" level="INFO">Clicking button 'Přidat'.</msg>
+<status status="PASS" endtime="20140123 18:02:58.877" starttime="20140123 18:02:57.980"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-fullname</arg>
+<arg>Jan Stavěl</arg>
+</arguments>
+<msg timestamp="20140123 18:02:58.879" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#producent-widgets-administrators-0-widgets-fullname'</msg>
+<status status="PASS" endtime="20140123 18:02:59.600" starttime="20140123 18:02:58.878"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-email</arg>
+<arg>stavel.jan@gmail.com</arg>
+</arguments>
+<msg timestamp="20140123 18:02:59.602" level="INFO">Typing text 'stavel.jan@gmail.com' into text field 'css=#producent-widgets-administrators-0-widgets-email'</msg>
+<status status="PASS" endtime="20140123 18:03:00.300" starttime="20140123 18:02:59.601"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-home_page</arg>
+<arg>www.nkp.cz</arg>
+</arguments>
+<msg timestamp="20140123 18:03:00.302" level="INFO">Typing text 'www.nkp.cz' into text field 'css=#producent-widgets-administrators-0-widgets-home_page'</msg>
+<status status="PASS" endtime="20140123 18:03:00.724" starttime="20140123 18:03:00.302"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-location</arg>
+<arg>Pašovice</arg>
+</arguments>
+<msg timestamp="20140123 18:03:00.725" level="INFO">Typing text 'Pašovice' into text field 'css=#producent-widgets-administrators-0-widgets-location'</msg>
+<status status="PASS" endtime="20140123 18:03:01.106" starttime="20140123 18:03:00.725"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-phone</arg>
+<arg>773230772</arg>
+</arguments>
+<msg timestamp="20140123 18:03:01.107" level="INFO">Typing text '773230772' into text field 'css=#producent-widgets-administrators-0-widgets-phone'</msg>
+<status status="PASS" endtime="20140123 18:03:01.502" starttime="20140123 18:03:01.107"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-street</arg>
+<arg>Pašovice 71</arg>
+</arguments>
+<msg timestamp="20140123 18:03:01.504" level="INFO">Typing text 'Pašovice 71' into text field 'css=#producent-widgets-administrators-0-widgets-street'</msg>
+<status status="PASS" endtime="20140123 18:03:01.971" starttime="20140123 18:03:01.503"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-city</arg>
+<arg>Prakšice</arg>
+</arguments>
+<msg timestamp="20140123 18:03:01.972" level="INFO">Typing text 'Prakšice' into text field 'css=#producent-widgets-administrators-0-widgets-city'</msg>
+<status status="PASS" endtime="20140123 18:03:02.356" starttime="20140123 18:03:01.972"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#producent-widgets-administrators-0-widgets-country</arg>
+<arg>Česká republika</arg>
+</arguments>
+<msg timestamp="20140123 18:03:02.357" level="INFO">Typing text 'Česká republika' into text field 'css=#producent-widgets-administrators-0-widgets-country'</msg>
+<status status="PASS" endtime="20140123 18:03:02.950" starttime="20140123 18:03:02.357"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>Registrovat</arg>
+</arguments>
+<msg timestamp="20140123 18:03:02.951" level="INFO">Clicking button 'Registrovat'.</msg>
+<status status="PASS" endtime="20140123 18:03:03.395" starttime="20140123 18:03:02.950"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140123 18:03:03.451" starttime="20140123 18:03:03.395"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20140123 18:03:03.452" critical="yes" starttime="20140123 18:02:47.847"></status>
 </test>
 <doc></doc>
 <metadata>
 </metadata>
-<status status="FAIL" endtime="20140120 10:35:46.047" starttime="20140120 10:35:35.251"></status>
+<status status="FAIL" endtime="20140123 18:03:03.538" starttime="20140123 18:02:34.297"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="2" pass="0">Critical Tests</stat>
-<stat fail="2" pass="0">All Tests</stat>
+<stat fail="1" pass="2">Critical Tests</stat>
+<stat fail="1" pass="2">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat fail="2" pass="0" id="s1" name="At01">At01</stat>
+<stat fail="1" pass="2" id="s1" name="At01">At01</stat>
 </suite>
 </statistics>
 <errors>
