@@ -37,37 +37,33 @@ class PrintingFile {
 }
 
 class EPublication {
-      String title  "M21:245 $a"
-      String subtitle "M21:245 $n $p"
-      String bookBinding 
-      Decimal price 
-      String volume
-      String volumeTitle
-      String volumeNumber
-      String edition "M21:490 $a"
-      String editionNumber "M21:490 $v"
-      String subedition "M21:490 $a"
-      String subeditionNumber "M21:490 $v"
-      String placeOfPublishing "M21:264 $a"
-      String publisher "M21:264 $b"
-      Date   dateOfPublishing "M21:264 $c"
-      String publishedWithCoedition 
-      String publishedAtOrder 
-      String personWhoProcessedThis
+      String název  
+      String podnázev
+      String vazba 
+      Decimal cena 
+      String svazek
+      String nazev_svazku
+      String cislo_svazku
+      String edice
+      String cislo_edice
+      String podedice
+      String cislo_podedice
+      String misto_vydani
+      String nakladatel
+      Date   datum_vydani
+      String vydano_v_koedici_s
+      String poradi_vydani
+      String zpracovatel_zaznamu
       Relation librariesThatCanAccessAtLibraryTerminal
       Relation librariesThatCanAccessAtPublic
       String alephDocNumber
       Boolean generateISBN
-      String categoryForRIV
-      String placeOfDistribution "M21:264 $a"
-      String distributor "M21:264 $b"
-      Date dateOfDistribution "M21:264 $c"
-      String placeOfProduction "M21:264 $a"
-      String producer "M21:264 $b"
-      Date dateOfProduction "M21:264 $c"
-      Date dateOfCopyright "M21:264 $c"
-      String development "M21:020 $a"
-      String mediaType "M21:338 $a"
+      String kategorie_pro_RIV
+      String misto_distribuce
+      String distributor
+      Date datum_distribuce
+      Date datum_pro_copyright
+      String typ_media
 }
 
 class EPublicationFolder {
