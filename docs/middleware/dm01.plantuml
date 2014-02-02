@@ -4,10 +4,8 @@ left to right direction
 title Datový model pro antivirus
 
 class Request {
-      String muuid
+      String UUID
       String created
-      String interface
-      String serialization
       Binary data
 }
 
@@ -20,18 +18,12 @@ class MessageWithStream {
 }
 
 class Response {
-      String muuid
-      String parent_uuid
+      String UUID
+      String parent_UUID
       String created
-      String interface
-      String serialization
       Boolean is_clean
       Boolean include_data
       Binary data
-}
-
-class MessageWithResult {
-      Boolean contentIsClean
       String info
 }
 

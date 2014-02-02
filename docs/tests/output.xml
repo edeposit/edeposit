@@ -1,45 +1,2821 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20140127 20:22:37.029" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
+<robot generated="20140202 23:57:23.945" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
 <suite source="/opt/edeposit/docs/tests/at01.robot" id="s1" name="At01">
-<test id="s1-t1" timeout="" name="Registrace producenta">
-<kw type="setup" name="Selenium2Library.Open Browser" timeout="">
+<test id="s1-t1" timeout="" name="Domovská stránka">
+<kw type="setup" name="Open browser and create all folders" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Open Browser" timeout="">
 <doc>Opens a new browser instance to given URL.</doc>
 <arguments>
 <arg>${PLONE_URL}</arg>
 <arg>firefox</arg>
 </arguments>
-<msg timestamp="20140127 20:22:37.222" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140127 20:22:45.330" starttime="20140127 20:22:37.220"></status>
+<msg timestamp="20140202 23:57:24.118" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:57:26.825" starttime="20140202 23:57:24.117"></status>
+</kw>
+<kw type="kw" name="keywords.Log in as site owner" timeout="">
+<doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Log in" timeout="">
+<doc>Log in to the site as ${userid} using ${password}. There</doc>
+<arguments>
+<arg>${SITE_OWNER_NAME}</arg>
+<arg>${SITE_OWNER_PASSWORD}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/login_form</arg>
+</arguments>
+<msg timestamp="20140202 23:57:26.829" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140202 23:57:27.052" starttime="20140202 23:57:26.829"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_name</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.094" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140202 23:57:27.094" starttime="20140202 23:57:27.053"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_password</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.104" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140202 23:57:27.105" starttime="20140202 23:57:27.094"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.110" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:57:27.110" starttime="20140202 23:57:27.105"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_name</arg>
+<arg>${userid}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:27.111" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:27.111" starttime="20140202 23:57:27.111"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:27.112" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:27.112" starttime="20140202 23:57:27.111"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_name and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:27.129" starttime="20140202 23:57:27.113"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.131" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140202 23:57:27.470" starttime="20140202 23:57:27.130"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.487" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140202 23:57:27.486" starttime="20140202 23:57:27.471"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.488" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:27.488" starttime="20140202 23:57:27.487"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:27.488" starttime="20140202 23:57:27.112"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:27.488" starttime="20140202 23:57:27.112"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:27.489" starttime="20140202 23:57:27.110"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_password</arg>
+<arg>${password}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:27.493" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:27.493" starttime="20140202 23:57:27.492"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:27.495" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:27.494" starttime="20140202 23:57:27.494"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_password and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:27.524" starttime="20140202 23:57:27.498"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.525" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140202 23:57:27.822" starttime="20140202 23:57:27.524"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.835" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140202 23:57:27.835" starttime="20140202 23:57:27.823"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.836" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:27.836" starttime="20140202 23:57:27.835"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:27.837" starttime="20140202 23:57:27.497"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:27.837" starttime="20140202 23:57:27.495"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:27.837" starttime="20140202 23:57:27.489"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:57:27.837" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:57:29.267" starttime="20140202 23:57:27.837"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:29.268" starttime="20140202 23:57:26.827"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:29.268" starttime="20140202 23:57:26.826"></status>
+</kw>
+<kw type="kw" name="Create producents folder" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Add Dexterity Content" timeout="">
+<doc></doc>
+<arguments>
+<arg>edeposit-user-producentfolder</arg>
+<arg>producents</arg>
+</arguments>
+<kw type="kw" name="keywords.Go to homepage" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:29.271" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:57:29.728" starttime="20140202 23:57:29.271"></status>
+</kw>
+<kw type="kw" name="selenium.Wait until location is" timeout="">
+<doc></doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:29.729" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:29.729" starttime="20140202 23:57:29.729"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:29.730" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:29.730" starttime="20140202 23:57:29.729"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Location should be</arg>
+<arg>${expected_url}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Location Should Be" timeout="">
+<doc>Verifies that current URL is exactly `url`.</doc>
+<arguments>
+<arg>${expected_url}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:29.735" level="INFO">Current location is 'http://localhost:55001/plone'.</msg>
+<status status="PASS" endtime="20140202 23:57:29.736" starttime="20140202 23:57:29.730"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:29.736" starttime="20140202 23:57:29.730"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:29.736" starttime="20140202 23:57:29.728"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:29.736" starttime="20140202 23:57:29.270"></status>
+</kw>
+<kw type="kw" name="keywords.Open Add New Menu" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Open Menu" timeout="">
+<doc></doc>
+<arguments>
+<arg>plone-contentmenu-factories</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} span</arg>
+</arguments>
+<msg timestamp="20140202 23:57:29.741" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories span' is visible.</msg>
+<status status="PASS" endtime="20140202 23:57:29.760" starttime="20140202 23:57:29.740"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Element Should Not Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is NOT visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:57:29.761" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.</msg>
+<status status="PASS" endtime="20140202 23:57:29.779" starttime="20140202 23:57:29.760"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=dl#${elementId} dt.actionMenuHeader a</arg>
+</arguments>
+<msg timestamp="20140202 23:57:29.779" level="INFO">Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.</msg>
+<status status="PASS" endtime="20140202 23:57:30.847" starttime="20140202 23:57:29.779"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>1</arg>
+<arg>5</arg>
+<arg>Element Should Be Visible</arg>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:57:30.849" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.</msg>
+<status status="PASS" endtime="20140202 23:57:30.867" starttime="20140202 23:57:30.848"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:30.868" starttime="20140202 23:57:30.848"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:30.868" starttime="20140202 23:57:29.738"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:30.869" starttime="20140202 23:57:29.737"></status>
+</kw>
+<kw type="kw" name="${status} = BuiltIn.Run Keyword And Return Status" timeout="">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Click Link</arg>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:30.870" level="INFO">Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.</msg>
+<status status="PASS" endtime="20140202 23:57:31.090" starttime="20140202 23:57:30.870"></status>
+</kw>
+<msg timestamp="20140202 23:57:31.091" level="INFO">${status} = True</msg>
+<status status="PASS" endtime="20140202 23:57:31.091" starttime="20140202 23:57:30.869"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If" timeout="">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>${status} != True</arg>
+<arg>Click Link</arg>
+<arg>${content_type}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:31.092" starttime="20140202 23:57:31.091"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>form.widgets.IBasic.title</arg>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:31.093" level="INFO">Typing text 'producents' into text field 'form.widgets.IBasic.title'</msg>
+<status status="PASS" endtime="20140202 23:57:31.722" starttime="20140202 23:57:31.092"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>name=form.buttons.save</arg>
+</arguments>
+<msg timestamp="20140202 23:57:31.724" level="INFO">Clicking button 'name=form.buttons.save'.</msg>
+<status status="PASS" endtime="20140202 23:57:33.809" starttime="20140202 23:57:31.723"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Položka byla vytvořena</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.489" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.489" starttime="20140202 23:57:33.810"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.508" level="INFO">Current page contains text 'producents'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.508" starttime="20140202 23:57:34.490"></status>
+</kw>
+<kw type="kw" name="${location} = Selenium2Library.Get Location" timeout="">
+<doc>Returns the current location.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:34.513" level="INFO">${location} = http://localhost:55001/plone/producents/view</msg>
+<status status="PASS" endtime="20140202 23:57:34.513" starttime="20140202 23:57:34.509"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:34.514" starttime="20140202 23:57:29.269"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:34.514" starttime="20140202 23:57:29.268"></status>
+</kw>
+<kw type="kw" name="keywords.Log out" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/logout</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.517" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140202 23:57:34.736" starttime="20140202 23:57:34.516"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.741" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.742" starttime="20140202 23:57:34.736"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:34.742" starttime="20140202 23:57:34.515"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:34.742" starttime="20140202 23:57:24.117"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
+<doc>Verifies link identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Registrovat</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.757" level="INFO">Current page contains link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.757" starttime="20140202 23:57:34.742"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
+<doc>Verifies link identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Přihlášení</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.773" level="INFO">Current page contains link 'Přihlášení'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.773" starttime="20140202 23:57:34.757"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
+<doc>Verifies link identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Smlouva s Národní knihovnou</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.788" level="INFO">Current page contains link 'Smlouva s Národní knihovnou'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.788" starttime="20140202 23:57:34.774"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=h1</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.795" level="INFO">Current page contains element 'css=h1'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.795" starttime="20140202 23:57:34.789"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+<arg>home-page.png</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.893" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="home-page.png"&gt;&lt;img src="home-page.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:34.893" starttime="20140202 23:57:34.796"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Title Should Be" timeout="">
+<doc>Verifies that current page title equals `title`.</doc>
+<arguments>
+<arg>E-Deposit - portál pro ohlašování elektronických publikací</arg>
+</arguments>
+<msg timestamp="20140202 23:57:34.904" level="INFO">Page title is 'E-Deposit - portál pro ohlašování elektronických publikací'.</msg>
+<status status="PASS" endtime="20140202 23:57:34.904" starttime="20140202 23:57:34.893"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Vítejte na stránkách E-Deposit</arg>
+</arguments>
+<msg timestamp="20140202 23:57:35.994" level="INFO">&lt;!DOCTYPE html&gt;
+&lt;html lang="cs" xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;&lt;head&gt;
+    &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
+
+    
+        &lt;base href="http://localhost:55001/plone/" /&gt;&lt;!--[if lt IE 7]&gt;&lt;/base&gt;&lt;![endif]--&gt;
+    
+
+    
+        &lt;meta name="description" content="Vítejte na stránkách E-Deposit" /&gt;
+
+  
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/reset-cachekey-74fe8397e1dfa1b55d1a0ef4059dd61f.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/base-cachekey-aeda8e9b712d0d766a87bd8b7d714572.css" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/ploneCustom-cachekey-95b3ad6600add381a8515d979d86b6f3.css" media="all" type="text/css" rel="stylesheet" /&gt;
+
+  
+  
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceplone.app.jquery-cachekey-26f3ac3a2fad4c299f4db1814ae7cdeb.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceedeposit.userregistration-cachekey-c14d567786b7f58869c47fc737629fac.js" type="text/javascript"&gt;&lt;/script&gt;
+
+
+&lt;title&gt;E-Deposit - portál pro ohlašování elektronických publikací&lt;/title&gt;
+        
+    &lt;link href="http://localhost:55001/plone" rel="canonical" /&gt;
+
+    &lt;link href="http://localhost:55001/plone/favicon.ico" type="image/x-icon" rel="shortcut icon" /&gt;
+    &lt;link href="http://localhost:55001/plone/touch_icon.png" rel="apple-touch-icon" /&gt;
+
+
+&lt;script type="text/javascript"&gt;
+        jQuery(function($){
+            $.datepicker.setDefaults(
+                jQuery.extend($.datepicker.regional['cs'],
+                {dateFormat: 'dd.mm.yy'}));
+        });
+        &lt;/script&gt;
+
+
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 1.0" href="http://localhost:55001/plone/RSS" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 2.0" href="http://localhost:55001/plone/rss.xml" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - Atom" href="http://localhost:55001/plone/atom.xml" rel="alternate" /&gt;
+
+
+    &lt;link title="Prohledejte portál" href="http://localhost:55001/plone/@@search" rel="search" /&gt;
+
+
+
+        
+        
+        
+        
+        
+        &lt;script src="http://localhost:55001/plone/login.js" type="text/javascript"&gt;
+        &lt;/script&gt;
+    
+
+        &lt;meta content="width=device-width, initial-scale=0.6666, maximum-scale=1.0, minimum-scale=0.6666" name="viewport" /&gt;
+        &lt;meta content="Plone - http://plone.org" name="generator" /&gt;
+    
+&lt;/head&gt;
+
+&lt;body dir="ltr" class="template-logged_out portaltype-plone-site site-plone icons-on userrole-anonymous"&gt;
+
+&lt;div id="visual-portal-wrapper"&gt;
+
+        &lt;div class="row" id="portal-top"&gt;
+&lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-header"&gt;
+    &lt;p class="hiddenStructure"&gt;
+  &lt;a href="http://localhost:55001/plone/logged_out#content" accesskey="2"&gt;Přejít na obsah&lt;/a&gt; |
+
+  &lt;a href="http://localhost:55001/plone/logged_out#portal-globalnav" accesskey="6"&gt;Přejít na navigaci&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;div id="portal-personaltools-wrapper"&gt;
+
+&lt;p class="hiddenStructure"&gt;Osobní nástroje&lt;/p&gt;
+
+
+
+&lt;ul id="portal-personaltools" class="actionMenu deactivated"&gt;
+  &lt;li id="anon-personalbar"&gt;
+    
+        &lt;a id="personaltools-login" href="http://localhost:55001/plone/login/?came_from=http://localhost:55001/plone/dashboard"&gt;Přihlášení&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-join" href="http://localhost:55001/plone/@@register-with-producent"&gt;Registrovat&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-agreement with National Library" href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb"&gt;Smlouva s Národní knihovnou&lt;/a&gt;
+    
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;div id="portal-searchbox"&gt;
+
+    &lt;form action="http://localhost:55001/plone/@@search" id="livesearch0"&gt;
+
+        &lt;div class="LSBox"&gt;
+        &lt;label for="searchGadget" class="hiddenStructure"&gt;Vyhledat&lt;/label&gt;
+
+        &lt;input type="text" id="searchGadget" class="searchField" accesskey="4" placeholder="Prohledat portál" title="Prohledat portál" size="18" name="SearchableText" autocomplete="off" /&gt;
+
+        &lt;input type="submit" value="Vyhledat" class="searchButton" /&gt;
+
+        &lt;div class="searchSection"&gt;
+            &lt;input type="checkbox" value="/plone" name="path" class="noborder" id="searchbox_currentfolder_only" /&gt;
+            &lt;label style="cursor: pointer" for="searchbox_currentfolder_only"&gt;pouze v aktuální sekci&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;div id="LSResult" class="LSResult"&gt;&lt;div id="LSShadow" class="LSShadow"&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;div class="hiddenStructure" id="portal-advanced-search"&gt;
+        &lt;a accesskey="5" href="http://localhost:55001/plone/@@search"&gt;Pokročilé vyhledávání...&lt;/a&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;a href="http://localhost:55001/plone" accesskey="1" title="E-Deposit - portál pro ohlašování elektronických publikací" id="portal-logo"&gt;
+    &lt;img width="215" height="56" title="E-Deposit - portál pro ohlašování elektronických publikací" alt="E-Deposit - portál pro ohlašování elektronických publikací" src="http://localhost:55001/plone/logo.png" /&gt;&lt;/a&gt;
+
+
+    &lt;p class="hiddenStructure"&gt;Navigation&lt;/p&gt;
+
+    &lt;ul id="portal-globalnav"&gt;&lt;li class="selected" id="portaltab-index_html"&gt;&lt;a title="" href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;div class="row" id="portal-columns"&gt;
+
+        &lt;div class="cell width-full position-0" id="portal-column-content"&gt;
+
+            &lt;div id="viewlet-above-content"&gt;&lt;div id="portal-breadcrumbs"&gt;
+
+    &lt;span id="breadcrumbs-you-are-here"&gt;Nacházíte se zde:&lt;/span&gt;
+    &lt;span id="breadcrumbs-home"&gt;
+        &lt;a href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;
+        
+    &lt;/span&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+            
+                &lt;div class=""&gt;
+
+                    
+
+                    
+
+    &lt;dl style="display:none" id="kssPortalMessage" class="portalMessage info"&gt;
+        &lt;dt&gt;Info&lt;/dt&gt;
+        &lt;dd&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+
+
+
+                    
+                        &lt;div id="content"&gt;
+
+                            
+
+                            
+
+
+  &lt;h1 class="documentFirstHeading"&gt;Proběhlo vaše odhlášení z portálu.&lt;/h1&gt;
+
+  &lt;div class="documentDescription"&gt;Níže se můžete znovu přihlásit.&lt;/div&gt;
+
+  &lt;div id="content-core"&gt;
+      
+
+            &lt;dl style="display:none" id="enable_cookies_message" class="portalMessage error"&gt;
+                &lt;dt&gt;Chyba&lt;/dt&gt;
+                &lt;dd&gt;Nemáte povolený příjem souborů cookies ve vašem prohlížeči. Abyste se mohli přihlásit, musíte si zapnout příjem cookies.&lt;/dd&gt;
+            &lt;/dl&gt;
+
+            
+
+            &lt;form action="http://localhost:55001/plone/logged_out" id="login_form" method="post" class="enableAutoFocus"&gt;
+
+                &lt;div id="login-form"&gt;
+
+                    &lt;input type="hidden" value="" name="came_from" /&gt;
+
+                    &lt;input type="hidden" name="next" /&gt;
+
+                    &lt;input type="hidden" name="ajax_load" /&gt;
+
+                    &lt;input type="hidden" name="ajax_include_head" /&gt;
+
+                    &lt;input type="hidden" name="target" /&gt;
+
+                    &lt;input type="hidden" name="mail_password_url" /&gt;
+
+                    &lt;input type="hidden" name="join_url" /&gt;
+
+                    &lt;input type="hidden" value="1" name="form.submitted" /&gt;
+                    &lt;input type="hidden" value="0" id="js_enabled" name="js_enabled" /&gt;
+                    &lt;input type="hidden" value="" id="cookies_enabled" name="cookies_enabled" /&gt;
+                    &lt;input type="hidden" value="" id="login_name" name="login_name" /&gt;
+                    &lt;input type="hidden" value="0" id="pwd_empty" name="pwd_empty" /&gt;
+
+                    &lt;div class="field"&gt;
+
+                        &lt;label for="__ac_name"&gt;Jméno uživatele&lt;/label&gt;
+
+                        
+
+                        
+
+                        &lt;input type="text" id="__ac_name" value="" name="__ac_name" size="15" /&gt;
+
+                &lt;/div&gt;
+
+                &lt;div class="field"&gt;
+
+                        &lt;label for="__ac_password"&gt;Heslo&lt;/label&gt;
+
+                        
+
+                        &lt;input type="password" id="__ac_password" name="__ac_password" size="15" /&gt;
+                &lt;/div&gt;
+
+                    
+
+                    &lt;div class="formControls"&gt;
+
+                        &lt;input type="submit" value="Přihlásit se" name="submit" class="context" /&gt;
+
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+
+            &lt;/form&gt;
+
+            
+
+        
+
+            &lt;div id="login-forgotten-password"&gt;
+                &lt;strong&gt;Nepamatujete si své heslo?&lt;/strong&gt;
+                &lt;p class="discreet"&gt;Pokud si své heslo nepamatujete, &lt;span&gt; &lt;a href="http://localhost:55001/plone/mail_password_form?userid="&gt;zašleme vám nové&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+            &lt;/div&gt;
+
+            
+
+        
+  &lt;/div&gt;
+
+
+
+
+
+
+                        &lt;/div&gt;
+                    
+
+                    
+                &lt;/div&gt;
+            
+
+            &lt;div id="viewlet-below-content"&gt;
+&lt;/div&gt;
+        &lt;/div&gt;
+
+        
+        
+
+        
+        
+    &lt;/div&gt;
+
+
+    &lt;div class="row" id="portal-footer-wrapper"&gt;
+        &lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-footer"&gt;
+          &lt;p&gt;
+               Portál &lt;a href="http://plone.org"&gt;Plone&lt;sup&gt;®&lt;/sup&gt; - systém správy obsahu (CMS/WCM) s otevřeným zdrojovým kódem&lt;/a&gt; Copyright &lt;abbr title="Copyright"&gt;©&lt;/abbr&gt; 2000-2014 &lt;a href="http://plone.org/foundation"&gt;Plone Foundation&lt;/a&gt; a jiní.
+
+               Šířeno v rámci &lt;a href="http://creativecommons.org/licenses/GPL/2.0/"&gt;Licence GNU GPL&lt;/a&gt;.
+          &lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div id="portal-colophon"&gt;
+&lt;div class="colophonWrapper"&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;a title="Tento portál byl vytvořen pomocí systému Plone CMS/WCM" href="http://plone.org"&gt;Využívá software Plone &amp;amp; Python&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul id="portal-siteactions"&gt;
+
+    &lt;li id="siteaction-sitemap"&gt;&lt;a title="Mapa portálu" accesskey="3" href="http://localhost:55001/plone/sitemap"&gt;Mapa portálu&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-accessibility"&gt;&lt;a title="Přístupnost" accesskey="0" href="http://localhost:55001/plone/accessibility-info"&gt;Přístupnost&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-contact"&gt;&lt;a title="Kontakt" accesskey="9" href="http://localhost:55001/plone/contact-info" rel="#pb_1" class="link-overlay" style="cursor: pointer;"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+
+&lt;/div&gt;
+
+
+
+
+&lt;div id="ajax-spinner" style="display: none;"&gt;&lt;img alt="" src="http://localhost:55001/plone/spinner.gif" /&gt;&lt;/div&gt;&lt;/body&gt;&lt;canvas id="fxdriver-screenshot-canvas" style="display: none;" width="924" height="763"&gt;&lt;/canvas&gt;&lt;/html&gt;</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:36.113" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:36.114" starttime="20140202 23:57:35.996"></status>
+</kw>
+<msg timestamp="20140202 23:57:36.114" level="FAIL">Page should have contained text 'Vítejte na stránkách E-Deposit' but did not</msg>
+<status status="FAIL" endtime="20140202 23:57:36.115" starttime="20140202 23:57:34.904"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:36.147" starttime="20140202 23:57:36.115"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20140202 23:57:36.147" critical="yes" starttime="20140202 23:57:24.098">Page should have contained text 'Vítejte na stránkách E-Deposit' but did not</status>
+</test>
+<test id="s1-t2" timeout="" name="Bezpečnost složky producentů">
+<kw type="setup" name="Open browser and create all folders" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Open Browser" timeout="">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+<arg>firefox</arg>
+</arguments>
+<msg timestamp="20140202 23:57:36.181" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:57:38.780" starttime="20140202 23:57:36.180"></status>
+</kw>
+<kw type="kw" name="keywords.Log in as site owner" timeout="">
+<doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Log in" timeout="">
+<doc>Log in to the site as ${userid} using ${password}. There</doc>
+<arguments>
+<arg>${SITE_OWNER_NAME}</arg>
+<arg>${SITE_OWNER_PASSWORD}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/login_form</arg>
+</arguments>
+<msg timestamp="20140202 23:57:38.785" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140202 23:57:39.012" starttime="20140202 23:57:38.784"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_name</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.046" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140202 23:57:39.046" starttime="20140202 23:57:39.012"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_password</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.055" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140202 23:57:39.056" starttime="20140202 23:57:39.047"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.062" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:57:39.062" starttime="20140202 23:57:39.057"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_name</arg>
+<arg>${userid}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:39.064" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:39.064" starttime="20140202 23:57:39.063"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:39.064" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:39.064" starttime="20140202 23:57:39.064"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_name and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:39.086" starttime="20140202 23:57:39.065"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.088" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140202 23:57:39.469" starttime="20140202 23:57:39.087"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.484" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140202 23:57:39.483" starttime="20140202 23:57:39.470"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.485" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:39.485" starttime="20140202 23:57:39.484"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:39.485" starttime="20140202 23:57:39.065"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:39.485" starttime="20140202 23:57:39.064"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:39.486" starttime="20140202 23:57:39.063"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_password</arg>
+<arg>${password}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:39.492" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:39.491" starttime="20140202 23:57:39.491"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:39.493" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:39.493" starttime="20140202 23:57:39.492"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_password and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:39.525" starttime="20140202 23:57:39.498"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.527" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140202 23:57:39.824" starttime="20140202 23:57:39.526"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.837" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140202 23:57:39.837" starttime="20140202 23:57:39.825"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.839" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:39.839" starttime="20140202 23:57:39.838"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:39.839" starttime="20140202 23:57:39.496"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:39.839" starttime="20140202 23:57:39.494"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:39.839" starttime="20140202 23:57:39.487"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:57:39.840" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:57:41.271" starttime="20140202 23:57:39.839"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:41.271" starttime="20140202 23:57:38.782"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:41.271" starttime="20140202 23:57:38.781"></status>
+</kw>
+<kw type="kw" name="Create producents folder" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Add Dexterity Content" timeout="">
+<doc></doc>
+<arguments>
+<arg>edeposit-user-producentfolder</arg>
+<arg>producents</arg>
+</arguments>
+<kw type="kw" name="keywords.Go to homepage" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:41.275" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:57:41.753" starttime="20140202 23:57:41.275"></status>
+</kw>
+<kw type="kw" name="selenium.Wait until location is" timeout="">
+<doc></doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:41.755" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:41.755" starttime="20140202 23:57:41.754"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:41.756" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:41.756" starttime="20140202 23:57:41.755"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Location should be</arg>
+<arg>${expected_url}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Location Should Be" timeout="">
+<doc>Verifies that current URL is exactly `url`.</doc>
+<arguments>
+<arg>${expected_url}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:41.763" level="INFO">Current location is 'http://localhost:55001/plone'.</msg>
+<status status="PASS" endtime="20140202 23:57:41.763" starttime="20140202 23:57:41.757"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:41.764" starttime="20140202 23:57:41.756"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:41.764" starttime="20140202 23:57:41.753"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:41.764" starttime="20140202 23:57:41.274"></status>
+</kw>
+<kw type="kw" name="keywords.Open Add New Menu" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Open Menu" timeout="">
+<doc></doc>
+<arguments>
+<arg>plone-contentmenu-factories</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} span</arg>
+</arguments>
+<msg timestamp="20140202 23:57:41.767" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories span' is visible.</msg>
+<status status="PASS" endtime="20140202 23:57:41.784" starttime="20140202 23:57:41.767"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Element Should Not Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is NOT visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:57:41.785" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.</msg>
+<status status="PASS" endtime="20140202 23:57:41.796" starttime="20140202 23:57:41.784"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=dl#${elementId} dt.actionMenuHeader a</arg>
+</arguments>
+<msg timestamp="20140202 23:57:41.798" level="INFO">Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.</msg>
+<status status="PASS" endtime="20140202 23:57:42.843" starttime="20140202 23:57:41.797"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>1</arg>
+<arg>5</arg>
+<arg>Element Should Be Visible</arg>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:57:42.848" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.</msg>
+<status status="PASS" endtime="20140202 23:57:42.868" starttime="20140202 23:57:42.846"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:42.868" starttime="20140202 23:57:42.844"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:42.869" starttime="20140202 23:57:41.766"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:42.869" starttime="20140202 23:57:41.765"></status>
+</kw>
+<kw type="kw" name="${status} = BuiltIn.Run Keyword And Return Status" timeout="">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Click Link</arg>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:42.870" level="INFO">Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.</msg>
+<status status="PASS" endtime="20140202 23:57:43.090" starttime="20140202 23:57:42.869"></status>
+</kw>
+<msg timestamp="20140202 23:57:43.090" level="INFO">${status} = True</msg>
+<status status="PASS" endtime="20140202 23:57:43.090" starttime="20140202 23:57:42.869"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If" timeout="">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>${status} != True</arg>
+<arg>Click Link</arg>
+<arg>${content_type}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:43.091" starttime="20140202 23:57:43.091"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>form.widgets.IBasic.title</arg>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:43.092" level="INFO">Typing text 'producents' into text field 'form.widgets.IBasic.title'</msg>
+<status status="PASS" endtime="20140202 23:57:43.733" starttime="20140202 23:57:43.091"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>name=form.buttons.save</arg>
+</arguments>
+<msg timestamp="20140202 23:57:43.735" level="INFO">Clicking button 'name=form.buttons.save'.</msg>
+<status status="PASS" endtime="20140202 23:57:45.815" starttime="20140202 23:57:43.735"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Položka byla vytvořena</arg>
+</arguments>
+<msg timestamp="20140202 23:57:46.475" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
+<status status="PASS" endtime="20140202 23:57:46.475" starttime="20140202 23:57:45.815"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:46.494" level="INFO">Current page contains text 'producents'.</msg>
+<status status="PASS" endtime="20140202 23:57:46.494" starttime="20140202 23:57:46.476"></status>
+</kw>
+<kw type="kw" name="${location} = Selenium2Library.Get Location" timeout="">
+<doc>Returns the current location.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:46.500" level="INFO">${location} = http://localhost:55001/plone/producents/view</msg>
+<status status="PASS" endtime="20140202 23:57:46.500" starttime="20140202 23:57:46.494"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:46.501" starttime="20140202 23:57:41.273"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:46.502" starttime="20140202 23:57:41.272"></status>
+</kw>
+<kw type="kw" name="keywords.Log out" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/logout</arg>
+</arguments>
+<msg timestamp="20140202 23:57:46.505" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140202 23:57:46.709" starttime="20140202 23:57:46.504"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form</arg>
+</arguments>
+<msg timestamp="20140202 23:57:46.721" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140202 23:57:46.721" starttime="20140202 23:57:46.709"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:46.721" starttime="20140202 23:57:46.502"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:46.722" starttime="20140202 23:57:36.179"></status>
+</kw>
+<kw type="kw" name="Dialogs.Pause Execution" timeout="">
+<doc>Pauses test execution until user clicks `Ok` button.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:49.709" starttime="20140202 23:57:46.722"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/producents</arg>
+</arguments>
+<msg timestamp="20140202 23:57:49.710" level="INFO">Opening url 'http://localhost:55001/plone/producents'</msg>
+<status status="PASS" endtime="20140202 23:57:50.033" starttime="20140202 23:57:49.710"></status>
+</kw>
+<kw type="kw" name="Page Does Not Exist" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Litujeme, ale tato stránka neexistuje...</arg>
+</arguments>
+<msg timestamp="20140202 23:57:51.116" level="INFO">&lt;!DOCTYPE html&gt;
+&lt;html lang="cs" xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;&lt;head&gt;
+    &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
+
+    
+        &lt;base href="http://localhost:55001/plone/" /&gt;&lt;!--[if lt IE 7]&gt;&lt;/base&gt;&lt;![endif]--&gt;
+    
+
+    
+        &lt;meta name="description" content="Vítejte na stránkách E-Deposit" /&gt;
+
+  
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/reset-cachekey-74fe8397e1dfa1b55d1a0ef4059dd61f.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/base-cachekey-aeda8e9b712d0d766a87bd8b7d714572.css" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/ploneCustom-cachekey-95b3ad6600add381a8515d979d86b6f3.css" media="all" type="text/css" rel="stylesheet" /&gt;
+
+  
+  
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceplone.app.jquery-cachekey-26f3ac3a2fad4c299f4db1814ae7cdeb.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceedeposit.userregistration-cachekey-c14d567786b7f58869c47fc737629fac.js" type="text/javascript"&gt;&lt;/script&gt;
+
+
+&lt;title&gt;E-Deposit - portál pro ohlašování elektronických publikací&lt;/title&gt;
+        
+    &lt;link href="http://localhost:55001/plone" rel="canonical" /&gt;
+
+    &lt;link href="http://localhost:55001/plone/favicon.ico" type="image/x-icon" rel="shortcut icon" /&gt;
+    &lt;link href="http://localhost:55001/plone/touch_icon.png" rel="apple-touch-icon" /&gt;
+
+
+&lt;script type="text/javascript"&gt;
+        jQuery(function($){
+            $.datepicker.setDefaults(
+                jQuery.extend($.datepicker.regional['cs'],
+                {dateFormat: 'dd.mm.yy'}));
+        });
+        &lt;/script&gt;
+
+
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 1.0" href="http://localhost:55001/plone/RSS" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 2.0" href="http://localhost:55001/plone/rss.xml" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - Atom" href="http://localhost:55001/plone/atom.xml" rel="alternate" /&gt;
+
+
+    &lt;link title="Prohledejte portál" href="http://localhost:55001/plone/@@search" rel="search" /&gt;
+
+
+
+        
+        
+        
+        
+        
+        &lt;script src="http://localhost:55001/plone/login.js" type="text/javascript"&gt;
+        &lt;/script&gt;
+    
+
+        &lt;meta content="width=device-width, initial-scale=0.6666, maximum-scale=1.0, minimum-scale=0.6666" name="viewport" /&gt;
+        &lt;meta content="Plone - http://plone.org" name="generator" /&gt;
+    
+&lt;/head&gt;
+
+&lt;body dir="ltr" class="template-login_form portaltype-plone-site site-plone icons-on userrole-anonymous"&gt;
+
+&lt;div id="visual-portal-wrapper"&gt;
+
+        &lt;div class="row" id="portal-top"&gt;
+&lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-header"&gt;
+    &lt;p class="hiddenStructure"&gt;
+  &lt;a href="http://localhost:55001/plone/acl_users/credentials_cookie_auth/require_login?came_from=http%3A//localhost%3A55001/plone/producents#content" accesskey="2"&gt;Přejít na obsah&lt;/a&gt; |
+
+  &lt;a href="http://localhost:55001/plone/acl_users/credentials_cookie_auth/require_login?came_from=http%3A//localhost%3A55001/plone/producents#portal-globalnav" accesskey="6"&gt;Přejít na navigaci&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;div id="portal-personaltools-wrapper"&gt;
+
+&lt;p class="hiddenStructure"&gt;Osobní nástroje&lt;/p&gt;
+
+
+
+&lt;ul id="portal-personaltools" class="actionMenu deactivated"&gt;
+  &lt;li id="anon-personalbar"&gt;
+    
+        &lt;a id="personaltools-login" href="http://localhost:55001/plone/login/?came_from=http://localhost:55001/plone/dashboard"&gt;Přihlášení&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-join" href="http://localhost:55001/plone/@@register-with-producent"&gt;Registrovat&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-agreement with National Library" href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb"&gt;Smlouva s Národní knihovnou&lt;/a&gt;
+    
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;div id="portal-searchbox"&gt;
+
+    &lt;form action="http://localhost:55001/plone/@@search" id="livesearch0"&gt;
+
+        &lt;div class="LSBox"&gt;
+        &lt;label for="searchGadget" class="hiddenStructure"&gt;Vyhledat&lt;/label&gt;
+
+        &lt;input type="text" id="searchGadget" class="searchField" accesskey="4" placeholder="Prohledat portál" title="Prohledat portál" size="18" name="SearchableText" autocomplete="off" /&gt;
+
+        &lt;input type="submit" value="Vyhledat" class="searchButton" /&gt;
+
+        &lt;div class="searchSection"&gt;
+            &lt;input type="checkbox" value="/plone" name="path" class="noborder" id="searchbox_currentfolder_only" /&gt;
+            &lt;label style="cursor: pointer" for="searchbox_currentfolder_only"&gt;pouze v aktuální sekci&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;div id="LSResult" class="LSResult"&gt;&lt;div id="LSShadow" class="LSShadow"&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;div class="hiddenStructure" id="portal-advanced-search"&gt;
+        &lt;a accesskey="5" href="http://localhost:55001/plone/@@search"&gt;Pokročilé vyhledávání...&lt;/a&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;a href="http://localhost:55001/plone" accesskey="1" title="E-Deposit - portál pro ohlašování elektronických publikací" id="portal-logo"&gt;
+    &lt;img width="215" height="56" title="E-Deposit - portál pro ohlašování elektronických publikací" alt="E-Deposit - portál pro ohlašování elektronických publikací" src="http://localhost:55001/plone/logo.png" /&gt;&lt;/a&gt;
+
+
+    &lt;p class="hiddenStructure"&gt;Navigation&lt;/p&gt;
+
+    &lt;ul id="portal-globalnav"&gt;&lt;li class="selected" id="portaltab-index_html"&gt;&lt;a title="" href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;div class="row" id="portal-columns"&gt;
+
+        &lt;div class="cell width-full position-0" id="portal-column-content"&gt;
+
+            &lt;div id="viewlet-above-content"&gt;&lt;div id="portal-breadcrumbs"&gt;
+
+    &lt;span id="breadcrumbs-you-are-here"&gt;Nacházíte se zde:&lt;/span&gt;
+    &lt;span id="breadcrumbs-home"&gt;
+        &lt;a href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;
+        
+    &lt;/span&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+            
+                &lt;div class=""&gt;
+
+                    
+
+                    
+
+    &lt;dl style="display:none" id="kssPortalMessage" class="portalMessage info"&gt;
+        &lt;dt&gt;Info&lt;/dt&gt;
+        &lt;dd&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+
+
+
+                    
+                        &lt;div id="content"&gt;
+
+                            
+
+                            
+
+    &lt;div id="content-core"&gt;
+        
+
+            &lt;dl style="display:none" id="enable_cookies_message" class="portalMessage error"&gt;
+                &lt;dt&gt;Chyba&lt;/dt&gt;
+                &lt;dd&gt;Nemáte povolený příjem souborů cookies ve vašem prohlížeči. Abyste se mohli přihlásit, musíte si zapnout příjem cookies.&lt;/dd&gt;
+            &lt;/dl&gt;
+
+            
+
+            &lt;form action="http://localhost:55001/plone/login_form" id="login_form" method="post" class="enableAutoFocus"&gt;
+
+                &lt;div id="login-form"&gt;
+
+                    &lt;input type="hidden" value="http://localhost:55001/plone/producents" name="came_from" /&gt;
+
+                    &lt;input type="hidden" name="next" /&gt;
+
+                    &lt;input type="hidden" name="ajax_load" /&gt;
+
+                    &lt;input type="hidden" name="ajax_include_head" /&gt;
+
+                    &lt;input type="hidden" name="target" /&gt;
+
+                    &lt;input type="hidden" name="mail_password_url" /&gt;
+
+                    &lt;input type="hidden" name="join_url" /&gt;
+
+                    &lt;input type="hidden" value="1" name="form.submitted" /&gt;
+                    &lt;input type="hidden" value="0" id="js_enabled" name="js_enabled" /&gt;
+                    &lt;input type="hidden" value="" id="cookies_enabled" name="cookies_enabled" /&gt;
+                    &lt;input type="hidden" value="" id="login_name" name="login_name" /&gt;
+                    &lt;input type="hidden" value="0" id="pwd_empty" name="pwd_empty" /&gt;
+
+                    &lt;div class="field"&gt;
+
+                        &lt;label for="__ac_name"&gt;Jméno uživatele&lt;/label&gt;
+
+                        
+
+                        
+
+                        &lt;input type="text" id="__ac_name" value="" name="__ac_name" size="15" /&gt;
+
+                &lt;/div&gt;
+
+                &lt;div class="field"&gt;
+
+                        &lt;label for="__ac_password"&gt;Heslo&lt;/label&gt;
+
+                        
+
+                        &lt;input type="password" id="__ac_password" name="__ac_password" size="15" /&gt;
+                &lt;/div&gt;
+
+                    
+
+                    &lt;div class="formControls"&gt;
+
+                        &lt;input type="submit" value="Přihlásit se" name="submit" class="context" /&gt;
+
+                    &lt;/div&gt;
+
+                &lt;/div&gt;
+
+            &lt;/form&gt;
+
+            
+
+        
+
+            &lt;div id="login-forgotten-password"&gt;
+                &lt;strong&gt;Nepamatujete si své heslo?&lt;/strong&gt;
+                &lt;p class="discreet"&gt;Pokud si své heslo nepamatujete, &lt;span&gt; &lt;a href="http://localhost:55001/plone/mail_password_form?userid="&gt;zašleme vám nové&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+            &lt;/div&gt;
+
+            
+
+        
+    &lt;/div&gt;
+
+    
+                        &lt;/div&gt;
+                    
+
+                    
+                &lt;/div&gt;
+            
+
+            &lt;div id="viewlet-below-content"&gt;
+&lt;/div&gt;
+        &lt;/div&gt;
+
+        
+        
+
+        
+        
+    &lt;/div&gt;
+
+
+    &lt;div class="row" id="portal-footer-wrapper"&gt;
+        &lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-footer"&gt;
+          &lt;p&gt;
+               Portál &lt;a href="http://plone.org"&gt;Plone&lt;sup&gt;®&lt;/sup&gt; - systém správy obsahu (CMS/WCM) s otevřeným zdrojovým kódem&lt;/a&gt; Copyright &lt;abbr title="Copyright"&gt;©&lt;/abbr&gt; 2000-2014 &lt;a href="http://plone.org/foundation"&gt;Plone Foundation&lt;/a&gt; a jiní.
+
+               Šířeno v rámci &lt;a href="http://creativecommons.org/licenses/GPL/2.0/"&gt;Licence GNU GPL&lt;/a&gt;.
+          &lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div id="portal-colophon"&gt;
+&lt;div class="colophonWrapper"&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;a title="Tento portál byl vytvořen pomocí systému Plone CMS/WCM" href="http://plone.org"&gt;Využívá software Plone &amp;amp; Python&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul id="portal-siteactions"&gt;
+
+    &lt;li id="siteaction-sitemap"&gt;&lt;a title="Mapa portálu" accesskey="3" href="http://localhost:55001/plone/sitemap"&gt;Mapa portálu&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-accessibility"&gt;&lt;a title="Přístupnost" accesskey="0" href="http://localhost:55001/plone/accessibility-info"&gt;Přístupnost&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-contact"&gt;&lt;a title="Kontakt" accesskey="9" href="http://localhost:55001/plone/contact-info" rel="#pb_1" class="link-overlay" style="cursor: pointer;"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+
+&lt;/div&gt;
+
+
+
+
+&lt;div id="ajax-spinner" style="display: none;"&gt;&lt;img alt="" src="http://localhost:55001/plone/spinner.gif" /&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:51.199" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:51.199" starttime="20140202 23:57:51.116"></status>
+</kw>
+<msg timestamp="20140202 23:57:51.199" level="FAIL">Page should have contained text 'Litujeme, ale tato stránka neexistuje...' but did not</msg>
+<status status="FAIL" endtime="20140202 23:57:51.199" starttime="20140202 23:57:50.036"></status>
+</kw>
+<status status="FAIL" endtime="20140202 23:57:51.200" starttime="20140202 23:57:50.034"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:51.231" starttime="20140202 23:57:51.201"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20140202 23:57:51.231" critical="yes" starttime="20140202 23:57:36.151">Page should have contained text 'Litujeme, ale tato stránka neexistuje...' but did not</status>
+</test>
+<test id="s1-t3" timeout="" name="UC01-01 Stažení smlouvy">
+<kw type="setup" name="Open browser and create all folders" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Open Browser" timeout="">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+<arg>firefox</arg>
+</arguments>
+<msg timestamp="20140202 23:57:51.251" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:57:53.815" starttime="20140202 23:57:51.250"></status>
+</kw>
+<kw type="kw" name="keywords.Log in as site owner" timeout="">
+<doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Log in" timeout="">
+<doc>Log in to the site as ${userid} using ${password}. There</doc>
+<arguments>
+<arg>${SITE_OWNER_NAME}</arg>
+<arg>${SITE_OWNER_PASSWORD}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/login_form</arg>
+</arguments>
+<msg timestamp="20140202 23:57:53.824" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140202 23:57:54.061" starttime="20140202 23:57:53.824"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_name</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.102" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140202 23:57:54.103" starttime="20140202 23:57:54.062"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_password</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.115" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140202 23:57:54.115" starttime="20140202 23:57:54.103"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.121" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:57:54.122" starttime="20140202 23:57:54.116"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_name</arg>
+<arg>${userid}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:54.127" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:54.126" starttime="20140202 23:57:54.126"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:54.128" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:54.128" starttime="20140202 23:57:54.127"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_name and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:54.159" starttime="20140202 23:57:54.133"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.161" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140202 23:57:54.548" starttime="20140202 23:57:54.160"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.560" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140202 23:57:54.560" starttime="20140202 23:57:54.548"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.561" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:54.561" starttime="20140202 23:57:54.561"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:54.561" starttime="20140202 23:57:54.131"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:54.561" starttime="20140202 23:57:54.129"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:54.561" starttime="20140202 23:57:54.123"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_password</arg>
+<arg>${password}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:54.563" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:54.563" starttime="20140202 23:57:54.563"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:54.564" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:54.564" starttime="20140202 23:57:54.564"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_password and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:54.588" starttime="20140202 23:57:54.565"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.589" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140202 23:57:54.884" starttime="20140202 23:57:54.588"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.897" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140202 23:57:54.897" starttime="20140202 23:57:54.886"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.899" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:57:54.900" starttime="20140202 23:57:54.898"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:54.900" starttime="20140202 23:57:54.565"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:54.901" starttime="20140202 23:57:54.564"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:54.901" starttime="20140202 23:57:54.562"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:57:54.905" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:57:56.292" starttime="20140202 23:57:54.904"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:56.292" starttime="20140202 23:57:53.822"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:56.292" starttime="20140202 23:57:53.816"></status>
+</kw>
+<kw type="kw" name="Create producents folder" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Add Dexterity Content" timeout="">
+<doc></doc>
+<arguments>
+<arg>edeposit-user-producentfolder</arg>
+<arg>producents</arg>
+</arguments>
+<kw type="kw" name="keywords.Go to homepage" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:56.298" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:57:56.814" starttime="20140202 23:57:56.297"></status>
+</kw>
+<kw type="kw" name="selenium.Wait until location is" timeout="">
+<doc></doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:56.819" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:57:56.818" starttime="20140202 23:57:56.817"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:57:56.821" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:57:56.820" starttime="20140202 23:57:56.820"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Location should be</arg>
+<arg>${expected_url}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Location Should Be" timeout="">
+<doc>Verifies that current URL is exactly `url`.</doc>
+<arguments>
+<arg>${expected_url}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:56.836" level="INFO">Current location is 'http://localhost:55001/plone'.</msg>
+<status status="PASS" endtime="20140202 23:57:56.836" starttime="20140202 23:57:56.823"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:56.837" starttime="20140202 23:57:56.821"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:56.837" starttime="20140202 23:57:56.814"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:56.837" starttime="20140202 23:57:56.295"></status>
+</kw>
+<kw type="kw" name="keywords.Open Add New Menu" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Open Menu" timeout="">
+<doc></doc>
+<arguments>
+<arg>plone-contentmenu-factories</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} span</arg>
+</arguments>
+<msg timestamp="20140202 23:57:56.840" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories span' is visible.</msg>
+<status status="PASS" endtime="20140202 23:57:56.855" starttime="20140202 23:57:56.839"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Element Should Not Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is NOT visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:57:56.856" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.</msg>
+<status status="PASS" endtime="20140202 23:57:56.867" starttime="20140202 23:57:56.856"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=dl#${elementId} dt.actionMenuHeader a</arg>
+</arguments>
+<msg timestamp="20140202 23:57:56.869" level="INFO">Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.</msg>
+<status status="PASS" endtime="20140202 23:57:58.026" starttime="20140202 23:57:56.868"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>1</arg>
+<arg>5</arg>
+<arg>Element Should Be Visible</arg>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:57:58.029" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.</msg>
+<status status="PASS" endtime="20140202 23:57:58.043" starttime="20140202 23:57:58.028"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:58.044" starttime="20140202 23:57:58.027"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:58.044" starttime="20140202 23:57:56.838"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:57:58.044" starttime="20140202 23:57:56.837"></status>
+</kw>
+<kw type="kw" name="${status} = BuiltIn.Run Keyword And Return Status" timeout="">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Click Link</arg>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:58.045" level="INFO">Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.</msg>
+<status status="PASS" endtime="20140202 23:57:58.275" starttime="20140202 23:57:58.044"></status>
+</kw>
+<msg timestamp="20140202 23:57:58.276" level="INFO">${status} = True</msg>
+<status status="PASS" endtime="20140202 23:57:58.275" starttime="20140202 23:57:58.044"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If" timeout="">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>${status} != True</arg>
+<arg>Click Link</arg>
+<arg>${content_type}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:57:58.276" starttime="20140202 23:57:58.276"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>form.widgets.IBasic.title</arg>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:57:58.277" level="INFO">Typing text 'producents' into text field 'form.widgets.IBasic.title'</msg>
+<status status="PASS" endtime="20140202 23:57:58.928" starttime="20140202 23:57:58.276"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>name=form.buttons.save</arg>
+</arguments>
+<msg timestamp="20140202 23:57:58.929" level="INFO">Clicking button 'name=form.buttons.save'.</msg>
+<status status="PASS" endtime="20140202 23:58:01.067" starttime="20140202 23:57:58.929"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Položka byla vytvořena</arg>
+</arguments>
+<msg timestamp="20140202 23:58:01.730" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
+<status status="PASS" endtime="20140202 23:58:01.731" starttime="20140202 23:58:01.067"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:01.749" level="INFO">Current page contains text 'producents'.</msg>
+<status status="PASS" endtime="20140202 23:58:01.749" starttime="20140202 23:58:01.732"></status>
+</kw>
+<kw type="kw" name="${location} = Selenium2Library.Get Location" timeout="">
+<doc>Returns the current location.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:01.757" level="INFO">${location} = http://localhost:55001/plone/producents/view</msg>
+<status status="PASS" endtime="20140202 23:58:01.757" starttime="20140202 23:58:01.750"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:01.758" starttime="20140202 23:57:56.294"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:01.758" starttime="20140202 23:57:56.293"></status>
+</kw>
+<kw type="kw" name="keywords.Log out" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/logout</arg>
+</arguments>
+<msg timestamp="20140202 23:58:01.761" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140202 23:58:01.984" starttime="20140202 23:58:01.760"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form</arg>
+</arguments>
+<msg timestamp="20140202 23:58:01.998" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140202 23:58:01.998" starttime="20140202 23:58:01.985"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:01.998" starttime="20140202 23:58:01.759"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:01.999" starttime="20140202 23:57:51.249"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>Smlouva s Národní knihovnou</arg>
+</arguments>
+<msg timestamp="20140202 23:58:02.001" level="INFO">Clicking link 'Smlouva s Národní knihovnou'.</msg>
+<status status="PASS" endtime="20140202 23:58:04.358" starttime="20140202 23:58:02.000"></status>
+</kw>
+<kw type="kw" name="Page Should Not Contain Error" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Page Should Not Contain" timeout="">
+<doc>Verifies the current page does not contain `text`.</doc>
+<arguments>
+<arg>Litujeme, ale tato stránka neexistuje...</arg>
+</arguments>
+<msg timestamp="20140202 23:58:04.635" level="INFO">&lt;!DOCTYPE html&gt;
+&lt;html lang="cs" xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;&lt;head&gt;
+    &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
+
+    
+        &lt;base href="http://localhost:55001/plone/" /&gt;&lt;!--[if lt IE 7]&gt;&lt;/base&gt;&lt;![endif]--&gt;
+    
+
+    
+        &lt;meta name="description" content="Vítejte na stránkách E-Deposit" /&gt;
+
+  
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/reset-cachekey-74fe8397e1dfa1b55d1a0ef4059dd61f.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/base-cachekey-aeda8e9b712d0d766a87bd8b7d714572.css" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/ploneCustom-cachekey-95b3ad6600add381a8515d979d86b6f3.css" media="all" type="text/css" rel="stylesheet" /&gt;
+
+  
+  
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceplone.app.jquery-cachekey-26f3ac3a2fad4c299f4db1814ae7cdeb.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceedeposit.userregistration-cachekey-c14d567786b7f58869c47fc737629fac.js" type="text/javascript"&gt;&lt;/script&gt;
+
+
+&lt;title&gt;E-Deposit - portál pro ohlašování elektronických publikací&lt;/title&gt;
+        
+    &lt;link href="http://localhost:55001/plone" rel="canonical" /&gt;
+
+    &lt;link href="http://localhost:55001/plone/favicon.ico" type="image/x-icon" rel="shortcut icon" /&gt;
+    &lt;link href="http://localhost:55001/plone/touch_icon.png" rel="apple-touch-icon" /&gt;
+
+
+&lt;script type="text/javascript"&gt;
+        jQuery(function($){
+            $.datepicker.setDefaults(
+                jQuery.extend($.datepicker.regional['cs'],
+                {dateFormat: 'dd.mm.yy'}));
+        });
+        &lt;/script&gt;
+
+
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 1.0" href="http://localhost:55001/plone/RSS" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 2.0" href="http://localhost:55001/plone/rss.xml" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - Atom" href="http://localhost:55001/plone/atom.xml" rel="alternate" /&gt;
+
+
+    &lt;link title="Prohledejte portál" href="http://localhost:55001/plone/@@search" rel="search" /&gt;
+
+
+
+        
+        
+        
+        
+        
+
+        &lt;meta content="width=device-width, initial-scale=0.6666, maximum-scale=1.0, minimum-scale=0.6666" name="viewport" /&gt;
+        &lt;meta content="Plone - http://plone.org" name="generator" /&gt;
+    
+&lt;/head&gt;
+
+&lt;body dir="ltr" class="template-default_error_message portaltype-plone-site site-plone icons-on userrole-anonymous"&gt;
+
+&lt;div id="visual-portal-wrapper"&gt;
+
+        &lt;div class="row" id="portal-top"&gt;
+&lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-header"&gt;
+    &lt;p class="hiddenStructure"&gt;
+  &lt;a href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb#content" accesskey="2"&gt;Přejít na obsah&lt;/a&gt; |
+
+  &lt;a href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb#portal-globalnav" accesskey="6"&gt;Přejít na navigaci&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;div id="portal-personaltools-wrapper"&gt;
+
+&lt;p class="hiddenStructure"&gt;Osobní nástroje&lt;/p&gt;
+
+
+
+&lt;ul id="portal-personaltools" class="actionMenu deactivated"&gt;
+  &lt;li id="anon-personalbar"&gt;
+    
+        &lt;a id="personaltools-login" href="http://localhost:55001/plone/login/?came_from=http://localhost:55001/plone/dashboard"&gt;Přihlášení&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-join" href="http://localhost:55001/plone/@@register-with-producent"&gt;Registrovat&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-agreement with National Library" href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb"&gt;Smlouva s Národní knihovnou&lt;/a&gt;
+    
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;div id="portal-searchbox"&gt;
+
+    &lt;form action="http://localhost:55001/plone/@@search" id="livesearch0"&gt;
+
+        &lt;div class="LSBox"&gt;
+        &lt;label for="searchGadget" class="hiddenStructure"&gt;Vyhledat&lt;/label&gt;
+
+        &lt;input type="text" id="searchGadget" class="searchField" accesskey="4" placeholder="Prohledat portál" title="Prohledat portál" size="18" name="SearchableText" autocomplete="off" /&gt;
+
+        &lt;input type="submit" value="Vyhledat" class="searchButton" /&gt;
+
+        &lt;div class="searchSection"&gt;
+            &lt;input type="checkbox" value="/plone" name="path" class="noborder" id="searchbox_currentfolder_only" /&gt;
+            &lt;label style="cursor: pointer" for="searchbox_currentfolder_only"&gt;pouze v aktuální sekci&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;div id="LSResult" class="LSResult"&gt;&lt;div id="LSShadow" class="LSShadow"&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;div class="hiddenStructure" id="portal-advanced-search"&gt;
+        &lt;a accesskey="5" href="http://localhost:55001/plone/@@search"&gt;Pokročilé vyhledávání...&lt;/a&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;a href="http://localhost:55001/plone" accesskey="1" title="E-Deposit - portál pro ohlašování elektronických publikací" id="portal-logo"&gt;
+    &lt;img width="215" height="56" title="E-Deposit - portál pro ohlašování elektronických publikací" alt="E-Deposit - portál pro ohlašování elektronických publikací" src="http://localhost:55001/plone/logo.png" /&gt;&lt;/a&gt;
+
+
+    &lt;p class="hiddenStructure"&gt;Navigation&lt;/p&gt;
+
+    &lt;ul id="portal-globalnav"&gt;&lt;li class="selected" id="portaltab-index_html"&gt;&lt;a title="" href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;div class="row" id="portal-columns"&gt;
+
+        &lt;div class="cell width-full position-0" id="portal-column-content"&gt;
+
+            &lt;div id="viewlet-above-content"&gt;&lt;div id="portal-breadcrumbs"&gt;
+
+    &lt;span id="breadcrumbs-you-are-here"&gt;Nacházíte se zde:&lt;/span&gt;
+    &lt;span id="breadcrumbs-home"&gt;
+        &lt;a href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;
+        
+    &lt;/span&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+            
+                &lt;div class=""&gt;
+
+                    
+
+                    
+
+    &lt;dl style="display:none" id="kssPortalMessage" class="portalMessage info"&gt;
+        &lt;dt&gt;Info&lt;/dt&gt;
+        &lt;dd&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+
+
+
+                    
+                        &lt;div id="content"&gt;
+
+                            
+
+                            
+
+        
+
+            
+
+                
+
+                &lt;h1 class="documentFirstHeading"&gt;Litujeme, ale tato stránka neexistuje...&lt;/h1&gt;
+
+                &lt;div id="content-core"&gt;
+                    &lt;p&gt;Je nám líto, ale stránka kterou se chystáte navštívit není na uvedené adrese dostupná. Můžete použít níže uvedené odkazy a zkusit najít co hledáte.&lt;/p&gt;
+
+                    &lt;p&gt;Pokud jste si jisti, že máte správnou webovou adresu, ale přesto došlo k chybě, kontaktujte &lt;span&gt; &lt;a href="http://localhost:55001/plone/contact-info"&gt;místních správců&lt;/a&gt;&lt;/span&gt;.&lt;/p&gt;
+
+                    &lt;p&gt;Děkujeme.&lt;/p&gt;
+
+                    &lt;!-- Offer search results for suggestions --&gt;
+                    
+                &lt;/div&gt;
+            
+
+        
+
+        
+        
+
+
+                        &lt;/div&gt;
+                    
+
+                    
+                &lt;/div&gt;
+            
+
+            &lt;div id="viewlet-below-content"&gt;
+&lt;/div&gt;
+        &lt;/div&gt;
+
+        
+        
+
+        
+        
+    &lt;/div&gt;
+
+
+    &lt;div class="row" id="portal-footer-wrapper"&gt;
+        &lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-footer"&gt;
+          &lt;p&gt;
+               Portál &lt;a href="http://plone.org"&gt;Plone&lt;sup&gt;®&lt;/sup&gt; - systém správy obsahu (CMS/WCM) s otevřeným zdrojovým kódem&lt;/a&gt; Copyright &lt;abbr title="Copyright"&gt;©&lt;/abbr&gt; 2000-2014 &lt;a href="http://plone.org/foundation"&gt;Plone Foundation&lt;/a&gt; a jiní.
+
+               Šířeno v rámci &lt;a href="http://creativecommons.org/licenses/GPL/2.0/"&gt;Licence GNU GPL&lt;/a&gt;.
+          &lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div id="portal-colophon"&gt;
+&lt;div class="colophonWrapper"&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;a title="Tento portál byl vytvořen pomocí systému Plone CMS/WCM" href="http://plone.org"&gt;Využívá software Plone &amp;amp; Python&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul id="portal-siteactions"&gt;
+
+    &lt;li id="siteaction-sitemap"&gt;&lt;a title="Mapa portálu" accesskey="3" href="http://localhost:55001/plone/sitemap"&gt;Mapa portálu&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-accessibility"&gt;&lt;a title="Přístupnost" accesskey="0" href="http://localhost:55001/plone/accessibility-info"&gt;Přístupnost&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-contact"&gt;&lt;a title="Kontakt" accesskey="9" href="http://localhost:55001/plone/contact-info" rel="#pb_1" class="link-overlay" style="cursor: pointer;"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+
+&lt;/div&gt;
+
+
+
+
+&lt;div id="ajax-spinner" style="display: none;"&gt;&lt;img alt="" src="http://localhost:55001/plone/spinner.gif" /&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:04.750" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140202 23:58:04.750" starttime="20140202 23:58:04.636"></status>
+</kw>
+<msg timestamp="20140202 23:58:04.751" level="FAIL">Page should not have contained text 'Litujeme, ale tato stránka neexistuje...'</msg>
+<status status="FAIL" endtime="20140202 23:58:04.751" starttime="20140202 23:58:04.359"></status>
+</kw>
+<status status="FAIL" endtime="20140202 23:58:04.752" starttime="20140202 23:58:04.358"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140202 23:58:04.809" starttime="20140202 23:58:04.753"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20140202 23:58:04.810" critical="yes" starttime="20140202 23:57:51.234">Page should not have contained text 'Litujeme, ale tato stránka neexistuje...'</status>
+</test>
+<test id="s1-t4" timeout="" name="Registrace producenta">
+<kw type="setup" name="Open browser and create all folders" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Open Browser" timeout="">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+<arg>firefox</arg>
+</arguments>
+<msg timestamp="20140202 23:58:04.826" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:58:07.472" starttime="20140202 23:58:04.826"></status>
+</kw>
+<kw type="kw" name="keywords.Log in as site owner" timeout="">
+<doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Log in" timeout="">
+<doc>Log in to the site as ${userid} using ${password}. There</doc>
+<arguments>
+<arg>${SITE_OWNER_NAME}</arg>
+<arg>${SITE_OWNER_PASSWORD}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/login_form</arg>
+</arguments>
+<msg timestamp="20140202 23:58:07.476" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140202 23:58:07.718" starttime="20140202 23:58:07.476"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_name</arg>
+</arguments>
+<msg timestamp="20140202 23:58:07.754" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140202 23:58:07.755" starttime="20140202 23:58:07.719"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_password</arg>
+</arguments>
+<msg timestamp="20140202 23:58:07.763" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140202 23:58:07.763" starttime="20140202 23:58:07.755"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:58:07.770" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:58:07.770" starttime="20140202 23:58:07.764"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_name</arg>
+<arg>${userid}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:07.775" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:58:07.775" starttime="20140202 23:58:07.774"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:07.776" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:58:07.776" starttime="20140202 23:58:07.776"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_name and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:58:07.802" starttime="20140202 23:58:07.781"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:07.803" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140202 23:58:08.199" starttime="20140202 23:58:07.802"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:08.213" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140202 23:58:08.212" starttime="20140202 23:58:08.200"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:08.213" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:58:08.213" starttime="20140202 23:58:08.213"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:08.213" starttime="20140202 23:58:07.779"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:08.214" starttime="20140202 23:58:07.777"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:08.214" starttime="20140202 23:58:07.771"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_password</arg>
+<arg>${password}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:08.216" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:58:08.216" starttime="20140202 23:58:08.216"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:08.217" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:58:08.217" starttime="20140202 23:58:08.216"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_password and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:58:08.244" starttime="20140202 23:58:08.219"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:08.245" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140202 23:58:08.539" starttime="20140202 23:58:08.244"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:08.551" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140202 23:58:08.550" starttime="20140202 23:58:08.540"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:08.552" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:58:08.553" starttime="20140202 23:58:08.552"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:08.553" starttime="20140202 23:58:08.217"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:08.553" starttime="20140202 23:58:08.217"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:08.554" starttime="20140202 23:58:08.214"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:58:08.554" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:58:09.960" starttime="20140202 23:58:08.554"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:09.960" starttime="20140202 23:58:07.474"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:09.961" starttime="20140202 23:58:07.473"></status>
+</kw>
+<kw type="kw" name="Create producents folder" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Add Dexterity Content" timeout="">
+<doc></doc>
+<arguments>
+<arg>edeposit-user-producentfolder</arg>
+<arg>producents</arg>
+</arguments>
+<kw type="kw" name="keywords.Go to homepage" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:09.964" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140202 23:58:10.440" starttime="20140202 23:58:09.964"></status>
+</kw>
+<kw type="kw" name="selenium.Wait until location is" timeout="">
+<doc></doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:10.444" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:58:10.444" starttime="20140202 23:58:10.443"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:10.445" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:58:10.445" starttime="20140202 23:58:10.444"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Location should be</arg>
+<arg>${expected_url}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Location Should Be" timeout="">
+<doc>Verifies that current URL is exactly `url`.</doc>
+<arguments>
+<arg>${expected_url}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:10.458" level="INFO">Current location is 'http://localhost:55001/plone'.</msg>
+<status status="PASS" endtime="20140202 23:58:10.458" starttime="20140202 23:58:10.446"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:10.458" starttime="20140202 23:58:10.445"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:10.459" starttime="20140202 23:58:10.441"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:10.459" starttime="20140202 23:58:09.963"></status>
+</kw>
+<kw type="kw" name="keywords.Open Add New Menu" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="keywords.Open Menu" timeout="">
+<doc></doc>
+<arguments>
+<arg>plone-contentmenu-factories</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} span</arg>
+</arguments>
+<msg timestamp="20140202 23:58:10.464" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories span' is visible.</msg>
+<status status="PASS" endtime="20140202 23:58:10.478" starttime="20140202 23:58:10.464"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Element Should Not Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is NOT visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:58:10.480" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.</msg>
+<status status="PASS" endtime="20140202 23:58:10.489" starttime="20140202 23:58:10.479"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=dl#${elementId} dt.actionMenuHeader a</arg>
+</arguments>
+<msg timestamp="20140202 23:58:10.491" level="INFO">Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.</msg>
+<status status="PASS" endtime="20140202 23:58:11.546" starttime="20140202 23:58:10.490"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>1</arg>
+<arg>5</arg>
+<arg>Element Should Be Visible</arg>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible" timeout="">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=dl#${elementId} dd.actionMenuContent</arg>
+</arguments>
+<msg timestamp="20140202 23:58:11.550" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.</msg>
+<status status="PASS" endtime="20140202 23:58:11.566" starttime="20140202 23:58:11.549"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:11.567" starttime="20140202 23:58:11.547"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:11.568" starttime="20140202 23:58:10.461"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:11.568" starttime="20140202 23:58:10.460"></status>
+</kw>
+<kw type="kw" name="${status} = BuiltIn.Run Keyword And Return Status" timeout="">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Click Link</arg>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:11.569" level="INFO">Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.</msg>
+<status status="PASS" endtime="20140202 23:58:11.789" starttime="20140202 23:58:11.569"></status>
+</kw>
+<msg timestamp="20140202 23:58:11.789" level="INFO">${status} = True</msg>
+<status status="PASS" endtime="20140202 23:58:11.789" starttime="20140202 23:58:11.569"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If" timeout="">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>${status} != True</arg>
+<arg>Click Link</arg>
+<arg>${content_type}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:58:11.790" starttime="20140202 23:58:11.790"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>form.widgets.IBasic.title</arg>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:11.790" level="INFO">Typing text 'producents' into text field 'form.widgets.IBasic.title'</msg>
+<status status="PASS" endtime="20140202 23:58:12.423" starttime="20140202 23:58:11.790"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>name=form.buttons.save</arg>
+</arguments>
+<msg timestamp="20140202 23:58:12.423" level="INFO">Clicking button 'name=form.buttons.save'.</msg>
+<status status="PASS" endtime="20140202 23:58:14.527" starttime="20140202 23:58:12.423"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Položka byla vytvořena</arg>
+</arguments>
+<msg timestamp="20140202 23:58:15.202" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
+<status status="PASS" endtime="20140202 23:58:15.202" starttime="20140202 23:58:14.527"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:15.238" level="INFO">Current page contains text 'producents'.</msg>
+<status status="PASS" endtime="20140202 23:58:15.238" starttime="20140202 23:58:15.203"></status>
+</kw>
+<kw type="kw" name="${location} = Selenium2Library.Get Location" timeout="">
+<doc>Returns the current location.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:15.246" level="INFO">${location} = http://localhost:55001/plone/producents/view</msg>
+<status status="PASS" endtime="20140202 23:58:15.246" starttime="20140202 23:58:15.239"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:15.247" starttime="20140202 23:58:09.962"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:15.247" starttime="20140202 23:58:09.961"></status>
+</kw>
+<kw type="kw" name="keywords.Log out" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/logout</arg>
+</arguments>
+<msg timestamp="20140202 23:58:15.251" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140202 23:58:15.465" starttime="20140202 23:58:15.250"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form</arg>
+</arguments>
+<msg timestamp="20140202 23:58:15.473" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140202 23:58:15.473" starttime="20140202 23:58:15.465"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:15.473" starttime="20140202 23:58:15.248"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:15.474" starttime="20140202 23:58:04.825"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140127 20:22:45.331" level="INFO">Clicking link 'Registrovat'.</msg>
-<status status="PASS" endtime="20140127 20:22:47.154" starttime="20140127 20:22:45.331"></status>
-</kw>
-<kw type="kw" name="Dialogs.Pause Execution" timeout="">
-<doc>Pauses test execution until user clicks `Ok` button.</doc>
-<arguments>
-</arguments>
-<status status="PASS" endtime="20140127 20:22:48.535" starttime="20140127 20:22:47.158"></status>
+<msg timestamp="20140202 23:58:15.474" level="INFO">Clicking link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140202 23:58:17.534" starttime="20140202 23:58:15.474"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>Registrace producenta</arg>
 </arguments>
-<msg timestamp="20140127 20:22:48.559" level="INFO">Current page contains text 'Registrace producenta'.</msg>
-<status status="PASS" endtime="20140127 20:22:48.559" starttime="20140127 20:22:48.536"></status>
+<msg timestamp="20140202 23:58:17.829" level="INFO">Current page contains text 'Registrace producenta'.</msg>
+<status status="PASS" endtime="20140202 23:58:17.829" starttime="20140202 23:58:17.538"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Button" timeout="">
 <doc>Verifies button identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140127 20:22:48.577" level="INFO">Current page contains input 'Registrovat'.</msg>
-<status status="PASS" endtime="20140127 20:22:48.578" starttime="20140127 20:22:48.560"></status>
+<msg timestamp="20140202 23:58:17.849" level="INFO">Current page contains input 'Registrovat'.</msg>
+<status status="PASS" endtime="20140202 23:58:17.850" starttime="20140202 23:58:17.830"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -47,8 +2823,8 @@
 <arg>css=#producent-widgets-home_page</arg>
 <arg>http://www.e-deposit.cz</arg>
 </arguments>
-<msg timestamp="20140127 20:22:48.578" level="INFO">Typing text 'http://www.e-deposit.cz' into text field 'css=#producent-widgets-home_page'</msg>
-<status status="PASS" endtime="20140127 20:22:49.344" starttime="20140127 20:22:48.578"></status>
+<msg timestamp="20140202 23:58:17.850" level="INFO">Typing text 'http://www.e-deposit.cz' into text field 'css=#producent-widgets-home_page'</msg>
+<status status="PASS" endtime="20140202 23:58:18.630" starttime="20140202 23:58:17.850"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -56,8 +2832,8 @@
 <arg>css=#producent-widgets-location</arg>
 <arg>Praha</arg>
 </arguments>
-<msg timestamp="20140127 20:22:49.345" level="INFO">Typing text 'Praha' into text field 'css=#producent-widgets-location'</msg>
-<status status="PASS" endtime="20140127 20:22:49.786" starttime="20140127 20:22:49.345"></status>
+<msg timestamp="20140202 23:58:18.632" level="INFO">Typing text 'Praha' into text field 'css=#producent-widgets-location'</msg>
+<status status="PASS" endtime="20140202 23:58:18.944" starttime="20140202 23:58:18.631"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -65,16 +2841,16 @@
 <arg>css=#producent-widgets-contact</arg>
 <arg>Jan Stavěl</arg>
 </arguments>
-<msg timestamp="20140127 20:22:49.787" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#producent-widgets-contact'</msg>
-<status status="PASS" endtime="20140127 20:22:50.250" starttime="20140127 20:22:49.787"></status>
+<msg timestamp="20140202 23:58:18.945" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#producent-widgets-contact'</msg>
+<status status="PASS" endtime="20140202 23:58:19.410" starttime="20140202 23:58:18.944"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>Adresa</arg>
 </arguments>
-<msg timestamp="20140127 20:22:50.253" level="INFO">Clicking link 'Adresa'.</msg>
-<status status="PASS" endtime="20140127 20:22:52.072" starttime="20140127 20:22:50.252"></status>
+<msg timestamp="20140202 23:58:19.413" level="INFO">Clicking link 'Adresa'.</msg>
+<status status="PASS" endtime="20140202 23:58:21.197" starttime="20140202 23:58:19.412"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -82,8 +2858,8 @@
 <arg>css=#form-widgets-street</arg>
 <arg>Pašovice 71</arg>
 </arguments>
-<msg timestamp="20140127 20:22:52.073" level="INFO">Typing text 'Pašovice 71' into text field 'css=#form-widgets-street'</msg>
-<status status="PASS" endtime="20140127 20:22:52.521" starttime="20140127 20:22:52.072"></status>
+<msg timestamp="20140202 23:58:21.199" level="INFO">Typing text 'Pašovice 71' into text field 'css=#form-widgets-street'</msg>
+<status status="PASS" endtime="20140202 23:58:21.669" starttime="20140202 23:58:21.198"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -91,8 +2867,8 @@
 <arg>css=#form-widgets-city</arg>
 <arg>Prakšice</arg>
 </arguments>
-<msg timestamp="20140127 20:22:52.523" level="INFO">Typing text 'Prakšice' into text field 'css=#form-widgets-city'</msg>
-<status status="PASS" endtime="20140127 20:22:52.918" starttime="20140127 20:22:52.522"></status>
+<msg timestamp="20140202 23:58:21.670" level="INFO">Typing text 'Prakšice' into text field 'css=#form-widgets-city'</msg>
+<status status="PASS" endtime="20140202 23:58:22.076" starttime="20140202 23:58:21.670"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -100,24 +2876,24 @@
 <arg>css=#form-widgets-country</arg>
 <arg>Česká republika</arg>
 </arguments>
-<msg timestamp="20140127 20:22:52.920" level="INFO">Typing text 'Česká republika' into text field 'css=#form-widgets-country'</msg>
-<status status="PASS" endtime="20140127 20:22:53.483" starttime="20140127 20:22:52.919"></status>
+<msg timestamp="20140202 23:58:22.077" level="INFO">Typing text 'Česká republika' into text field 'css=#form-widgets-country'</msg>
+<status status="PASS" endtime="20140202 23:58:22.639" starttime="20140202 23:58:22.077"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>Default</arg>
 </arguments>
-<msg timestamp="20140127 20:22:53.484" level="INFO">Clicking link 'Default'.</msg>
-<status status="PASS" endtime="20140127 20:22:53.795" starttime="20140127 20:22:53.484"></status>
+<msg timestamp="20140202 23:58:22.641" level="INFO">Clicking link 'Default'.</msg>
+<status status="PASS" endtime="20140202 23:58:22.950" starttime="20140202 23:58:22.640"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button" timeout="">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>Přidat</arg>
 </arguments>
-<msg timestamp="20140127 20:22:53.796" level="INFO">Clicking button 'Přidat'.</msg>
-<status status="PASS" endtime="20140127 20:22:54.735" starttime="20140127 20:22:53.796"></status>
+<msg timestamp="20140202 23:58:22.952" level="INFO">Clicking button 'Přidat'.</msg>
+<status status="PASS" endtime="20140202 23:58:23.819" starttime="20140202 23:58:22.951"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -125,8 +2901,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-fullname</arg>
 <arg>Jan Stavěl</arg>
 </arguments>
-<msg timestamp="20140127 20:22:54.743" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#producent-widgets-administrators-0-widgets-fullname'</msg>
-<status status="PASS" endtime="20140127 20:22:55.470" starttime="20140127 20:22:54.741"></status>
+<msg timestamp="20140202 23:58:23.821" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#producent-widgets-administrators-0-widgets-fullname'</msg>
+<status status="PASS" endtime="20140202 23:58:24.560" starttime="20140202 23:58:23.820"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -134,8 +2910,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-email</arg>
 <arg>stavel.jan@gmail.com</arg>
 </arguments>
-<msg timestamp="20140127 20:22:55.471" level="INFO">Typing text 'stavel.jan@gmail.com' into text field 'css=#producent-widgets-administrators-0-widgets-email'</msg>
-<status status="PASS" endtime="20140127 20:22:56.160" starttime="20140127 20:22:55.470"></status>
+<msg timestamp="20140202 23:58:24.561" level="INFO">Typing text 'stavel.jan@gmail.com' into text field 'css=#producent-widgets-administrators-0-widgets-email'</msg>
+<status status="PASS" endtime="20140202 23:58:25.252" starttime="20140202 23:58:24.561"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -143,8 +2919,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-home_page</arg>
 <arg>www.nkp.cz</arg>
 </arguments>
-<msg timestamp="20140127 20:22:56.162" level="INFO">Typing text 'www.nkp.cz' into text field 'css=#producent-widgets-administrators-0-widgets-home_page'</msg>
-<status status="PASS" endtime="20140127 20:22:56.586" starttime="20140127 20:22:56.161"></status>
+<msg timestamp="20140202 23:58:25.254" level="INFO">Typing text 'www.nkp.cz' into text field 'css=#producent-widgets-administrators-0-widgets-home_page'</msg>
+<status status="PASS" endtime="20140202 23:58:25.675" starttime="20140202 23:58:25.253"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -152,8 +2928,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-location</arg>
 <arg>Pašovice</arg>
 </arguments>
-<msg timestamp="20140127 20:22:56.588" level="INFO">Typing text 'Pašovice' into text field 'css=#producent-widgets-administrators-0-widgets-location'</msg>
-<status status="PASS" endtime="20140127 20:22:56.978" starttime="20140127 20:22:56.587"></status>
+<msg timestamp="20140202 23:58:25.677" level="INFO">Typing text 'Pašovice' into text field 'css=#producent-widgets-administrators-0-widgets-location'</msg>
+<status status="PASS" endtime="20140202 23:58:26.064" starttime="20140202 23:58:25.676"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -161,8 +2937,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-phone</arg>
 <arg>773230772</arg>
 </arguments>
-<msg timestamp="20140127 20:22:56.980" level="INFO">Typing text '773230772' into text field 'css=#producent-widgets-administrators-0-widgets-phone'</msg>
-<status status="PASS" endtime="20140127 20:22:57.379" starttime="20140127 20:22:56.979"></status>
+<msg timestamp="20140202 23:58:26.066" level="INFO">Typing text '773230772' into text field 'css=#producent-widgets-administrators-0-widgets-phone'</msg>
+<status status="PASS" endtime="20140202 23:58:26.468" starttime="20140202 23:58:26.066"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -170,8 +2946,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-street</arg>
 <arg>Pašovice 71</arg>
 </arguments>
-<msg timestamp="20140127 20:22:57.380" level="INFO">Typing text 'Pašovice 71' into text field 'css=#producent-widgets-administrators-0-widgets-street'</msg>
-<status status="PASS" endtime="20140127 20:22:57.836" starttime="20140127 20:22:57.380"></status>
+<msg timestamp="20140202 23:58:26.469" level="INFO">Typing text 'Pašovice 71' into text field 'css=#producent-widgets-administrators-0-widgets-street'</msg>
+<status status="PASS" endtime="20140202 23:58:26.934" starttime="20140202 23:58:26.469"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -179,8 +2955,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-city</arg>
 <arg>Prakšice</arg>
 </arguments>
-<msg timestamp="20140127 20:22:57.837" level="INFO">Typing text 'Prakšice' into text field 'css=#producent-widgets-administrators-0-widgets-city'</msg>
-<status status="PASS" endtime="20140127 20:22:58.232" starttime="20140127 20:22:57.837"></status>
+<msg timestamp="20140202 23:58:26.936" level="INFO">Typing text 'Prakšice' into text field 'css=#producent-widgets-administrators-0-widgets-city'</msg>
+<status status="PASS" endtime="20140202 23:58:27.329" starttime="20140202 23:58:26.935"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -188,8 +2964,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-country</arg>
 <arg>Česká republika</arg>
 </arguments>
-<msg timestamp="20140127 20:22:58.233" level="INFO">Typing text 'Česká republika' into text field 'css=#producent-widgets-administrators-0-widgets-country'</msg>
-<status status="PASS" endtime="20140127 20:22:58.800" starttime="20140127 20:22:58.233"></status>
+<msg timestamp="20140202 23:58:27.331" level="INFO">Typing text 'Česká republika' into text field 'css=#producent-widgets-administrators-0-widgets-country'</msg>
+<status status="PASS" endtime="20140202 23:58:27.907" starttime="20140202 23:58:27.330"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -197,8 +2973,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-username</arg>
 <arg>jans</arg>
 </arguments>
-<msg timestamp="20140127 20:22:58.801" level="INFO">Typing text 'jans' into text field 'css=#producent-widgets-administrators-0-widgets-username'</msg>
-<status status="PASS" endtime="20140127 20:22:59.075" starttime="20140127 20:22:58.800"></status>
+<msg timestamp="20140202 23:58:27.909" level="INFO">Typing text 'jans' into text field 'css=#producent-widgets-administrators-0-widgets-username'</msg>
+<status status="PASS" endtime="20140202 23:58:28.181" starttime="20140202 23:58:27.908"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -206,8 +2982,8 @@
 <arg>css=#producent-widgets-administrators-0-widgets-password</arg>
 <arg>PhiEso7</arg>
 </arguments>
-<msg timestamp="20140127 20:22:59.077" level="INFO">Typing text 'PhiEso7' into text field 'css=#producent-widgets-administrators-0-widgets-password'</msg>
-<status status="PASS" endtime="20140127 20:22:59.460" starttime="20140127 20:22:59.076"></status>
+<msg timestamp="20140202 23:58:28.183" level="INFO">Typing text 'PhiEso7' into text field 'css=#producent-widgets-administrators-0-widgets-password'</msg>
+<status status="PASS" endtime="20140202 23:58:28.566" starttime="20140202 23:58:28.182"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -215,30 +2991,311 @@
 <arg>css=#producent-widgets-administrators-0-widgets-password_ctl</arg>
 <arg>PhiESo7</arg>
 </arguments>
-<msg timestamp="20140127 20:22:59.462" level="INFO">Typing text 'PhiESo7' into text field 'css=#producent-widgets-administrators-0-widgets-password_ctl'</msg>
-<status status="PASS" endtime="20140127 20:22:59.891" starttime="20140127 20:22:59.461"></status>
+<msg timestamp="20140202 23:58:28.567" level="INFO">Typing text 'PhiESo7' into text field 'css=#producent-widgets-administrators-0-widgets-password_ctl'</msg>
+<status status="PASS" endtime="20140202 23:58:28.971" starttime="20140202 23:58:28.567"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button" timeout="">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140127 20:22:59.893" level="INFO">Clicking button 'Registrovat'.</msg>
-<status status="PASS" endtime="20140127 20:23:00.321" starttime="20140127 20:22:59.892"></status>
+<msg timestamp="20140202 23:58:28.973" level="INFO">Clicking button 'Registrovat'.</msg>
+<status status="PASS" endtime="20140202 23:58:29.454" starttime="20140202 23:58:28.972"></status>
 </kw>
-<kw type="kw" name="Dialogs.Pause Execution" timeout="">
-<doc>Pauses test execution until user clicks `Ok` button.</doc>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/producents/edeposit-user-producent</arg>
+</arguments>
+<msg timestamp="20140202 23:58:29.455" level="INFO">Opening url 'http://localhost:55001/plone/producents/edeposit-user-producent'</msg>
+<status status="PASS" endtime="20140202 23:58:30.456" starttime="20140202 23:58:29.455"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Location Should Be" timeout="">
+<doc>Verifies that current URL is exactly `url`.</doc>
+<arguments>
+<arg>${PLONE_URL}/producents/edeposit-user-producent</arg>
+</arguments>
+<msg timestamp="20140202 23:58:30.476" level="INFO">Current location is 'http://localhost:55001/plone/producents/edeposit-user-producent'.</msg>
+<status status="PASS" endtime="20140202 23:58:30.477" starttime="20140202 23:58:30.459"></status>
+</kw>
+<kw type="kw" name="keywords.Log in as site owner" timeout="">
+<doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140127 23:06:23.300" starttime="20140127 20:23:00.321"></status>
+<kw type="kw" name="keywords.Log in" timeout="">
+<doc>Log in to the site as ${userid} using ${password}. There</doc>
+<arguments>
+<arg>${SITE_OWNER_NAME}</arg>
+<arg>${SITE_OWNER_PASSWORD}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/login_form</arg>
+</arguments>
+<msg timestamp="20140202 23:58:30.479" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140202 23:58:30.720" starttime="20140202 23:58:30.479"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_name</arg>
+</arguments>
+<msg timestamp="20140202 23:58:30.729" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140202 23:58:30.729" starttime="20140202 23:58:30.720"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_password</arg>
+</arguments>
+<msg timestamp="20140202 23:58:30.742" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140202 23:58:30.742" starttime="20140202 23:58:30.731"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:58:30.750" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:58:30.751" starttime="20140202 23:58:30.742"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_name</arg>
+<arg>${userid}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:30.755" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:58:30.755" starttime="20140202 23:58:30.754"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:30.756" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:58:30.756" starttime="20140202 23:58:30.755"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_name and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:58:30.782" starttime="20140202 23:58:30.761"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:30.783" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140202 23:58:31.062" starttime="20140202 23:58:30.782"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:31.077" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140202 23:58:31.077" starttime="20140202 23:58:31.063"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:31.078" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:58:31.078" starttime="20140202 23:58:31.078"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:31.078" starttime="20140202 23:58:30.759"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:31.079" starttime="20140202 23:58:30.757"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:31.079" starttime="20140202 23:58:30.752"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure" timeout="">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_password</arg>
+<arg>${password}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout" timeout="">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:31.081" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140202 23:58:31.080" starttime="20140202 23:58:31.080"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140202 23:58:31.081" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140202 23:58:31.081" starttime="20140202 23:58:31.081"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="selenium.Input text and validate" timeout="">
+<doc>Locate input element by __ac_password and enter the given</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Focus" timeout="">
+<doc>Sets focus to element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<status status="PASS" endtime="20140202 23:58:31.108" starttime="20140202 23:58:31.083"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text" timeout="">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+<arg>${text}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:31.109" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140202 23:58:31.407" starttime="20140202 23:58:31.108"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:31.429" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140202 23:58:31.429" starttime="20140202 23:58:31.408"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140202 23:58:31.431" level="INFO">Argument types are:
+&lt;type 'str'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20140202 23:58:31.431" starttime="20140202 23:58:31.430"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:31.432" starttime="20140202 23:58:31.082"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:31.432" starttime="20140202 23:58:31.081"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:31.432" starttime="20140202 23:58:31.079"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button" timeout="">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140202 23:58:31.434" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140202 23:58:32.716" starttime="20140202 23:58:31.433"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:32.717" starttime="20140202 23:58:30.478"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:32.717" starttime="20140202 23:58:30.477"></status>
+</kw>
+<kw type="kw" name="User Should Exist" timeout="">
+<doc></doc>
+<arguments>
+<arg>jans</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/@@user-information?userid=jans</arg>
+</arguments>
+<msg timestamp="20140202 23:58:32.718" level="INFO">Opening url 'http://localhost:55001/plone/@@user-information?userid=jans'</msg>
+<status status="PASS" endtime="20140202 23:58:33.260" starttime="20140202 23:58:32.718"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Osobní informace</arg>
+</arguments>
+<msg timestamp="20140202 23:58:33.315" level="INFO">Current page contains text 'Osobní informace'.</msg>
+<status status="PASS" endtime="20140202 23:58:33.315" starttime="20140202 23:58:33.261"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:33.315" starttime="20140202 23:58:32.717"></status>
+</kw>
+<kw type="kw" name="keywords.Log out" timeout="">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To" timeout="">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/logout</arg>
+</arguments>
+<msg timestamp="20140202 23:58:33.318" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140202 23:58:33.522" starttime="20140202 23:58:33.318"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form</arg>
+</arguments>
+<msg timestamp="20140202 23:58:33.531" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140202 23:58:33.531" starttime="20140202 23:58:33.523"></status>
+</kw>
+<status status="PASS" endtime="20140202 23:58:33.531" starttime="20140202 23:58:33.317"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
 <doc>Closes all open browsers and resets the browser cache.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140127 23:06:23.363" starttime="20140127 23:06:23.302"></status>
+<status status="PASS" endtime="20140202 23:58:33.586" starttime="20140202 23:58:33.532"></status>
 </kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20140202 23:58:33.587" critical="yes" starttime="20140202 23:58:04.814"></status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20140202 23:58:33.591" starttime="20140202 23:57:23.946"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="3" pass="1">Critical Tests</stat>
+<stat fail="3" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="3" pass="1" id="s1" name="At01">At01</stat>
+</suite>
+</statistics>
 <errors>
-<msg timestamp="20140127 23:15:26.781" level="ERROR">Execution stopped by user.</msg>
 </errors>
 </robot>

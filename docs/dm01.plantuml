@@ -9,31 +9,28 @@ class Library {
       String urlOfKramerius
 }
 
-class ISBN {
-      String ISBN
-      boolean isValid()
-}
-
 class PreviewFile {
       String format
       File file
+      String ISBN
 }
 
 class OriginalFile {
       String url
       String format
       File file
+      String ISBN
 }
 
 class Author {
-      String firstName
-      String lastName
+      String Prijmeni_krestni_jmeno
 }
 
 class PrintingFile {
       String url
       String format
       File file
+      String ISBN
 }
 
 class EPublication {
@@ -41,17 +38,10 @@ class EPublication {
       String podnázev
       String vazba 
       Decimal cena 
-      String svazek
-      String nazev_svazku
-      String cislo_svazku
-      String edice
-      String cislo_edice
-      String podedice
-      String cislo_podedice
-      String misto_vydani
-      String nakladatel
+      String cast,dil     Cast(svazek,dil)
+      String nazev_casti
+      String nakladatel/vydavatel
       Date   datum_vydani
-      String vydano_v_koedici_s
       String poradi_vydani
       String zpracovatel_zaznamu
       Relation librariesThatCanAccessAtLibraryTerminal
@@ -63,11 +53,13 @@ class EPublication {
       String distributor
       Date datum_distribuce
       Date datum_pro_copyright
-      String typ_media
+      String format
+      String url
+      String misto_vydani
+      String ISBN_souboru_publikaci
 }
 
 class EPublicationFolder {
-      
 }
 
 class LibraryFolder {
@@ -79,8 +71,6 @@ EPublication *-- "0..*" OriginalFile
 EPublication *-- "0..*" PrintingFile
 EPublication *-- "0..*" Author
 EPublication "0..*" *-- "0..*" PreviewFile: main preview files
-OriginalFile "0..*" *-- "1..*" ISBN
-PrintingFile "0..*" *-- "0..*" ISBN
 OriginalFile "0..*" *-- "1..*" PreviewFile
 PrintingFile "0..*" *-- "1..*" PreviewFile
 EPublicationFolder *-- "0..*" EPublication
