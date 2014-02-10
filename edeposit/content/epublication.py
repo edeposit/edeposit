@@ -27,11 +27,11 @@ class IePublication(form.Schema, IImageScaleTraversable):
     E-Deposit ePublication
     """
 
-    book_binding = schema.ASCIILine(
-        title = _(u"Book Binding"),
-        description = _(u"Fill in binding of a book."),
-        required = False,
-        )
+    # book_binding = schema.ASCIILine(
+    #     title = _(u"Book Binding"),
+    #     description = _(u"Fill in binding of a book."),
+    #     required = False,
+    #     )
     
     subtitle = schema.ASCIILine (
         title = _(u"Subtitle"),

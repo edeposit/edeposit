@@ -34,7 +34,7 @@ setup(name='edeposit.content',
           # -*- Extra requirements: -*-
       ],
       extras_require = {
-          'test': ['plone.app.testing',]
+          'test': ['',]
       },
       entry_points="""
       # -*- Entry points: -*-

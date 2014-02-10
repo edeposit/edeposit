@@ -6,4 +6,3 @@ plone.app.registry
 plone.app.relationfield
 
 [test]
-plone.app.testing

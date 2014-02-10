@@ -56,6 +56,14 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.addedEPublicationFolder"/>
 
+  <!-- <browser:viewlet -->
+  <!--       name="plone.contentactions" -->
+  <!--       for="edeposit.content.epublication.IePublication" -->
+  <!--       view="plone.app.layout.globals.interfaces.IViewView" -->
+  <!--       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle" -->
+  <!--       class=".viewlets.common.ContentActionsViewlet" -->
+  <!--       permission="zope2.View" -->
+  <!--       /> -->
 
   <!-- -*- extra stuff goes here -*- -->
 

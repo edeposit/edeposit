@@ -34,3 +34,5 @@ edeposit/content/vocabularies.py
 edeposit/content/tests/__init__.py
 edeposit/content/tests/test_library.py
 edeposit/content/tests/test_libraryfolder.py
+edeposit/content/viewlets/__init__.py
+edeposit/content/viewlets/common.py
