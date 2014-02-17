@@ -102,10 +102,11 @@ Fill inputs about ePublication
 Add authors for ePublication
     Click Element                       form.widgets.IAuthors.authors.buttons.add
     Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-first_name  Jan
-    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-last_name  Stavěl
+    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-last_name   Stavěl
 
 Add Original Files for ePublication
     Click Element                       form.widgets.IOriginalFiles.originalFiles.buttons.add
     Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-url  http://www.grada.cz/book/1000
+    Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn  80-12312-3241-324124
     Choose File                         css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
 

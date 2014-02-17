@@ -31,7 +31,7 @@ UC02-01 Domovská stránka uživatele
     Page Should Contain                   Vyhledat
     Page Should Contain                   Zlínsky vydavatel    
 
-UC02-01 Ohlášení se soubory
+UC02-01 Ohlášení bez souboru bez autoru
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
@@ -40,7 +40,26 @@ UC02-01 Ohlášení se soubory
     Page Should Contain                   Obsah
     Page Should Contain                   RIV
     Fill inputs about ePublication    
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Položka byla vytvořena
+
+UC02-01 Ohlášení bez souboru s autorem
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Add authors for ePublication
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Položka byla vytvořena
+
+UC02-01 Ohlášení se soubory
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
     Add authors for ePublication
     Add Original Files for ePublication
     Click Button                          form.buttons.save    
-    Pause
+    Page Should Contain                   Položka byla vytvořena
