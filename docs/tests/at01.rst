@@ -3,12 +3,15 @@
 AT01
 ~~~~~~~~~~~
 
+.. toctree::
+   :maxdepth: 2
+
+   at01-keywords
+
 .. robot_variables::
    :source: tests/at01.robot
 
 .. robot_tests::
    :source: tests/at01.robot
 
-.. robot_keywords::
-   :source: tests/at01.robot
 
