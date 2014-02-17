@@ -10,8 +10,8 @@ AT02
 
 
 .. robot_variables::
-   :source: tests/at02.robot
+   :source: at02.robot
 
 .. robot_tests::
-   :source: tests/at02.robot
+   :source: at02.robot
 

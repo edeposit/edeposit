@@ -4,4 +4,4 @@ Podrobnosti
 -------------------
 
 .. robot_keywords::
-   :source: tests/at01.robot
+   :source: my-keywords.robot

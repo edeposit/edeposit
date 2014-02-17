@@ -17,8 +17,6 @@ ${USER_PASSWORD}    PhiEso7
 ${PRODUCENT_ID}     zlinsky-vydavatel
 ${PRODUCENT_TITLE}  Zlínsky vydavatel
     
-*** Keywords ***
-
 *** Test Cases ***
 
 UC02-01 Domovská stránka uživatele
