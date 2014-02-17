@@ -6,7 +6,7 @@ Akceptační testy
 .. toctree::
    
    tests/at01
-
+   tests/at02
 
 :download:`test report <tests/report.html>`
 
