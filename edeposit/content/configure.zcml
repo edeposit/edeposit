@@ -67,16 +67,18 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
-  <adapter
-        for="Products.CMFCore.interfaces.IFolderish
-             Products.CMFDefault.interfaces.ICMFDefaultSkin
-             plone.dexterity.interfaces.IDexterityFTI"
-        provides="zope.publisher.interfaces.browser.IBrowserPage"
-        factory=".epublication.EPublicationAddView"
-        name="edeposit.content.epublication"
-        />
-
-    <adapter factory=".epublication.AuthorFactory" 
-       name="edeposit.content.author.IAuthor" /> 
-
+  <adapter  for="Products.CMFCore.interfaces.IFolderish
+                 Products.CMFDefault.interfaces.ICMFDefaultSkin
+                 plone.dexterity.interfaces.IDexterityFTI"
+            provides="zope.publisher.interfaces.browser.IBrowserPage"
+            factory=".epublication.EPublicationAddView"
+            name="edeposit.content.epublication"
+            />
+  
+  <adapter factory=".epublication.AuthorFactory" 
+           name="edeposit.content.author.IAuthor" /> 
+  
+  <adapter factory=".epublication.OriginalFileFactory" 
+           name="edeposit.content.originalfile.IOriginalFile" /> 
+  
 </configure>

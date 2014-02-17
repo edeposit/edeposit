@@ -36,8 +36,14 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         constraint=urlCodeIsValid,
         required = False,
         )
+
+    isbn = schema.ASCIILine(
+        title=_("ISBN"),
+        description=_(u"Value of ISBN"),
+        required = True,
+        )
     
-    #form.primary('file')
+    form.primary('file')
     file = NamedBlobFile(
         title=_(u"Original File of an ePublication"),
         description=_(u"Fill in a file that contains of an epublication"),
@@ -49,6 +55,7 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         vocabulary="edeposit.content.fileTypes",
         required = True,
         )
+
 
 # @form.default_value(field=IOriginalFile['title'])
 # def default_title(data):

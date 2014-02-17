@@ -22,9 +22,8 @@
   <property name="klass">edeposit.content.originalfile.OriginalFile</property>
 
   <property name="behaviors">
-     <element value="plone.app.content.interfaces.INameFromTitle" />
-     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-   </property>
+    <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
+  </property>
 
   <!-- View information -->
   <property name="link_target"></property>
@@ -34,7 +33,7 @@
    <element value="view"/>
   </property>
   <property name="default_view_fallback">False</property>
-  <property name="add_permission">cmf.RequestReview</property>
+  <property name="add_permission">cmf.AddPortalContent</property>
 
 
   <!-- Method aliases -->

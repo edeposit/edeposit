@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from five import grok
 import zope
-from z3c.form import group, field
+from z3c.form import group, field, button
 from zope import schema
 from zope.interface import invariant, Invalid
 from zope.schema.interfaces import IContextSourceBinder
@@ -35,6 +35,7 @@ from zope.component import getUtility
 from zope.component import queryUtility
 from zope.interface import Invalid, Interface
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
+from plone.dexterity.interfaces import IDexterityFTI
 
 # Interface class; used to define content-type schema.
 
@@ -255,18 +256,34 @@ class EPublicationAddForm(DefaultAddForm):
         return schemata
 
     def add(self,object):
-        DefaultAddForm.add(self,object)
-        authorsFolder = aq_inner(object['authors'])
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        fti = getUtility(IDexterityFTI, name=self.portal_type)
+        container = aq_inner(self.context)
+        new_object = addContentToContainer(container, object)
+        
+        if fti.immediate_view:
+            self.immediate_view = "%s/%s/%s" % (container.absolute_url(), new_object.id, fti.immediate_view,)
+        else:
+            self.immediate_view = "%s/%s" % (container.absolute_url(), new_object.id)
 
         for author in self.authors:
-            addContentToContainer(authorssFolder, author, False)
-        return addedObject
+            author.title = " ".join([author.first_name, author.last_name])
+            addContentToContainer(new_object, author, True)
+            
+        for originalFile in self.originalFiles:
+            addContentToContainer(new_object,originalFile, True)
 
     def create(self, data):
-        self.authors = data['IAuthors.authors']
-        del data['IAuthors.authors']
-        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        def getAndRemoveKey(data, key, defaultValue):
+            if key in data:
+                value = data[key]
+                del data[key]
+                return value
+            else:
+                return defaultValue
+
+        self.authors = getAndRemoveKey(data,'IAuthors.authors',[]) or []
+        self.originalFiles = getAndRemoveKey(data,'IOriginalFiles.originalFiles',[]) or []
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         created = DefaultAddForm.create(self,data)
         return created
 
@@ -285,6 +302,20 @@ class AuthorFactory(object):
 
     def __call__(self, value):
         created=createContent('edeposit.content.author',**value)
+        return created
+
+class OriginalFileFactory(object):
+    adapts(Interface, Interface, Interface, Interface)
+    zope.interface.implements(IObjectFactory)
+    
+    def __init__(self, context, request, form, widget):
+        self.context = context
+        self.request = request
+        self.form = form
+        self.widget = widget
+
+    def __call__(self, value):
+        created=createContent('edeposit.content.originalfile',**value)
         return created
 
     # @button.buttonAndHandler(_(u"Register"))
