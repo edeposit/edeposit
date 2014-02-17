@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 from five import grok
-
+import zope
 from z3c.form import group, field
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -16,9 +17,24 @@ from z3c.relationfield.schema import RelationChoice, RelationList
 from plone.formwidget.contenttree import ObjPathSourceBinder, UUIDSourceBinder
 from plone.formwidget.autocomplete import AutocompleteFieldWidget, AutocompleteMultiFieldWidget
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 
 from edeposit.content.library import ILibrary
 from edeposit.content import MessageFactory as _
+
+from .author import IAuthor
+from .originalfile import IOriginalFile
+
+from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
+from plone.supermodel import model
+from plone.dexterity.utils import getAdditionalSchemata
+from Acquisition import aq_inner, aq_base
+
+from zope.component import adapts
+from zope.component import getUtility
+from zope.component import queryUtility
+from zope.interface import Invalid, Interface
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 
 # Interface class; used to define content-type schema.
 
@@ -27,130 +43,138 @@ class IePublication(form.Schema, IImageScaleTraversable):
     E-Deposit ePublication
     """
 
-    # book_binding = schema.ASCIILine(
-    #     title = _(u"Book Binding"),
-    #     description = _(u"Fill in binding of a book."),
-    #     required = False,
-    #     )
+    nazev = schema.TextLine (
+        title = u"Název",
+        required = True,
+    )
+
+    podnazev = schema.TextLine (
+        title = u"Podnázev",
+        required = False,
+    )
+
+    vazba = schema.TextLine (
+        title = u"Vazba",
+        required = False,
+    )
+
+    cena = schema.Decimal (
+        title = u'Cena',
+        required = False,
+    )
+
+    isbn = schema.ASCIILine (
+        title = u"ISBN",
+        description = u"ISNB knižního vydání",
+        required = False,
+    )
+
+    isbn_souboru_publikaci = schema.ASCIILine (
+        title = u"ISBN souboru publikací",
+        required = False,
+    )
+
+    url = schema.ASCIILine (
+        title = u"URL",
+        required = False,
+    )
     
-    subtitle = schema.ASCIILine (
-        title = _(u"Subtitle"),
+    datum_pro_copyright = schema.Date (
+        title = u"Datum pro copyright",
+        required = False,
+    )
+
+    form.fieldset('svazek',
+                  label= u'Část, díl',
+                  fields = ['cast','nazev_casti',]
+    )
+    cast = schema.TextLine (
+        title = u"Část, díl",
+        required = False,
+    )
+    
+    nazev_casti = schema.TextLine (
+        title = u"Název části, dílu",
         required = False,
         )
-
-    edition = schema.ASCIILine (
-        title = _(u"Edition"),
-        required = False,
-        )
-
+    
     form.fieldset('Publishing',
                   label=_(u"Publishing"),
-                  fields = [ 'publisher',
-                             'date_of_publishing',
-                             'published_with_coedition',
-                             'published_at_order',
-                             'place_of_publishing',
-                             ]
+                  fields = [ 'nakladatel_vydavatel',
+                             'datum_vydani',
+                             'poradi_vydani',
+                             'misto_vydani',
+                         ]
                   )
-    place_of_publishing = schema.ASCIILine (
-        title = _(u"Place of Publishing"),
+    nakladatel_vydavatel = schema.TextLine (
+        title = u"Nakladatel/vydavatel",
         required = False,
         )
 
-    publisher = schema.ASCIILine (
-        title = _(u"Publisher"),
-        required = False,
-        )
-
-    date_of_publishing = schema.Date (
-        title = _(u"Publishing Date"),
+    datum_vydani = schema.Date (
+        title = u"Datum vydání",
         required = False,
         )
     
-    published_with_coedition = schema.ASCIILine(
-        title = _(u'Published with Coedition'),
-        description = _(u'Fill in a coedition of an ePublication'),
+    poradi_vydani = schema.TextLine(
+        title = u'Pořadí vydání',
         required = False,
-        readonly = False,
-        default = None,
-        missing_value = None,
         )
 
-    published_at_order = schema.ASCIILine(
-        title = _(u'Published at order'),
-        description = _(u'Fill in an order an ePublication was published at.'),
+    misto_vydani = schema.TextLine(
+        title = u'Místo vydání',
         required = False,
-        readonly = False,
-        default = None,
-        missing_value = None,
         )
-    
 
-    form.fieldset('volume',
-                  label=_(u'Volume'),
-                  fields = ['volume','volume_title','volume_number']
-                  )
-    volume = schema.ASCIILine (
-        title = _(u"Volume"), # svazek
+    form.fieldset('Distribution',
+                  label=u"Distribuce",
+                  fields = [ 'distributor',
+                             'datum_distribuce',
+                             'misto_distribuce',
+                         ]
+              )
+    distributor = schema.TextLine (
+        title = u"Distributor",
         required = False,
-        )
-    
-    volume_title = schema.ASCIILine (
-        title = _(u"Volume Title"),
+    )
+
+    datum_distribuce = schema.Date (
+        title = u"Datum distribuce",
         required = False,
         )
     
-    volume_number = schema.ASCIILine (
-        title = _(u"Volume Number"),
+    misto_distribuce = schema.TextLine(
+        title = u'Místo distribuce',
         required = False,
-        )
-
-    price = schema.Decimal(
-        title = _(u"Price"),
-        required = False,
-        )
-
-    currency = schema.Choice(
-        title = _(u'Currency'),
-        description = _(u'Fill in currency of a price.'),
-        vocabulary='edeposit.content.currencies'
         )
 
     form.fieldset('technical',
                   label=_('Technical'),
-                  fields = [ 'person_who_processed_this',
+                  fields = [ 'zpracovatel_zaznamu',
                              'aleph_doc_number',
                              ]
                   )
-    person_who_processed_this = schema.ASCIILine(
-        title = _(u'Person who processed this.'),
-        description = _(u'Fill in a name of a person who processed this ePublication.'),
+    zpracovatel_zaznamu = schema.TextLine(
+        title = u'Zpracovatel záznamu',
         required = False,
-        readonly = False,
-        default = None,
-        missing_value = None,
         )
 
     aleph_doc_number = schema.ASCIILine(
         title = _(u'Aleph DocNumber'),
         description = _(u'Internal DocNumber that Aleph refers to metadata of this ePublication'),
         required = False,
-        readonly = False,
-        default = None,
-        missing_value = None,
         )
 
     generated_isbn = schema.Bool(
         title = _(u'Generate ISBN'),
         description = _(u'Whether ISBN agency should generate ISBN number.'),
         required = False,
-        readonly = False,
         default = False,
         missing_value = False,
         )
 
     form.fieldset('accessing',
-                  label=_(u'Accessing'),
+                  label=u'Zpřístupnění',
                   fields = ['libraries_that_can_access_at_library_terminal',
                             'libraries_that_can_access_at_public',
                             ])
@@ -179,12 +203,12 @@ class IePublication(form.Schema, IImageScaleTraversable):
             )
         )
 
-    form.fieldset('riv',
-                  label=_(u'RIV'),
-                  fields = ['category_for_riv',
-                            ])
+    # form.fieldset('riv',
+    #               label=_(u'RIV'),
+    #               fields = ['category_for_riv',
+    #                         ])
 
-    category_for_riv = schema.ASCIILine(
+    category_for_riv = schema.TextLine(
         title = _(u'RIV category'),
         description = _(u'Category of an ePublication for RIV'),
         required = False,
@@ -202,6 +226,88 @@ class ePublication(Container):
     grok.implements(IePublication)
 
     # Add your class methods and properties here
+
+class IAuthors(model.Schema):
+    authors = zope.schema.List(
+        title = u"Autoři",
+        required = False,
+        value_type = zope.schema.Object( title=u"Autoři", schema=IAuthor ),
+        unique = False
+    )
+
+class IOriginalFiles(model.Schema):
+    originalFiles = zope.schema.List(
+        title = u"Soubory s originálem",
+        required = False,
+        value_type = zope.schema.Object( title=u"Soubory s originálem", schema=IOriginalFile ),
+        unique = False
+    )
+
+
+class EPublicationAddForm(DefaultAddForm):
+    # label = _(u"Registration of a producent")
+    # description = _(u"Please fill informations about user and producent.")
+
+    @property
+    def additionalSchemata(self):
+        schemata = [s for s in getAdditionalSchemata(portal_type=self.portal_type)] + \
+                   [IAuthors,IOriginalFiles]
+        return schemata
+
+    def add(self,object):
+        DefaultAddForm.add(self,object)
+        authorsFolder = aq_inner(object['authors'])
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+
+        for author in self.authors:
+            addContentToContainer(authorssFolder, author, False)
+        return addedObject
+
+    def create(self, data):
+        self.authors = data['IAuthors.authors']
+        del data['IAuthors.authors']
+        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        created = DefaultAddForm.create(self,data)
+        return created
+
+class EPublicationAddView(DefaultAddView):
+    form = EPublicationAddForm
+
+class AuthorFactory(object):
+    adapts(Interface, Interface, Interface, Interface)
+    zope.interface.implements(IObjectFactory)
+    
+    def __init__(self, context, request, form, widget):
+        self.context = context
+        self.request = request
+        self.form = form
+        self.widget = widget
+
+    def __call__(self, value):
+        created=createContent('edeposit.content.author',**value)
+        return created
+
+    # @button.buttonAndHandler(_(u"Register"))
+    # def handleRegister(self, action):
+    #     data, errors = self.extractData()
+    #     if errors:
+    #         self.status = self.formErrorsMessage
+    #         return
+
+    #     producentsFolder = self.getProducentsFolder()
+    #     # hack for title and description
+    #     data['title'] = data.get('IBasic.title','')
+    #     data['description'] = data.get('IBasic.description','')
+    #     producent = createContentInContainer(producentsFolder, "edeposit.user.producent", **data)
+    #     administratorsFolder = producent['producent-administrators']
+    #     for administrator in data['IProducentAdministrators.administrators']:
+    #         administrator.title=getattr(administrator,'fullname',None)
+    #         addContentToContainer(administratorsFolder, administrator, False)
+    #     if producent is not None:
+    #         # mark only as finished if we get the new object
+    #         self._finishedAdd = True
+    #         IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
+    # pass
 
 
 # View class

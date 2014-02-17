@@ -23,13 +23,13 @@ class IAuthor(form.Schema, IImageScaleTraversable):
                    label=_(u"Name"),
                    fields=['first_name','last_name'])
     # form.model("models/library.xml")
-    first_name = schema.ASCIILine(
+    first_name = schema.TextLine(
         title=_("First Name"),
         description=_(u"Fill in your first name."),
         required = True,
         )
 
-    last_name = schema.ASCIILine(
+    last_name = schema.TextLine(
         title=_("Last Name"),
         description=_(u"Fill in your last name."),
         required = True,

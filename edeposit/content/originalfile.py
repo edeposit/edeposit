@@ -46,7 +46,8 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     
     format = schema.Choice(
         title=_(u"Format of a file."),
-        vocabulary="edeposit.content.fileTypes"
+        vocabulary="edeposit.content.fileTypes",
+        required = True,
         )
 
 # @form.default_value(field=IOriginalFile['title'])
