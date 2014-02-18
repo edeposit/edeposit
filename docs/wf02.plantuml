@@ -15,8 +15,12 @@ skinparam state {
 state "Ohlášení" as declaration #SandyBrown
 declaration : možnost ohlášení ePublikace
 
+state "Oprava ISBN" as isbnCorrection #SandyBrown
+isbnCorrection : potvrzení duplicity ISBN, nebo oprava
+
 state "Zpřístupnění" as accessing #ECE8DF
 state "Antivirus" as antivirus #SteelBlue
+state "Kontrola ISBN" as isbn #SteelBlue
 state "Příprava akvizice" as acquisitionPreparing #ECE8DF
 state "Akvizice" as acquisition #ECE8DF
 state "Příprava katalogizace" as catalogizationPreparing #ECE8DF
@@ -31,7 +35,12 @@ state "Stažený z oběhu" as withdrawn #ECE8DF
 
 [*] ---> declaration
 
-declaration --> antivirus : << producent >> \n << akvizice >> \n K akvizici
+declaration --> isbn : << producent >> \n << akvizice >> \n K akvizici
+
+isbn --> antivirus : << system >> \n ISBN OK
+isbn --> isbnCorrection : << system >> \n ISBN was already used
+
+isbnCorrection --> isbn : << producent >> \n << akvizice >> \n K akvizici
 
 antivirus --> thumbnailGenerating : << system >> \n Antivirus OK
 antivirus --> declarationWithError : << system >> \n Antivirus Error

@@ -52,7 +52,7 @@ UC02-01 Ohlášení jednoduché
 
 .. admonition:: následné podmínky
 
-   Pracovník agentury ISBN má k dispozici novou ohlášku ke kontrole ISBN
+   Pracovník ISBN agentury má k dispozici nové ohlášení ke kontrole ISBN
 
 .. raw:: html
 

@@ -6,7 +6,7 @@ UC01-02 Registrace producenta
 
 *účastníci*:
 
-- Pracovník akvizice
+- Správce nakladatele/vydavatele
 
 *vstupní podmínky*:
 

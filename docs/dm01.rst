@@ -3,6 +3,10 @@
 DM01 - E-publikace
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Datový model v akci si můžete prohlédnout v :ref:`uc02-01`
+
+Tam také najdete počeštené významy jednotlivých položek.
+
 .. image:: dm01.png
 
 .. raw:: html

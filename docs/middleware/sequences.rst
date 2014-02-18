@@ -7,6 +7,7 @@ Jednotlivé komunikace v systému
    :maxdepth: 1
 
    seq01
+   seq02
 
 .. raw:: html
 

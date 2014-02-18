@@ -3,18 +3,20 @@ left to right direction
 title Registrace nakladatele/vydavatele
 skinparam packageStyle rect
 
-actor :Nakladatel/vydavatel: as nakl
+actor :Správce nakladatele/vydavatele: as naklAdm
+actor :Pracovník nakladatele/vydavatele: as nakl
 actor :Pracovník akvizice: as akv
 actor :Správce systému: as sys
 
 rectangle  {
-	  :nakl: --> (UC01-01 Stažení smlouvy k vyplnění)
-	  :akv: -left-> (UC01-02 Registrace nakladatele/vydavatele)
+	  :naklAdm: --> (UC01-01 Stažení smlouvy k vyplnění)
+	  :naklAdm: --> (UC01-02 Registrace nakladatele/vydavatele)
 	  :akv: -left-> (UC01-03 Pozastavení platnosti smlouvy s nakladatelem/vydavatelem)
-	  :nakl: --> (UC01-04 Detail účtu nakladatele/vydavatele)
+	  :naklAdm: --> (UC01-04 Detail účtu nakladatele/vydavatele)
+	  :naklAdm: --> (UC01-05 Registrace pracovníka nakladatele/vydavatele)
 }
 
-:nakl: ---> (ručně: Vyplnění smlouvy)
-:nakl: ---> (úsek akvizice: Návštěva Národní knihovny)
+:naklAdm: ---> (ručně: Vyplnění smlouvy)
+:naklAdm: ---> (úsek akvizice: Návštěva Národní knihovny)
 @enduml
 

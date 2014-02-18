@@ -21,33 +21,30 @@ title Ohlášení e-publikace
     === SUBMIT_EPUBLICATION === --> if "chci přidělit ISBN?" then
     	-->[Ano] "UC02-05 Odeslání ohlášky s registrací ISBN"
 	--> === FILE_CHECKS ===
-	=== FILE_CHECKS === --> "UC02-06 Kontroly souboru/A"
-	=== FILE_CHECKS === --> "UC02-07 Načtení metadat ze souborů/A"
-	=== FILE_CHECKS === --> "UC02-08 Transformace souboru/A"
-	=== FILE_CHECKS === --> "UC02-09 Vytvoření náhledu na soubor/A"
-	"UC02-06 Kontroly souboru/A" --> === FILE_CHECKS_END ===
-	"UC02-07 Načtení metadat ze souborů/A" --> === FILE_CHECKS_END ===
-	"UC02-08 Transformace souboru/A" --> === FILE_CHECKS_END ===
-	"UC02-09 Vytvoření náhledu na soubor/A" --> === FILE_CHECKS_END ===
-	=== FILE_CHECKS_END ===	---> "UC02-13 Přidělení ISBN"
-	--> (*)
-	note right
-	E-publikace je připravena k akvizici
-	end note
     else
 	-->[Ne] "UC02-04 Odeslání ohlášky"
-	---> === FILE_CHECKS_B === 
-	=== FILE_CHECKS_B === --> "UC02-06 Kontroly souboru/N"
-	=== FILE_CHECKS_B === --> "UC02-07 Načtení metadat ze souborů/N"
-	=== FILE_CHECKS_B === --> "UC02-08 Transformace souboru/N"
-	=== FILE_CHECKS_B === --> "UC02-09 Vytvoření náhledu na soubor/N"
-	"UC02-06 Kontroly souboru/N" --> === FILE_CHECKS_END_B ===
-	"UC02-07 Načtení metadat ze souborů/N" --> === FILE_CHECKS_END_B ===
-	"UC02-08 Transformace souboru/N" --> === FILE_CHECKS_END_B ===
-	"UC02-09 Vytvoření náhledu na soubor/N" --> === FILE_CHECKS_END_B ===
-	=== FILE_CHECKS_END_B === --> (*)
+	--> === FILE_CHECKS ===
     endif
-    
+
+    === FILE_CHECKS === --> "UC02-06 Kontroly souboru"
+    === FILE_CHECKS === --> "UC02-07 Načtení metadat ze souborů"
+    === FILE_CHECKS === --> "UC02-08 Transformace souboru"
+    === FILE_CHECKS === --> "UC02-09 Vytvoření náhledu na soubor"
+    === FILE_CHECKS === --> "UC02-16 Automatická kontrola ISBN"
+    "UC02-06 Kontroly souboru" --> === FILE_CHECKS_END ===
+    "UC02-07 Načtení metadat ze souborů" --> === FILE_CHECKS_END ===
+    "UC02-08 Transformace souboru" ---> === FILE_CHECKS_END ===
+    "UC02-09 Vytvoření náhledu na soubor" ---> === FILE_CHECKS_END ===
+    "UC02-16 Automatická kontrola ISBN" ---> === FILE_CHECKS_END ===
+    === FILE_CHECKS_END ===	---> if "chci přidělit ISBN?" then
+        --> [Ano] "UC02-13 Přidělení ISBN"
+        --> (*)
+    else 
+        --> [Ne] (*)
+        note right
+        E-publikace je připravena k akvizici
+        end note
+    endif
 else
 	-->[Ne] "Úvodní stránka"
 	if "chci se zaregistrovat?" then

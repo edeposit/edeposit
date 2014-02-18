@@ -9,57 +9,57 @@ class Library {
       String urlOfKramerius
 }
 
-class ISBN {
-      String ISBN
-      boolean isValid()
-}
-
 class PreviewFile {
       String format
       File file
+      String ISBN
 }
 
 class OriginalFile {
       String url
       String format
       File file
+      String ISBN
 }
 
 class Author {
-      String firstName
-      String lastName
+      String Prijmeni_krestni_jmeno
 }
 
 class PrintingFile {
       String url
       String format
       File file
+      String ISBN
 }
 
 class EPublication {
-      String bookBinding
-      Decimal price
-      String title
-      String subtitle
-      String volume
-      String volumeTitle
-      String volumeNumber
-      String edition
-      String placeOfPublishing
-      String publisher
-      Date   dateOfPublishing
-      String publishedWithCoedition
-      String publishedAtOrder
-      String personWhoProcessedThis
+      String název  
+      String podnázev
+      String vazba 
+      Decimal cena 
+      String cast,dil     Cast(svazek,dil)
+      String nazev_casti
+      String nakladatel/vydavatel
+      Date   datum_vydani
+      String poradi_vydani
+      String zpracovatel_zaznamu
       Relation librariesThatCanAccessAtLibraryTerminal
       Relation librariesThatCanAccessAtPublic
       String alephDocNumber
       Boolean generateISBN
-      String categoryForRIV
+      String kategorie_pro_RIV
+      String misto_distribuce
+      String distributor
+      Date datum_distribuce
+      Date datum_pro_copyright
+      String format
+      String url
+      String misto_vydani
+      String ISBN_souboru_publikaci
 }
 
 class EPublicationFolder {
-      
 }
 
 class LibraryFolder {
@@ -71,8 +71,6 @@ EPublication *-- "0..*" OriginalFile
 EPublication *-- "0..*" PrintingFile
 EPublication *-- "0..*" Author
 EPublication "0..*" *-- "0..*" PreviewFile: main preview files
-OriginalFile "0..*" *-- "1..*" ISBN
-PrintingFile "0..*" *-- "0..*" ISBN
 OriginalFile "0..*" *-- "1..*" PreviewFile
 PrintingFile "0..*" *-- "1..*" PreviewFile
 EPublicationFolder *-- "0..*" EPublication

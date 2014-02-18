@@ -6,7 +6,10 @@ Modely datových entit
 .. toctree::
    :maxdepth: 1
 
+   dm00
    dm01
+   dm02
+   dm03
 
 .. raw:: html
 

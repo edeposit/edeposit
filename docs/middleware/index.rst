@@ -16,7 +16,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   components
    datamodels
    sequences
-
+   modules
 

@@ -5,7 +5,7 @@ UC01-01 Stažení smlouvy k vyplnění
 
 *účastníci*:
 
-- Producent
+- Správce producenta
 
 *vstupní podmínky*:
 
@@ -18,8 +18,10 @@ UC01-01 Stažení smlouvy k vyplnění
    - informace o e-deposit
    - linku se smlouvou pro producenta ke stažení
    - linku pro přihlášení
-   - linku pro ohlášení
-  
+   - linku pro registraci
+
+   :download:`home page <tests/home-page.png>`
+   
 2. Producent klikne na "Smlouva pro producenta"
 3. Systém poskytne smlouvu k uložení
 
