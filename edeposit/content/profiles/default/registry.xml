@@ -24,4 +24,16 @@
       <element>EUR</element>
     </value>
   </record>
+  <record name="edeposit.content.categoriesForRIV">
+    <field type="plone.registry.field.Tuple">
+      <title i18n:translate="">E-Deposit kategorie pro RIV</title>
+      <value_type type="plone.registry.field.TextLine" />
+    </field>
+    <value>
+      <element>1. kategorie</element>
+      <element>2. kategorie</element>
+      <element>3. kategorie</element>
+      <element>4. kategorie</element>
+    </value>
+  </record>
 </registry>

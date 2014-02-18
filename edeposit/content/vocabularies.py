@@ -31,3 +31,15 @@ class CurrenciesVocabulary(object):
                 terms.append(SimpleVocabulary.createTerm(item, item.encode('utf-8'), item))
         return SimpleVocabulary(terms)
 grok.global_utility(CurrenciesVocabulary, name=u"edeposit.content.currencies")
+
+class CategoriesForRIVVocabulary(object):
+    grok.implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        registry = queryUtility(IRegistry)
+        terms = []
+        if registry is not None:
+            for item in registry.get('edeposit.content.categoriesForRIV', ()):
+                terms.append(SimpleVocabulary.createTerm(item, item.encode('utf-8'), item))
+        return SimpleVocabulary(terms)
+grok.global_utility(FileTypesVocabulary, name=u"edeposit.content.categoriesForRIV")

@@ -209,14 +209,15 @@ class IePublication(form.Schema, IImageScaleTraversable):
     #               fields = ['category_for_riv',
     #                         ])
 
-    category_for_riv = schema.TextLine(
+    category_for_riv = schema.Choice (
         title = _(u'RIV category'),
         description = _(u'Category of an ePublication for RIV'),
         required = False,
         readonly = False,
         default = None,
         missing_value = None,
-        )
+        vocabulary="edeposit.content.categoriesForRIV",
+    )
     
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
