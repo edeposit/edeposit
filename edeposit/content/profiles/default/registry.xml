@@ -30,10 +30,17 @@
       <value_type type="plone.registry.field.TextLine" />
     </field>
     <value>
-      <element>1. kategorie</element>
-      <element>2. kategorie</element>
-      <element>3. kategorie</element>
-      <element>4. kategorie</element>
+      <element>1.        společenské, humanitní a umělecké vědy (SHVa)</element>
+      <element>2.        společenské vědy (SHVb)</element>
+      <element>3.        společenské vědy (SHVc)</element>
+      <element>4.        technické a informatické vědy</element>
+      <element>5.        zemědělské vědy (rostlinná výroba, živočišná výroba a potravinářství)</element>
+      <element>6.        vědy o Zemi</element>
+      <element>7.        matematické vědy</element>
+      <element>8.        fyzikální vědy (pouze pilíř II.)</element>
+      <element>9.        chemické vědy (pouze pilíř II.)</element>
+      <element>10.        biologické vědy (pouze pilíř II.)</element>
+      <element>11.        lékařské vědy (pouze pilíř II.)</element>
     </value>
   </record>
 </registry>
