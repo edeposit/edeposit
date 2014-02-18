@@ -61,3 +61,25 @@ UC02-01 Ohlášení se soubory
     Add Original Files for ePublication
     Click Button                          form.buttons.save    
     Page Should Contain                   Položka byla vytvořena
+
+UC02-01 Ohlášení s RIV kategorií
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Page Should Contain                   Přidat E-Deposit - ePublikace 
+    Page Should Contain                   Obsah
+    Page Should Contain                   RIV
+    Fill inputs about ePublication    
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Položka byla vytvořena
+
+UC02-01 Nastavení kategorií pro RIV
+    Log in as site owner
+    Click Link                   admin
+    Click Link                   Nastavení portálu
+    Click Link                   css=a[href='${PLONE_URL}/portal_registry']
+    Input Text                   name=q    RIV
+    Click Element                css=input[value="Filter"]
+    Click Link                   edeposit content categoriesForRIV
+    Page Should Contain          Upravit záznam    
