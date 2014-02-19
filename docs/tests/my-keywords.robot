@@ -76,7 +76,6 @@ Sharing tab is available
 
 Registrace producenta
     Click link        Registrovat
-    Pause
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
     Fill inputs about producent
@@ -98,7 +97,7 @@ Fill inputs about ePublication
     Input Text				css=#form-widgets-nazev     Lesní školky ve Zlíně
     Input Text				css=#form-widgets-podnazev  Alternativní vzdělávání
     #Page Should Not Contain Element     css=div.fieldErrorBox
-    Input Text				css=#form-widgets-vazba     časopis
+    #Input Text				css=#form-widgets-vazba     časopis
     Input Text                          css=#form-widgets-cena      0
     
 Add authors for ePublication
@@ -112,3 +111,6 @@ Add Original Files for ePublication
     Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn  80-12312-3241-324124
     Choose File                         css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
 
+
+Fill inputs about RIV
+    Pause

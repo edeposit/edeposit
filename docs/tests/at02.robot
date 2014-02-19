@@ -65,15 +65,19 @@ UC02-01 Ohlášení se soubory
 UC02-01 Ohlášení s RIV kategorií
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Page Should Contain                   Ohlášení ePublikací
+    Page Should Contain                   Ohlášování ePeriodik
+    #Page Should Not Contain               Ohlášení tištěných knih
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains              Přidat E-Deposit - ePublikace
     Page Should Contain                   Přidat E-Deposit - ePublikace 
     Page Should Contain                   Obsah
     Page Should Contain                   RIV
     Fill inputs about ePublication    
+    Fill inputs about RIV    
     Click Button                          form.buttons.save    
     Page Should Contain                   Položka byla vytvořena
-
+    
 UC02-01 Nastavení kategorií pro RIV
     Log in as site owner
     Click Link                   admin

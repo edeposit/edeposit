@@ -10,6 +10,7 @@ Install virtualenv for Python 2.7
 
 	root@jan-XPS-L421X:~# aptitude install python-virtualenv 
 	root@jan-XPS-L421X:~# aptitude install python-dev
+        root@jan-XPS-L421X:~# aptitude install libjpeg-dev libfreetype6-dev
 	root@jan-XPS-L421X:~# python --version
 	Python 2.7.4
 
