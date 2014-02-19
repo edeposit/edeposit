@@ -49,6 +49,7 @@ Fill inputs about address
     Input Text				css=#form-widgets-street  Pašovice 71
     Input Text 				css=#form-widgets-city  Prakšice
     Input Text    			css=#form-widgets-country  Česká republika
+    Input Text    			css=#form-widgets-psc     68756
 
 Add one administrator    
     Click Button                        Přidat
@@ -75,6 +76,7 @@ Sharing tab is available
 
 Registrace producenta
     Click link        Registrovat
+    Pause
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
     Fill inputs about producent
