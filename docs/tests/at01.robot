@@ -3,6 +3,8 @@
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
 
+${PLONE_URL} = http://edeposit-aplikace.nkp.cz
+
 Test Setup       Open browser and create all folders
 Test Teardown    Close all browsers
 
