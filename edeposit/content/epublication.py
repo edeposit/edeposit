@@ -54,21 +54,21 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
-    vazba = schema.TextLine (
-        title = u"Vazba",
-        required = False,
-    )
-
+    # vazba = schema.TextLine (
+    #     title = u"Vazba",
+    #     required = False,
+    # )
+    
     cena = schema.Decimal (
         title = u'Cena',
         required = False,
     )
 
-    isbn = schema.ASCIILine (
-        title = u"ISBN",
-        description = u"ISNB knižního vydání",
-        required = False,
-    )
+    # isbn = schema.ASCIILine (
+    #     title = u"ISBN",
+    #     description = u"ISNB knižního vydání",
+    #     required = False,
+    # )
 
     isbn_souboru_publikaci = schema.ASCIILine (
         title = u"ISBN souboru publikací",
@@ -206,8 +206,17 @@ class IePublication(form.Schema, IImageScaleTraversable):
 
     # form.fieldset('riv',
     #               label=_(u'RIV'),
-    #               fields = ['category_for_riv',
-    #                         ])
+    #               fields = [
+    #                   'offer_to_riv',
+    #                   'category_for_riv',
+    #               ])
+    offer_to_riv = schema.Bool(
+        title = u'Zpřístupnit pro RIV',
+        description = u'Chceme aby RIV ePublikaci hodnotil.',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
 
     category_for_riv = schema.Choice (
         title = _(u'RIV category'),
