@@ -15,6 +15,10 @@ Page Does Not Exist
 Page Does Exist
     Page Should Not Contain        Litujeme, ale tato stránka neexistuje...
 
+Workflow State Is
+    [arguments]     ${state_id}
+    Page Should Contain Element    css=span.state-${state_id}
+    
 Add Dexterity Content
     [arguments]  ${url}   ${content_type}   ${title}    
     Go to             ${url}
@@ -66,6 +70,21 @@ Add one administrator
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password   ${USER_PASSWORD}
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl   ${USER_PASSWORD}
 
+Add one administrator with wrong passwords
+    Click Button                        Přidat
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname   Jan Stavěl
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email   stavel.jan
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-home_page   www.nkp.cz
+
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-location   Pašovice
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone   773230772
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-street   Pašovice 71
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-city   Prakšice
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-country   Česká republika
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-username   ${USER_NAME}
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password   ${USER_PASSWORD}
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl   wrongpassword
+
 Local role is available
     [arguments]   ${rolename}
     Click Link      Sdílení
@@ -113,4 +132,8 @@ Add Original Files for ePublication
 
 
 Fill inputs about RIV
-    Pause
+    Select Checkbox                     css=#form-widgets-offer_to_riv-0    
+    Select From List By Label           css=#form-widgets-category_for_riv           1. společenské, humanitní a umělecké vědy (SHVa)
+
+RIV category should be selected
+    Page Should Contain                 1. společenské, humanitní a umělecké vědy (SHVa)
