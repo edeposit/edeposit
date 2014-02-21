@@ -19,7 +19,6 @@ class FileTypesVocabulary(object):
         return SimpleVocabulary(terms)
 grok.global_utility(FileTypesVocabulary, name=u"edeposit.content.fileTypes")
 
-
 class CurrenciesVocabulary(object):
     grok.implements(IVocabularyFactory)
 
@@ -42,4 +41,4 @@ class CategoriesForRIVVocabulary(object):
             for item in registry.get('edeposit.content.categoriesForRIV', ()):
                 terms.append(SimpleVocabulary.createTerm(item, item.encode('utf-8'), item))
         return SimpleVocabulary(terms)
-grok.global_utility(FileTypesVocabulary, name=u"edeposit.content.categoriesForRIV")
+grok.global_utility(CategoriesForRIVVocabulary, name=u"edeposit.content.categoriesForRIV")
