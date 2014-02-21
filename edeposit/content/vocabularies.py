@@ -6,6 +6,7 @@ from zope.schema.interfaces import IVocabularyFactory
 
 from zope.schema.vocabulary import SimpleVocabulary
 from plone.registry.interfaces import IRegistry
+import unicodedata
 
 class FileTypesVocabulary(object):
     grok.implements(IVocabularyFactory)
@@ -27,7 +28,8 @@ class CurrenciesVocabulary(object):
         terms = []
         if registry is not None:
             for item in registry.get('edeposit.content.currencies', ()):
-                terms.append(SimpleVocabulary.createTerm(item, item.encode('utf-8'), item))
+                token = unicodedata.normalize('NFKD', item).encode('ascii', 'ignore').lower()
+                terms.append(SimpleVocabulary.createTerm(item, token, item))
         return SimpleVocabulary(terms)
 grok.global_utility(CurrenciesVocabulary, name=u"edeposit.content.currencies")
 
@@ -39,6 +41,7 @@ class CategoriesForRIVVocabulary(object):
         terms = []
         if registry is not None:
             for item in registry.get('edeposit.content.categoriesForRIV', ()):
-                terms.append(SimpleVocabulary.createTerm(item, item.encode('utf-8'), item))
+                token = unicodedata.normalize('NFKD', item).encode('ascii', 'ignore').lower()
+                terms.append(SimpleVocabulary.createTerm(item, token, item))
         return SimpleVocabulary(terms)
 grok.global_utility(CategoriesForRIVVocabulary, name=u"edeposit.content.categoriesForRIV")
