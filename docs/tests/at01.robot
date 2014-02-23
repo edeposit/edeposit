@@ -109,7 +109,6 @@ UC01-01 Kontrola zadaných hesel
     Click Link                          Obsah
     Add one administrator with wrong passwords
     Click Button			Registrovat
-    Pause
 
 # UC01-01 Název producenta v portletech je klikací
 #     Registrace producenta

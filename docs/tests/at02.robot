@@ -60,13 +60,11 @@ UC02-01 Ohlášení se soubory
     Add authors for ePublication
     Add Original Files for ePublication
     Click Button                          form.buttons.save    
-    Pause
     Page Should Contain                   Položka byla vytvořena
         
 UC02-01 Ohlášení s RIV kategorií
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
-    Pause
     Page Should Contain                   Ohlášení ePublikací
     Page Should Contain                   Ohlášování ePeriodik
     Click Link                            Ohlášení ePublikací
@@ -76,7 +74,6 @@ UC02-01 Ohlášení s RIV kategorií
     Page Should Contain                   RIV
     Fill inputs about ePublication    
     Fill inputs about RIV    
-    Pause
     Click Button                          form.buttons.save    
     Page Should Contain                   Položka byla vytvořena
     RIV category should be selected
