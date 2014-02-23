@@ -71,7 +71,6 @@ class OriginalFile(Container):
 
     # Add your class methods and properties here
 
-
 # View class
 # The view will automatically use a similarly named template in
 # originalfile_templates.

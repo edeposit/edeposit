@@ -36,6 +36,8 @@ from zope.component import queryUtility
 from zope.interface import Invalid, Interface
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 from plone.dexterity.interfaces import IDexterityFTI
+from collections import namedtuple
+from plone import api
 
 # Interface class; used to define content-type schema.
 
@@ -254,6 +256,7 @@ class IOriginalFiles(model.Schema):
         unique = False
     )
 
+from originalfile import OriginalFile
 
 class EPublicationAddForm(DefaultAddForm):
     # label = _(u"Registration of a producent")
@@ -262,7 +265,7 @@ class EPublicationAddForm(DefaultAddForm):
     @property
     def additionalSchemata(self):
         schemata = [s for s in getAdditionalSchemata(portal_type=self.portal_type)] + \
-                   [IAuthors,IOriginalFiles]
+                   [IAuthors, IOriginalFiles]
         return schemata
 
     def add(self,object):
@@ -280,7 +283,11 @@ class EPublicationAddForm(DefaultAddForm):
             addContentToContainer(new_object, author, True)
             
         for originalFile in self.originalFiles:
-            addContentToContainer(new_object,originalFile, True)
+            value = {'file':originalFile.file, 
+                     'url': originalFile.url, 
+                     'isbn': originalFile.isbn, 
+                     'format':originalFile.format}
+            createContentInContainer(new_object,'edeposit.content.originalfile',**value)
 
     def create(self, data):
         def getAndRemoveKey(data, key, defaultValue):
@@ -293,7 +300,6 @@ class EPublicationAddForm(DefaultAddForm):
 
         self.authors = getAndRemoveKey(data,'IAuthors.authors',[]) or []
         self.originalFiles = getAndRemoveKey(data,'IOriginalFiles.originalFiles',[]) or []
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         created = DefaultAddForm.create(self,data)
         return created
 
@@ -324,9 +330,13 @@ class OriginalFileFactory(object):
         self.form = form
         self.widget = widget
 
+
     def __call__(self, value):
         created=createContent('edeposit.content.originalfile',**value)
+        created.portal_quickinstaller = api.portal.get_tool('portal_quickinstaller')
+        created.portal_url = api.portal.get_tool('portal_url')
         return created
+
 
     # @button.buttonAndHandler(_(u"Register"))
     # def handleRegister(self, action):
