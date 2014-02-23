@@ -38,7 +38,7 @@ UC02-01 Ohlášení bez souboru bez autoru
     Page Should Contain                   Obsah
     Page Should Contain                   RIV
     Fill inputs about ePublication    
-    Click Button                          form.buttons.save    
+    Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
 
 UC02-01 Ohlášení bez souboru s autorem
@@ -60,14 +60,15 @@ UC02-01 Ohlášení se soubory
     Add authors for ePublication
     Add Original Files for ePublication
     Click Button                          form.buttons.save    
+    Pause
     Page Should Contain                   Položka byla vytvořena
-
+        
 UC02-01 Ohlášení s RIV kategorií
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Pause
     Page Should Contain                   Ohlášení ePublikací
     Page Should Contain                   Ohlášování ePeriodik
-    #Page Should Not Contain               Ohlášení tištěných knih
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains              Přidat E-Deposit - ePublikace
     Page Should Contain                   Přidat E-Deposit - ePublikace 
@@ -75,9 +76,11 @@ UC02-01 Ohlášení s RIV kategorií
     Page Should Contain                   RIV
     Fill inputs about ePublication    
     Fill inputs about RIV    
+    Pause
     Click Button                          form.buttons.save    
     Page Should Contain                   Položka byla vytvořena
-    
+    RIV category should be selected
+
 UC02-01 Nastavení kategorií pro RIV
     Log in as site owner
     Click Link                   admin

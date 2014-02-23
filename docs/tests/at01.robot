@@ -78,10 +78,7 @@ UC01-01 Registrace producenta
     Registrace producenta
     Page Should Contain                 Vaše uživatelská registrace proběhla.
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
-    Location Should Be                  ${PLONE_URL}/producents/${PRODUCENT_ID}
-    Pause
-    Page Should Contain                 Odeslat ke schválení
-    Pause
+    Page Should Contain Button          Přihlásit se
     Log in as site owner
     User Should Exist                   ${USER_NAME}
     Click Link                          Členství ve skupinách
@@ -89,10 +86,31 @@ UC01-01 Registrace producenta
     Group Should Be Assigned            Producent Editors
     Group Should Be Assigned            Producent Contributors
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
+    Workflow State Is                   waitingForApproving
     Click Link                          Sdílení
     Local Role is Assigned              E-Deposit: Producent Administrator
+    Local Role is Assigned              Reader
+    Local Role is Assigned              Editor
+    Local Role is Assigned              Reviewer
+    Local Role is Assigned              Contributor
     Log Out
     Log in                              ${USER_NAME}   ${USER_PASSWORD}
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
     Location Should Be                  ${PLONE_URL}/producents/${PRODUCENT_ID}
     Sharing tab is available    
+
+UC01-01 Kontrola zadaných hesel
+    Click link        Registrovat
+    Page Should Contain   		Registrace producenta
+    Page Should Contain Button   	Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Obsah
+    Add one administrator with wrong passwords
+    Click Button			Registrovat
+    Pause
+
+# UC01-01 Název producenta v portletech je klikací
+#     Registrace producenta
+#     Log in                              ${USER_NAME}   ${USER_PASSWORD}
