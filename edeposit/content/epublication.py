@@ -269,8 +269,10 @@ class EPublicationAddForm(DefaultAddForm):
         return schemata
 
     def add(self,object):
+        object.title = object.nazev
         fti = getUtility(IDexterityFTI, name=self.portal_type)
         container = aq_inner(self.context)
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         new_object = addContentToContainer(container, object)
         
         if fti.immediate_view:
