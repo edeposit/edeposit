@@ -55,7 +55,7 @@ Přidávání producenta
      Fill inputs about producent
      Click Link				Adresa
      Fill inputs about address
-     Click Link                          Obsah
+     Click Link                          Producent
      Add one administrator
      Click button   name=form.buttons.register
      Page Should Contain  Item created
@@ -112,7 +112,7 @@ UC01-01 Kontrola zadaných hesel
      Fill inputs about producent
      Click Link				Adresa
      Fill inputs about address
-     Click Link                          Obsah
+     Click Link                          Producent
      Add one administrator with wrong passwords
      Click Button			Registrovat
 

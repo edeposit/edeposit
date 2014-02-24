@@ -100,7 +100,7 @@ Registrace producenta
     Fill inputs about producent
     Click Link				Adresa
     Fill inputs about address
-    Click Link                          Obsah
+    Click Link                          Producent
     Add one administrator    
     Click Button			Registrovat
 

@@ -61,7 +61,8 @@ UC02-01 Ohlášení se soubory
     Add Original Files for ePublication
     Click Button                          form.buttons.save    
     Page Should Contain                   Položka byla vytvořena
-        
+    Location Should Contain               lesni-skolky-ve-zline
+
 UC02-01 Ohlášení s RIV kategorií
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
