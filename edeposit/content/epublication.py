@@ -46,10 +46,13 @@ class IePublication(form.Schema, IImageScaleTraversable):
     E-Deposit ePublication
     """
 
-    nazev = schema.TextLine (
-        title = u"Název",
-        required = True,
-    )
+    # nazev = schema.TextLine (
+    #     title = u"Název",
+    #     required = True,
+    # )
+
+    def getNazev(self):
+        return self.title
 
     podnazev = schema.TextLine (
         title = u"Podnázev",
@@ -261,6 +264,7 @@ from originalfile import OriginalFile
 class EPublicationAddForm(DefaultAddForm):
     # label = _(u"Registration of a producent")
     # description = _(u"Please fill informations about user and producent.")
+    default_fieldset_label = u"ePublikace"
 
     @property
     def additionalSchemata(self):
@@ -268,8 +272,11 @@ class EPublicationAddForm(DefaultAddForm):
                    [IAuthors, IOriginalFiles]
         return schemata
 
+    def update(self):
+        DefaultAddForm.update(self)
+        self.widgets['IBasic.title'].label=u"Název ePublikace"
+
     def add(self,object):
-        object.title = object.nazev
         fti = getUtility(IDexterityFTI, name=self.portal_type)
         container = aq_inner(self.context)
         #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
@@ -338,29 +345,6 @@ class OriginalFileFactory(object):
         created.portal_quickinstaller = api.portal.get_tool('portal_quickinstaller')
         created.portal_url = api.portal.get_tool('portal_url')
         return created
-
-
-    # @button.buttonAndHandler(_(u"Register"))
-    # def handleRegister(self, action):
-    #     data, errors = self.extractData()
-    #     if errors:
-    #         self.status = self.formErrorsMessage
-    #         return
-
-    #     producentsFolder = self.getProducentsFolder()
-    #     # hack for title and description
-    #     data['title'] = data.get('IBasic.title','')
-    #     data['description'] = data.get('IBasic.description','')
-    #     producent = createContentInContainer(producentsFolder, "edeposit.user.producent", **data)
-    #     administratorsFolder = producent['producent-administrators']
-    #     for administrator in data['IProducentAdministrators.administrators']:
-    #         administrator.title=getattr(administrator,'fullname',None)
-    #         addContentToContainer(administratorsFolder, administrator, False)
-    #     if producent is not None:
-    #         # mark only as finished if we get the new object
-    #         self._finishedAdd = True
-    #         IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
-    # pass
 
 
 # View class
