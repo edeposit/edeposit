@@ -58,8 +58,9 @@ Přidávání producenta
      Click Link                          Producent
      Add one administrator
      Click button   name=form.buttons.register
-     Page Should Contain  Item created
-     Page should contain  ${PRODUCENT_TITLe}
+     Page Should Contain   Item created
+     # Page should contain   ${PRODUCENT_TITLE}
+     Page Should Contain   Vítejte
 
 Bezpečnost složky producentů 
      Go to homepage

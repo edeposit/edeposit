@@ -96,6 +96,8 @@ Sharing tab is available
 Registrace producenta
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
+    Page Should Contain                 Producent
+    Page Should Contain                 Název producenta 
     Page Should Contain Button   	Registrovat
     Fill inputs about producent
     Click Link				Adresa
@@ -113,9 +115,12 @@ Local Role is Assigned
     Page Should Contain Element    xpath=//input[@name='entries.role_${ROLENAME}:records' and @checked='checked']    
 
 Fill inputs about ePublication
-    Input Text				css=#form-widgets-nazev     Lesní školky ve Zlíně
+    Input Text				css=#form-widgets-IBasic-title     Lesní školky ve Zlíně
     Input Text				css=#form-widgets-podnazev  Alternativní vzdělávání
     #Page Should Not Contain Element     css=div.fieldErrorBox
+    Page Should Not Contain             Obsah
+    Page Should Contain                 ePublikace
+    Page Should Contain                 Název ePublikace
     #Input Text				css=#form-widgets-vazba     časopis
     Input Text                          css=#form-widgets-cena      0
     
@@ -132,8 +137,8 @@ Add Original Files for ePublication
 
 
 Fill inputs about RIV
-    Select Checkbox                     css=#form-widgets-offer_to_riv-0    
+    Select Checkbox                     css=#form-widgets-offer_to_riv-0
     Select From List By Label           css=#form-widgets-category_for_riv           1. společenské, humanitní a umělecké vědy (SHVa)
 
 RIV category should be selected
-    Page Should Contain                 1. společenské, humanitní a umělecké vědy (SHVa)
+    Page Should Contain                 společenské, humanitní a umělecké vědy (SHVa)

@@ -24,8 +24,8 @@ UC02-01 Domovská stránka uživatele
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Page Should Contain                   Přehledová stránka uživatele
     Page Should Contain                   Ohlášení ePublikace, ePeriodika, knihy
-    Page Should Contain                   Rozpracované ePublikace
-    Page Should Contain                   ePublikace s chybami
+   #     Page Should Contain                   Rozpracované ePublikace
+   #     Page Should Contain                   ePublikace s chybami
     Page Should Contain                   Vyhledat
     Page Should Contain                   Zlínsky vydavatel    
 
@@ -34,8 +34,9 @@ UC02-01 Ohlášení bez souboru bez autoru
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains              Přidat E-Deposit - ePublikace
-    Page Should Contain                   Přidat E-Deposit - ePublikace 
-    Page Should Contain                   Obsah
+    Page Should Not Contain               Obsah
+    Page Should Contain                   ePublikace
+    Page Should Contain                   Název ePublikace
     Page Should Contain                   RIV
     Fill inputs about ePublication    
     Click Button                          form.buttons.save  
@@ -70,9 +71,6 @@ UC02-01 Ohlášení s RIV kategorií
     Page Should Contain                   Ohlášování ePeriodik
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains              Přidat E-Deposit - ePublikace
-    Page Should Contain                   Přidat E-Deposit - ePublikace 
-    Page Should Contain                   Obsah
-    Page Should Contain                   RIV
     Fill inputs about ePublication    
     Fill inputs about RIV    
     Click Button                          form.buttons.save    
