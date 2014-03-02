@@ -59,13 +59,13 @@ Add one administrator
     Click Button                        Přidat
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname   Jan Stavěl
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email   stavel.jan@gmail.com
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-home_page   www.nkp.cz
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-home_page   www.nkp.cz
 
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-location   Pašovice
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-location   Pašovice
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone   773230772
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-street   Pašovice 71
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-city   Prakšice
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-country   Česká republika
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-street   Pašovice 71
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-city   Prakšice
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-country   Česká republika
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-username   ${USER_NAME}
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password   ${USER_PASSWORD}
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl   ${USER_PASSWORD}
@@ -74,13 +74,13 @@ Add one administrator with wrong passwords
     Click Button                        Přidat
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname   Jan Stavěl
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email   stavel.jan
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-home_page   www.nkp.cz
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-home_page   www.nkp.cz
 
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-location   Pašovice
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-location   Pašovice
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone   773230772
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-street   Pašovice 71
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-city   Prakšice
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-country   Česká republika
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-street   Pašovice 71
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-city   Prakšice
+    # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-country   Česká republika
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-username   ${USER_NAME}
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password   ${USER_PASSWORD}
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl   wrongpassword
