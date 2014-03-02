@@ -59,6 +59,16 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
+    puvodni_nazev = schema.TextLine (
+        title = u"Originální název",
+        description = u"u síťových publikací obsahujících díla přeložená, nebo záznamy převzaté z jinojazyčné pulikace",
+        required = False,
+    )
+    verze_vydani_pro_preklad = schema.TextLine (
+        title = u"Verze vydání ze kterého překlad vychází.",
+        required = False,
+    )
+
     # vazba = schema.TextLine (
     #     title = u"Vazba",
     #     required = False,
@@ -77,16 +87,19 @@ class IePublication(form.Schema, IImageScaleTraversable):
 
     isbn_souboru_publikaci = schema.ASCIILine (
         title = u"ISBN souboru publikací",
+        description = u"pro vícesvazkové publikace, ISBN celého souboru publikací.",
         required = False,
     )
 
     url = schema.ASCIILine (
         title = u"URL",
+        description = u"Adresa, kde je publikace zpřístupněna veřejnosti",
         required = False,
     )
     
     datum_pro_copyright = schema.Date (
         title = u"Datum pro copyright",
+        description = u"Datum 1. vydání",
         required = False,
     )
 
@@ -224,8 +237,8 @@ class IePublication(form.Schema, IImageScaleTraversable):
         )
 
     category_for_riv = schema.Choice (
-        title = _(u'RIV category'),
-        description = _(u'Category of an ePublication for RIV'),
+        title = u"Kategorie pro RIV",
+        description = u"Vyberte ze seznamu kategorií pro RIV.",
         required = False,
         readonly = False,
         default = None,
