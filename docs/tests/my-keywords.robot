@@ -56,7 +56,7 @@ Fill inputs about address
     Input Text    			css=#form-widgets-psc     68756
 
 Add one administrator    
-    Click Button                        Přidat
+    #Click Button                        Přidat
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname   Jan Stavěl
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email   stavel.jan@gmail.com
     # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-home_page   www.nkp.cz
@@ -71,11 +71,10 @@ Add one administrator
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl   ${USER_PASSWORD}
 
 Add one administrator with wrong passwords
-    Click Button                        Přidat
+    #Click Button                        Přidat
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname   Jan Stavěl
-    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email   stavel.jan
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email   stavel.jan@gmail.com
     # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-home_page   www.nkp.cz
-
     # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-location   Pašovice
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone   773230772
     # Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-street   Pašovice 71
@@ -85,6 +84,21 @@ Add one administrator with wrong passwords
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password   ${USER_PASSWORD}
     Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl   wrongpassword
 
+Add two administrators with the same username
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname   Jan Stavěl
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email   stavel.jan@gmail.com
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone   773230772
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-username   ${USER_NAME}
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password   ${USER_PASSWORD}
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl   ${USER_PASSWORD}
+    Click Button                        Přidat
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-1-widgets-fullname   Jan Stavěl
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-1-widgets-email   stavel.jan@gmail.com
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-1-widgets-phone   773230772
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-1-widgets-username   ${USER_NAME}
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-1-widgets-password   ${USER_PASSWORD}
+    Input Text                          css=#form-widgets-IProducentAdministrators-administrators-1-widgets-password_ctl   ${USER_PASSWORD}
+    
 Local role is available
     [arguments]   ${rolename}
     Click Link      Sdílení
