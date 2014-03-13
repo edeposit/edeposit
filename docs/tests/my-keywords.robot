@@ -156,3 +156,12 @@ Fill inputs about RIV
 
 RIV category should be selected
     Page Should Contain                 společenské, humanitní a umělecké vědy (SHVa)
+
+
+Ohlášení se soubory
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Add authors for ePublication
+    Add Original Files for ePublication
+    Click Button                          form.buttons.save    

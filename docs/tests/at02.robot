@@ -14,6 +14,8 @@ Library  Dialogs
     
 ${USER_NAME}        jans
 ${USER_PASSWORD}    PhiEso7
+${SYSTEM_NAME}        system
+${SYSTEM_PASSWORD}    shoj98Phai9
 ${PRODUCENT_ID}     zlinsky-vydavatel
 ${PRODUCENT_TITLE}  Zlínsky vydavatel
     
@@ -63,6 +65,9 @@ UC02-01 Ohlášení se soubory
     Click Button                          form.buttons.save    
     Page Should Contain                   Položka byla vytvořena
     Location Should Contain               lesni-skolky-ve-zline
+    Page Should Contain                   Zadávání
+    Open Workflow Menu
+    Page Should Contain                   K akvizici
 
 UC02-01 Ohlášení s RIV kategorií
     Registrace producenta
@@ -86,3 +91,16 @@ UC02-01 Nastavení kategorií pro RIV
     Click Element                css=input[value="Filter"]
     Click Link                   edeposit content categoriesForRIV
     Page Should Contain          Upravit záznam    
+
+UC02-01 Existuje uživatel pro systémové akce
+    Log in                             system    shoj98Phai9
+    Page Should Contain                Přehledová stránka uživatele system
+    
+UC02-01 Ohlášení a odeslání k akvizici
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                     link=K akvizici
+    Page Should Contain               Kontrola ISBN
+    Page Should Not Contain           Přidat novou položku
