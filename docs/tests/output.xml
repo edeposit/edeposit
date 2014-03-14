@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20140313 16:58:03.443" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
+<robot generated="20140314 16:57:35.310" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
 <suite source="/opt/edeposit/docs/tests/at02.robot" id="s1" name="At02">
-<test id="s1-t1" timeout="" name="UC02-01 Ohlášení a odeslání k akvizici">
+<test id="s1-t1" timeout="" name="UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy">
 <kw type="setup" name="my-keywords.Open browser and create all folders" timeout="">
 <doc></doc>
 <arguments>
@@ -12,8 +12,8 @@
 <arg>${PLONE_URL}</arg>
 <arg>firefox</arg>
 </arguments>
-<msg timestamp="20140313 16:58:03.653" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140313 16:58:11.486" starttime="20140313 16:58:03.652"></status>
+<msg timestamp="20140314 16:57:35.502" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140314 16:57:43.362" starttime="20140314 16:57:35.502"></status>
 </kw>
 <kw type="kw" name="keywords.Log in as site owner" timeout="">
 <doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
@@ -30,32 +30,32 @@
 <arguments>
 <arg>${PLONE_URL}/login_form</arg>
 </arguments>
-<msg timestamp="20140313 16:58:11.491" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
-<status status="PASS" endtime="20140313 16:58:11.737" starttime="20140313 16:58:11.491"></status>
+<msg timestamp="20140314 16:57:43.367" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140314 16:57:43.622" starttime="20140314 16:57:43.366"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_name</arg>
 </arguments>
-<msg timestamp="20140313 16:58:11.766" level="INFO">Current page contains element '__ac_name'.</msg>
-<status status="PASS" endtime="20140313 16:58:11.766" starttime="20140313 16:58:11.737"></status>
+<msg timestamp="20140314 16:57:43.657" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140314 16:57:43.657" starttime="20140314 16:57:43.623"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_password</arg>
 </arguments>
-<msg timestamp="20140313 16:58:11.772" level="INFO">Current page contains element '__ac_password'.</msg>
-<status status="PASS" endtime="20140313 16:58:11.772" starttime="20140313 16:58:11.766"></status>
+<msg timestamp="20140314 16:57:43.670" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140314 16:57:43.670" starttime="20140314 16:57:43.658"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140313 16:58:11.779" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140313 16:58:11.779" starttime="20140313 16:58:11.773"></status>
+<msg timestamp="20140314 16:57:43.677" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140314 16:57:43.678" starttime="20140314 16:57:43.671"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure" timeout="">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -67,15 +67,15 @@
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:11.785" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140313 16:58:11.784" starttime="20140313 16:58:11.784"></status>
+<msg timestamp="20140314 16:57:43.680" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140314 16:57:43.680" starttime="20140314 16:57:43.680"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:11.786" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140313 16:58:11.786" starttime="20140313 16:58:11.786"></status>
+<msg timestamp="20140314 16:57:43.681" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140314 16:57:43.680" starttime="20140314 16:57:43.680"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -97,7 +97,7 @@
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:11.816" starttime="20140313 16:58:11.789"></status>
+<status status="PASS" endtime="20140314 16:57:43.705" starttime="20140314 16:57:43.682"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -105,16 +105,16 @@
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:11.818" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
-<status status="PASS" endtime="20140313 16:58:11.865" starttime="20140313 16:58:11.817"></status>
+<msg timestamp="20140314 16:57:43.706" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140314 16:57:43.770" starttime="20140314 16:57:43.706"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:11.877" level="INFO">${value} = admin</msg>
-<status status="PASS" endtime="20140313 16:58:11.876" starttime="20140313 16:58:11.865"></status>
+<msg timestamp="20140314 16:57:43.784" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140314 16:57:43.783" starttime="20140314 16:57:43.771"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
 <doc>Fails if the given objects are unequal.</doc>
@@ -122,16 +122,16 @@
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:11.879" level="INFO">Argument types are:
+<msg timestamp="20140314 16:57:43.785" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140313 16:58:11.879" starttime="20140313 16:58:11.878"></status>
+<status status="PASS" endtime="20140314 16:57:43.786" starttime="20140314 16:57:43.784"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:11.879" starttime="20140313 16:58:11.789"></status>
+<status status="PASS" endtime="20140314 16:57:43.786" starttime="20140314 16:57:43.681"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:11.880" starttime="20140313 16:58:11.787"></status>
+<status status="PASS" endtime="20140314 16:57:43.786" starttime="20140314 16:57:43.681"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:11.880" starttime="20140313 16:58:11.781"></status>
+<status status="PASS" endtime="20140314 16:57:43.787" starttime="20140314 16:57:43.679"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure" timeout="">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -143,15 +143,15 @@
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:11.886" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140313 16:58:11.886" starttime="20140313 16:58:11.885"></status>
+<msg timestamp="20140314 16:57:43.789" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140314 16:57:43.789" starttime="20140314 16:57:43.789"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:11.888" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140313 16:58:11.888" starttime="20140313 16:58:11.887"></status>
+<msg timestamp="20140314 16:57:43.789" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140314 16:57:43.789" starttime="20140314 16:57:43.789"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -173,7 +173,7 @@
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:12.050" starttime="20140313 16:58:11.893"></status>
+<status status="PASS" endtime="20140314 16:57:43.812" starttime="20140314 16:57:43.791"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -181,16 +181,16 @@
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.052" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
-<status status="PASS" endtime="20140313 16:58:12.098" starttime="20140313 16:58:12.051"></status>
+<msg timestamp="20140314 16:57:43.813" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140314 16:57:43.857" starttime="20140314 16:57:43.812"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.117" level="INFO">${value} = secret</msg>
-<status status="PASS" endtime="20140313 16:58:12.117" starttime="20140313 16:58:12.099"></status>
+<msg timestamp="20140314 16:57:43.878" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140314 16:57:43.878" starttime="20140314 16:57:43.858"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
 <doc>Fails if the given objects are unequal.</doc>
@@ -198,28 +198,28 @@
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.119" level="INFO">Argument types are:
+<msg timestamp="20140314 16:57:43.879" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140313 16:58:12.119" starttime="20140313 16:58:12.118"></status>
+<status status="PASS" endtime="20140314 16:57:43.879" starttime="20140314 16:57:43.879"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.120" starttime="20140313 16:58:11.891"></status>
+<status status="PASS" endtime="20140314 16:57:43.879" starttime="20140314 16:57:43.790"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.120" starttime="20140313 16:58:11.889"></status>
+<status status="PASS" endtime="20140314 16:57:43.879" starttime="20140314 16:57:43.789"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.120" starttime="20140313 16:58:11.882"></status>
+<status status="PASS" endtime="20140314 16:57:43.879" starttime="20140314 16:57:43.788"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button" timeout="">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.122" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140313 16:58:12.499" starttime="20140313 16:58:12.121"></status>
+<msg timestamp="20140314 16:57:43.880" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140314 16:57:44.254" starttime="20140314 16:57:43.879"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.499" starttime="20140313 16:58:11.489"></status>
+<status status="PASS" endtime="20140314 16:57:44.254" starttime="20140314 16:57:43.365"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.499" starttime="20140313 16:58:11.487"></status>
+<status status="PASS" endtime="20140314 16:57:44.254" starttime="20140314 16:57:43.363"></status>
 </kw>
 <kw type="kw" name="my-keywords.Create producents folder" timeout="">
 <doc></doc>
@@ -237,8 +237,8 @@
 <arguments>
 <arg>${url}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.505" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140313 16:58:12.782" starttime="20140313 16:58:12.504"></status>
+<msg timestamp="20140314 16:57:44.261" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140314 16:57:44.522" starttime="20140314 16:57:44.260"></status>
 </kw>
 <kw type="kw" name="keywords.Open Add New Menu" timeout="">
 <doc></doc>
@@ -254,24 +254,24 @@
 <arguments>
 <arg>css=dl#${elementId} span</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.786" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories span' is visible.</msg>
-<status status="PASS" endtime="20140313 16:58:12.811" starttime="20140313 16:58:12.785"></status>
+<msg timestamp="20140314 16:57:44.528" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories span' is visible.</msg>
+<status status="PASS" endtime="20140314 16:57:44.555" starttime="20140314 16:57:44.527"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Element Should Not Be Visible" timeout="">
 <doc>Verifies that the element identified by `locator` is NOT visible.</doc>
 <arguments>
 <arg>css=dl#${elementId} dd.actionMenuContent</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.813" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.</msg>
-<status status="PASS" endtime="20140313 16:58:12.825" starttime="20140313 16:58:12.812"></status>
+<msg timestamp="20140314 16:57:44.556" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.</msg>
+<status status="PASS" endtime="20140314 16:57:44.567" starttime="20140314 16:57:44.555"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>css=dl#${elementId} dt.actionMenuHeader a</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.827" level="INFO">Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.</msg>
-<status status="PASS" endtime="20140313 16:58:12.902" starttime="20140313 16:58:12.826"></status>
+<msg timestamp="20140314 16:57:44.569" level="INFO">Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.</msg>
+<status status="PASS" endtime="20140314 16:57:44.645" starttime="20140314 16:57:44.568"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -286,14 +286,14 @@
 <arguments>
 <arg>css=dl#${elementId} dd.actionMenuContent</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.905" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.</msg>
-<status status="PASS" endtime="20140313 16:58:12.933" starttime="20140313 16:58:12.904"></status>
+<msg timestamp="20140314 16:57:44.649" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.</msg>
+<status status="PASS" endtime="20140314 16:57:44.664" starttime="20140314 16:57:44.647"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.934" starttime="20140313 16:58:12.903"></status>
+<status status="PASS" endtime="20140314 16:57:44.665" starttime="20140314 16:57:44.646"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.934" starttime="20140313 16:58:12.784"></status>
+<status status="PASS" endtime="20140314 16:57:44.665" starttime="20140314 16:57:44.525"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:12.934" starttime="20140313 16:58:12.782"></status>
+<status status="PASS" endtime="20140314 16:57:44.666" starttime="20140314 16:57:44.522"></status>
 </kw>
 <kw type="kw" name="${status} = BuiltIn.Run Keyword And Return Status" timeout="">
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
@@ -306,11 +306,11 @@
 <arguments>
 <arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:12.937" level="INFO">Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.</msg>
-<status status="PASS" endtime="20140313 16:58:13.218" starttime="20140313 16:58:12.936"></status>
+<msg timestamp="20140314 16:57:44.669" level="INFO">Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.</msg>
+<status status="PASS" endtime="20140314 16:57:44.992" starttime="20140314 16:57:44.668"></status>
 </kw>
-<msg timestamp="20140313 16:58:13.219" level="INFO">${status} = True</msg>
-<status status="PASS" endtime="20140313 16:58:13.218" starttime="20140313 16:58:12.935"></status>
+<msg timestamp="20140314 16:57:44.992" level="INFO">${status} = True</msg>
+<status status="PASS" endtime="20140314 16:57:44.992" starttime="20140314 16:57:44.667"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Run Keyword If" timeout="">
 <doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
@@ -319,7 +319,7 @@
 <arg>Click Link</arg>
 <arg>${content_type}</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:13.220" starttime="20140313 16:58:13.219"></status>
+<status status="PASS" endtime="20140314 16:57:44.994" starttime="20140314 16:57:44.993"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -327,43 +327,43 @@
 <arg>form.widgets.IBasic.title</arg>
 <arg>${title}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:13.221" level="INFO">Typing text 'producents' into text field 'form.widgets.IBasic.title'</msg>
-<status status="PASS" endtime="20140313 16:58:13.297" starttime="20140313 16:58:13.220"></status>
+<msg timestamp="20140314 16:57:44.995" level="INFO">Typing text 'producents' into text field 'form.widgets.IBasic.title'</msg>
+<status status="PASS" endtime="20140314 16:57:45.053" starttime="20140314 16:57:44.995"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button" timeout="">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>name=form.buttons.save</arg>
 </arguments>
-<msg timestamp="20140313 16:58:13.298" level="INFO">Clicking button 'name=form.buttons.save'.</msg>
-<status status="PASS" endtime="20140313 16:58:13.989" starttime="20140313 16:58:13.297"></status>
+<msg timestamp="20140314 16:57:45.055" level="INFO">Clicking button 'name=form.buttons.save'.</msg>
+<status status="PASS" endtime="20140314 16:57:45.722" starttime="20140314 16:57:45.055"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>Položka byla vytvořena</arg>
 </arguments>
-<msg timestamp="20140313 16:58:14.011" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
-<status status="PASS" endtime="20140313 16:58:14.011" starttime="20140313 16:58:13.989"></status>
+<msg timestamp="20140314 16:57:45.745" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
+<status status="PASS" endtime="20140314 16:57:45.745" starttime="20140314 16:57:45.723"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>${title}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:14.025" level="INFO">Current page contains text 'producents'.</msg>
-<status status="PASS" endtime="20140313 16:58:14.025" starttime="20140313 16:58:14.012"></status>
+<msg timestamp="20140314 16:57:45.760" level="INFO">Current page contains text 'producents'.</msg>
+<status status="PASS" endtime="20140314 16:57:45.760" starttime="20140314 16:57:45.746"></status>
 </kw>
 <kw type="kw" name="${location} = Selenium2Library.Get Location" timeout="">
 <doc>Returns the current location.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:14.031" level="INFO">${location} = http://localhost:55001/plone/producents/view</msg>
-<status status="PASS" endtime="20140313 16:58:14.031" starttime="20140313 16:58:14.026"></status>
+<msg timestamp="20140314 16:57:45.766" level="INFO">${location} = http://localhost:55001/plone/producents/view</msg>
+<status status="PASS" endtime="20140314 16:57:45.766" starttime="20140314 16:57:45.761"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:14.032" starttime="20140313 16:58:12.501"></status>
+<status status="PASS" endtime="20140314 16:57:45.766" starttime="20140314 16:57:44.257"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:14.032" starttime="20140313 16:58:12.499"></status>
+<status status="PASS" endtime="20140314 16:57:45.766" starttime="20140314 16:57:44.255"></status>
 </kw>
 <kw type="kw" name="keywords.Log out" timeout="">
 <doc></doc>
@@ -374,20 +374,20 @@
 <arguments>
 <arg>${PLONE_URL}/logout</arg>
 </arguments>
-<msg timestamp="20140313 16:58:14.036" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
-<status status="PASS" endtime="20140313 16:58:14.233" starttime="20140313 16:58:14.035"></status>
+<msg timestamp="20140314 16:57:45.767" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140314 16:57:45.994" starttime="20140314 16:57:45.767"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=#login-form</arg>
 </arguments>
-<msg timestamp="20140313 16:58:14.247" level="INFO">Current page contains element 'css=#login-form'.</msg>
-<status status="PASS" endtime="20140313 16:58:14.247" starttime="20140313 16:58:14.234"></status>
+<msg timestamp="20140314 16:57:46.002" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140314 16:57:46.002" starttime="20140314 16:57:45.994"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:14.248" starttime="20140313 16:58:14.033"></status>
+<status status="PASS" endtime="20140314 16:57:46.002" starttime="20140314 16:57:45.766"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:14.248" starttime="20140313 16:58:03.650"></status>
+<status status="PASS" endtime="20140314 16:57:46.003" starttime="20140314 16:57:35.501"></status>
 </kw>
 <kw type="kw" name="my-keywords.Registrace producenta" timeout="">
 <doc></doc>
@@ -398,40 +398,40 @@
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140313 16:58:14.250" level="INFO">Clicking link 'Registrovat'.</msg>
-<status status="PASS" endtime="20140313 16:58:15.259" starttime="20140313 16:58:14.250"></status>
+<msg timestamp="20140314 16:57:46.004" level="INFO">Clicking link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140314 16:57:46.344" starttime="20140314 16:57:46.004"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>Registrace producenta</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.290" level="INFO">Current page contains text 'Registrace producenta'.</msg>
-<status status="PASS" endtime="20140313 16:58:15.290" starttime="20140313 16:58:15.260"></status>
+<msg timestamp="20140314 16:57:46.376" level="INFO">Current page contains text 'Registrace producenta'.</msg>
+<status status="PASS" endtime="20140314 16:57:46.376" starttime="20140314 16:57:46.345"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>Producent</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.304" level="INFO">Current page contains text 'Producent'.</msg>
-<status status="PASS" endtime="20140313 16:58:15.304" starttime="20140313 16:58:15.291"></status>
+<msg timestamp="20140314 16:57:46.389" level="INFO">Current page contains text 'Producent'.</msg>
+<status status="PASS" endtime="20140314 16:57:46.390" starttime="20140314 16:57:46.377"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>Název producenta</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.316" level="INFO">Current page contains text 'Název producenta'.</msg>
-<status status="PASS" endtime="20140313 16:58:15.316" starttime="20140313 16:58:15.305"></status>
+<msg timestamp="20140314 16:57:46.405" level="INFO">Current page contains text 'Název producenta'.</msg>
+<status status="PASS" endtime="20140314 16:57:46.405" starttime="20140314 16:57:46.390"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Button" timeout="">
 <doc>Verifies button identified by `locator` is found from current page.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.327" level="INFO">Current page contains input 'Registrovat'.</msg>
-<status status="PASS" endtime="20140313 16:58:15.327" starttime="20140313 16:58:15.317"></status>
+<msg timestamp="20140314 16:57:46.416" level="INFO">Current page contains input 'Registrovat'.</msg>
+<status status="PASS" endtime="20140314 16:57:46.417" starttime="20140314 16:57:46.406"></status>
 </kw>
 <kw type="kw" name="my-keywords.Fill inputs about producent" timeout="">
 <doc></doc>
@@ -443,8 +443,8 @@
 <arg>css=#form-widgets-IBasic-title</arg>
 <arg>${PRODUCENT_TITLE}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.331" level="INFO">Typing text 'Zlínsky vydavatel' into text field 'css=#form-widgets-IBasic-title'</msg>
-<status status="PASS" endtime="20140313 16:58:15.415" starttime="20140313 16:58:15.330"></status>
+<msg timestamp="20140314 16:57:46.421" level="INFO">Typing text 'Zlínsky vydavatel' into text field 'css=#form-widgets-IBasic-title'</msg>
+<status status="PASS" endtime="20140314 16:57:46.495" starttime="20140314 16:57:46.420"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -452,8 +452,8 @@
 <arg>css=#form-widgets-IBasic-description</arg>
 <arg>Malý lokální vydavatel zajímavých publikací</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.417" level="INFO">Typing text 'Malý lokální vydavatel zajímavých publikací' into text field 'css=#form-widgets-IBasic-description'</msg>
-<status status="PASS" endtime="20140313 16:58:15.511" starttime="20140313 16:58:15.415"></status>
+<msg timestamp="20140314 16:57:46.495" level="INFO">Typing text 'Malý lokální vydavatel zajímavých publikací' into text field 'css=#form-widgets-IBasic-description'</msg>
+<status status="PASS" endtime="20140314 16:57:46.624" starttime="20140314 16:57:46.495"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -461,8 +461,8 @@
 <arg>css=#form-widgets-home_page</arg>
 <arg>http://www.e-deposit.cz</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.512" level="INFO">Typing text 'http://www.e-deposit.cz' into text field 'css=#form-widgets-home_page'</msg>
-<status status="PASS" endtime="20140313 16:58:15.621" starttime="20140313 16:58:15.511"></status>
+<msg timestamp="20140314 16:57:46.626" level="INFO">Typing text 'http://www.e-deposit.cz' into text field 'css=#form-widgets-home_page'</msg>
+<status status="PASS" endtime="20140314 16:57:46.767" starttime="20140314 16:57:46.625"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -470,8 +470,8 @@
 <arg>css=#form-widgets-location</arg>
 <arg>Praha</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.622" level="INFO">Typing text 'Praha' into text field 'css=#form-widgets-location'</msg>
-<status status="PASS" endtime="20140313 16:58:15.688" starttime="20140313 16:58:15.622"></status>
+<msg timestamp="20140314 16:57:46.767" level="INFO">Typing text 'Praha' into text field 'css=#form-widgets-location'</msg>
+<status status="PASS" endtime="20140314 16:57:46.858" starttime="20140314 16:57:46.767"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -479,18 +479,18 @@
 <arg>css=#form-widgets-contact</arg>
 <arg>Jan Stavěl</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.688" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-contact'</msg>
-<status status="PASS" endtime="20140313 16:58:15.764" starttime="20140313 16:58:15.688"></status>
+<msg timestamp="20140314 16:57:46.859" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-contact'</msg>
+<status status="PASS" endtime="20140314 16:57:46.926" starttime="20140314 16:57:46.859"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:15.765" starttime="20140313 16:58:15.327"></status>
+<status status="PASS" endtime="20140314 16:57:46.926" starttime="20140314 16:57:46.417"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>Adresa</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.765" level="INFO">Clicking link 'Adresa'.</msg>
-<status status="PASS" endtime="20140313 16:58:15.849" starttime="20140313 16:58:15.765"></status>
+<msg timestamp="20140314 16:57:46.926" level="INFO">Clicking link 'Adresa'.</msg>
+<status status="PASS" endtime="20140314 16:57:47.018" starttime="20140314 16:57:46.926"></status>
 </kw>
 <kw type="kw" name="my-keywords.Fill inputs about address" timeout="">
 <doc></doc>
@@ -502,8 +502,8 @@
 <arg>css=#form-widgets-street</arg>
 <arg>Pašovice 71</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.851" level="INFO">Typing text 'Pašovice 71' into text field 'css=#form-widgets-street'</msg>
-<status status="PASS" endtime="20140313 16:58:15.920" starttime="20140313 16:58:15.850"></status>
+<msg timestamp="20140314 16:57:47.020" level="INFO">Typing text 'Pašovice 71' into text field 'css=#form-widgets-street'</msg>
+<status status="PASS" endtime="20140314 16:57:47.084" starttime="20140314 16:57:47.020"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -511,8 +511,8 @@
 <arg>css=#form-widgets-city</arg>
 <arg>Prakšice</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.920" level="INFO">Typing text 'Prakšice' into text field 'css=#form-widgets-city'</msg>
-<status status="PASS" endtime="20140313 16:58:15.989" starttime="20140313 16:58:15.920"></status>
+<msg timestamp="20140314 16:57:47.085" level="INFO">Typing text 'Prakšice' into text field 'css=#form-widgets-city'</msg>
+<status status="PASS" endtime="20140314 16:57:47.157" starttime="20140314 16:57:47.085"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -520,8 +520,8 @@
 <arg>css=#form-widgets-country</arg>
 <arg>Česká republika</arg>
 </arguments>
-<msg timestamp="20140313 16:58:15.990" level="INFO">Typing text 'Česká republika' into text field 'css=#form-widgets-country'</msg>
-<status status="PASS" endtime="20140313 16:58:16.081" starttime="20140313 16:58:15.989"></status>
+<msg timestamp="20140314 16:57:47.157" level="INFO">Typing text 'Česká republika' into text field 'css=#form-widgets-country'</msg>
+<status status="PASS" endtime="20140314 16:57:47.245" starttime="20140314 16:57:47.157"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -529,18 +529,18 @@
 <arg>css=#form-widgets-psc</arg>
 <arg>68756</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.082" level="INFO">Typing text '68756' into text field 'css=#form-widgets-psc'</msg>
-<status status="PASS" endtime="20140313 16:58:16.161" starttime="20140313 16:58:16.082"></status>
+<msg timestamp="20140314 16:57:47.246" level="INFO">Typing text '68756' into text field 'css=#form-widgets-psc'</msg>
+<status status="PASS" endtime="20140314 16:57:47.307" starttime="20140314 16:57:47.245"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:16.162" starttime="20140313 16:58:15.849"></status>
+<status status="PASS" endtime="20140314 16:57:47.307" starttime="20140314 16:57:47.018"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>Producent</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.162" level="INFO">Clicking link 'Producent'.</msg>
-<status status="PASS" endtime="20140313 16:58:16.251" starttime="20140313 16:58:16.162"></status>
+<msg timestamp="20140314 16:57:47.308" level="INFO">Clicking link 'Producent'.</msg>
+<status status="PASS" endtime="20140314 16:57:47.417" starttime="20140314 16:57:47.307"></status>
 </kw>
 <kw type="kw" name="my-keywords.Add one administrator" timeout="">
 <doc></doc>
@@ -552,8 +552,8 @@
 <arg>css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname</arg>
 <arg>Jan Stavěl</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.253" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname'</msg>
-<status status="PASS" endtime="20140313 16:58:16.338" starttime="20140313 16:58:16.252"></status>
+<msg timestamp="20140314 16:57:47.420" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-fullname'</msg>
+<status status="PASS" endtime="20140314 16:57:47.493" starttime="20140314 16:57:47.419"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -561,8 +561,8 @@
 <arg>css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email</arg>
 <arg>stavel.jan@gmail.com</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.339" level="INFO">Typing text 'stavel.jan@gmail.com' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email'</msg>
-<status status="PASS" endtime="20140313 16:58:16.444" starttime="20140313 16:58:16.339"></status>
+<msg timestamp="20140314 16:57:47.495" level="INFO">Typing text 'stavel.jan@gmail.com' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-email'</msg>
+<status status="PASS" endtime="20140314 16:57:47.580" starttime="20140314 16:57:47.494"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -570,8 +570,8 @@
 <arg>css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone</arg>
 <arg>773230772</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.445" level="INFO">Typing text '773230772' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone'</msg>
-<status status="PASS" endtime="20140313 16:58:16.537" starttime="20140313 16:58:16.444"></status>
+<msg timestamp="20140314 16:57:47.582" level="INFO">Typing text '773230772' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-phone'</msg>
+<status status="PASS" endtime="20140314 16:57:47.660" starttime="20140314 16:57:47.581"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -579,8 +579,8 @@
 <arg>css=#form-widgets-IProducentAdministrators-administrators-0-widgets-username</arg>
 <arg>${USER_NAME}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.538" level="INFO">Typing text 'jans' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-username'</msg>
-<status status="PASS" endtime="20140313 16:58:16.611" starttime="20140313 16:58:16.537"></status>
+<msg timestamp="20140314 16:57:47.661" level="INFO">Typing text 'jans' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-username'</msg>
+<status status="PASS" endtime="20140314 16:57:47.742" starttime="20140314 16:57:47.661"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -588,8 +588,8 @@
 <arg>css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password</arg>
 <arg>${USER_PASSWORD}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.612" level="INFO">Typing text 'PhiEso7' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password'</msg>
-<status status="PASS" endtime="20140313 16:58:16.681" starttime="20140313 16:58:16.612"></status>
+<msg timestamp="20140314 16:57:47.743" level="INFO">Typing text 'PhiEso7' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password'</msg>
+<status status="PASS" endtime="20140314 16:57:47.812" starttime="20140314 16:57:47.743"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -597,20 +597,20 @@
 <arg>css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl</arg>
 <arg>${USER_PASSWORD}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.681" level="INFO">Typing text 'PhiEso7' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl'</msg>
-<status status="PASS" endtime="20140313 16:58:16.744" starttime="20140313 16:58:16.681"></status>
+<msg timestamp="20140314 16:57:47.813" level="INFO">Typing text 'PhiEso7' into text field 'css=#form-widgets-IProducentAdministrators-administrators-0-widgets-password_ctl'</msg>
+<status status="PASS" endtime="20140314 16:57:47.882" starttime="20140314 16:57:47.813"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:16.745" starttime="20140313 16:58:16.251"></status>
+<status status="PASS" endtime="20140314 16:57:47.882" starttime="20140314 16:57:47.418"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button" timeout="">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140313 16:58:16.746" level="INFO">Clicking button 'Registrovat'.</msg>
-<status status="PASS" endtime="20140313 16:58:17.417" starttime="20140313 16:58:16.745"></status>
+<msg timestamp="20140314 16:57:47.883" level="INFO">Clicking button 'Registrovat'.</msg>
+<status status="PASS" endtime="20140314 16:57:48.560" starttime="20140314 16:57:47.883"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:17.417" starttime="20140313 16:58:14.248"></status>
+<status status="PASS" endtime="20140314 16:57:48.561" starttime="20140314 16:57:46.003"></status>
 </kw>
 <kw type="kw" name="keywords.Log in" timeout="">
 <doc>Log in to the site as ${userid} using ${password}. There</doc>
@@ -623,32 +623,32 @@
 <arguments>
 <arg>${PLONE_URL}/login_form</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.420" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
-<status status="PASS" endtime="20140313 16:58:17.599" starttime="20140313 16:58:17.419"></status>
+<msg timestamp="20140314 16:57:48.565" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140314 16:57:48.756" starttime="20140314 16:57:48.564"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_name</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.612" level="INFO">Current page contains element '__ac_name'.</msg>
-<status status="PASS" endtime="20140313 16:58:17.613" starttime="20140313 16:58:17.600"></status>
+<msg timestamp="20140314 16:57:48.772" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140314 16:57:48.772" starttime="20140314 16:57:48.756"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_password</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.621" level="INFO">Current page contains element '__ac_password'.</msg>
-<status status="PASS" endtime="20140313 16:58:17.622" starttime="20140313 16:58:17.614"></status>
+<msg timestamp="20140314 16:57:48.784" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140314 16:57:48.784" starttime="20140314 16:57:48.773"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.635" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140313 16:58:17.635" starttime="20140313 16:58:17.623"></status>
+<msg timestamp="20140314 16:57:48.795" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140314 16:57:48.796" starttime="20140314 16:57:48.785"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure" timeout="">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -660,15 +660,15 @@
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:17.641" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140313 16:58:17.640" starttime="20140313 16:58:17.640"></status>
+<msg timestamp="20140314 16:57:48.798" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140314 16:57:48.798" starttime="20140314 16:57:48.797"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:17.642" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140313 16:58:17.642" starttime="20140313 16:58:17.641"></status>
+<msg timestamp="20140314 16:57:48.799" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140314 16:57:48.799" starttime="20140314 16:57:48.799"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -690,7 +690,7 @@
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:17.663" starttime="20140313 16:58:17.645"></status>
+<status status="PASS" endtime="20140314 16:57:48.824" starttime="20140314 16:57:48.804"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -698,16 +698,16 @@
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.663" level="INFO">Typing text 'jans' into text field '__ac_name'</msg>
-<status status="PASS" endtime="20140313 16:58:17.707" starttime="20140313 16:58:17.663"></status>
+<msg timestamp="20140314 16:57:48.826" level="INFO">Typing text 'jans' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140314 16:57:48.893" starttime="20140314 16:57:48.825"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.720" level="INFO">${value} = jans</msg>
-<status status="PASS" endtime="20140313 16:58:17.719" starttime="20140313 16:58:17.708"></status>
+<msg timestamp="20140314 16:57:48.924" level="INFO">${value} = jans</msg>
+<status status="PASS" endtime="20140314 16:57:48.924" starttime="20140314 16:57:48.894"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
 <doc>Fails if the given objects are unequal.</doc>
@@ -715,16 +715,16 @@
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.722" level="INFO">Argument types are:
+<msg timestamp="20140314 16:57:48.926" level="INFO">Argument types are:
 &lt;type 'unicode'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140313 16:58:17.722" starttime="20140313 16:58:17.721"></status>
+<status status="PASS" endtime="20140314 16:57:48.926" starttime="20140314 16:57:48.925"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:17.722" starttime="20140313 16:58:17.644"></status>
+<status status="PASS" endtime="20140314 16:57:48.927" starttime="20140314 16:57:48.802"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:17.722" starttime="20140313 16:58:17.643"></status>
+<status status="PASS" endtime="20140314 16:57:48.927" starttime="20140314 16:57:48.800"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:17.723" starttime="20140313 16:58:17.637"></status>
+<status status="PASS" endtime="20140314 16:57:48.927" starttime="20140314 16:57:48.796"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure" timeout="">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -736,15 +736,15 @@
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:17.728" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140313 16:58:17.728" starttime="20140313 16:58:17.727"></status>
+<msg timestamp="20140314 16:57:48.935" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140314 16:57:48.934" starttime="20140314 16:57:48.934"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait" timeout="">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140313 16:58:17.729" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140313 16:58:17.729" starttime="20140313 16:58:17.729"></status>
+<msg timestamp="20140314 16:57:48.936" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140314 16:57:48.936" starttime="20140314 16:57:48.936"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -766,7 +766,7 @@
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:17.765" starttime="20140313 16:58:17.730"></status>
+<status status="PASS" endtime="20140314 16:57:49.085" starttime="20140314 16:57:48.938"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -774,16 +774,16 @@
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.766" level="INFO">Typing text 'PhiEso7' into text field '__ac_password'</msg>
-<status status="PASS" endtime="20140313 16:58:17.819" starttime="20140313 16:58:17.765"></status>
+<msg timestamp="20140314 16:57:49.086" level="INFO">Typing text 'PhiEso7' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140314 16:57:49.132" starttime="20140314 16:57:49.085"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value" timeout="">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.843" level="INFO">${value} = PhiEso7</msg>
-<status status="PASS" endtime="20140313 16:58:17.843" starttime="20140313 16:58:17.820"></status>
+<msg timestamp="20140314 16:57:49.153" level="INFO">${value} = PhiEso7</msg>
+<status status="PASS" endtime="20140314 16:57:49.153" starttime="20140314 16:57:49.133"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal" timeout="">
 <doc>Fails if the given objects are unequal.</doc>
@@ -791,26 +791,26 @@
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.845" level="INFO">Argument types are:
+<msg timestamp="20140314 16:57:49.155" level="INFO">Argument types are:
 &lt;type 'unicode'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140313 16:58:17.845" starttime="20140313 16:58:17.844"></status>
+<status status="PASS" endtime="20140314 16:57:49.155" starttime="20140314 16:57:49.154"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:17.846" starttime="20140313 16:58:17.729"></status>
+<status status="PASS" endtime="20140314 16:57:49.156" starttime="20140314 16:57:48.937"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:17.846" starttime="20140313 16:58:17.729"></status>
+<status status="PASS" endtime="20140314 16:57:49.156" starttime="20140314 16:57:48.936"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:17.846" starttime="20140313 16:58:17.724"></status>
+<status status="PASS" endtime="20140314 16:57:49.156" starttime="20140314 16:57:48.929"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button" timeout="">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140313 16:58:17.848" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140313 16:58:18.251" starttime="20140313 16:58:17.847"></status>
+<msg timestamp="20140314 16:57:49.157" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140314 16:57:49.559" starttime="20140314 16:57:49.157"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:18.252" starttime="20140313 16:58:17.418"></status>
+<status status="PASS" endtime="20140314 16:57:49.559" starttime="20140314 16:57:48.562"></status>
 </kw>
 <kw type="kw" name="my-keywords.Ohlášení se soubory" timeout="">
 <doc></doc>
@@ -821,15 +821,15 @@
 <arguments>
 <arg>Ohlášení ePublikací</arg>
 </arguments>
-<msg timestamp="20140313 16:58:18.255" level="INFO">Clicking link 'Ohlášení ePublikací'.</msg>
-<status status="PASS" endtime="20140313 16:58:18.750" starttime="20140313 16:58:18.254"></status>
+<msg timestamp="20140314 16:57:49.562" level="INFO">Clicking link 'Ohlášení ePublikací'.</msg>
+<status status="PASS" endtime="20140314 16:57:50.042" starttime="20140314 16:57:49.562"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Wait Until Page Contains" timeout="">
 <doc>Waits until `text` appears on current page.</doc>
 <arguments>
 <arg>Přidat E-Deposit - ePublikace</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:18.759" starttime="20140313 16:58:18.750"></status>
+<status status="PASS" endtime="20140314 16:57:50.070" starttime="20140314 16:57:50.042"></status>
 </kw>
 <kw type="kw" name="my-keywords.Fill inputs about ePublication" timeout="">
 <doc></doc>
@@ -841,8 +841,8 @@
 <arg>css=#form-widgets-IBasic-title</arg>
 <arg>Lesní školky ve Zlíně</arg>
 </arguments>
-<msg timestamp="20140313 16:58:18.760" level="INFO">Typing text 'Lesní školky ve Zlíně' into text field 'css=#form-widgets-IBasic-title'</msg>
-<status status="PASS" endtime="20140313 16:58:18.825" starttime="20140313 16:58:18.760"></status>
+<msg timestamp="20140314 16:57:50.072" level="INFO">Typing text 'Lesní školky ve Zlíně' into text field 'css=#form-widgets-IBasic-title'</msg>
+<status status="PASS" endtime="20140314 16:57:50.142" starttime="20140314 16:57:50.071"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -850,32 +850,32 @@
 <arg>css=#form-widgets-podnazev</arg>
 <arg>Alternativní vzdělávání</arg>
 </arguments>
-<msg timestamp="20140313 16:58:18.826" level="INFO">Typing text 'Alternativní vzdělávání' into text field 'css=#form-widgets-podnazev'</msg>
-<status status="PASS" endtime="20140313 16:58:18.904" starttime="20140313 16:58:18.825"></status>
+<msg timestamp="20140314 16:57:50.144" level="INFO">Typing text 'Alternativní vzdělávání' into text field 'css=#form-widgets-podnazev'</msg>
+<status status="PASS" endtime="20140314 16:57:50.224" starttime="20140314 16:57:50.143"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Not Contain" timeout="">
 <doc>Verifies the current page does not contain `text`.</doc>
 <arguments>
 <arg>Obsah</arg>
 </arguments>
-<msg timestamp="20140313 16:58:19.941" level="INFO">Current page does not contain text 'Obsah'.</msg>
-<status status="PASS" endtime="20140313 16:58:19.941" starttime="20140313 16:58:18.904"></status>
+<msg timestamp="20140314 16:57:51.279" level="INFO">Current page does not contain text 'Obsah'.</msg>
+<status status="PASS" endtime="20140314 16:57:51.279" starttime="20140314 16:57:50.225"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>ePublikace</arg>
 </arguments>
-<msg timestamp="20140313 16:58:19.970" level="INFO">Current page contains text 'ePublikace'.</msg>
-<status status="PASS" endtime="20140313 16:58:19.970" starttime="20140313 16:58:19.942"></status>
+<msg timestamp="20140314 16:57:51.293" level="INFO">Current page contains text 'ePublikace'.</msg>
+<status status="PASS" endtime="20140314 16:57:51.294" starttime="20140314 16:57:51.280"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>Název ePublikace</arg>
 </arguments>
-<msg timestamp="20140313 16:58:19.983" level="INFO">Current page contains text 'Název ePublikace'.</msg>
-<status status="PASS" endtime="20140313 16:58:19.984" starttime="20140313 16:58:19.971"></status>
+<msg timestamp="20140314 16:57:51.308" level="INFO">Current page contains text 'Název ePublikace'.</msg>
+<status status="PASS" endtime="20140314 16:57:51.308" starttime="20140314 16:57:51.294"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -883,10 +883,10 @@
 <arg>css=#form-widgets-cena</arg>
 <arg>0</arg>
 </arguments>
-<msg timestamp="20140313 16:58:19.985" level="INFO">Typing text '0' into text field 'css=#form-widgets-cena'</msg>
-<status status="PASS" endtime="20140313 16:58:20.035" starttime="20140313 16:58:19.984"></status>
+<msg timestamp="20140314 16:57:51.309" level="INFO">Typing text '0' into text field 'css=#form-widgets-cena'</msg>
+<status status="PASS" endtime="20140314 16:57:51.365" starttime="20140314 16:57:51.308"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:20.036" starttime="20140313 16:58:18.759"></status>
+<status status="PASS" endtime="20140314 16:57:51.365" starttime="20140314 16:57:50.070"></status>
 </kw>
 <kw type="kw" name="my-keywords.Add authors for ePublication" timeout="">
 <doc></doc>
@@ -897,8 +897,8 @@
 <arguments>
 <arg>form.widgets.IAuthors.authors.buttons.add</arg>
 </arguments>
-<msg timestamp="20140313 16:58:20.037" level="INFO">Clicking element 'form.widgets.IAuthors.authors.buttons.add'.</msg>
-<status status="PASS" endtime="20140313 16:58:20.535" starttime="20140313 16:58:20.037"></status>
+<msg timestamp="20140314 16:57:51.366" level="INFO">Clicking element 'form.widgets.IAuthors.authors.buttons.add'.</msg>
+<status status="PASS" endtime="20140314 16:57:51.852" starttime="20140314 16:57:51.366"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -906,8 +906,8 @@
 <arg>css=#form-widgets-IAuthors-authors-0-widgets-first_name</arg>
 <arg>Jan</arg>
 </arguments>
-<msg timestamp="20140313 16:58:20.535" level="INFO">Typing text 'Jan' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-first_name'</msg>
-<status status="PASS" endtime="20140313 16:58:20.587" starttime="20140313 16:58:20.535"></status>
+<msg timestamp="20140314 16:57:51.853" level="INFO">Typing text 'Jan' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-first_name'</msg>
+<status status="PASS" endtime="20140314 16:57:51.917" starttime="20140314 16:57:51.852"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -915,10 +915,10 @@
 <arg>css=#form-widgets-IAuthors-authors-0-widgets-last_name</arg>
 <arg>Stavěl</arg>
 </arguments>
-<msg timestamp="20140313 16:58:20.589" level="INFO">Typing text 'Stavěl' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-last_name'</msg>
-<status status="PASS" endtime="20140313 16:58:20.671" starttime="20140313 16:58:20.588"></status>
+<msg timestamp="20140314 16:57:51.919" level="INFO">Typing text 'Stavěl' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-last_name'</msg>
+<status status="PASS" endtime="20140314 16:57:52.005" starttime="20140314 16:57:51.918"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:20.671" starttime="20140313 16:58:20.036"></status>
+<status status="PASS" endtime="20140314 16:57:52.005" starttime="20140314 16:57:51.365"></status>
 </kw>
 <kw type="kw" name="my-keywords.Add Original Files for ePublication" timeout="">
 <doc></doc>
@@ -929,8 +929,8 @@
 <arguments>
 <arg>form.widgets.IOriginalFiles.originalFiles.buttons.add</arg>
 </arguments>
-<msg timestamp="20140313 16:58:20.672" level="INFO">Clicking element 'form.widgets.IOriginalFiles.originalFiles.buttons.add'.</msg>
-<status status="PASS" endtime="20140313 16:58:21.181" starttime="20140313 16:58:20.672"></status>
+<msg timestamp="20140314 16:57:52.006" level="INFO">Clicking element 'form.widgets.IOriginalFiles.originalFiles.buttons.add'.</msg>
+<status status="PASS" endtime="20140314 16:57:52.488" starttime="20140314 16:57:52.006"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -938,8 +938,8 @@
 <arg>css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-url</arg>
 <arg>http://www.grada.cz/book/1000</arg>
 </arguments>
-<msg timestamp="20140313 16:58:21.182" level="INFO">Typing text 'http://www.grada.cz/book/1000' into text field 'css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-url'</msg>
-<status status="PASS" endtime="20140313 16:58:21.256" starttime="20140313 16:58:21.182"></status>
+<msg timestamp="20140314 16:57:52.489" level="INFO">Typing text 'http://www.grada.cz/book/1000' into text field 'css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-url'</msg>
+<status status="PASS" endtime="20140314 16:57:52.572" starttime="20140314 16:57:52.488"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text" timeout="">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -947,8 +947,8 @@
 <arg>css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn</arg>
 <arg>80-12312-3241-324124</arg>
 </arguments>
-<msg timestamp="20140313 16:58:21.258" level="INFO">Typing text '80-12312-3241-324124' into text field 'css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn'</msg>
-<status status="PASS" endtime="20140313 16:58:21.350" starttime="20140313 16:58:21.257"></status>
+<msg timestamp="20140314 16:57:52.573" level="INFO">Typing text '80-12312-3241-324124' into text field 'css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn'</msg>
+<status status="PASS" endtime="20140314 16:57:52.659" starttime="20140314 16:57:52.573"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Choose File" timeout="">
 <doc>Inputs the `file_path` into file input field found by `identifier`.</doc>
@@ -956,19 +956,19 @@
 <arg>css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-file-input</arg>
 <arg>/opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:21.392" starttime="20140313 16:58:21.350"></status>
+<status status="PASS" endtime="20140314 16:57:52.702" starttime="20140314 16:57:52.660"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:21.392" starttime="20140313 16:58:20.671"></status>
+<status status="PASS" endtime="20140314 16:57:52.702" starttime="20140314 16:57:52.005"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button" timeout="">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>form.buttons.save</arg>
 </arguments>
-<msg timestamp="20140313 16:58:21.393" level="INFO">Clicking button 'form.buttons.save'.</msg>
-<status status="PASS" endtime="20140313 16:58:22.983" starttime="20140313 16:58:21.393"></status>
+<msg timestamp="20140314 16:57:52.703" level="INFO">Clicking button 'form.buttons.save'.</msg>
+<status status="PASS" endtime="20140314 16:57:54.388" starttime="20140314 16:57:52.703"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:22.983" starttime="20140313 16:58:18.252"></status>
+<status status="PASS" endtime="20140314 16:57:54.389" starttime="20140314 16:57:49.560"></status>
 </kw>
 <kw type="kw" name="keywords.Open Workflow Menu" timeout="">
 <doc></doc>
@@ -984,24 +984,24 @@
 <arguments>
 <arg>css=dl#${elementId} span</arg>
 </arguments>
-<msg timestamp="20140313 16:58:22.991" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow span' is visible.</msg>
-<status status="PASS" endtime="20140313 16:58:23.009" starttime="20140313 16:58:22.989"></status>
+<msg timestamp="20140314 16:57:54.394" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow span' is visible.</msg>
+<status status="PASS" endtime="20140314 16:57:54.418" starttime="20140314 16:57:54.393"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Element Should Not Be Visible" timeout="">
 <doc>Verifies that the element identified by `locator` is NOT visible.</doc>
 <arguments>
 <arg>css=dl#${elementId} dd.actionMenuContent</arg>
 </arguments>
-<msg timestamp="20140313 16:58:23.011" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is not visible.</msg>
-<status status="PASS" endtime="20140313 16:58:23.024" starttime="20140313 16:58:23.010"></status>
+<msg timestamp="20140314 16:57:54.420" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is not visible.</msg>
+<status status="PASS" endtime="20140314 16:57:54.434" starttime="20140314 16:57:54.419"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link" timeout="">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>css=dl#${elementId} dt.actionMenuHeader a</arg>
 </arguments>
-<msg timestamp="20140313 16:58:23.026" level="INFO">Clicking link 'css=dl#plone-contentmenu-workflow dt.actionMenuHeader a'.</msg>
-<status status="PASS" endtime="20140313 16:58:23.161" starttime="20140313 16:58:23.025"></status>
+<msg timestamp="20140314 16:57:54.435" level="INFO">Clicking link 'css=dl#plone-contentmenu-workflow dt.actionMenuHeader a'.</msg>
+<status status="PASS" endtime="20140314 16:57:54.520" starttime="20140314 16:57:54.435"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds" timeout="">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -1016,38 +1016,46 @@
 <arguments>
 <arg>css=dl#${elementId} dd.actionMenuContent</arg>
 </arguments>
-<msg timestamp="20140313 16:58:23.164" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is visible.</msg>
-<status status="PASS" endtime="20140313 16:58:23.181" starttime="20140313 16:58:23.163"></status>
+<msg timestamp="20140314 16:57:54.523" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is visible.</msg>
+<status status="PASS" endtime="20140314 16:57:54.544" starttime="20140314 16:57:54.522"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:23.181" starttime="20140313 16:58:23.162"></status>
+<status status="PASS" endtime="20140314 16:57:54.544" starttime="20140314 16:57:54.521"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:23.182" starttime="20140313 16:58:22.986"></status>
+<status status="PASS" endtime="20140314 16:57:54.545" starttime="20140314 16:57:54.391"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:23.182" starttime="20140313 16:58:22.984"></status>
+<status status="PASS" endtime="20140314 16:57:54.545" starttime="20140314 16:57:54.390"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Element" timeout="">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>link=K akvizici</arg>
 </arguments>
-<msg timestamp="20140313 16:58:23.184" level="INFO">Clicking element 'link=K akvizici'.</msg>
-<status status="PASS" endtime="20140313 16:58:23.968" starttime="20140313 16:58:23.183"></status>
+<msg timestamp="20140314 16:57:54.546" level="INFO">Clicking element 'link=K akvizici'.</msg>
+<status status="PASS" endtime="20140314 16:57:55.697" starttime="20140314 16:57:54.546"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>Systémové zprávy</arg>
+</arguments>
+<msg timestamp="20140314 16:57:55.699" level="INFO">Clicking link 'Systémové zprávy'.</msg>
+<status status="PASS" endtime="20140314 16:57:56.167" starttime="20140314 16:57:55.698"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
-<arg>Kontrola ISBN</arg>
+<arg>Kontrola ISBN:</arg>
 </arguments>
-<msg timestamp="20140313 16:58:23.990" level="INFO">Current page contains text 'Kontrola ISBN'.</msg>
-<status status="PASS" endtime="20140313 16:58:23.991" starttime="20140313 16:58:23.969"></status>
+<msg timestamp="20140314 16:57:56.186" level="INFO">Current page contains text 'Kontrola ISBN:'.</msg>
+<status status="PASS" endtime="20140314 16:57:56.186" starttime="20140314 16:57:56.168"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Page Should Not Contain" timeout="">
-<doc>Verifies the current page does not contain `text`.</doc>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
 <arguments>
-<arg>Přidat novou položku</arg>
+<arg>Zjištění duplicity ISBN:</arg>
 </arguments>
-<msg timestamp="20140313 16:58:25.020" level="INFO">Current page does not contain text 'Přidat novou položku'.</msg>
-<status status="PASS" endtime="20140313 16:58:25.020" starttime="20140313 16:58:23.992"></status>
+<msg timestamp="20140314 16:57:56.198" level="INFO">Current page contains text 'Zjištění duplicity ISBN:'.</msg>
+<status status="PASS" endtime="20140314 16:57:56.198" starttime="20140314 16:57:56.187"></status>
 </kw>
 <kw type="kw" name="keywords.Pause" timeout="">
 <doc>Visually pause test execution with interactive dialog by</doc>
@@ -1058,31 +1066,31 @@
 <arguments>
 <arg>Dialogs</arg>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:25.025" starttime="20140313 16:58:25.024"></status>
+<status status="PASS" endtime="20140314 16:57:56.203" starttime="20140314 16:57:56.201"></status>
 </kw>
 <kw type="kw" name="Dialogs.Pause Execution" timeout="">
 <doc>Pauses test execution until user clicks `Ok` button.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:59.954" starttime="20140313 16:58:25.025"></status>
+<status status="PASS" endtime="20140314 16:58:46.032" starttime="20140314 16:57:56.204"></status>
 </kw>
-<status status="PASS" endtime="20140313 16:58:59.955" starttime="20140313 16:58:25.021"></status>
+<status status="PASS" endtime="20140314 16:58:46.033" starttime="20140314 16:57:56.199"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
 <doc>Closes all open browsers and resets the browser cache.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140313 16:58:59.989" starttime="20140313 16:58:59.957"></status>
+<status status="PASS" endtime="20140314 16:58:46.067" starttime="20140314 16:58:46.033"></status>
 </kw>
 <doc></doc>
 <tags>
 </tags>
-<status status="PASS" endtime="20140313 16:58:59.989" critical="yes" starttime="20140313 16:58:03.601"></status>
+<status status="PASS" endtime="20140314 16:58:46.068" critical="yes" starttime="20140314 16:57:35.453"></status>
 </test>
 <doc></doc>
 <metadata>
 </metadata>
-<status status="PASS" endtime="20140313 16:58:59.995" starttime="20140313 16:58:03.443"></status>
+<status status="PASS" endtime="20140314 16:58:46.074" starttime="20140314 16:57:35.311"></status>
 </suite>
 <statistics>
 <total>

@@ -109,13 +109,31 @@ ${PRODUCENT_TITLE}  Zlínsky vydavatel
 #     Open Workflow Menu
 #     Click Element                     link=ISBN jde ke kontrole
 
-UC02-01 Ohlášení a odeslání k akvizici
+# UC02-01 Ohlášení a odeslání k akvizici
+#     Registrace producenta
+#     Log in                                ${USER_NAME}   ${USER_PASSWORD}
+#     Ohlášení se soubory
+#     Open Workflow Menu
+#     Click Element                     link=K akvizici
+#     Page Should Contain               Kontrola ISBN
+#     Page Should Not Contain           Přidat novou položku
+#     Pause
+
+# UC02-01 Systémové zprávy ePublikace
+#     Registrace producenta
+#     Log in                                ${USER_NAME}   ${USER_PASSWORD}
+#     Ohlášení se soubory
+#     Page Should Contain                   Systémové zprávy
+#     Click Link                            Systémové zprávy
+#     Page Should Contain                   Systémové zprávy    
+
+UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Ohlášení se soubory
     Open Workflow Menu
-    Click Element                     link=K akvizici
-    Page Should Contain               Kontrola ISBN
-    Page Should Not Contain           Přidat novou položku
-    Pause
-
+    Click Element                         link=K akvizici
+    Click Link                            Systémové zprávy
+    Page Should Contain                   Kontrola ISBN:
+    Page Should Contain                   Zjištění duplicity ISBN:
+    Pause    
