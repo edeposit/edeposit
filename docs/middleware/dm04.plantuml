@@ -1,0 +1,40 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Datový model pro kontrolu ISBN
+
+class ISBNCheckRequest {
+      String UUID
+      String ISBN
+      ..
+      data that was sent to AMQP broker
+      ..
+}
+
+class ISBNCheckResponse {
+      String UUID
+      Boolean is_valid
+}
+
+class ISBNCountRequest {
+      String UUID
+      String ISBN
+}
+
+class ISBNCountResponse {
+      String UUID
+      Integer num_of_records
+}
+
+class MessagesFolder {
+      .. 
+      consists of amqp communication
+      ..
+}
+
+MessagesFolder *.. ISBNCountRequest : contains of
+MessagesFolder *.. ISBNCountResponse : contains of
+MessagesFolder *.. ISBNCheckRequest : contains of
+MessagesFolder *.. ISBNCheckResponse : contains of
+
+@enduml
