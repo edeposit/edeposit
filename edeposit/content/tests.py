@@ -22,6 +22,46 @@ ztc.ZopeDocFileSuite(
 
 # -*- extra stuff goes here -*-
 
+        # Integration tests for MessagesFolder
+        ztc.ZopeDocFileSuite(
+            'MessagesFolder.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ISBNCountResponse
+        ztc.ZopeDocFileSuite(
+            'ISBNCountResponse.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ISBNCountRequest
+        ztc.ZopeDocFileSuite(
+            'ISBNCountRequest.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ISBNCheckResponse
+        ztc.ZopeDocFileSuite(
+            'ISBNCheckResponse.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ISBNCheckRequest
+        ztc.ZopeDocFileSuite(
+            'ISBNCheckRequest.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
 # Integration tests for ePeriodicalFolder
 ztc.ZopeDocFileSuite(
     'ePeriodicalFolder.txt',

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-21 11:19+0000\n"
+"POT-Creation-Date: 2014-03-13 09:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,4 +21,8 @@ msgstr "E-Deposit - Měny"
 #: edeposit/content/profiles/default/registry.xml
 msgid "E-Deposit File Types"
 msgstr "E-Deposit - Typy souborů"
+
+#: edeposit/content/profiles/default/registry.xml
+msgid "E-Deposit kategorie pro RIV"
+msgstr ""
 

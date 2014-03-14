@@ -65,8 +65,6 @@
   <!--       permission="zope2.View" -->
   <!--       /> -->
 
-  <!-- -*- extra stuff goes here -*- -->
-
   <adapter  for="Products.CMFCore.interfaces.IFolderish
                  Products.CMFDefault.interfaces.ICMFDefaultSkin
                  plone.dexterity.interfaces.IDexterityFTI"
@@ -80,5 +78,6 @@
   
   <adapter factory=".epublication.OriginalFileFactory" 
            name="edeposit.content.originalfile.IOriginalFile" /> 
-  
+
+  <!-- -*- extra stuff goes here -*- -->
 </configure>

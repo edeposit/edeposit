@@ -4,8 +4,9 @@ from zope.container.interfaces import IObjectAddedEvent, IObjectRemovedEvent,\
     IContainerModifiedEvent
 from zope.interface import Interface
 from plone import api
-from edeposit.user import MessageFactory as _
+from edeposit.content import MessageFactory as _
 
+# when ePublication is added
 def added(context,event):
     """When an object is added, create collection for simple list of authors
     """
@@ -19,17 +20,20 @@ def added(context,event):
                                   'v': '../'}
                                  ]
                           )
-    context.invokeFactory('Collection','isbns', 
-                          title=_(u"Review of ISBNs"),
+    context.invokeFactory('Collection','original-files', 
+                          title="Soubory s originály",
                           query=[{'i': 'portal_type', 
                                   'o': 'plone.app.querystring.operation.selection.is', 
-                                  'v': ['edeposit.content.isbn',]
+                                  'v': ['edeposit.content.originalfile',]
                                   },
                                  {'i': 'path', 
                                   'o': 'plone.app.querystring.operation.string.relativePath', 
                                   'v': '../'}
                                  ],
                           )
+    context.invokeFactory('edeposit.content.messagesfolder','system-messages',
+                          title=u"Systémové zprávy")
+
 def addedEPublicationFolder(context, event):
     def queryForStates(*args):
         return [ {'i': 'portal_type',
