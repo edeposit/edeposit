@@ -74,3 +74,22 @@ def addedEPublicationFolder(context, event):
                                      )
             
     
+def addedISBNCheckRequest(context, event):
+    #wft = api.portal.get_tool('portal_workflow')
+    #wft.doActionFor(epublication,"notifySystemAction", comment=title)
+    print "added isbn check request"
+    return
+
+def addedISBNCountRequest(context, event):
+    #wft = api.portal.get_tool('portal_workflow')
+    #wft.doActionFor(epublication,"notifySystemAction", comment=title)
+    print "added isbn count request"
+    return
+
+def addedISBNCheckResponse(context, event):
+    print "added isbn check response"
+    return
+
+def addedISBNCountResponse(context, event):
+    print "added isbn count response"
+    return

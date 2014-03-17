@@ -56,6 +56,27 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.addedEPublicationFolder"/>
 
+  <!-- system messages for AMQP -->
+  <subscriber
+      for=".isbn_check_request.IISBNCheckRequest
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNCheckRequest"/>
+
+  <subscriber
+      for=".isbncheckresponse.IISBNCheckResponse
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNCheckResponse"/>
+
+  <subscriber
+      for=".isbn_count_request.IISBNCountRequest
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNCountRequest"/>
+
+  <subscriber
+      for=".isbn_count_response.IISBNCountResponse
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNCountResponse"/>
+
   <!-- <browser:viewlet -->
   <!--       name="plone.contentactions" -->
   <!--       for="edeposit.content.epublication.IePublication" -->

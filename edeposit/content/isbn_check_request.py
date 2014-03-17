@@ -34,12 +34,17 @@ class IISBNCheckRequest(form.Schema, IImageScaleTraversable):
     isbn = schema.TextLine (
         title = u"ISBN ke kontrole",
         required = True,
-        )
+    )
 
     uuid = schema.TextLine (
         title = u"UUID odeslané zprávy",
         required = True,
-        )
+    )
+    
+    sent = schema.Datetime(
+        title = u'Čas odeslání požadavku',
+        required = False,
+    )
 
 
 # Custom content-type class; objects created for this content type will

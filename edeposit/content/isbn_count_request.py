@@ -35,6 +35,11 @@ class IISBNCountRequest(form.Schema, IImageScaleTraversable):
         required = True,
         )
 
+    sent = schema.Datetime(
+        title = u'Čas odeslání požadavku',
+        required = False,
+    )
+
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
