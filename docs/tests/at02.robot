@@ -136,4 +136,3 @@ UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Click Link                            Systémové zprávy
     Page Should Contain                   Kontrola ISBN:
     Page Should Contain                   Zjištění duplicity ISBN:
-    Pause    
