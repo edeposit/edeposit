@@ -13,6 +13,7 @@
   
   <!-- Include files -->
   <include file="permissions.zcml" />
+  <include package="collective.zamqp" />
 
   <browser:page
         for="edeposit.content.epublication.IePublication"
@@ -60,12 +61,12 @@
   <subscriber
       for=".isbn_check_request.IISBNCheckRequest
            zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNCheckRequest"/>
+      handler=".handlers.addedISBNValidateRequest"/>
 
   <subscriber
       for=".isbncheckresponse.IISBNCheckResponse
            zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNCheckResponse"/>
+      handler=".handlers.addedISBNValidateResponse"/>
 
   <subscriber
       for=".isbn_count_request.IISBNCountRequest

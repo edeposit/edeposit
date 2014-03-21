@@ -1,10 +1,71 @@
 # -*- coding: utf-8 -*-
-from zope.component import queryUtility
+from zope.component import queryUtility, getUtility
 from zope.container.interfaces import IObjectAddedEvent, IObjectRemovedEvent,\
     IContainerModifiedEvent
 from zope.interface import Interface
 from plone import api
 from edeposit.content import MessageFactory as _
+from Acquisition import aq_inner, aq_parent
+from edeposit.amqp.aleph import ISBNQuery, CountRequest, ISBNValidationRequest, serialize, deserialize
+from five import grok
+from datetime import datetime
+
+from collective.zamqp.interfaces import IProducer, IBrokerConnection, IConsumer
+from collective.zamqp.interfaces import IMessageArrivedEvent
+
+from collective.zamqp.producer import Producer
+from collective.zamqp.consumer import Consumer
+from collective.zamqp.connection import BlockingChannel
+import json
+
+class ISBNValidateRequestProducent(Producer):
+    grok.name('amqp.isbn-validate-request')
+
+    connection_id = "aleph"
+    exchange = "validate"
+    serializer = "text/plain"
+    exchange_type = "topic"
+    exchange_durable = True
+    auto_delete = False
+    durable = True
+    #routing_key = "plone.aleph.isbn.validate.request"
+    routing_key = "request"
+    pass
+
+class ISBNCountRequestProducent(Producer):
+    grok.name('amqp.isbn-count-request')
+
+    connection_id = "aleph"
+    exchange = "count"
+    serializer = "text/plain"
+    exchange_type = "topic"
+    exchange_durable = True
+    auto_delete = False
+    durable = True
+    #routing_key = "plone.aleph.isbn.count.request"
+    routing_key = "request"
+    pass
+
+class IAlephResponse(Interface):
+    """Message marker interface"""
+
+
+class AlephResponseConsumer(Consumer):
+    grok.name('amqp.aleph-response-consumer')
+    connection_id = "aleph"
+    queue = "plone"
+    serializer = "plain"
+    marker = IAlephResponse
+    pass
+
+@grok.subscribe(IAlephResponse, IMessageArrivedEvent)
+def handleAlephResponse(message, event):
+    uuid=json.loads(message.header_frame.headers['UUID'])
+    body = message.body
+    routing_key = message.method_frame.routing_key
+    data = deserialize(json.dumps(body))
+    #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+    pass
 
 # when ePublication is added
 def added(context,event):
@@ -74,22 +135,46 @@ def addedEPublicationFolder(context, event):
                                      )
             
     
-def addedISBNCheckRequest(context, event):
-    #wft = api.portal.get_tool('portal_workflow')
-    #wft.doActionFor(epublication,"notifySystemAction", comment=title)
-    print "added isbn check request"
-    return
-
 def addedISBNCountRequest(context, event):
-    #wft = api.portal.get_tool('portal_workflow')
-    #wft.doActionFor(epublication,"notifySystemAction", comment=title)
-    print "added isbn count request"
+    wft = api.portal.get_tool('portal_workflow')
+    systemMessages = aq_parent(aq_inner(context))
+    epublication = aq_parent(aq_inner(systemMessages))
+    isbnq = ISBNQuery(context.isbn)
+    request = CountRequest(isbnq)
+
+    producer = getUtility(IProducer, name="amqp.isbn-count-request")
+    producer.publish(serialize(request),
+                     content_type = 'application/json',
+                     headers = {'UUID': json.dumps({'UUID': str(context.uuid),
+                                                     'systemMessages_UID': str(systemMessages.UID())
+                                                     })
+                            }
+    )
+    context.sent = datetime.now()
     return
 
-def addedISBNCheckResponse(context, event):
-    print "added isbn check response"
+def addedISBNValidateRequest(context, event):
+    wft = api.portal.get_tool('portal_workflow')
+    systemMessages = aq_parent(aq_inner(context))
+    epublication = aq_parent(aq_inner(systemMessages))
+    request = ISBNValidationRequest(context.isbn)
+
+    producer = getUtility(IProducer, name="amqp.isbn-validate-request")
+    producer.publish(serialize(request),
+                     content_type = 'application/json',
+                     headers = {'UUID': json.dumps({'UUID': str(context.uuid),
+                                                     'systemMessages_UID': str(systemMessages.UID())
+                                                     })
+                            }
+    )
+    context.sent = datetime.now()
     return
 
 def addedISBNCountResponse(context, event):
-    print "added isbn count response"
-    return
+    import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+    pass
+
+def addedISBNValidateResponse(context, event):
+    import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+    pass
+

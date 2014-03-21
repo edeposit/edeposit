@@ -4,5 +4,9 @@ plone.app.relationfield
 plone.namedfile [blobs]
 plone.app.registry
 plone.app.relationfield
+lxml
+collective.zamqp
+msgpack-python
+simplejson
 
 [test]

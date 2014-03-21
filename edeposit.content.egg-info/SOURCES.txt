@@ -22,9 +22,14 @@ edeposit/content/epublication.py
 edeposit/content/epublicationfolder.py
 edeposit/content/handlers.py
 edeposit/content/isbn.py
+edeposit/content/isbn_check_request.py
+edeposit/content/isbn_count_request.py
+edeposit/content/isbn_count_response.py
+edeposit/content/isbncheckresponse.py
 edeposit/content/issn.py
 edeposit/content/library.py
 edeposit/content/libraryfolder.py
+edeposit/content/messages_folder.py
 edeposit/content/originalfile.py
 edeposit/content/previewfile.py
 edeposit/content/printingfile.py

@@ -31,6 +31,10 @@ setup(name='edeposit.content',
           'plone.namedfile [blobs]',
           'plone.app.registry',
           'plone.app.relationfield',
+          'lxml',
+          'collective.zamqp',
+          'msgpack-python',
+          'simplejson',
           # -*- Extra requirements: -*-
       ],
       extras_require = {
