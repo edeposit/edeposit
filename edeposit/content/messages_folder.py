@@ -30,8 +30,6 @@ class IMessagesFolder(form.Schema, IImageScaleTraversable):
     # If you want a model-based interface, edit
     # models/messages_folder.xml to define the content type.
 
-    form.model("models/messages_folder.xml")
-
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific

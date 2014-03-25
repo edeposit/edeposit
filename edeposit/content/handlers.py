@@ -83,7 +83,7 @@ class AlephResponseConsumer(Consumer):
 def handleAlephResponse(message, event):
     key=message.header_frame.headers.get('UUID',None)
     if not key:
-        message.reject()
+        message.ack()
         return
 
     def getIfKeyExists(keyName,key):
@@ -95,24 +95,26 @@ def handleAlephResponse(message, event):
     systemMessages = getIfKeyExists('systemMessages_UID',keyContent)
     requestMessage = getIfKeyExists('request_UID',keyContent)
     if not systemMessages or not requestMessage:
-        message.reject()
+        message.ack()
         return
 
     # Messages from Aleph has its own deserialization logic. 
     # So we will use it.
     data = deserialize(json.dumps(message.body))
     if isinstance(data, ISBNValidationResult):
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-        createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
-                                 title="Výsledky kontroly ISBN: " + requestMessage.isbn, 
-                                 is_valid = data.is_valid)
+        with api.env.adopt_user(username="system"):
+            createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
+                                     title="Výsledky kontroly ISBN: " + requestMessage.isbn, 
+                                     isbn = requestMessage.isbn,
+                                     is_valid = data.is_valid)
         pass
     elif isinstance(data, CountResult):
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-        createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
-                                 title="Výsledky dotazu na duplicitu ISBN: " + requestMessage.isbn, 
-                                 num_of_records = data.num_of_records)
-
+        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        with api.env.adopt_user(username="system"):
+            createContentInContainer(systemMessages,'edeposit.content.isbncountresult', 
+                                     title="Výsledky dotazu na duplicitu ISBN: " + requestMessage.isbn, 
+                                     isbn = requestMessage.isbn,
+                                     num_of_records = data.num_of_records)
         pass
     message.ack()
     pass
