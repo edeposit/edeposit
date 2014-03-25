@@ -1,3 +1,7 @@
+*** VARIABLES ***
+${VALID_ISBN}     80-85432-66-8
+${WRONG_ISBN}     80-12312-3241-324124
+
 *** Keywords ***
 
 Open browser and create all folders
@@ -146,7 +150,7 @@ Add authors for ePublication
 Add Original Files for ePublication
     Click Element                       form.widgets.IOriginalFiles.originalFiles.buttons.add
     Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-url  http://www.grada.cz/book/1000
-    Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn  80-12312-3241-324124
+    Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn  ${VALID_ISBN}
     Choose File                         css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
 
 

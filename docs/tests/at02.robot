@@ -150,11 +150,26 @@ UC02-01 Jaké typy systémových zpráv systém generuje
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
     Click Link                            Systémové zprávy
+    Open add new menu    
+    Click Element                         link=ISBN Count Result
+    Input Text                            css=#form-widgets-IBasic-title   Kontrola duplicity ISBN
+    Input Text                            css=#form-widgets-isbn    fasdfasdfas
+    Input Text                            css=#form-widgets-num_of_records    10
+    Click Button                          form.buttons.save  
+    Page Should Contain                   Položka byla vytvořena
+    Click Link                            Systémové zprávy
+    Open add new menu
+    Click Element                         link=ISBN Validation Result
+    Input Text                            css=#form-widgets-IBasic-title   Kontrola duplicity ISBN
+    Input Text                            css=#form-widgets-isbn    fasdfasdfas
+    Select Checkbox                       css=#form-widgets-is_valid-0
+    Click Button                          form.buttons.save  
+    Page Should Contain                   Položka byla vytvořena
+    Click Link                            Systémové zprávy
     Page Should Contain                   Kontrola ISBN
     Page Should Contain                   Výsledky dotazu na duplicitu ISBN
     Page Should Contain                   Kontrola duplicity ISBN
     Page Should Contain                   Výsledky kontroly ISBN
-
 
 UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Registrace producenta
@@ -165,3 +180,5 @@ UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Click Link                            Systémové zprávy
     Page Should Contain                   Kontrola ISBN:
     Page Should Contain                   Zjištění duplicity ISBN:
+    Page Should Contain                   Výsledky kontroly ISBN
+    Page Should Contain                   Výsledky dotazu na duplicitu ISBN
