@@ -11,11 +11,11 @@
   <object name="edeposit.content.epublicationfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
   <!-- -*- extra stuff goes here -*- -->
+  <object name="edeposit.content.isbnvalidationrequest" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.isbncountresult" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.isbnvalidationresult" meta_type="Dexterity FTI" />
   <object name="edeposit.content.messagesfolder" meta_type="Dexterity FTI" />
-  <object name="edeposit.content.isbncountresponse" meta_type="Dexterity FTI" />
   <object name="edeposit.content.isbncountrequest" meta_type="Dexterity FTI" />
-  <object name="edeposit.content.isbncheckresponse" meta_type="Dexterity FTI" />
-  <object name="edeposit.content.isbncheckrequest" meta_type="Dexterity FTI" />
   <object name="edeposit.content.eperiodicalfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.issn" meta_type="Dexterity FTI" />
   <object name="edeposit.content.eperiodicalpart" meta_type="Dexterity FTI" />

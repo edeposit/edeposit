@@ -1,20 +1,20 @@
-ISBNCheckRequest Tests
+ISBNValidationRequest Tests
 -----------------
 
 This is a DocTest file, using the Python doctest format.
 
 
-Create a ISBNCheckRequest object and put it in a folder
+Create a ISBNValidationRequest object and put it in a folder
 
     Create the object::
 
     >>> from zope.component import createObject
-    >>> container = createObject('edeposit.content.isbncheckrequest')
+    >>> container = createObject('edeposit.content.isbnvalidationrequest')
 
     Verify it's type::
 
     >>> container.portal_type
-    'edeposit.content.isbncheckrequest'
+    'edeposit.content.isbnvalidationrequest'
 
     Give it a title::
 
@@ -28,7 +28,7 @@ Create a ISBNCheckRequest object and put it in a folder
     >>> cobj = addContentToContainer(folder, container)
 
     >>> cobj
-    <ISBNCheckRequest at /plone/Members/test_user_1_/test-title>
+    <ISBNValidationRequest at /plone/Members/test_user_1_/test-title>
 
     >>> folder['test-title'].Title()
     'Test Title'

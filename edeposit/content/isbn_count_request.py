@@ -30,11 +30,6 @@ class IISBNCountRequest(form.Schema, IImageScaleTraversable):
         required = True,
         )
 
-    uuid = schema.TextLine (
-        title = u"UUID odeslané zprávy",
-        required = True,
-        )
-
     sent = schema.Datetime(
         title = u'Čas odeslání požadavku',
         required = False,

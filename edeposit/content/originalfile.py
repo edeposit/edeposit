@@ -42,7 +42,7 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         description=_(u"Value of ISBN"),
         required = True,
         )
-    
+
     form.primary('file')
     file = NamedBlobFile(
         title=_(u"Original File of an ePublication"),

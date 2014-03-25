@@ -59,14 +59,14 @@
 
   <!-- system messages for AMQP -->
   <subscriber
-      for=".isbn_check_request.IISBNCheckRequest
+      for=".isbn_validation_request.IISBNValidationRequest
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.addedISBNValidateRequest"/>
 
   <subscriber
-      for=".isbncheckresponse.IISBNCheckResponse
+      for=".isbn_validation_result.IISBNValidationResult
            zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNValidateResponse"/>
+      handler=".handlers.addedISBNValidateResult"/>
 
   <subscriber
       for=".isbn_count_request.IISBNCountRequest
@@ -74,9 +74,9 @@
       handler=".handlers.addedISBNCountRequest"/>
 
   <subscriber
-      for=".isbn_count_response.IISBNCountResponse
+      for=".isbn_count_result.IISBNCountResult
            zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNCountResponse"/>
+      handler=".handlers.addedISBNCountResult"/>
 
   <!-- <browser:viewlet -->
   <!--       name="plone.contentactions" -->

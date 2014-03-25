@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from five import grok
 
 from z3c.form import group, field
@@ -20,17 +21,27 @@ from edeposit.content import MessageFactory as _
 
 # Interface class; used to define content-type schema.
 
-class IISBNCountResponse(form.Schema, IImageScaleTraversable):
+class IISBNCountResult(form.Schema, IImageScaleTraversable):
     """
-    Result of count ISBN occurrences in Aleph
+    Result of ISBN count from Aleph AMQP module
     """
 
     # If you want a schema-defined interface, delete the model.load
     # line below and delete the matching file in the models sub-directory.
     # If you want a model-based interface, edit
-    # models/isbn_count_response.xml to define the content type.
+    # models/isbn_count_result.xml to define the content type.
 
-    form.model("models/isbn_count_response.xml")
+    
+    isbn = schema.TextLine (
+        title = u"ISBN ke kontrole",
+        required = True,
+    )
+
+    num_of_records = schema.Int(
+        title = u'Počet záznamů v Alephu',
+        description = u'Existuje v Alephu?',
+        required = True,
+    )
 
 
 # Custom content-type class; objects created for this content type will
@@ -38,8 +49,8 @@ class IISBNCountResponse(form.Schema, IImageScaleTraversable):
 # methods and properties. Put methods that are mainly useful for rendering
 # in separate view classes.
 
-class ISBNCountResponse(Item):
-    grok.implements(IISBNCountResponse)
+class ISBNCountResult(Item):
+    grok.implements(IISBNCountResult)
 
     # Add your class methods and properties here
     pass
@@ -47,7 +58,7 @@ class ISBNCountResponse(Item):
 
 # View class
 # The view will automatically use a similarly named template in
-# isbn_count_response_templates.
+# isbn_count_result_templates.
 # Template filenames should be all lower case.
 # The view will render when you request a content object with this
 # interface with "/@@sampleview" appended.
@@ -58,7 +69,7 @@ class ISBNCountResponse(Item):
 class SampleView(grok.View):
     """ sample view class """
 
-    grok.context(IISBNCountResponse)
+    grok.context(IISBNCountResult)
     grok.require('zope2.View')
 
     # grok.name('view')

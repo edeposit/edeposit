@@ -13,10 +13,10 @@
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="edeposit.content.isbncheckrequest"/>
-    <element value="edeposit.content.isbncheckresponse"/>
+    <element value="edeposit.content.isbnvalidationrequest"/>
+    <element value="edeposit.content.isbnvalidationresult"/>
     <element value="edeposit.content.isbncountrequest"/>
-    <element value="edeposit.content.isbncountresponse"/>
+    <element value="edeposit.content.isbncountresult"/>
   </property>
   <property name="allow_discussion">False</property>
 

@@ -22,17 +22,41 @@ ztc.ZopeDocFileSuite(
 
 # -*- extra stuff goes here -*-
 
-        # Integration tests for MessagesFolder
+        # Integration tests for ISBNValidationRequest
         ztc.ZopeDocFileSuite(
-            'MessagesFolder.txt',
+            'ISBNValidationRequest.txt',
             package='edeposit.content',
             optionflags = OPTION_FLAGS,
             test_class=TestCase),
 
 
-        # Integration tests for ISBNCountResponse
+        # Integration tests for ISBNValidateResult
         ztc.ZopeDocFileSuite(
-            'ISBNCountResponse.txt',
+            'ISBNValidateResult.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ISBNCountResult
+        ztc.ZopeDocFileSuite(
+            'ISBNCountResult.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ISBNValidationResult
+        ztc.ZopeDocFileSuite(
+            'ISBNValidationResult.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for MessagesFolder
+        ztc.ZopeDocFileSuite(
+            'MessagesFolder.txt',
             package='edeposit.content',
             optionflags = OPTION_FLAGS,
             test_class=TestCase),
@@ -44,15 +68,6 @@ ztc.ZopeDocFileSuite(
             package='edeposit.content',
             optionflags = OPTION_FLAGS,
             test_class=TestCase),
-
-
-        # Integration tests for ISBNCheckResponse
-        ztc.ZopeDocFileSuite(
-            'ISBNCheckResponse.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
 
         # Integration tests for ISBNCheckRequest
         ztc.ZopeDocFileSuite(

@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
-<object name="edeposit.content.isbncheckresponse"
+<object name="edeposit.content.isbncountresult"
    meta_type="Dexterity FTI"
    i18n:domain="edeposit.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">ISBNCheckResponse</property>
+  <property name="title" i18n:translate="">ISBN Count Result</property>
   <property name="description"
-    i18n:translate="">ISBN Check Response with result</property>
+    i18n:translate="">Result of ISBN count from Aleph AMQP module</property>
   <property name="icon_expr">string:${portal_url}/document_icon.png</property>
-  <property name="factory">edeposit.content.isbncheckresponse</property>
+  <property name="factory">edeposit.content.isbncountresult</property>
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" />
   <property name="allow_discussion">False</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">edeposit.content.isbncheckresponse.IISBNCheckResponse</property>
-  <property name="klass">edeposit.content.isbncheckresponse.ISBNCheckResponse</property>
+  <property name="schema">edeposit.content.isbn_count_result.IISBNCountResult</property>
+  <property name="klass">edeposit.content.isbn_count_result.ISBNCountResult</property>
 
   <property name="behaviors">
      <element value="plone.app.content.interfaces.INameFromTitle" />

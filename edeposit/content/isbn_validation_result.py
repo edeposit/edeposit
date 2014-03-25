@@ -21,29 +21,20 @@ from edeposit.content import MessageFactory as _
 
 # Interface class; used to define content-type schema.
 
-class IISBNCheckRequest(form.Schema, IImageScaleTraversable):
+class IISBNValidationResult(form.Schema, IImageScaleTraversable):
     """
-    Data for ISBN Check
+    Result from AMQP module
     """
-
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/isbn_check_request.xml to define the content type.
-
+    
     isbn = schema.TextLine (
         title = u"ISBN ke kontrole",
         required = True,
     )
 
-    uuid = schema.TextLine (
-        title = u"UUID odeslané zprávy",
+    is_valid = schema.Bool(
+        title = u'Je validní?',
+        description = u'Je isbn samo o sobě validní?',
         required = True,
-    )
-    
-    sent = schema.Datetime(
-        title = u'Čas odeslání požadavku',
-        required = False,
     )
 
 
@@ -52,8 +43,8 @@ class IISBNCheckRequest(form.Schema, IImageScaleTraversable):
 # methods and properties. Put methods that are mainly useful for rendering
 # in separate view classes.
 
-class ISBNCheckRequest(Item):
-    grok.implements(IISBNCheckRequest)
+class ISBNValidationResult(Item):
+    grok.implements(IISBNValidationResult)
 
     # Add your class methods and properties here
     pass
@@ -61,7 +52,7 @@ class ISBNCheckRequest(Item):
 
 # View class
 # The view will automatically use a similarly named template in
-# isbn_check_request_templates.
+# isbn_validation_result_templates.
 # Template filenames should be all lower case.
 # The view will render when you request a content object with this
 # interface with "/@@sampleview" appended.
@@ -72,7 +63,7 @@ class ISBNCheckRequest(Item):
 class SampleView(grok.View):
     """ sample view class """
 
-    grok.context(IISBNCheckRequest)
+    grok.context(IISBNValidationResult)
     grok.require('zope2.View')
 
     # grok.name('view')

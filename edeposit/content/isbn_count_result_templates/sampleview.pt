@@ -17,7 +17,7 @@
 
     <h2>
         Rendered from
-        isbn_check_request_templates/<span tal:replace="template/id" />
+        isbn_count_result_templates/<span tal:replace="template/id" />
     </h2>
 
 
