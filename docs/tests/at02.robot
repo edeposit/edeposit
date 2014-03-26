@@ -120,6 +120,15 @@ UC02-01 Ohlášení a odeslání k akvizici
     Page Should Contain               Kontrola ISBN
     Page Should Not Contain           Přidat novou položku
 
+UC02-01 Historie akcí s ePublikací
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                     link=K akvizici
+    Click Link                        Historie
+    Log                               Otevře se okno s historií akcí
+    
 UC02-01 Systémové zprávy ePublikace
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
