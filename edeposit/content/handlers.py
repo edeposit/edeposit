@@ -104,15 +104,21 @@ def handleAlephResponse(message, event):
     if isinstance(data, ISBNValidationResult):
         with api.env.adopt_user(username="system"):
             createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
-                                     title="Výsledky kontroly ISBN: " + requestMessage.isbn, 
+                                     title="".join(["Výsledky kontroly ISBN: ",
+                                                    requestMessage.isbn,
+                                                    " (",
+                                                    data.is_valid and "VALID" or "INVALID",
+                                                    ")"]),
                                      isbn = requestMessage.isbn,
                                      is_valid = data.is_valid)
         pass
     elif isinstance(data, CountResult):
-        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         with api.env.adopt_user(username="system"):
             createContentInContainer(systemMessages,'edeposit.content.isbncountresult', 
-                                     title="Výsledky dotazu na duplicitu ISBN: " + requestMessage.isbn, 
+                                     title="".join(["Výsledky dotazu na duplicitu ISBN: ",
+                                                    requestMessage.isbn,
+                                                    "(", str(data.num_of_records), ")"
+                                                ]),
                                      isbn = requestMessage.isbn,
                                      num_of_records = data.num_of_records)
         pass
@@ -193,7 +199,6 @@ def addedISBNCountRequest(context, event):
     epublication = aq_parent(aq_inner(systemMessages))
     isbnq = ISBNQuery(context.isbn)
     request = CountRequest(isbnq)
-
     producer = getUtility(IProducer, name="amqp.isbn-count-request")
     producer.publish(serialize(request),
                      content_type = 'application/json',
@@ -203,6 +208,7 @@ def addedISBNCountRequest(context, event):
                             }
                  )
     context.sent = datetime.now()
+    wft.doActionFor(epublication, 'notifySystemAction', comment=context.title)
     return
 
 def addedISBNValidateRequest(context, event):
@@ -210,7 +216,6 @@ def addedISBNValidateRequest(context, event):
     systemMessages = aq_parent(aq_inner(context))
     epublication = aq_parent(aq_inner(systemMessages))
     request = ISBNValidationRequest(context.isbn)
-
     producer = getUtility(IProducer, name="amqp.isbn-validate-request")
     producer.publish(serialize(request),
                      content_type = 'application/json',
@@ -220,15 +225,20 @@ def addedISBNValidateRequest(context, event):
                             }
                  )
     context.sent = datetime.now()
+    wft.doActionFor(epublication, 'notifySystemAction', comment=context.title)
     return
 
 def addedISBNCountResult(context, event):
-    print "added isbn count result"
-    #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+    wft = api.portal.get_tool('portal_workflow')
+    systemMessages = aq_parent(aq_inner(context))
+    epublication = aq_parent(aq_inner(systemMessages))
+    wft.doActionFor(epublication, 'notifySystemAction', comment=context.title)
     pass
 
 def addedISBNValidateResult(context, event):
-    print "added isbn validate result"
-    #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+    wft = api.portal.get_tool('portal_workflow')
+    systemMessages = aq_parent(aq_inner(context))
+    epublication = aq_parent(aq_inner(systemMessages))
+    wft.doActionFor(epublication, 'notifySystemAction', comment=context.title)
     pass
 
