@@ -17,8 +17,10 @@ from Acquisition import aq_inner, aq_parent
 from edeposit.amqp.aleph import (
     ISBNQuery, 
     CountRequest, 
-    ISBNValidationRequest, 
-    serialize, 
+    ISBNValidationRequest
+)
+from edeposit.amqp.serializers import (
+    serialize,
     deserialize
 )
 from edeposit.amqp.aleph.datastructures.results import (
@@ -100,7 +102,7 @@ def handleAlephResponse(message, event):
 
     # Messages from Aleph has its own deserialization logic. 
     # So we will use it.
-    data = deserialize(json.dumps(message.body))
+    data = deserialize(json.dumps(message.body),globals())
     if isinstance(data, ISBNValidationResult):
         with api.env.adopt_user(username="system"):
             createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
