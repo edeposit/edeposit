@@ -230,9 +230,35 @@ UC02-01 Ohlaseni ePublikace - stav Antivirus - worfklow akce pro system
     Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
     Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
     Open Workflow Menu
-    Click Element                         link=All ISBNs are Valid
+    Click Element                         link=Všechna ISBN jsou v pořádku
     Open Workflow Menu
-    Page Should Contain                   All Files are virus free
-    Page Should Contain                   Antivirus Passed with Error
-    Page Should Contain                   Antivirus Passed OK
-    Page Should Contain                   Some file contains of virus
+    Page Should Contain                   Žádný soubor neobsahuje virus
+    Page Should Contain                   Antivirová kontrola jednoho souboru prošla
+    Page Should Contain                   Antivirová kontrola jednoho souboru neprošla
+    Page Should Contain                   Některý soubor obsahuje virus
+
+UC02-01 Ohlaseni ePublikace - stav Generovani nahledu
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Open Workflow Menu
+    Click Element                         link=Všechna ISBN jsou v pořádku
+    Open Workflow Menu
+    Click Element                         link=Žádný soubor neobsahuje virus
+    Page Should Contain                   Generování náhledů
+    Open Workflow Menu
+    Page Should Contain Element           link=Máme všechny náhledy vygenerovány
+    Page Should Contain Element           link=Generování některých náhledů skončilo s chybou
+    Page Should Contain Element           link=Generování jednoho náhledu skončilo s chybou
+    Page Should Contain Element           link=Generování jednoho náhledu proběhlo úspěšně
+    Log out
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Page Should Not Contain               Přidat novou položku
+    Page Should Not Contain               Úpravy
