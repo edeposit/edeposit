@@ -9,7 +9,8 @@ Test Teardown    Close all browsers
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 Library  Dialogs
-
+Library  OperatingSystem
+    
 *** Variables ***
     
 ${USER_NAME}        jans
@@ -105,13 +106,13 @@ UC02-01 Ohlášení a odeslání k akvizici - systemový uživatel může inform
     Open Workflow Menu
     Click Element                     link=K akvizici
     Log out
-    Log in                                ${SYSTEM_NAME}   ${SYSTEM_PASSWORD}
-    Go to                             ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Log in                        ${SYSTEM_NAME}   ${SYSTEM_PASSWORD}
+    Go to                         ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
     Page Should Contain               Lesní školky ve Zlíně
     Open Workflow Menu
     Click Element                     link=ISBN jde ke kontrole
 
-UC02-01 Ohlášení a odeslání k akvizici
+UC02-01 Ohlášení a odeslání k akvizici - stav Kontrola ISBN
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Ohlášení se soubory
@@ -119,7 +120,8 @@ UC02-01 Ohlášení a odeslání k akvizici
     Click Element                     link=K akvizici
     Page Should Contain               Kontrola ISBN
     Page Should Not Contain           Přidat novou položku
-
+    Page Should Not Contain           Úpravy
+    
 UC02-01 Historie akcí s ePublikací
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -181,6 +183,7 @@ UC02-01 Jaké typy systémových zpráv systém generuje
     Page Should Contain                   Výsledky kontroly ISBN
 
 UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
+    Start Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Ohlášení se soubory
@@ -189,5 +192,47 @@ UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Click Link                            Systémové zprávy
     Page Should Contain                   Kontrola ISBN:
     Page Should Contain                   Zjištění duplicity ISBN:
+    Sleep                                 2s
     Page Should Contain                   Výsledky kontroly ISBN
     Page Should Contain                   Výsledky dotazu na duplicitu ISBN
+    Stop Aleph Daemon
+
+
+UC02-01 Ohlaseni ePublikace - stav Antivirus
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Open Workflow Menu
+    Click Element                         link=All ISBNs are Valid
+    Page Should Contain                   Antivirová kontrola
+    Log out
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Page Should Contain                   Antivirová kontrola
+    Page Should Not Contain               Přidat novou položku
+    Page Should Not Contain               Úpravy
+
+
+UC02-01 Ohlaseni ePublikace - stav Antivirus - worfklow akce pro system
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Open Workflow Menu
+    Click Element                         link=All ISBNs are Valid
+    Open Workflow Menu
+    Page Should Contain                   All Files are virus free
+    Page Should Contain                   Antivirus Passed with Error
+    Page Should Contain                   Antivirus Passed OK
+    Page Should Contain                   Some file contains of virus

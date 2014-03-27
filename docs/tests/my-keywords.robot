@@ -39,6 +39,12 @@ Add Dexterity Content
     ${location} =  Get Location
     [return]  ${location}
 
+Start Aleph Daemon
+    Start Process      python /usr/local/lib/python2.7/dist-packages/edeposit/amqp/alephdaemon.py start
+
+Stop Aleph Daemon
+    Start Process      pkill -f alephdaemon
+
 Create producents folder
     Add Dexterity Content     ${PLONE_URL}     edeposit-user-producentfolder    producents
 
