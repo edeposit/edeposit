@@ -303,7 +303,7 @@ UC02-01 Ohlaseni ePublikace - stav Export do Alephu
     Page Should Not Contain               Přidat novou položku
     Page Should Not Contain               Úpravy
 
-UC02-01 Ohlaseni ePublikace - stav Export do Alephu
+UC02-01 Ohlaseni ePublikace - stav Export do Alephu - systemove akce
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -321,7 +321,43 @@ UC02-01 Ohlaseni ePublikace - stav Export do Alephu
     Click Element                         link=Máme všechny náhledy vygenerovány
     Page Should Contain                   Export do Alephu
     Open Workflow Menu
+    Page Should Contain Element           link=Poslal jsem jeden záznam k exportu do Alephu
     Page Should Contain Element           link=Export jednoho záznamu do Alephu skončil s chybou
     Page Should Contain Element           link=Export jednoho záznamu do Alephu proběhl úspěšně
     Page Should Contain Element           link=Všechny exporty do Alephu proběhly úspěšně
     Page Should Contain Element           link=Některé exporty do Alephu skončily s chybou
+
+
+UC02-01 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Open Workflow Menu
+    Click Element                         link=Všechna ISBN jsou v pořádku
+    Open Workflow Menu
+    Click Element                         link=Žádný soubor neobsahuje virus
+    Open Workflow Menu
+    Click Element                         link=Máme všechny náhledy vygenerovány
+    Click Link                            Systémové zprávy
+    Open add new menu    
+    Click Element                         link=Aleph Export Request
+    Input Text                            css=#form-widgets-IBasic-title     Zaznam k exportu do Alephu
+    Input Text                            css=#form-widgets-originalFileID   inzlin-01-2013-s-nasi-tabinkou.pdf
+    Click Button                          form.buttons.save  
+    Page Should Contain                   Položka byla vytvořena
+    Pause
+    Click Link                            Systémové zprávy
+    Open add new menu
+    Click Link                            Systémové zprávy
+    Open add new menu
+    Click Element                         link=Aleph Export Result
+    Input Text                            css=#form-widgets-IBasic-title   Vysledek exportu do Alephu
+    Click Button                          form.buttons.save  
+    Page Should Contain                   Položka byla vytvořena
+    Click Link                            Systémové zprávy
