@@ -251,14 +251,49 @@ UC02-01 Ohlaseni ePublikace - stav Generovani nahledu
     Click Element                         link=Všechna ISBN jsou v pořádku
     Open Workflow Menu
     Click Element                         link=Žádný soubor neobsahuje virus
+    Log out
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
     Page Should Contain                   Generování náhledů
+    Page Should Not Contain               Přidat novou položku
+    Page Should Not Contain               Úpravy
+
+
+UC02-01 Ohlaseni ePublikace - stav Generovani nahledu - workflow akce pro system
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Open Workflow Menu
+    Click Element                         link=Všechna ISBN jsou v pořádku
+    Open Workflow Menu
+    Click Element                         link=Žádný soubor neobsahuje virus
     Open Workflow Menu
     Page Should Contain Element           link=Máme všechny náhledy vygenerovány
     Page Should Contain Element           link=Generování některých náhledů skončilo s chybou
     Page Should Contain Element           link=Generování jednoho náhledu skončilo s chybou
     Page Should Contain Element           link=Generování jednoho náhledu proběhlo úspěšně
-    Log out
+
+
+UC02-01 Ohlaseni ePublikace - stav Export do Alephu
+    Stop Aleph Daemon
+    Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
     Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
-    Page Should Not Contain               Přidat novou položku
-    Page Should Not Contain               Úpravy
+    Open Workflow Menu
+    Click Element                         link=Všechna ISBN jsou v pořádku
+    Open Workflow Menu
+    Click Element                         link=Žádný soubor neobsahuje virus
+    Open Workflow Menu
+    Click Element                         link=Máme všechny náhledy vygenerovány
+    Pause    
