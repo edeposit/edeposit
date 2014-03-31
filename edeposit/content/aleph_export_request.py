@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from five import grok
 
 from z3c.form import group, field
@@ -30,7 +31,15 @@ class IAlephExportRequest(form.Schema, IImageScaleTraversable):
     # If you want a model-based interface, edit
     # models/aleph_export_request.xml to define the content type.
 
-    form.model("models/aleph_export_request.xml")
+    originalFileID = schema.TextLine (
+        title = u"ID souboru s originálem",
+        required = True,
+        )
+
+    sent = schema.Datetime(
+        title = u'Čas odeslání požadavku',
+        required = False,
+    )
 
 
 # Custom content-type class; objects created for this content type will
