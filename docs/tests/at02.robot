@@ -296,4 +296,32 @@ UC02-01 Ohlaseni ePublikace - stav Export do Alephu
     Click Element                         link=Žádný soubor neobsahuje virus
     Open Workflow Menu
     Click Element                         link=Máme všechny náhledy vygenerovány
-    Pause    
+    Log out
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Page Should Contain                   Export do Alephu
+    Page Should Not Contain               Přidat novou položku
+    Page Should Not Contain               Úpravy
+
+UC02-01 Ohlaseni ePublikace - stav Export do Alephu
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Open Workflow Menu
+    Click Element                         link=Všechna ISBN jsou v pořádku
+    Open Workflow Menu
+    Click Element                         link=Žádný soubor neobsahuje virus
+    Open Workflow Menu
+    Click Element                         link=Máme všechny náhledy vygenerovány
+    Page Should Contain                   Export do Alephu
+    Open Workflow Menu
+    Page Should Contain Element           link=Export jednoho záznamu do Alephu skončil s chybou
+    Page Should Contain Element           link=Export jednoho záznamu do Alephu proběhl úspěšně
+    Page Should Contain Element           link=Všechny exporty do Alephu proběhly úspěšně
+    Page Should Contain Element           link=Některé exporty do Alephu skončily s chybou
