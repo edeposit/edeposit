@@ -11,6 +11,9 @@
   <object name="edeposit.content.epublicationfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
   <!-- -*- extra stuff goes here -*- -->
+  <object name="edeposit.content.alephexportrequest" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.alephexportresult" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.alephexportcontent" meta_type="Dexterity FTI" />
   <object name="edeposit.content.isbnvalidationrequest" meta_type="Dexterity FTI" />
   <object name="edeposit.content.isbncountresult" meta_type="Dexterity FTI" />
   <object name="edeposit.content.isbnvalidationresult" meta_type="Dexterity FTI" />

@@ -22,6 +22,30 @@ ztc.ZopeDocFileSuite(
 
 # -*- extra stuff goes here -*-
 
+        # Integration tests for AlephExportRequest
+        ztc.ZopeDocFileSuite(
+            'AlephExportRequest.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for AlephExportResult
+        ztc.ZopeDocFileSuite(
+            'AlephExportResult.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for AlephExportContent
+        ztc.ZopeDocFileSuite(
+            'AlephExportContent.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
         # Integration tests for ISBNValidationRequest
         ztc.ZopeDocFileSuite(
             'ISBNValidationRequest.txt',

@@ -78,6 +78,16 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.addedISBNCountResult"/>
 
+  <subscriber
+      for=".aleph_export_request.AlephExportRequest
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedAlephExportRequest"/>
+
+  <subscriber
+      for=".aleph_export_result.AlephExportResult
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedAlephExportResult"/>
+
   <!-- <browser:viewlet -->
   <!--       name="plone.contentactions" -->
   <!--       for="edeposit.content.epublication.IePublication" -->

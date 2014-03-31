@@ -244,3 +244,28 @@ def addedISBNValidateResult(context, event):
     wft.doActionFor(epublication, 'notifySystemAction', comment=context.title)
     pass
 
+def addedAlephExportRequest(context, event):
+    wft = api.portal.get_tool('portal_workflow')
+    systemMessages = aq_parent(aq_inner(context))
+    epublication = aq_parent(aq_inner(systemMessages))
+    request = AlephExportRequest(context.isbn)
+    producer = getUtility(IProducer, name="amqp.aleph-export-request")
+    producer.publish(serialize(request),
+                     content_type = 'application/json',
+                     headers = {'UUID': json.dumps({'request_UID': str(context.UID()),
+                                                    'systemMessages_UID': str(systemMessages.UID())
+                                                })
+                            }
+                 )
+    context.sent = datetime.now()
+    wft.doActionFor(epublication, 'oneAlephExportSubmitted', comment=context.title)
+    return
+
+def addedAlephExportResult(context, event):
+    wft = api.portal.get_tool('portal_workflow')
+    systemMessages = aq_parent(aq_inner(context))
+    epublication = aq_parent(aq_inner(systemMessages))
+    request = AlephExportRequest(context.isbn)
+    producer = getUtility(IProducer, name="amqp.aleph-export-result")
+    wft.doActionFor(epublication, 'oneAlephExportResult', comment=context.title)
+    return
