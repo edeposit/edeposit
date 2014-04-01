@@ -146,9 +146,21 @@ Fill inputs about ePublication
     Page Should Not Contain             Obsah
     Page Should Contain                 ePublikace
     Page Should Contain                 Název ePublikace
-    #Input Text				css=#form-widgets-vazba     časopis
+    #Input Text				css=#form-widgets-vazba     online
     Input Text                          css=#form-widgets-cena      0
-    
+
+Fill inputs about Vydani
+    Click Element                       link=Vydání
+    Input Text                          css=#form-widgets-nakladatel_vydavatel        In Zlín
+    Input Text                          css=#form-widgets-misto_vydani         Zlín
+    Input Text                          css=#form-widgets-datum_vydani-day     10
+    Input Text                          css=#form-widgets-datum_vydani-year    2013
+    Input Text                          css=#form-widgets-poradi_vydani        první
+
+Fill inputs about Technicke udaje
+    Click Element                       link=Technické údaje
+    Input Text                          css=#form-widgets-zpracovatel_zaznamu     Jan Stavěl
+
 Add authors for ePublication
     Click Element                       form.widgets.IAuthors.authors.buttons.add
     Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-first_name  Jan
@@ -168,11 +180,12 @@ Fill inputs about RIV
 RIV category should be selected
     Page Should Contain                 společenské, humanitní a umělecké vědy (SHVa)
 
-
 Ohlášení se soubory
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains              Přidat E-Deposit - ePublikace
     Fill inputs about ePublication    
     Add authors for ePublication
     Add Original Files for ePublication
+    Fill inputs about Vydani
+    Fill inputs about Technicke udaje
     Click Button                          form.buttons.save    
