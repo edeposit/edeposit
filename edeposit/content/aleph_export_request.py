@@ -36,6 +36,11 @@ class IAlephExportRequest(form.Schema, IImageScaleTraversable):
         required = True,
         )
 
+    isbn = schema.TextLine (
+        title = u"ISBN v souboru",
+        required = True,
+        )
+
     sent = schema.Datetime(
         title = u'Čas odeslání požadavku',
         required = False,

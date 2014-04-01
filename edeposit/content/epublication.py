@@ -127,22 +127,22 @@ class IePublication(form.Schema, IImageScaleTraversable):
                   )
     nakladatel_vydavatel = schema.TextLine (
         title = u"Nakladatel/vydavatel",
-        required = False,
+        required = True,
         )
 
     datum_vydani = schema.Date (
         title = u"Datum vydání",
-        required = False,
+        required = True,
         )
     
     poradi_vydani = schema.TextLine(
         title = u'Pořadí vydání',
-        required = False,
+        required = True,
         )
 
     misto_vydani = schema.TextLine(
         title = u'Místo vydání',
-        required = False,
+        required = True,
         )
 
     form.fieldset('Distribution',
@@ -175,7 +175,7 @@ class IePublication(form.Schema, IImageScaleTraversable):
                   )
     zpracovatel_zaznamu = schema.TextLine(
         title = u'Zpracovatel záznamu',
-        required = False,
+        required = True,
         )
 
     aleph_doc_number = schema.ASCIILine(

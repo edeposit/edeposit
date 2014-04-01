@@ -31,7 +31,8 @@ from edeposit.amqp.aleph.datastructures.epublication import (
 
 from edeposit.amqp.aleph.datastructures.results import (
     ISBNValidationResult,
-    CountResult
+    CountResult,
+    ExportResult,
 )
 
 from five import grok
@@ -89,14 +90,15 @@ class AlephResponseConsumer(Consumer):
 
 @grok.subscribe(IAlephResponse, IMessageArrivedEvent)
 def handleAlephResponse(message, event):
-    key=message.header_frame.headers.get('UUID',None)
+    headers = message.header_frame.headers
+    key=headers.get('UUID',None)
     if not key:
         message.ack()
         return
 
     def getIfKeyExists(keyName,key):
         if key.get(keyName,None):
-           return api.content.get(UID=key[keyName])
+            return api.content.get(UID=key[keyName])
         return None
 
     keyContent = json.loads(key)
@@ -130,6 +132,22 @@ def handleAlephResponse(message, event):
                                      isbn = requestMessage.isbn,
                                      num_of_records = data.num_of_records)
         pass
+    elif isinstance(data, ExportResult):
+        print "export result from aleph"
+        with api.env.adopt_user(username="system"):
+            createContentInContainer(systemMessages,'edeposit.content.alephexportresult', 
+                                     title="".join(["Výsledky exportu do Aleph: ",
+                                                    requestMessage.isbn]),
+                                     isbn = requestMessage.isbn,
+                                 )
+        pass
+
+    elif "exception" in headers:
+        print "There was an error in processing request ", headers["UUID"]
+        print headers["exception_name"] + ": " + headers["exception"]
+    else:
+        print "unknown message"
+
     message.ack()
     pass
 
@@ -264,53 +282,6 @@ class AlephExportRequestProducent(Producer):
     routing_key = "request"
     pass
 
-class IAlephExportResponse(Interface):
-    """Message marker interface"""
-
-class AlephExportResponseConsumer(Consumer):
-    grok.name('amqp.aleph-export-response-consumer')
-    connection_id = "aleph"
-    queue = "plone"
-    serializer = "plain"
-    marker = IAlephExportResponse
-    pass
-
-@grok.subscribe(IAlephExportResponse, IMessageArrivedEvent)
-def handleAlephExportResponse(message, event):
-    key=message.header_frame.headers.get('UUID',None)
-    if not key:
-        message.ack()
-        return
-
-    def getIfKeyExists(keyName,key):
-        if key.get(keyName,None):
-           return api.content.get(UID=key[keyName])
-        return None
-
-    keyContent = json.loads(key)
-    systemMessages = getIfKeyExists('systemMessages_UID',keyContent)
-    requestMessage = getIfKeyExists('request_UID',keyContent)
-    if not systemMessages or not requestMessage:
-        message.ack()
-        return
-
-    # Messages from Aleph has its own deserialization logic. 
-    # So we will use it.
-    data = deserialize(json.dumps(message.body),globals())
-    if isinstance(data, ISBNValidationResult):
-        with api.env.adopt_user(username="system"):
-            createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
-                                     title="".join(["Výsledky kontroly ISBN: ",
-                                                    requestMessage.isbn,
-                                                    " (",
-                                                    data.is_valid and "VALID" or "INVALID",
-                                                    ")"]),
-                                     isbn = requestMessage.isbn,
-                                     is_valid = data.is_valid)
-        pass
-    message.ack()
-    pass
-
 
 def addedAlephExportRequest(context, event):
     wft = api.portal.get_tool('portal_workflow')
@@ -320,25 +291,25 @@ def addedAlephExportRequest(context, event):
     authors = [ Author(firstName = aa.first_name, lastName = aa.last_name, title = "") 
                 for aa in epublication.authors.results() ]
     epublicationRecord =  EPublication (
-            ISBN = originalFile.isbn,
-            nazev = epublication.title,
-            podnazev = epublication.podnazev,
-            vazba = "",
-            cena = str(epublication.cena),
-            castDil = epublication.cast,
-            nazevCasti = epublication.nazev_casti,
-            nakladatelVydavatel = epublication.nakladatel_vydavatel,
-            datumVydani = epublication.datum_vydani,
-            poradiVydani = epublication.poradi_vydani,
-            zpracovatelZaznamu = epublication.zpracovatel_zaznamu,
-            format = originalFile.content_type(),
-            url = originalFile.url,
-            mistoVydani = epublication.misto_vydani,
-            ISBNSouboruPublikaci = epublication.isbn_souboru_publikaci,
-            autori = authors,
-            originaly = [],
-            internal_url = originalFile.absolute_url(),
-        )
+        ISBN = originalFile.isbn or "",
+        nazev = epublication.title or "",
+        podnazev = epublication.podnazev or "",
+        vazba = "",
+        cena = str(epublication.cena),
+        castDil = epublication.cast or "",
+        nazevCasti = epublication.nazev_casti or "",
+        nakladatelVydavatel = epublication.nakladatel_vydavatel or "",
+        datumVydani = epublication.datum_vydani.isoformat(),
+        poradiVydani = epublication.poradi_vydani or "",
+        zpracovatelZaznamu = epublication.zpracovatel_zaznamu or "",
+        format = 'ONLINE',
+        url = originalFile.url or "",
+        mistoVydani = epublication.misto_vydani,
+        ISBNSouboruPublikaci = epublication.isbn_souboru_publikaci or "",
+        autori = authors,
+        originaly = [],
+        internal_url = originalFile.absolute_url() or "",
+    )
 
     request = ExportRequest(epublication=epublicationRecord)
     producer = getUtility(IProducer, name="amqp.aleph-export-request")
@@ -357,7 +328,8 @@ def addedAlephExportResult(context, event):
     wft = api.portal.get_tool('portal_workflow')
     systemMessages = aq_parent(aq_inner(context))
     epublication = aq_parent(aq_inner(systemMessages))
-    request = AlephExportRequest(context.isbn)
-    producer = getUtility(IProducer, name="amqp.aleph-export-result")
+    print "added aleph export result"
+    # request = AlephExportRequest(context.isbn)
+    # producer = getUtility(IProducer, name="amqp.aleph-export-result")
     #wft.doActionFor(epublication, 'exportToAlephSubmitted', comment=context.title)
     return

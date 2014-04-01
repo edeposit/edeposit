@@ -30,6 +30,11 @@ class IAlephExportResult(form.Schema, IImageScaleTraversable):
     # If you want a model-based interface, edit
     # models/aleph_export_result.xml to define the content type.
 
+    isbn = schema.TextLine (
+        title = u"ISBN ke kontrole",
+        required = True,
+    )
+
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
