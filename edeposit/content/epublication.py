@@ -39,6 +39,9 @@ from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError
 from plone.dexterity.interfaces import IDexterityFTI
 from collections import namedtuple
 from plone import api
+from zope.event import notify
+from plone.dexterity.events import AddBegunEvent
+from plone.dexterity.events import AddCancelledEvent
 
 # Interface class; used to define content-type schema.
 
