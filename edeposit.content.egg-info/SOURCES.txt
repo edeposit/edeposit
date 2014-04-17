@@ -14,6 +14,7 @@ edeposit.content.egg-info/top_level.txt
 edeposit/content/__init__.py
 edeposit/content/aleph_export_request.py
 edeposit/content/aleph_export_result.py
+edeposit/content/aleph_search_sysnumber_request.py
 edeposit/content/author.py
 edeposit/content/book.py
 edeposit/content/bookfolder.py

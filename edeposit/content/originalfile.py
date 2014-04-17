@@ -50,16 +50,12 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = True,
         )
     
-    # format = schema.Choice(
-    #     title=_(u"Format of a file."),
-    #     vocabulary="edeposit.content.fileTypes",
-    #     required = True,
-    #     )
+    format = schema.Choice(
+        title=_(u"Format of a file."),
+        vocabulary="edeposit.content.fileTypes",
+        required = True,
+    )
 
-
-# @form.default_value(field=IOriginalFile['title'])
-# def default_title(data):
-#     return _(u'original')
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific

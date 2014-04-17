@@ -22,6 +22,22 @@ ztc.ZopeDocFileSuite(
 
 # -*- extra stuff goes here -*-
 
+        # Integration tests for AlephSearchSysNumberRequest
+        ztc.ZopeDocFileSuite(
+            'AlephSearchSysNumberRequest.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for SearchSysNumber
+        ztc.ZopeDocFileSuite(
+            'SearchSysNumber.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
         # Integration tests for AlephExportRequest
         ztc.ZopeDocFileSuite(
             'AlephExportRequest.txt',

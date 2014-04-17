@@ -325,11 +325,12 @@ def addedAlephExportRequest(context, event):
     return
 
 def addedAlephExportResult(context, event):
+    logger.debug('added aleph export result')
     wft = api.portal.get_tool('portal_workflow')
     systemMessages = aq_parent(aq_inner(context))
     epublication = aq_parent(aq_inner(systemMessages))
     print "added aleph export result"
     # request = AlephExportRequest(context.isbn)
     # producer = getUtility(IProducer, name="amqp.aleph-export-result")
-    #wft.doActionFor(epublication, 'exportToAlephSubmitted', comment=context.title)
+    wft.doActionFor(epublication, 'exportToAlephOK')
     return
