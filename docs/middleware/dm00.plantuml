@@ -1,0 +1,163 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Základní datový model pro komunikaci s AMQP
+
+package edeposit.amqp.types {
+enum ContentType {
+     application/json
+     application/bson
+     text/xml
+     application/protobuf
+}
+
+enum InterfaceOfData {
+     antivir.check
+     aleph.search
+     pdfbox.validate
+     pdfbox.validateAndExtractMetadata
+     pdfbox.extractMetadata
+     epubcheck.validate
+     epubcheck.validateAndExtractMetadata
+     epubcheck.extractMetadata
+}
+
+interface IJSONString {
+          ..
+          marker interface for string with json
+          ..
+          String stream
+}
+
+        class JSONString {
+              String stream
+              JSONStream(stream=stream)
+        }
+
+        JSONString ..|> IJSONString
+
+}
+
+package edeposit.amqp.config {
+Interface IConnectionConfig {
+      String url
+      ..
+      amqp://guest:guest@localhost:5672/vhost/      
+      ..
+}
+
+Interface IExchangeConfig {
+      String name
+      String type
+      Boolean durable
+}
+}
+
+package edeposit.amqp.message {
+Interface IDeliveryMetadata {
+      String deliveryMode
+      String replyTo
+      String routingKey
+}
+
+Interface IEncodingMetadata {
+      String contentEncoding
+}
+
+Interface IMetadata {
+      String contentType
+      String uuid
+      String created
+}
+
+Interface IData {
+      String uuid
+      .. 
+      identifier of a data content
+      ..
+}
+
+interface IDataWithRelation {
+      String relatedUUID
+      ..
+      This message relates to other message. 
+      It is used as response to some message usually.
+      ..
+}
+
+interface IMessage {
+          IDeliveryMetadata deliveryMetadata
+          IEncodingMetadata encodingMetadata
+          IMetadata metadata
+          IData data
+}
+
+IMessage *.. IData : > contains
+IMessage *.. IDeliveryMetadata : > contains
+IMessage *.. IMetadata : > contains
+IMessage *.. IEncodingMetadata : > contains
+
+        interface IDataWithUrl {
+              String url
+        }
+
+        interface IDataWithStream {
+              Binary stream
+        }
+
+        interface IDataWithValidationResult {
+                  Boolean isValid
+                  Strings errors
+                  String message
+        }
+
+IDataWithRelation <|- IDataWithValidationResult
+
+IData <|-- IDataWithRelation
+IData <|-- IDataWithUrl
+IData <|-- IDataWithStream
+
+}
+
+package edeposit.amqp.actors {
+        interface ISender {
+                send(IData data)
+        }
+        note right
+        Sends a given message to <b>message broker</b>.
+        Implementation knows what exchange in <b>message broker</b> uses.
+        Implementation adapts data to:
+        - ISerializer to serialize a data
+        - IMetadata to prepare headers for message
+        - IDeliveryMetadata to prepare delivery way for message
+        end note
+        
+        interface IHandler {
+                  handle(IData data, IMetadata metadata, IDeliveryMetadata deliveryMetadata)
+        }
+        note right
+        It handles data from AMQP queue.
+        Data will be created regarding to IMetadata::contentType.
+        end note
+}
+
+package edeposit.amqp.serializers {
+        interface ISerializer {
+                  result serialize()
+        }
+        note right
+        It serialize data using standard algorithms. JSON, BSON, protobuf, ...
+        end note
+
+        interface Deserializer {
+                  data deserialize()
+        }
+        note right
+        It creates data using standard algorithms. JSON, BSON, protobuf, ...
+        end note
+
+}        
+
+ISerializer .. IData : > adapts        
+
+@enduml

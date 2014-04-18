@@ -18,6 +18,8 @@ PM02 - Ohlášení e-publikace
 -   :ref:`uc02-13`
 -   :ref:`uc02-14`
 -   :ref:`uc02-15`
+-   :ref:`uc02-16`
+-   :ref:`uc02-17`
 
 .. raw:: html
 

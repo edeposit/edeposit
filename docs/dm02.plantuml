@@ -34,9 +34,9 @@ class EPeriodicalFolder {
 }
 
 class EPeriodical {
-      String title
-      String subtitle
-      String edition
+      String title  "M21:245 $a"
+      String subtitle "M21:245 $n $p"
+      String edition "M21:490 $a"
       String volumeNumber
       String placeOfPublishing
       String publisher

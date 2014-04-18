@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20140117 11:17:45.888" generator="Robot 2.7.7 (Python 2.7.4 on linux2)">
+<suite source="/opt/edeposit/src/edeposit.user/edeposit/user/tests/test_hello.robot" id="s1" name="Test Hello">
+<test id="s1-t1" timeout="" name="Domovská stránka">
+<kw type="setup" name="Selenium2Library.Open Browser" timeout="">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+<arg>firefox</arg>
+</arguments>
+<msg timestamp="20140117 11:17:46.122" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140117 11:17:48.830" starttime="20140117 11:17:46.121"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
+<doc>Verifies link identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Registrovat</arg>
+</arguments>
+<msg timestamp="20140117 11:17:48.906" level="INFO">Current page contains link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140117 11:17:48.906" starttime="20140117 11:17:48.831"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
+<doc>Verifies link identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Přihlášení</arg>
+</arguments>
+<msg timestamp="20140117 11:17:48.922" level="INFO">Current page contains link 'Přihlášení'.</msg>
+<status status="PASS" endtime="20140117 11:17:48.922" starttime="20140117 11:17:48.906"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Link" timeout="">
+<doc>Verifies link identified by `locator` is found from current page.</doc>
+<arguments>
+<arg>Smlouva s Národní knihovnou</arg>
+</arguments>
+<msg timestamp="20140117 11:17:48.949" level="INFO">Current page contains link 'Smlouva s Národní knihovnou'.</msg>
+<status status="PASS" endtime="20140117 11:17:48.949" starttime="20140117 11:17:48.923"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element" timeout="">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=h1</arg>
+</arguments>
+<msg timestamp="20140117 11:17:48.954" level="INFO">Current page contains element 'css=h1'.</msg>
+<status status="PASS" endtime="20140117 11:17:48.954" starttime="20140117 11:17:48.950"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+<arg>selenium-home-page.png</arg>
+</arguments>
+<msg timestamp="20140117 11:17:49.035" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-home-page.png"&gt;&lt;img src="selenium-home-page.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140117 11:17:49.035" starttime="20140117 11:17:48.954"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Title Should Be" timeout="">
+<doc>Verifies that current page title equals `title`.</doc>
+<arguments>
+<arg>E-Deposit - portál pro ohlašování elektronických publikací</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140117 11:17:49.118" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140117 11:17:49.118" starttime="20140117 11:17:49.041"></status>
+</kw>
+<msg timestamp="20140117 11:17:49.119" level="FAIL">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</msg>
+<status status="FAIL" endtime="20140117 11:17:49.119" starttime="20140117 11:17:49.035"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140117 11:17:49.146" starttime="20140117 11:17:49.120"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20140117 11:17:49.146" critical="yes" starttime="20140117 11:17:46.093">Title should have been 'E-Deposit - portál pro ohlašování elektronických publikací' but was 'E-Deposit Site'</status>
+</test>
+<test id="s1-t2" timeout="" name="Registrace producenta">
+<kw type="setup" name="Selenium2Library.Open Browser" timeout="">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${PLONE_URL}</arg>
+<arg>firefox</arg>
+</arguments>
+<msg timestamp="20140117 11:17:49.166" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140117 11:17:51.776" starttime="20140117 11:17:49.166"></status>
+</kw>
+<kw type="kw" name="Dialogs.Pause Execution" timeout="">
+<doc>Pauses test execution until user clicks `Ok` button.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140117 11:17:54.887" starttime="20140117 11:17:51.777"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Link" timeout="">
+<doc>Clicks a link identified by locator.</doc>
+<arguments>
+<arg>Registrovat</arg>
+</arguments>
+<msg timestamp="20140117 11:17:54.890" level="INFO">Clicking link 'Registrovat'.</msg>
+<status status="PASS" endtime="20140117 11:17:56.998" starttime="20140117 11:17:54.889"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain" timeout="">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>Registrace producenta</arg>
+</arguments>
+<msg timestamp="20140117 11:17:58.095" level="INFO">&lt;!DOCTYPE html&gt;
+&lt;html lang="cs" xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;&lt;head&gt;
+    &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
+
+    
+        &lt;base href="http://localhost:55001/plone/" /&gt;&lt;!--[if lt IE 7]&gt;&lt;/base&gt;&lt;![endif]--&gt;
+    
+
+    
+        &lt;meta name="description" content="Welcome to E-Deposit" /&gt;
+
+  
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/reset-cachekey-b1be7f845eb177b234795ccea3a222da.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/base-cachekey-5b40856b4a7a80da465bae9db4ac9ff8.css" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/resourceplone.app.jquerytools.overlays-cachekey-ee71e826c9d0d740c36043c2e17605d9.css" type="text/css" rel="stylesheet" /&gt;
+
+  
+  
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceplone.app.jquery-cachekey-580f79806db1772b9f409aaa96b60552.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/collective.js.jqueryui.custom.min-cachekey-2d7cc6d554b1768f5b4d5f54c874932b.js" type="text/javascript"&gt;&lt;/script&gt;
+
+
+&lt;title&gt;E-Deposit Site&lt;/title&gt;
+        
+    &lt;link href="http://localhost:55001/plone" rel="canonical" /&gt;
+
+    &lt;link href="http://localhost:55001/plone/favicon.ico" type="image/x-icon" rel="shortcut icon" /&gt;
+    &lt;link href="http://localhost:55001/plone/touch_icon.png" rel="apple-touch-icon" /&gt;
+
+
+&lt;script type="text/javascript"&gt;
+        jQuery(function($){
+            $.datepicker.setDefaults(
+                jQuery.extend($.datepicker.regional['cs'],
+                {dateFormat: 'dd.mm.yy'}));
+        });
+        &lt;/script&gt;
+
+
+
+    &lt;link type="application/rss+xml" title="E-Deposit Site - RSS 1.0" href="http://localhost:55001/plone/RSS" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit Site - RSS 2.0" href="http://localhost:55001/plone/rss.xml" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit Site - Atom" href="http://localhost:55001/plone/atom.xml" rel="alternate" /&gt;
+
+
+    &lt;link title="Prohledejte portál" href="http://localhost:55001/plone/@@search" rel="search" /&gt;
+
+
+
+        
+        
+        
+        
+        
+
+        &lt;meta content="width=device-width, initial-scale=0.6666, maximum-scale=1.0, minimum-scale=0.6666" name="viewport" /&gt;
+        &lt;meta content="Plone - http://plone.org" name="generator" /&gt;
+    
+&lt;/head&gt;
+
+&lt;body dir="ltr" class="template-default_error_message portaltype-plone-site site-plone icons-on userrole-anonymous"&gt;
+
+&lt;div id="visual-portal-wrapper"&gt;
+
+        &lt;div class="row" id="portal-top"&gt;
+&lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-header"&gt;
+    &lt;p class="hiddenStructure"&gt;
+  &lt;a href="http://localhost:55001/plone/@@register-with-producent#content" accesskey="2"&gt;Přejít na obsah&lt;/a&gt; |
+
+  &lt;a href="http://localhost:55001/plone/@@register-with-producent#portal-globalnav" accesskey="6"&gt;Přejít na navigaci&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;div id="portal-personaltools-wrapper"&gt;
+
+&lt;p class="hiddenStructure"&gt;Osobní nástroje&lt;/p&gt;
+
+
+
+&lt;ul id="portal-personaltools" class="actionMenu deactivated"&gt;
+  &lt;li id="anon-personalbar"&gt;
+    
+        &lt;a id="personaltools-login" href="http://localhost:55001/plone/login/?came_from=http://localhost:55001/plone/dashboard"&gt;Přihlášení&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-join" href="http://localhost:55001/plone/@@register-with-producent"&gt;Registrovat&lt;/a&gt;
+    
+    
+        &lt;a id="personaltools-agreement with National Library" href="http://localhost:55001/plone/smlouva-o-poskytovani-sluzeb"&gt;Smlouva s Národní knihovnou&lt;/a&gt;
+    
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+
+
+
+&lt;div id="portal-searchbox"&gt;
+
+    &lt;form action="http://localhost:55001/plone/@@search" id="livesearch0"&gt;
+
+        &lt;div class="LSBox"&gt;
+        &lt;label for="searchGadget" class="hiddenStructure"&gt;Vyhledat&lt;/label&gt;
+
+        &lt;input type="text" id="searchGadget" class="searchField" accesskey="4" placeholder="Prohledat portál" title="Prohledat portál" size="18" name="SearchableText" autocomplete="off" /&gt;
+
+        &lt;input type="submit" value="Vyhledat" class="searchButton" /&gt;
+
+        &lt;div class="searchSection"&gt;
+            &lt;input type="checkbox" value="/plone" name="path" class="noborder" id="searchbox_currentfolder_only" /&gt;
+            &lt;label style="cursor: pointer" for="searchbox_currentfolder_only"&gt;pouze v aktuální sekci&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;div id="LSResult" class="LSResult"&gt;&lt;div id="LSShadow" class="LSShadow"&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;div class="hiddenStructure" id="portal-advanced-search"&gt;
+        &lt;a accesskey="5" href="http://localhost:55001/plone/@@search"&gt;Pokročilé vyhledávání...&lt;/a&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;a href="http://localhost:55001/plone" accesskey="1" title="E-Deposit Site" id="portal-logo"&gt;
+    &lt;img width="215" height="56" title="E-Deposit Site" alt="E-Deposit Site" src="http://localhost:55001/plone/logo.png" /&gt;&lt;/a&gt;
+
+
+    &lt;p class="hiddenStructure"&gt;Navigation&lt;/p&gt;
+
+    &lt;ul id="portal-globalnav"&gt;&lt;li class="selected" id="portaltab-index_html"&gt;&lt;a title="" href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;div class="row" id="portal-columns"&gt;
+
+        &lt;div class="cell width-full position-0" id="portal-column-content"&gt;
+
+            &lt;div id="viewlet-above-content"&gt;&lt;div id="portal-breadcrumbs"&gt;
+
+    &lt;span id="breadcrumbs-you-are-here"&gt;Nacházíte se zde:&lt;/span&gt;
+    &lt;span id="breadcrumbs-home"&gt;
+        &lt;a href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;
+        
+    &lt;/span&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+            
+                &lt;div class=""&gt;
+
+                    
+
+                    
+
+    &lt;dl style="display:none" id="kssPortalMessage" class="portalMessage info"&gt;
+        &lt;dt&gt;Info&lt;/dt&gt;
+        &lt;dd&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+
+
+
+                    
+                        &lt;div id="content"&gt;
+
+                            
+
+                            
+
+        
+
+        
+
+            &lt;h1 class="documentFirstHeading"&gt;Omlouváme se, ale zřejmě došlo k chybě...&lt;/h1&gt;
+
+            &lt;div id="content-core"&gt;
+                
+                    &lt;p&gt;Chyba byla zaprotokolována jako záznam číslo &lt;code&gt;1389953876.820.384199788456&lt;/code&gt;.&lt;/p&gt;
+
+                    &lt;p&gt;Pokud potřebujete tuto chybu ohlásit na adresu &lt;span&gt; &lt;a href="http://localhost:55001/plone/contact-info"&gt;místních správců&lt;/a&gt;&lt;/span&gt;, nezapomeňte do své zprávy uvést číslo tohoto záznamu.&lt;/p&gt;
+
+                    
+
+                
+
+                
+            &lt;/div&gt;
+
+        
+        
+
+
+                        &lt;/div&gt;
+                    
+
+                    
+                &lt;/div&gt;
+            
+
+            &lt;div id="viewlet-below-content"&gt;
+&lt;/div&gt;
+        &lt;/div&gt;
+
+        
+        
+
+        
+        
+    &lt;/div&gt;
+
+
+    &lt;div class="row" id="portal-footer-wrapper"&gt;
+        &lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-footer"&gt;
+          &lt;p&gt;
+               Portál &lt;a href="http://plone.org"&gt;Plone&lt;sup&gt;®&lt;/sup&gt; - systém správy obsahu (CMS/WCM) s otevřeným zdrojovým kódem&lt;/a&gt; Copyright &lt;abbr title="Copyright"&gt;©&lt;/abbr&gt; 2000-2014 &lt;a href="http://plone.org/foundation"&gt;Plone Foundation&lt;/a&gt; a jiní.
+
+               Šířeno v rámci &lt;a href="http://creativecommons.org/licenses/GPL/2.0/"&gt;Licence GNU GPL&lt;/a&gt;.
+          &lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div id="portal-colophon"&gt;
+&lt;div class="colophonWrapper"&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;a title="Tento portál byl vytvořen pomocí systému Plone CMS/WCM" href="http://plone.org"&gt;Využívá software Plone &amp;amp; Python&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul id="portal-siteactions"&gt;
+
+    &lt;li id="siteaction-sitemap"&gt;&lt;a title="Mapa portálu" accesskey="3" href="http://localhost:55001/plone/sitemap"&gt;Mapa portálu&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-accessibility"&gt;&lt;a title="Přístupnost" accesskey="0" href="http://localhost:55001/plone/accessibility-info"&gt;Přístupnost&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-contact"&gt;&lt;a title="Kontakt" accesskey="9" href="http://localhost:55001/plone/contact-info" rel="#pb_1" class="link-overlay" style="cursor: pointer;"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+
+&lt;/div&gt;
+
+
+
+
+&lt;div id="ajax-spinner" style="display: none;"&gt;&lt;img alt="" src="http://localhost:55001/plone/spinner.gif" /&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot" timeout="">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140117 11:17:58.184" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140117 11:17:58.184" starttime="20140117 11:17:58.097"></status>
+</kw>
+<msg timestamp="20140117 11:17:58.185" level="FAIL">Page should have contained text 'Registrace producenta' but did not</msg>
+<status status="FAIL" endtime="20140117 11:17:58.185" starttime="20140117 11:17:57.002"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close All Browsers" timeout="">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20140117 11:17:58.212" starttime="20140117 11:17:58.186"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20140117 11:17:58.212" critical="yes" starttime="20140117 11:17:49.149">Page should have contained text 'Registrace producenta' but did not</status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20140117 11:17:58.215" starttime="20140117 11:17:45.888"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="2" pass="0">Critical Tests</stat>
+<stat fail="2" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="2" pass="0" id="s1" name="Test Hello">Test Hello</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

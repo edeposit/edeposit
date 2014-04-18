@@ -3,6 +3,19 @@
 UC02-12 Kontrola duplicity ISBN
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. admonition:: účastníci
+
+   - Producent
+   - Systém
+
+.. admonition:: vstupní podmínky
+
+   - Producent otevřel úvodní stránku
+
+.. admonition:: tok událostí
+
+   1. Systém zobrazí stránku jako v :ref:`uc01-01`
+
 .. raw:: html
 
 	<div id="disqus_thread"></div>
