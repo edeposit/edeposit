@@ -111,6 +111,7 @@ def handleAlephResponse(message, event):
     # Messages from Aleph has its own deserialization logic. 
     # So we will use it.
     data = deserialize(json.dumps(message.body),globals())
+    print data
     if isinstance(data, ISBNValidationResult):
         with api.env.adopt_user(username="system"):
             createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
@@ -288,7 +289,7 @@ def addedAlephExportRequest(context, event):
     systemMessages = aq_parent(aq_inner(context))
     epublication = aq_parent(aq_inner(systemMessages))
     originalFile = epublication[context.originalFileID]
-    authors = [ Author(firstName = aa.first_name, lastName = aa.last_name, title = "") 
+    authors = [ Author(lastName = aa.fullname, firstName="", title = "")
                 for aa in epublication.authors.results() ]
     epublicationRecord =  EPublication (
         ISBN = originalFile.isbn or "",
