@@ -142,35 +142,26 @@ Local Role is Assigned
 Fill inputs about ePublication
     Input Text				css=#form-widgets-IBasic-title     Lesní školky ve Zlíně
     Input Text				css=#form-widgets-podnazev  Alternativní vzdělávání
-    #Page Should Not Contain Element     css=div.fieldErrorBox
     Page Should Not Contain             Obsah
     Page Should Contain                 ePublikace
     Page Should Contain                 Název ePublikace
-    #Input Text				css=#form-widgets-vazba     online
     Input Text                          css=#form-widgets-cena      0
 
 Fill inputs about Vydani
-    Click Element                       link=Vydání
     Input Text                          css=#form-widgets-nakladatel_vydavatel        In Zlín
     Input Text                          css=#form-widgets-misto_vydani         Zlín
     Input Text                          css=#form-widgets-datum_vydani-day     10
     Input Text                          css=#form-widgets-datum_vydani-year    2013
     Input Text                          css=#form-widgets-poradi_vydani        první
-
-Fill inputs about Technicke udaje
-    Click Element                       link=Technické údaje
-    Input Text                          css=#form-widgets-zpracovatel_zaznamu     Jan Stavěl
+    Input Text                          css=#form-widgets-zpracovatel_zaznamu        Jan Stavěl
 
 Add authors for ePublication
-    Click Element                       form.widgets.IAuthors.authors.buttons.add
-    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-first_name  Jan
-    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-last_name   Stavěl
+    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-fullname  Jan Stavěl
 
 Add Original Files for ePublication
-    Click Element                       form.widgets.IOriginalFiles.originalFiles.buttons.add
-    Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-url  http://www.grada.cz/book/1000
-    Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn  ${VALID_ISBN}
-    Choose File                         css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Input Text                          css=#form-widgets-IOriginalFile-url  http://www.grada.cz/book/1000
+    Input Text                          css=#form-widgets-IOriginalFile-isbn  ${VALID_ISBN}
+    Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
 
 
 Fill inputs about RIV
@@ -187,5 +178,12 @@ Ohlášení se soubory
     Add authors for ePublication
     Add Original Files for ePublication
     Fill inputs about Vydani
-    Fill inputs about Technicke udaje
     Click Button                          form.buttons.save    
+
+
+Zobrazit historii
+    Click link       Historie
+    
+Historie obsahuje zprávu
+    [arguments]      ${message}
+    Page Should Contain    ${message}
