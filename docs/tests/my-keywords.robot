@@ -1,3 +1,8 @@
+*** VARIABLES ***
+${VALID_ISBN}     978-0-306-40615-7
+${VALID_BUT_DUPLICIT_ISBN}     80-85432-66-8
+${WRONG_ISBN}     80-12312-3241-324124
+
 *** Keywords ***
 
 Open browser and create all folders
@@ -33,6 +38,12 @@ Add Dexterity Content
     Page should contain  ${title}
     ${location} =  Get Location
     [return]  ${location}
+
+Start Aleph Daemon
+    Start Process      python /usr/local/lib/python2.7/dist-packages/edeposit/amqp/alephdaemon.py start
+
+Stop Aleph Daemon
+    Start Process      pkill -f alephdaemon
 
 Create producents folder
     Add Dexterity Content     ${PLONE_URL}     edeposit-user-producentfolder    producents
@@ -131,23 +142,26 @@ Local Role is Assigned
 Fill inputs about ePublication
     Input Text				css=#form-widgets-IBasic-title     Lesní školky ve Zlíně
     Input Text				css=#form-widgets-podnazev  Alternativní vzdělávání
-    #Page Should Not Contain Element     css=div.fieldErrorBox
     Page Should Not Contain             Obsah
     Page Should Contain                 ePublikace
     Page Should Contain                 Název ePublikace
-    #Input Text				css=#form-widgets-vazba     časopis
     Input Text                          css=#form-widgets-cena      0
-    
+
+Fill inputs about Vydani
+    Input Text                          css=#form-widgets-nakladatel_vydavatel        In Zlín
+    Input Text                          css=#form-widgets-misto_vydani         Zlín
+    Input Text                          css=#form-widgets-datum_vydani-day     10
+    Input Text                          css=#form-widgets-datum_vydani-year    2013
+    Input Text                          css=#form-widgets-poradi_vydani        první
+    Input Text                          css=#form-widgets-zpracovatel_zaznamu        Jan Stavěl
+
 Add authors for ePublication
-    Click Element                       form.widgets.IAuthors.authors.buttons.add
-    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-first_name  Jan
-    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-last_name   Stavěl
+    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-fullname  Jan Stavěl
 
 Add Original Files for ePublication
-    Click Element                       form.widgets.IOriginalFiles.originalFiles.buttons.add
-    Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-url  http://www.grada.cz/book/1000
-    Input Text                          css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-isbn  80-12312-3241-324124
-    Choose File                         css=#form-widgets-IOriginalFiles-originalFiles-0-widgets-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Input Text                          css=#form-widgets-IOriginalFile-url  http://www.grada.cz/book/1000
+    Input Text                          css=#form-widgets-IOriginalFile-isbn  ${VALID_ISBN}
+    Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
 
 
 Fill inputs about RIV
@@ -156,3 +170,20 @@ Fill inputs about RIV
 
 RIV category should be selected
     Page Should Contain                 společenské, humanitní a umělecké vědy (SHVa)
+
+Ohlášení se soubory
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Add authors for ePublication
+    Add Original Files for ePublication
+    Fill inputs about Vydani
+    Click Button                          form.buttons.save    
+
+
+Zobrazit historii
+    Click link       Historie
+    
+Historie obsahuje zprávu
+    [arguments]      ${message}
+    Page Should Contain    ${message}

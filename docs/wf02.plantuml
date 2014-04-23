@@ -37,6 +37,7 @@ state "Stažený z oběhu" as withdrawn #ECE8DF
 
 declaration --> isbn : << producent >> \n << akvizice >> \n K akvizici
 
+isbn --> isbn : << system >> \n notify ISNB was sent for validation
 isbn --> antivirus : << system >> \n ISBN OK
 isbn --> isbnCorrection : << system >> \n ISBN was already used
 

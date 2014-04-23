@@ -1,16 +1,9 @@
-.. _middleware/datamodels:
+.. _middleware/dm04:
 
-Modely datových entit
--------------------------------------
+DM04 - Data pro kontrolu ISBN
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. toctree::
-   :maxdepth: 1
-
-   dm00
-   dm01
-   dm02
-   dm03
-   dm04
+.. image:: dm04.png
 
 .. raw:: html
 
@@ -29,4 +22,3 @@ Modely datových entit
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     
-
