@@ -15,4 +15,7 @@ tmux new-window     -t edeposit:3    -n 'edeposit' 'sudo su - edeposit'
 tmux ls | logger
 
 exit
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1946e0fdeedf6077a86eea67d24e9052f24c8b96

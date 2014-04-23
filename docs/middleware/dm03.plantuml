@@ -1,0 +1,59 @@
+@startuml
+skinparam componentStyle uml2
+left to right direction
+title Datový model pro komunikaci se systémem Aleph
+
+package edeposit.amqp.aleph.interfaces {
+
+ interface IAlephSearcher {
+           search(query)
+           ..
+           adapts query into IAlephQuery and send it into Aleph.
+           @returns IAlephGroupResponse message
+           ..
+ }
+ 
+ interface IAlephQuery {
+           String base
+           String phrase
+           Boolean considerSimilar
+           String field
+           ..
+           name of database field to find in
+           ..
+ }
+
+ interface IAlephResponseSet {
+           Integer setNumber
+           Integer numberOfEntries
+           Integer numberOfRecords
+           String sessionID 
+ }
+ 
+ interface IAlephRecordsSetLoader {
+           Integer [] getDocNumbers(String base, Integer setNumber, Integer numOfRecords)
+           Integer [] getDocNumbers(String base, Integer setNumber, Integer min, Integer max)
+ }
+
+ interface IAlephRecord {
+           String base
+           String xml
+           ..
+           xml is MARCXML
+           ..
+ }
+
+ interface IAlephRecordLoader {
+           loadRecord (base, docNumber)
+           ..
+           returns IAlephRecord
+           ..           
+ }
+
+ IAlephSearcher ..> IAlephQuery : adapts query to >
+ IAlephSearcher ..> IAlephResponseSet : load from Aleph >
+ IAlephRecordLoader ..> IAlephRecord : load from Aleph >
+
+}
+
+@enduml

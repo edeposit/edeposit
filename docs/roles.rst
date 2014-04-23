@@ -9,6 +9,8 @@ Role a oprávnění v systému
    system administrator                Site Administrator
    producent without agreement         E-Deposit: Producent without Agreement 
    producent with agreement            E-Deposit: Producent with Agreement
+   producent administrator             E-Deposit: Producent Administrator
+   producent TODO
    aquisitor                           E-Deposit: Aquisitor
    isbn agency administrator           E-Deposit: ISBN Agency Administrator
    librarian                           E-Deposit: Librarian

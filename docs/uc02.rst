@@ -22,6 +22,8 @@ UC02 - Ohlášení publikace
    uc02-13
    uc02-14
    uc02-15
+   uc02-16
+   uc02-17
 
 .. raw:: html
 
