@@ -234,7 +234,6 @@ class IePublication(form.Schema, IImageScaleTraversable):
     #               ])
     offer_to_riv = schema.Bool(
         title = u'Zpřístupnit pro RIV',
-        description = u'Chceme aby RIV ePublikaci hodnotil.',
         required = False,
         default = False,
         missing_value = False,

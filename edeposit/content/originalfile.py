@@ -32,7 +32,6 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
 
     url = schema.ASCIILine(
         title=_("URL"),
-        description=_(u"URL of a file source."),
         constraint=urlCodeIsValid,
         required = False,
         )
