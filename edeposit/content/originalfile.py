@@ -45,7 +45,6 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     form.primary('file')
     file = NamedBlobFile(
         title=_(u"Original File of an ePublication"),
-        description=_(u"Fill in a file that contains of an epublication"),
         required = True,
         )
     
