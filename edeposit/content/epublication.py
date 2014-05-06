@@ -295,10 +295,17 @@ class EPublicationAddForm(DefaultAddForm):
         print "update"
         DefaultAddForm.update(self)
         self.widgets['IBasic.title'].label=u"Název ePublikace"
+        
+    def extractData(self):
+        data, errors = super(EPublicationAddForm,self).extractData()
+        if 'form.widgets.IOriginalFile.isbn' in self.request.keys():
+            print 'ISBN is invalid'
+        return (data,errors)
 
     @button.buttonAndHandler(_(u'Cancel'), name='cancel')
     def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(_(u"Add New Item operation cancelled"), "info")
+        IStatusMessage(self.request).addStatusMessage(_(u"Add New Item operation cancelled"), 
+                                                      "info")
         self.request.response.redirect(self.nextURL())
         notify(AddCancelledEvent(self.context))
 
@@ -332,11 +339,6 @@ class EPublicationAddForm(DefaultAddForm):
             addContentToContainer(new_object, author, True)
             
         if self.originalFile:
-            #for originalFile in self.originalFiles:
-            # value = {'file'  : originalFile.file, 
-            #          'url'   : originalFile.url, 
-            #          'isbn'  : originalFile.isbn, 
-            #          'format': originalFile.format}
             value = self.originalFile
             createContentInContainer(new_object,'edeposit.content.originalfile',**value)
 

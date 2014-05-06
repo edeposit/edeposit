@@ -1,32 +1,22 @@
 <?xml version="1.0"?>
-<object name="edeposit.content.messagesfolder"
+<object name="edeposit.content.alephexception"
    meta_type="Dexterity FTI"
-   i18n:domain="edeposit.content" 
-   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+   i18n:domain="edeposit.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">Messages Folder</property>
+  <property name="title" i18n:translate="">Aleph Exception</property>
   <property name="description"
-    i18n:translate="">Folder for AMQP messages.</property>
-  <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
-  <property name="factory">edeposit.content.messagesfolder</property>
+    i18n:translate="">Exception that Aleph Daemon sends</property>
+  <property name="icon_expr">string:${portal_url}/document_icon.png</property>
+  <property name="factory">edeposit.content.alephexception</property>
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
-  <property name="allowed_content_types">
-    <element value="edeposit.content.isbnvalidationrequest"/>
-    <element value="edeposit.content.isbnvalidationresult"/>
-    <element value="edeposit.content.isbncountrequest"/>
-    <element value="edeposit.content.isbncountresult"/>
-    <element value="edeposit.content.alephexportrequest"/>
-    <element value="edeposit.content.alephexportresult"/>
-    <element value="edeposit.content.alephsearchsysnumberrequest"/>
-    <element value="edeposit.content.alephexception"/>
-  </property>
+  <property name="allowed_content_types" />
   <property name="allow_discussion">False</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">edeposit.content.messages_folder.IMessagesFolder</property>
-  <property name="klass">edeposit.content.messages_folder.MessagesFolder</property>
+  <property name="schema">edeposit.content.aleph_exception.IAlephException</property>
+  <property name="klass">edeposit.content.aleph_exception.AlephException</property>
 
   <property name="behaviors">
      <element value="plone.app.content.interfaces.INameFromTitle" />

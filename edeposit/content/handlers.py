@@ -105,6 +105,8 @@ def handleAlephResponse(message, event):
     systemMessages = getIfKeyExists('systemMessages_UID',keyContent)
     requestMessage = getIfKeyExists('request_UID',keyContent)
     if not systemMessages or not requestMessage:
+        print "no system message or no request message exists in key"
+        print message.body
         message.ack()
         return
 
@@ -144,6 +146,17 @@ def handleAlephResponse(message, event):
         pass
 
     elif "exception" in headers:
+        with api.env.adopt_user(username="system"):
+            createContentInContainer(systemMessages,'edeposit.content.alephexception', 
+                                     title="".join(["Chyba pri volani Aleph Daemon: ",
+                                                    requestMessage.isbn,
+                                                ]),
+                                     message = "".join([ str(headers),
+                                                         str(data)
+                                                     ]),
+                                     isbn = requestMessage.isbn,
+                                 )
+            
         print "There was an error in processing request ", headers["UUID"]
         print headers["exception_name"] + ": " + headers["exception"]
     else:
@@ -207,7 +220,19 @@ def addedEPublicationFolder(context, event):
                           name  = "ePublications-with-errors",
                           title = _(u"ePublications with errors"),
                           query = queryForStates('declarationWithError')
-                          )
+                          ),
+                    dict( contexts=[context],
+                          name = "ePublications-for-RIV-review",
+                          title = _(u"ePublications waiting for RIV to be reviewed"),
+                          query = [
+                              {'i': 'portal_type',
+                               'o': 'plone.app.querystring.operation.selection.is',
+                               'v': ['edeposit.content.epublication']},
+                              {'i':'offerToRIV',
+                               'o': 'plone.app.querystring.operation.selection.is',
+                               'v': [True]},
+                          ]
+                      )
                     ]
     return
     for collection in collections:
