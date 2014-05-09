@@ -322,13 +322,16 @@ class EPublicationAddForm(DefaultAddForm):
             # other submitting
             self._finishedAdd = getattr(self,'submitAgain',False) == False
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor(self.new_object, 'toAcquisition', comment='handled automatically')
+       
 
     def add(self,object):
         print "add"
         fti = getUtility(IDexterityFTI, name=self.portal_type)
         container = aq_inner(self.context)
         new_object = addContentToContainer(container, object)
-        
+        self.new_object = new_object
         if fti.immediate_view:
             self.immediate_view = "%s/%s/%s" % (container.absolute_url(), new_object.id, fti.immediate_view,)
         else:
