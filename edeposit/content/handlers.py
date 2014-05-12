@@ -90,9 +90,12 @@ class AlephResponseConsumer(Consumer):
 
 @grok.subscribe(IAlephResponse, IMessageArrivedEvent)
 def handleAlephResponse(message, event):
+    print "handle aleph response"
     headers = message.header_frame.headers
     key=headers.get('UUID',None)
     if not key:
+        print "no UUID at headers"
+        print message.body
         message.ack()
         return
 
@@ -161,6 +164,7 @@ def handleAlephResponse(message, event):
         print headers["exception_name"] + ": " + headers["exception"]
     else:
         print "unknown message"
+        print message.body
 
     message.ack()
     pass

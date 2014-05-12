@@ -322,10 +322,13 @@ class EPublicationAddForm(DefaultAddForm):
                 errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'chyba v isbn')),)
                 pass
             else:
-                appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
-                if appearedAtAleph:
-                    # duplicity error
-                    errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
+                try:
+                    appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
+                    if appearedAtAleph:
+                        # duplicity error
+                        errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
+                except:
+                    print "some exception with edeposit.amqp.aleph.aleph.getISBNCount"
                     pass
             pass
         return (data,errors)
