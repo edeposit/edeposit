@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 2.7.7 (Python 2.7.4 on linux2)" name="Generator">
+<meta content="Robot Framework 2.8.3 (Python 2.7.5+ on linux2)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -65,6 +65,16 @@ h2 {
     text-align: right;
     font-size: 0.9em;
     white-space: nowrap;
+}
+/* Documentation headers */
+.doc > h2 {
+    font-size: 1.2em;
+}
+.doc > h3 {
+    font-size: 1.1em;
+}
+.doc > h4 {
+    font-size: 1.0em;
 }
 /* Status text colors -- !important allows using them in links */
 .error, .fail {
@@ -229,7 +239,7 @@ th.stats-col-graph:hover {
 .element-header {
     border: 1px solid transparent;
     border-radius: 2px;
-    padding: 0.3em 6em 0.3em 1.4em;
+    padding: 0.3em 6.5em 0.3em 1.4em;
     background-repeat: no-repeat;
     background-position: left center;
     background-image: url(data:image/gif;base64,R0lGODlhDQALAIAAAAAAAAAAACH5BAEKAAEALAAAAAANAAsAAAIZTICpYGz/nIOxUShvPU1ZroHTlYWlJi1LAQA7);
@@ -247,7 +257,7 @@ th.stats-col-graph:hover {
 }
 .expand {
     float: right;
-    margin-right: -7em;
+    margin-right: -6em;
     font-size: 0.8em;
     width: 7em;
     padding: 0.3em 0 0.1em 0;
@@ -259,6 +269,21 @@ th.stats-col-graph:hover {
     text-decoration: none;
     background-color: #BBBBFF;
     color: black !important;
+}
+.ext-link, .ext-link:link, .ext-link:visited {
+    float: right;
+    margin-right: -7em;
+    padding: 0 0.3em;
+    color: #C60F0F;
+    text-decoration: none;
+    visibility: hidden;
+}
+.element-header:hover .ext-link {
+    visibility: visible;
+}
+.ext-link:hover {
+    background: #C60F0F;
+    color: #ECECF7;
 }
 /* Messages and errors */
 .messages {
@@ -363,14 +388,14 @@ a:link, a:visited {
 </style>
 <style media="all" type="text/css">
 .doc > * {
-    margin: 1em 1em 0 1em;
+    margin: 0.7em 1em 0.1em 1em;
     padding: 0;
 }
 .doc > p, .doc > h1, .doc > h2, .doc > h3, .doc > h4 {
-    margin: 1em 0 0 0;
+    margin: 0.7em 0 0.1em 0;
 }
 .doc > *:first-child {
-    margin-top: 0;
+    margin-top: 0.1em;
 }
 .doc table {
     border: 1px solid gray;
@@ -379,10 +404,15 @@ a:link, a:visited {
     empty-cells: show;
     font-size: 0.9em;
 }
-.doc table td {
+.doc table th, .doc table td {
     border: 1px solid gray;
+    background: transparent;
     padding: 0.1em 0.3em;
     height: 1.2em;
+}
+.doc table th {
+    text-align: center;
+    letter-spacing: 0.1em;
 }
 .doc pre {
     font-size: 1.1em;
@@ -403,19 +433,15 @@ a:link, a:visited {
 </style>
 <script type="text/javascript">
 var LEVELS = {TRACE: 0, DEBUG: 1, INFO: 2, WARN: 3, FAIL: 4, NONE: 5};
-
 function toggleSuite(suiteId) {
     toggleElement(suiteId, ['keyword', 'suite', 'test']);
 }
-
 function toggleTest(testId) {
     toggleElement(testId, ['keyword']);
 }
-
 function toggleKeyword(kwId) {
     toggleElement(kwId, ['keyword', 'message']);
 }
-
 function toggleElement(elementId, childrenNames) {
     var element = $('#' + elementId);
     var children = element.children('.children');
@@ -424,7 +450,6 @@ function toggleElement(elementId, childrenNames) {
     });
     populateChildren(elementId, children, childrenNames);
 }
-
 function populateChildren(elementId, childElement, childrenNames) {
     if (!childElement.hasClass('populated')) {
         var element = window.testdata.findLoaded(elementId);
@@ -433,7 +458,6 @@ function populateChildren(elementId, childElement, childrenNames) {
         childElement.addClass('populated');
     }
 }
-
 function drawCallback(element, childElement, childrenNames) {
     return function () {
         util.map(childrenNames, function (childName) {
@@ -445,7 +469,6 @@ function drawCallback(element, childElement, childrenNames) {
         });
     }
 }
-
 function expandRecursively() {
     if (!window.elementsToExpand.length)
         return;
@@ -465,7 +488,6 @@ function expandRecursively() {
             setTimeout(expandRecursively, 0);
     });
 }
-
 function expandElement(item) {
     var element = $('#' + item.id);
     var children = element.children('.children');
@@ -474,22 +496,18 @@ function expandElement(item) {
     populateChildren(item.id, children, item.childrenNames);
     element.children('.element-header').removeClass('closed');
 }
-
 function expandElementWithId(elementid) {
     expandElement(window.testdata.findLoaded(elementid));
 }
-
 function elementHiddenByUser(elementId) {
     var element = $("#"+elementId);
     return !element.is(":visible");
 }
-
 function expandAllChildren(elementId) {
     window.elementsToExpand = [window.testdata.findLoaded(elementId)];
     window.expandDecider = function () { return true; };
     expandRecursively();
 }
-
 function expandCriticalFailed(element) {
     if (element.status == "FAIL") {
         window.elementsToExpand = [element];
@@ -499,26 +517,22 @@ function expandCriticalFailed(element) {
         expandRecursively();
     }
 }
-
 function expandSuite(suite) {
     if (suite.status == "PASS")
         expandElement(suite);
     else
         expandCriticalFailed(suite);
 }
-
 function logLevelSelected(level) {
     var anchors = getViewAnchorElements();
     setMessageVisibility(level);
     scrollToShortestVisibleAnchorElement(anchors);
 }
-
 function getViewAnchorElements() {
     var elem1 = $(document.elementFromPoint(100, 0));
     var elem2 = $(document.elementFromPoint(100, 20));
     return [elem1, elem2];
 }
-
 function scrollToShortestVisibleAnchorElement(anchors) {
     anchors = util.map(anchors, closestVisibleParent);
     var shortest = anchors[0];
@@ -527,20 +541,17 @@ function scrollToShortestVisibleAnchorElement(anchors) {
             shortest = anchors[i];
     shortest.get()[0].scrollIntoView(true);
 }
-
 function setMessageVisibility(level) {
     level = parseInt(level);
     changeClassDisplay(".trace-message", level <= LEVELS.TRACE);
     changeClassDisplay(".debug-message", level <= LEVELS.DEBUG);
     changeClassDisplay(".info-message", level <= LEVELS.INFO);
 }
-
 function closestVisibleParent(elem) {
     while (!elem.is(":visible"))
         elem = elem.parent();
     return elem;
 }
-
 function changeClassDisplay(clazz, visible) {
     var styles = document.styleSheets;
     for (var i = 0; i < styles.length; i++) {
@@ -552,7 +563,6 @@ function changeClassDisplay(clazz, visible) {
                 rules[j].style.display = visible ? "table" : "none";
     }
 }
-
 function getRules(style) {
     // With Chrome external CSS files seem to have only null roles and with
     // Firefox accessing rules can result to security error.
@@ -563,25 +573,20 @@ function getRules(style) {
         return null;
     }
 }
-
 function LogLevelController(minLevel, defaultLevel) {
     minLevel = LEVELS[minLevel];
     defaultLevel = LEVELS[defaultLevel];
-
     function showLogLevelSelector() {
         return minLevel < LEVELS.INFO;
     }
-
     function defaultLogLevel() {
         if (minLevel > defaultLevel)
             return minLevel;
         return defaultLevel;
     }
-
     function showTrace() {
         return minLevel == LEVELS.TRACE;
     }
-
     return {
         showLogLevelSelector: showLogLevelSelector,
         defaultLogLevel: defaultLogLevel,
@@ -614,32 +619,25 @@ function LogLevelController(minLevel, defaultLevel) {
 </script>
 <script type="text/javascript">
 /*
-    Copyright 2008-2011
+    Copyright 2008-2013
         Matthias Ehmann,
         Michael Gerhaeuser,
         Carsten Miller,
         Bianca Valentin,
         Alfred Wassermann,
         Peter Wilfahrt
-
-
     Dual licensed under the Apache License Version 2.0, or LGPL Version 3 licenses.
-
     You should have received a copy of the GNU Lesser General Public License
     along with JSXCompressor.  If not, see <http://www.gnu.org/licenses/>.
-
     You should have received a copy of the Apache License along with JSXCompressor.
     If not, see <http://www.apache.org/licenses/>.
 */
-    JXG={exists:(function(a){return function(b){return !(b===a||b===null)}})()};JXG.decompress=function(a){return unescape((new JXG.Util.Unzip(JXG.Util.Base64.decodeAsArray(a))).unzip()[0][0])};JXG.Util={};JXG.Util.Unzip=function(Q){var m=[],D="",B=false,y,E=0,N=[],q,h=new Array(32768),V=0,I=false,S,F,U=[0,128,64,192,32,160,96,224,16,144,80,208,48,176,112,240,8,136,72,200,40,168,104,232,24,152,88,216,56,184,120,248,4,132,68,196,36,164,100,228,20,148,84,212,52,180,116,244,12,140,76,204,44,172,108,236,28,156,92,220,60,188,124,252,2,130,66,194,34,162,98,226,18,146,82,210,50,178,114,242,10,138,74,202,42,170,106,234,26,154,90,218,58,186,122,250,6,134,70,198,38,166,102,230,22,150,86,214,54,182,118,246,14,142,78,206,46,174,110,238,30,158,94,222,62,190,126,254,1,129,65,193,33,161,97,225,17,145,81,209,49,177,113,241,9,137,73,201,41,169,105,233,25,153,89,217,57,185,121,249,5,133,69,197,37,165,101,229,21,149,85,213,53,181,117,245,13,141,77,205,45,173,109,237,29,157,93,221,61,189,125,253,3,131,67,195,35,163,99,227,19,147,83,211,51,179,115,243,11,139,75,203,43,171,107,235,27,155,91,219,59,187,123,251,7,135,71,199,39,167,103,231,23,151,87,215,55,183,119,247,15,143,79,207,47,175,111,239,31,159,95,223,63,191,127,255],Y=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258,0,0],P=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0,99,99],J=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577],x=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],n=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],u=Q,b=0,g=0,Z=1,a=0,X=256,f=[],j;function d(){a+=8;if(b<u.length){return u[b++]}else{return -1}}function o(){Z=1}function T(){var ab;a++;ab=(Z&1);Z>>=1;if(Z==0){Z=d();ab=(Z&1);Z=(Z>>1)|128}return ab}function R(ab){var ad=0,ac=ab;while(ac--){ad=(ad<<1)|T()}if(ab){ad=U[ad]>>(8-ab)}return ad}function c(){V=0}function v(ab){F++;h[V++]=ab;m.push(String.fromCharCode(ab));if(V==32768){V=0}}function l(){this.b0=0;this.b1=0;this.jump=null;this.jumppos=-1}var e=288;var t=new Array(e);var L=new Array(32);var G=0;var W=null;var p=null;var K=new Array(64);var H=new Array(64);var w=0;var A=new Array(17);A[0]=0;var M;var s;function i(){while(1){if(A[w]>=s){return -1}if(M[A[w]]==w){return A[w]++}A[w]++}}function C(){var ac=W[G];var ab;if(B){document.write("<br>len:"+w+" treepos:"+G)}if(w==17){return -1}G++;w++;ab=i();if(B){document.write("<br>IsPat "+ab)}if(ab>=0){ac.b0=ab;if(B){document.write("<br>b0 "+ac.b0)}}else{ac.b0=32768;if(B){document.write("<br>b0 "+ac.b0)}if(C()){return -1}}ab=i();if(ab>=0){ac.b1=ab;if(B){document.write("<br>b1 "+ac.b1)}ac.jump=null}else{ac.b1=32768;if(B){document.write("<br>b1 "+ac.b1)}ac.jump=W[G];ac.jumppos=G;if(C()){return -1}}w--;return 0}function k(af,ad,ag,ac){var ae;if(B){document.write("currentTree "+af+" numval "+ad+" lengths "+ag+" show "+ac)}W=af;G=0;M=ag;s=ad;for(ae=0;ae<17;ae++){A[ae]=0}w=0;if(C()){if(B){alert("invalid huffman tree\n")}return -1}if(B){document.write("<br>Tree: "+W.length);for(var ab=0;ab<32;ab++){document.write("Places["+ab+"].b0="+W[ab].b0+"<br>");document.write("Places["+ab+"].b1="+W[ab].b1+"<br>")}}return 0}function z(ae){var ac,ad,ag=0,af=ae[ag],ab;while(1){ab=T();if(B){document.write("b="+ab)}if(ab){if(!(af.b1&32768)){if(B){document.write("ret1")}return af.b1}af=af.jump;ac=ae.length;for(ad=0;ad<ac;ad++){if(ae[ad]===af){ag=ad;break}}}else{if(!(af.b0&32768)){if(B){document.write("ret2")}return af.b0}ag++;af=ae[ag]}}if(B){document.write("ret3")}return -1}function aa(){var af,ar,ac,ap,aq;do{af=T();ac=R(2);switch(ac){case 0:if(B){alert("Stored\n")}break;case 1:if(B){alert("Fixed Huffman codes\n")}break;case 2:if(B){alert("Dynamic Huffman codes\n")}break;case 3:if(B){alert("Reserved block type!!\n")}break;default:if(B){alert("Unexpected value %d!\n",ac)}break}if(ac==0){var an,ab;o();an=d();an|=(d()<<8);ab=d();ab|=(d()<<8);if(((an^~ab)&65535)){document.write("BlockLen checksum mismatch\n")}while(an--){ar=d();v(ar)}}else{if(ac==1){var ao;while(1){ao=(U[R(7)]>>1);if(ao>23){ao=(ao<<1)|T();if(ao>199){ao-=128;ao=(ao<<1)|T()}else{ao-=48;if(ao>143){ao=ao+136}}}else{ao+=256}if(ao<256){v(ao)}else{if(ao==256){break}else{var aq,ak;ao-=256+1;aq=R(P[ao])+Y[ao];ao=U[R(5)]>>3;if(x[ao]>8){ak=R(8);ak|=(R(x[ao]-8)<<8)}else{ak=R(x[ao])}ak+=J[ao];for(ao=0;ao<aq;ao++){var ar=h[(V-ak)&32767];v(ar)}}}}}else{if(ac==2){var ao,al,ad,ai,aj;var ah=new Array(288+32);ad=257+R(5);ai=1+R(5);aj=4+R(4);for(ao=0;ao<19;ao++){ah[ao]=0}for(ao=0;ao<aj;ao++){ah[n[ao]]=R(3)}aq=L.length;for(ap=0;ap<aq;ap++){L[ap]=new l()}if(k(L,19,ah,0)){c();return 1}if(B){document.write("<br>distanceTree");for(var at=0;at<L.length;at++){document.write("<br>"+L[at].b0+" "+L[at].b1+" "+L[at].jump+" "+L[at].jumppos)}}al=ad+ai;ap=0;var ae=-1;if(B){document.write("<br>n="+al+" bits: "+a+"<br>")}while(ap<al){ae++;ao=z(L);if(B){document.write("<br>"+ae+" i:"+ap+" decode: "+ao+"    bits "+a+"<br>")}if(ao<16){ah[ap++]=ao}else{if(ao==16){var am;ao=3+R(2);if(ap+ao>al){c();return 1}am=ap?ah[ap-1]:0;while(ao--){ah[ap++]=am}}else{if(ao==17){ao=3+R(3)}else{ao=11+R(7)}if(ap+ao>al){c();return 1}while(ao--){ah[ap++]=0}}}}aq=t.length;for(ap=0;ap<aq;ap++){t[ap]=new l()}if(k(t,ad,ah,0)){c();return 1}aq=t.length;for(ap=0;ap<aq;ap++){L[ap]=new l()}var ag=new Array();for(ap=ad;ap<ah.length;ap++){ag[ap-ad]=ah[ap]}if(k(L,ai,ag,0)){c();return 1}if(B){document.write("<br>literalTree")}while(1){ao=z(t);if(ao>=256){var aq,ak;ao-=256;if(ao==0){break}ao--;aq=R(P[ao])+Y[ao];ao=z(L);if(x[ao]>8){ak=R(8);ak|=(R(x[ao]-8)<<8)}else{ak=R(x[ao])}ak+=J[ao];while(aq--){var ar=h[(V-ak)&32767];v(ar)}}else{v(ao)}}}}}}while(!af);c();o();return 0}JXG.Util.Unzip.prototype.unzipFile=function(ab){var ac;this.unzip();for(ac=0;ac<N.length;ac++){if(N[ac][1]==ab){return N[ac][0]}}};JXG.Util.Unzip.prototype.unzip=function(){if(B){alert(u)}r();return N};function r(){if(B){alert("NEXTFILE")}m=[];var af=[];I=false;af[0]=d();af[1]=d();if(B){alert("type: "+af[0]+" "+af[1])}if(af[0]==parseInt("78",16)&&af[1]==parseInt("da",16)){if(B){alert("GEONExT-GZIP")}aa();if(B){alert(m.join(""))}N[E]=new Array(2);N[E][0]=m.join("");N[E][1]="geonext.gxt";E++}if(af[0]==parseInt("1f",16)&&af[1]==parseInt("8b",16)){if(B){alert("GZIP")}O();if(B){alert(m.join(""))}N[E]=new Array(2);N[E][0]=m.join("");N[E][1]="file";E++}if(af[0]==parseInt("50",16)&&af[1]==parseInt("4b",16)){I=true;af[2]=d();af[3]=d();if(af[2]==parseInt("3",16)&&af[3]==parseInt("4",16)){af[0]=d();af[1]=d();if(B){alert("ZIP-Version: "+af[1]+" "+af[0]/10+"."+af[0]%10)}y=d();y|=(d()<<8);if(B){alert("gpflags: "+y)}var ab=d();ab|=(d()<<8);if(B){alert("method: "+ab)}d();d();d();d();var ag=d();ag|=(d()<<8);ag|=(d()<<16);ag|=(d()<<24);var ae=d();ae|=(d()<<8);ae|=(d()<<16);ae|=(d()<<24);var aj=d();aj|=(d()<<8);aj|=(d()<<16);aj|=(d()<<24);if(B){alert("local CRC: "+ag+"\nlocal Size: "+aj+"\nlocal CompSize: "+ae)}var ac=d();ac|=(d()<<8);var ai=d();ai|=(d()<<8);if(B){alert("filelen "+ac)}ad=0;f=[];while(ac--){var ah=d();if(ah=="/"|ah==":"){ad=0}else{if(ad<X-1){f[ad++]=String.fromCharCode(ah)}}}if(B){alert("nameBuf: "+f)}if(!j){j=f}var ad=0;while(ad<ai){ah=d();ad++}S=4294967295;F=0;if(aj=0&&fileOut.charAt(j.length-1)=="/"){if(B){alert("skipdir")}}if(ab==8){aa();if(B){alert(m.join(""))}N[E]=new Array(2);N[E][0]=m.join("");N[E][1]=f.join("");E++}O()}}}function O(){var ag,ad=[],ae,ac,af,ab,ah;if((y&8)){ad[0]=d();ad[1]=d();ad[2]=d();ad[3]=d();if(ad[0]==parseInt("50",16)&&ad[1]==parseInt("4b",16)&&ad[2]==parseInt("07",16)&&ad[3]==parseInt("08",16)){ag=d();ag|=(d()<<8);ag|=(d()<<16);ag|=(d()<<24)}else{ag=ad[0]|(ad[1]<<8)|(ad[2]<<16)|(ad[3]<<24)}ae=d();ae|=(d()<<8);ae|=(d()<<16);ae|=(d()<<24);ac=d();ac|=(d()<<8);ac|=(d()<<16);ac|=(d()<<24);if(B){alert("CRC:")}}if(I){r()}ad[0]=d();if(ad[0]!=8){if(B){alert("Unknown compression method!")}return 0}y=d();if(B){if((y&~(parseInt("1f",16)))){alert("Unknown flags set!")}}d();d();d();d();d();af=d();if((y&4)){ad[0]=d();ad[2]=d();w=ad[0]+256*ad[1];if(B){alert("Extra field size: "+w)}for(ab=0;ab<w;ab++){d()}}if((y&8)){ab=0;f=[];while(ah=d()){if(ah=="7"||ah==":"){ab=0}if(ab<X-1){f[ab++]=ah}}if(B){alert("original file name: "+f)}}if((y&16)){while(ah=d()){}}if((y&2)){d();d()}aa();ag=d();ag|=(d()<<8);ag|=(d()<<16);ag|=(d()<<24);ac=d();ac|=(d()<<8);ac|=(d()<<16);ac|=(d()<<24);if(I){r()}}};JXG.Util.Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(c){var a=[],k,h,f,j,g,e,d,b=0;c=JXG.Util.Base64._utf8_encode(c);while(b<c.length){k=c.charCodeAt(b++);h=c.charCodeAt(b++);f=c.charCodeAt(b++);j=k>>2;g=((k&3)<<4)|(h>>4);e=((h&15)<<2)|(f>>6);d=f&63;if(isNaN(h)){e=d=64}else{if(isNaN(f)){d=64}}a.push([this._keyStr.charAt(j),this._keyStr.charAt(g),this._keyStr.charAt(e),this._keyStr.charAt(d)].join(""))}return a.join("")},decode:function(d,c){var a=[],l,j,g,k,h,f,e,b=0;d=d.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(b<d.length){k=this._keyStr.indexOf(d.charAt(b++));h=this._keyStr.indexOf(d.charAt(b++));f=this._keyStr.indexOf(d.charAt(b++));e=this._keyStr.indexOf(d.charAt(b++));l=(k<<2)|(h>>4);j=((h&15)<<4)|(f>>2);g=((f&3)<<6)|e;a.push(String.fromCharCode(l));if(f!=64){a.push(String.fromCharCode(j))}if(e!=64){a.push(String.fromCharCode(g))}}a=a.join("");if(c){a=JXG.Util.Base64._utf8_decode(a)}return a},_utf8_encode:function(b){b=b.replace(/\r\n/g,"\n");var a="";for(var e=0;e<b.length;e++){var d=b.charCodeAt(e);if(d<128){a+=String.fromCharCode(d)}else{if((d>127)&&(d<2048)){a+=String.fromCharCode((d>>6)|192);a+=String.fromCharCode((d&63)|128)}else{a+=String.fromCharCode((d>>12)|224);a+=String.fromCharCode(((d>>6)&63)|128);a+=String.fromCharCode((d&63)|128)}}}return a},_utf8_decode:function(a){var d=[],f=0,g=0,e=0,b=0;while(f<a.length){g=a.charCodeAt(f);if(g<128){d.push(String.fromCharCode(g));f++}else{if((g>191)&&(g<224)){e=a.charCodeAt(f+1);d.push(String.fromCharCode(((g&31)<<6)|(e&63)));f+=2}else{e=a.charCodeAt(f+1);b=a.charCodeAt(f+2);d.push(String.fromCharCode(((g&15)<<12)|((e&63)<<6)|(b&63)));f+=3}}}return d.join("")},_destrip:function(f,d){var b=[],e,c,a=[];if(d==null){d=76}f.replace(/ /g,"");e=f.length/d;for(c=0;c<e;c++){b[c]=f.substr(c*d,d)}if(e!=f.length/d){b[b.length]=f.substr(e*d,f.length-(e*d))}for(c=0;c<b.length;c++){a.push(b[c])}return a.join("\n")},decodeAsArray:function(b){var d=this.decode(b),a=[],c;for(c=0;c<d.length;c++){a[c]=d.charCodeAt(c)}return a},decodeGEONExT:function(a){return decodeAsArray(destrip(a),false)}};JXG.Util.asciiCharCodeAt=function(b,a){var d=b.charCodeAt(a);if(d>255){switch(d){case 8364:d=128;break;case 8218:d=130;break;case 402:d=131;break;case 8222:d=132;break;case 8230:d=133;break;case 8224:d=134;break;case 8225:d=135;break;case 710:d=136;break;case 8240:d=137;break;case 352:d=138;break;case 8249:d=139;break;case 338:d=140;break;case 381:d=142;break;case 8216:d=145;break;case 8217:d=146;break;case 8220:d=147;break;case 8221:d=148;break;case 8226:d=149;break;case 8211:d=150;break;case 8212:d=151;break;case 732:d=152;break;case 8482:d=153;break;case 353:d=154;break;case 8250:d=155;break;case 339:d=156;break;case 382:d=158;break;case 376:d=159;break;default:break}}return d};JXG.Util.utf8Decode=function(a){var d=[];var f=0;var h=0,g=0,e=0,b;if(!JXG.exists(a)){return""}while(f<a.length){h=a.charCodeAt(f);if(h<128){d.push(String.fromCharCode(h));f++}else{if((h>191)&&(h<224)){e=a.charCodeAt(f+1);d.push(String.fromCharCode(((h&31)<<6)|(e&63)));f+=2}else{e=a.charCodeAt(f+1);b=a.charCodeAt(f+2);d.push(String.fromCharCode(((h&15)<<12)|((e&63)<<6)|(b&63)));f+=3}}}return d.join("")};JXG.Util.genUUID=function(){var e="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(""),c=new Array(36),b=0,d;for(var a=0;a<36;a++){if(a==8||a==13||a==18||a==23){c[a]="-"}else{if(a==14){c[a]="4"}else{if(b<=2){b=33554432+(Math.random()*16777216)|0}d=b&15;b=b>>4;c[a]=e[(a==19)?(d&3)|8:d]}}}return c.join("")};
+(function(){var e,r,n;(function(t){function o(e,r){return y.call(e,r)}function i(e,r){var n,t,o,i,u,f,a,c,s,l,p=r&&r.split("/"),d=k.map,g=d&&d["*"]||{};if(e&&"."===e.charAt(0))if(r){for(p=p.slice(0,p.length-1),e=p.concat(e.split("/")),c=0;e.length>c;c+=1)if(l=e[c],"."===l)e.splice(c,1),c-=1;else if(".."===l){if(1===c&&(".."===e[2]||".."===e[0]))break;c>0&&(e.splice(c-1,2),c-=2)}e=e.join("/")}else 0===e.indexOf("./")&&(e=e.substring(2));if((p||g)&&d){for(n=e.split("/"),c=n.length;c>0;c-=1){if(t=n.slice(0,c).join("/"),p)for(s=p.length;s>0;s-=1)if(o=d[p.slice(0,s).join("/")],o&&(o=o[t])){i=o,u=c;break}if(i)break;!f&&g&&g[t]&&(f=g[t],a=c)}!i&&f&&(i=f,u=a),i&&(n.splice(0,u,i),e=n.join("/"))}return e}function u(e,r){return function(){return d.apply(t,v.call(arguments,0).concat([e,r]))}}function f(e){return function(r){return i(r,e)}}function a(e){return function(r){b[e]=r}}function c(e){if(o(m,e)){var r=m[e];delete m[e],C[e]=!0,p.apply(t,r)}if(!o(b,e)&&!o(C,e))throw Error("No "+e);return b[e]}function s(e){var r,n=e?e.indexOf("!"):-1;return n>-1&&(r=e.substring(0,n),e=e.substring(n+1,e.length)),[r,e]}function l(e){return function(){return k&&k.config&&k.config[e]||{}}}var p,d,g,h,b={},m={},k={},C={},y=Object.prototype.hasOwnProperty,v=[].slice;g=function(e,r){var n,t=s(e),o=t[0];return e=t[1],o&&(o=i(o,r),n=c(o)),o?e=n&&n.normalize?n.normalize(e,f(r)):i(e,r):(e=i(e,r),t=s(e),o=t[0],e=t[1],o&&(n=c(o))),{f:o?o+"!"+e:e,n:e,pr:o,p:n}},h={require:function(e){return u(e)},exports:function(e){var r=b[e];return r!==void 0?r:b[e]={}},module:function(e){return{id:e,uri:"",exports:b[e],config:l(e)}}},p=function(e,r,n,i){var f,s,l,p,d,k,y=[];if(i=i||e,"function"==typeof n){for(r=!r.length&&n.length?["require","exports","module"]:r,d=0;r.length>d;d+=1)if(p=g(r[d],i),s=p.f,"require"===s)y[d]=h.require(e);else if("exports"===s)y[d]=h.exports(e),k=!0;else if("module"===s)f=y[d]=h.module(e);else if(o(b,s)||o(m,s)||o(C,s))y[d]=c(s);else{if(!p.p)throw Error(e+" missing "+s);p.p.load(p.n,u(i,!0),a(s),{}),y[d]=b[s]}l=n.apply(b[e],y),e&&(f&&f.exports!==t&&f.exports!==b[e]?b[e]=f.exports:l===t&&k||(b[e]=l))}else e&&(b[e]=n)},e=r=d=function(e,r,n,o,i){return"string"==typeof e?h[e]?h[e](r):c(g(e,r).f):(e.splice||(k=e,r.splice?(e=r,r=n,n=null):e=t),r=r||function(){},"function"==typeof n&&(n=o,o=i),o?p(t,e,r,n):setTimeout(function(){p(t,e,r,n)},4),d)},d.config=function(e){return k=e,k.deps&&d(k.deps,k.callback),d},n=function(e,r,n){r.splice||(n=r,r=[]),o(b,e)||o(m,e)||(m[e]=[e,r,n])},n.amd={jQuery:!0}})(),n("../node_modules/almond/almond",function(){}),n("jxg",[],function(){var e={};return"object"!=typeof JXG||JXG.extend||(e=JXG),e.extend=function(e,r,n,t){var o,i;n=n||!1,t=t||!1;for(o in r)(!n||n&&r.hasOwnProperty(o))&&(i=t?o.toLowerCase():o,e[i]=r[o])},e.extend(e,{boards:{},readers:{},elements:{},registerElement:function(e,r){e=e.toLowerCase(),this.elements[e]=r},registerReader:function(e,r){var n,t;for(n=0;r.length>n;n++)t=r[n].toLowerCase(),"function"!=typeof this.readers[t]&&(this.readers[t]=e)},shortcut:function(e,r){return function(){return e[r].apply(this,arguments)}},getRef:function(e,r){return e.select(r)},getReference:function(e,r){return e.select(r)},debugInt:function(){var e,r;for(e=0;arguments.length>e;e++)r=arguments[e],"object"==typeof window&&window.console&&console.log?console.log(r):"object"==typeof document&&document.getElementById("debug")&&(document.getElementById("debug").innerHTML+=r+"<br/>")},debugWST:function(){var r=Error();e.debugInt.apply(this,arguments),r&&r.stack&&(e.debugInt("stacktrace"),e.debugInt(r.stack.split("\n").slice(1).join("\n")))},debugLine:function(){var r=Error();e.debugInt.apply(this,arguments),r&&r.stack&&e.debugInt("Called from",r.stack.split("\n").slice(2,3).join("\n"))},debug:function(){e.debugInt.apply(this,arguments)}}),e}),n("utils/zip",["jxg"],function(e){var r=[0,128,64,192,32,160,96,224,16,144,80,208,48,176,112,240,8,136,72,200,40,168,104,232,24,152,88,216,56,184,120,248,4,132,68,196,36,164,100,228,20,148,84,212,52,180,116,244,12,140,76,204,44,172,108,236,28,156,92,220,60,188,124,252,2,130,66,194,34,162,98,226,18,146,82,210,50,178,114,242,10,138,74,202,42,170,106,234,26,154,90,218,58,186,122,250,6,134,70,198,38,166,102,230,22,150,86,214,54,182,118,246,14,142,78,206,46,174,110,238,30,158,94,222,62,190,126,254,1,129,65,193,33,161,97,225,17,145,81,209,49,177,113,241,9,137,73,201,41,169,105,233,25,153,89,217,57,185,121,249,5,133,69,197,37,165,101,229,21,149,85,213,53,181,117,245,13,141,77,205,45,173,109,237,29,157,93,221,61,189,125,253,3,131,67,195,35,163,99,227,19,147,83,211,51,179,115,243,11,139,75,203,43,171,107,235,27,155,91,219,59,187,123,251,7,135,71,199,39,167,103,231,23,151,87,215,55,183,119,247,15,143,79,207,47,175,111,239,31,159,95,223,63,191,127,255],n=[3,4,5,6,7,8,9,10,11,13,15,17,19,23,27,31,35,43,51,59,67,83,99,115,131,163,195,227,258,0,0],t=[0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0,99,99],o=[1,2,3,4,5,7,9,13,17,25,33,49,65,97,129,193,257,385,513,769,1025,1537,2049,3073,4097,6145,8193,12289,16385,24577],i=[0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13],u=[16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15],f=256;return e.Util=e.Util||{},e.Util.Unzip=function(a){function c(){return q+=8,N>R?a[R++]:-1}function s(){T=1}function l(){var e;return q++,e=1&T,T>>=1,0===T&&(T=c(),e=1&T,T=128|T>>1),e}function p(e){for(var n=0,t=e;t--;)n=n<<1|l();return e&&(n=r[n]>>8-e),n}function d(){L=0}function g(e){A++,E[L++]=e,z.push(String.fromCharCode(e)),32768===L&&(L=0)}function h(){this.b0=0,this.b1=0,this.jump=null,this.jumppos=-1}function b(){for(;;){if(H[P]>=w)return-1;if(U[H[P]]===P)return H[P]++;H[P]++}}function m(){var e,r=F[X];if(17===P)return-1;if(X++,P++,e=b(),e>=0)r.b0=e;else if(r.b0=32768,m())return-1;if(e=b(),e>=0)r.b1=e,r.jump=null;else if(r.b1=32768,r.jump=F[X],r.jumppos=X,m())return-1;return P--,0}function k(e,r,n){var t;for(F=e,X=0,U=n,w=r,t=0;17>t;t++)H[t]=0;return P=0,m()?-1:0}function C(e){for(var r,n,t,o=0,i=e[o];;)if(t=l()){if(!(32768&i.b1))return i.b1;for(i=i.jump,r=e.length,n=0;r>n;n++)if(e[n]===i){o=n;break}}else{if(!(32768&i.b0))return i.b0;o++,i=e[o]}}function y(){var f,a,b,m,y,v,j,A,x,U,w,S,z,I,O,B,N;do if(f=l(),b=p(2),0===b)for(s(),U=c(),U|=c()<<8,S=c(),S|=c()<<8,65535&(U^~S)&&e.debug("BlockLen checksum mismatch\n");U--;)a=c(),g(a);else if(1===b)for(;;)if(y=r[p(7)]>>1,y>23?(y=y<<1|l(),y>199?(y-=128,y=y<<1|l()):(y-=48,y>143&&(y+=136))):y+=256,256>y)g(y);else{if(256===y)break;for(y-=257,x=p(t[y])+n[y],y=r[p(5)]>>3,i[y]>8?(w=p(8),w|=p(i[y]-8)<<8):w=p(i[y]),w+=o[y],y=0;x>y;y++)a=E[32767&L-w],g(a)}else if(2===b){for(j=Array(320),I=257+p(5),O=1+p(5),B=4+p(4),y=0;19>y;y++)j[y]=0;for(y=0;B>y;y++)j[u[y]]=p(3);for(x=J.length,m=0;x>m;m++)J[m]=new h;if(k(J,19,j,0))return d(),1;for(z=I+O,m=0,N=-1;z>m;)if(N++,y=C(J),16>y)j[m++]=y;else if(16===y){if(y=3+p(2),m+y>z)return d(),1;for(v=m?j[m-1]:0;y--;)j[m++]=v}else{if(y=17===y?3+p(3):11+p(7),m+y>z)return d(),1;for(;y--;)j[m++]=0}for(x=G.length,m=0;x>m;m++)G[m]=new h;if(k(G,I,j,0))return d(),1;for(x=G.length,m=0;x>m;m++)J[m]=new h;for(A=[],m=I;j.length>m;m++)A[m-I]=j[m];if(k(J,O,A,0))return d(),1;for(;;)if(y=C(G),y>=256){if(y-=256,0===y)break;for(y-=1,x=p(t[y])+n[y],y=C(J),i[y]>8?(w=p(8),w|=p(i[y]-8)<<8):w=p(i[y]),w+=o[y];x--;)a=E[32767&L-w],g(a)}else g(y)}while(!f);return d(),s(),0}function v(){var e,r,n,t,o,i,u,a,s=[];if(z=[],B=!1,s[0]=c(),s[1]=c(),120===s[0]&&218===s[1]&&(y(),O[I]=[z.join(""),"geonext.gxt"],I++),31===s[0]&&139===s[1]&&(S(),O[I]=[z.join(""),"file"],I++),80===s[0]&&75===s[1]&&(B=!0,s[2]=c(),s[3]=c(),3===s[2]&&4===s[3])){for(s[0]=c(),s[1]=c(),j=c(),j|=c()<<8,a=c(),a|=c()<<8,c(),c(),c(),c(),u=c(),u|=c()<<8,u|=c()<<16,u|=c()<<24,i=c(),i|=c()<<8,i|=c()<<16,i|=c()<<24,o=c(),o|=c()<<8,o|=c()<<16,o|=c()<<24,t=c(),t|=c()<<8,n=c(),n|=c()<<8,e=0,M=[];t--;)r=c(),"/"===r|":"===r?e=0:f-1>e&&(M[e++]=String.fromCharCode(r));for(x||(x=M),e=0;n>e;)r=c(),e++;A=0,8===a&&(y(),O[I]=Array(2),O[I][0]=z.join(""),O[I][1]=M.join(""),I++),S()}}var j,A,x,U,w,S,z=[],I=0,O=[],E=Array(32768),L=0,B=!1,N=a.length,R=0,T=1,q=0,G=Array(288),J=Array(32),X=0,F=null,P=(Array(64),Array(64),0),H=Array(17),M=[];H[0]=0,S=function(){var e,r,n,t,o,i,u=[];if(8&j&&(u[0]=c(),u[1]=c(),u[2]=c(),u[3]=c(),80===u[0]&&75===u[1]&&7===u[2]&&8===u[3]?(e=c(),e|=c()<<8,e|=c()<<16,e|=c()<<24):e=u[0]|u[1]<<8|u[2]<<16|u[3]<<24,r=c(),r|=c()<<8,r|=c()<<16,r|=c()<<24,n=c(),n|=c()<<8,n|=c()<<16,n|=c()<<24),B&&v(),u[0]=c(),8===u[0]){if(j=c(),c(),c(),c(),c(),c(),t=c(),4&j)for(u[0]=c(),u[2]=c(),P=u[0]+256*u[1],o=0;P>o;o++)c();if(8&j)for(o=0,M=[],i=c();i;)("7"===i||":"===i)&&(o=0),f-1>o&&(M[o++]=i),i=c();if(16&j)for(i=c();i;)i=c();2&j&&(c(),c()),y(),e=c(),e|=c()<<8,e|=c()<<16,e|=c()<<24,n=c(),n|=c()<<8,n|=c()<<16,n|=c()<<24,B&&v()}},e.Util.Unzip.prototype.unzipFile=function(e){var r;for(this.unzip(),r=0;O.length>r;r++)if(O[r][1]===e)return O[r][0];return""},e.Util.Unzip.prototype.unzip=function(){return v(),O}},e.Util}),n("utils/encoding",["jxg"],function(e){var r=0,n=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,8,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,10,3,3,3,3,3,3,3,3,3,3,3,3,4,3,3,11,6,6,6,5,8,8,8,8,8,8,8,8,8,8,8,0,12,24,36,60,96,84,12,12,12,48,72,12,12,12,12,12,12,12,12,12,12,12,12,12,0,12,12,12,12,12,0,12,0,12,12,12,24,12,12,12,12,12,24,12,24,12,12,12,12,12,12,12,12,12,24,12,12,12,12,12,24,12,12,12,12,12,12,12,24,12,12,12,12,12,12,12,12,12,36,12,36,12,12,12,36,12,12,12,12,12,36,12,36,12,12,12,36,12,12,12,12,12,12,12,12,12,12];return e.Util=e.Util||{},e.Util.UTF8={encode:function(e){var r,n,t="",o=e.length;if(e=e.replace(/\r\n/g,"\n"),"function"==typeof unescape&&"function"==typeof encodeURIComponent)return unescape(encodeURIComponent(e));for(r=0;o>r;r++)n=e.charCodeAt(r),128>n?t+=String.fromCharCode(n):n>127&&2048>n?(t+=String.fromCharCode(192|n>>6),t+=String.fromCharCode(128|63&n)):(t+=String.fromCharCode(224|n>>12),t+=String.fromCharCode(128|63&n>>6),t+=String.fromCharCode(128|63&n));return t},decode:function(e){var t,o,i,u=0,f=0,a=r,c=[],s=e.length,l=[];for(t=0;s>t;t++)o=e.charCodeAt(t),i=n[o],f=a!==r?63&o|f<<6:255>>i&o,a=n[256+a+i],a===r&&(f>65535?c.push(55232+(f>>10),56320+(1023&f)):c.push(f),u++,0===u%1e4&&(l.push(String.fromCharCode.apply(null,c)),c=[]));return l.push(String.fromCharCode.apply(null,c)),l.join("")},asciiCharCodeAt:function(e,r){var n=e.charCodeAt(r);if(n>255)switch(n){case 8364:n=128;break;case 8218:n=130;break;case 402:n=131;break;case 8222:n=132;break;case 8230:n=133;break;case 8224:n=134;break;case 8225:n=135;break;case 710:n=136;break;case 8240:n=137;break;case 352:n=138;break;case 8249:n=139;break;case 338:n=140;break;case 381:n=142;break;case 8216:n=145;break;case 8217:n=146;break;case 8220:n=147;break;case 8221:n=148;break;case 8226:n=149;break;case 8211:n=150;break;case 8212:n=151;break;case 732:n=152;break;case 8482:n=153;break;case 353:n=154;break;case 8250:n=155;break;case 339:n=156;break;case 382:n=158;break;case 376:n=159;break;default:}return n}},e.Util.UTF8}),n("utils/base64",["jxg","utils/encoding"],function(e,r){var n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";return e.Util=e.Util||{},e.Util.Base64={encode:function(e){var t,o,i,u,f,a,c,s=[],l=0;for(e=r.encode(e);e.length>l;)t=e.charCodeAt(l++),o=e.charCodeAt(l++),i=e.charCodeAt(l++),u=t>>2,f=(3&t)<<4|o>>4,a=(15&o)<<2|i>>6,c=63&i,isNaN(o)?a=c=64:isNaN(i)&&(c=64),s.push([n.charAt(u),n.charAt(f),n.charAt(a),n.charAt(c)].join(""));return s.join("")},decode:function(e,t){var o,i,u,f,a,c,s,l=[],p=0,d=e.length;for(e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");d>p;)f=n.indexOf(e.charAt(p++)),a=n.indexOf(e.charAt(p++)),c=n.indexOf(e.charAt(p++)),s=n.indexOf(e.charAt(p++)),o=f<<2|a>>4,i=(15&a)<<4|c>>2,u=(3&c)<<6|s,l.push(String.fromCharCode(o)),64!==c&&l.push(String.fromCharCode(i)),64!==s&&l.push(String.fromCharCode(u));return l=l.join(""),t&&(l=r.decode(l)),l},decodeAsArray:function(e){var r,n=this.decode(e),t=[],o=n.length;for(r=0;o>r;r++)t[r]=n.charCodeAt(r);return t}},e.Util.Base64}),n("../build/compressor.deps.js",["jxg","utils/zip","utils/base64"],function(e,r,n){return e.decompress=function(e){return unescape(new r.Unzip(n.decodeAsArray(e)).unzip()[0][0])},e}),window.JXG=r("../build/compressor.deps.js")})();
 </script>
 <script type="text/javascript">
 window.fileLoading = (function () {
-
     var fileLoadingCallbacks = {};
-
     var timestamp = new Date().getTime();
-
     function loadKeywordsFile(filename, callback) {
         fileLoadingCallbacks[filename] = callback;
         var script = document.createElement('script');
@@ -649,7 +647,6 @@ window.fileLoading = (function () {
         script.src = filename+'?time='+timestamp;
         document.getElementsByTagName("head")[0].appendChild(script);
     }
-
     function getCallbackHandlerForKeywords(parent) {
         var callableList = [];
         return function (callable) {
@@ -668,11 +665,9 @@ window.fileLoading = (function () {
             }
         }
     }
-
     function notifyFileLoaded(filename) {
         fileLoadingCallbacks[filename]();
     }
-
     return {
         getCallbackHandlerForKeywords: getCallbackHandlerForKeywords,
         notify: notifyFileLoaded
@@ -681,7 +676,6 @@ window.fileLoading = (function () {
 </script>
 <script type="text/javascript">
 window.model = (function () {
-
     function Suite(data) {
         var suite = createModelObject(data);
         suite.source = data.source;
@@ -727,12 +721,10 @@ window.model = (function () {
         };
         return suite;
     }
-
     function containsTag(testTags, tagname) {
         testTags = util.map(testTags, util.normalize);
         return util.contains(testTags, util.normalize(tagname));
     }
-
     function containsTagPattern(testTags, pattern) {
         if (pattern.indexOf('NOT') != -1) {
             var tagnames = pattern.split('NOT');
@@ -752,7 +744,6 @@ window.model = (function () {
         testTags = util.map(testTags, util.normalize);
         return util.any(util.map(testTags, util.Matcher(pattern).matches));
     }
-
     function findSuiteByName(suite, name) {
         if (suite.fullName == name)
             return suite;
@@ -764,13 +755,11 @@ window.model = (function () {
         }
         return null;
     }
-
     function setStats(suite, stats) {
         for (var name in stats) {
             suite[name] = stats[name];
         }
     }
-
     function createModelObject(data) {
         return {
             name: data.name,
@@ -780,7 +769,6 @@ window.model = (function () {
             id: data.parent ? data.parent.id + '-' + data.id : data.id
         };
     }
-
     function Test(data) {
         var test = createModelObject(data);
         test.fullName = data.parent.fullName + '.' + test.name;
@@ -799,7 +787,6 @@ window.model = (function () {
         test.message = data.message;
         return test;
     }
-
     function Keyword(data) {
         var kw = createModelObject(data);
         kw.type = data.type;
@@ -816,7 +803,6 @@ window.model = (function () {
         };
         return kw;
     }
-
     function Message(level, date, text, link) {
         return {
             level: level,
@@ -826,7 +812,6 @@ window.model = (function () {
             link: link
         };
     }
-
     function Times(timedata) {
         var start = timedata[0];
         var end = timedata[1];
@@ -838,18 +823,15 @@ window.model = (function () {
             endTime:  util.dateTimeFromDate(end)
         };
     }
-
     function createIterablePopulator(name) {
         return function (populator) {
             populateIterable(this, name, populator);
         };
     }
-
     function populateIterable(obj, name, populator) {
         name = name.toLowerCase() + 's';
         obj[name] = createGetAllFunction(populator.numberOfItems, populator.creator);
     }
-
     function createGetAllFunction(numberOfElements, creator) {
         var cached = null;
         return function () {
@@ -862,7 +844,6 @@ window.model = (function () {
             return cached;
         };
     }
-
     return {
         Suite: Suite,
         Test: Test,
@@ -873,15 +854,12 @@ window.model = (function () {
         containsTagPattern: containsTagPattern  // Exposed for tests
     };
 }());
-
 window.stats = (function () {
-
     function Statistics(totalElems, tagElems, suiteElems) {
         return {total: util.map(totalElems, totalStatElem),
                 tag:   util.map(tagElems, tagStatElem),
                 suite: util.map(suiteElems, suiteStatElem)};
     }
-
     function statElem(stat) {
         stat.total = stat.pass + stat.fail;
         var percents = calculatePercents(stat.total, stat.pass, stat.fail);
@@ -892,19 +870,16 @@ window.stats = (function () {
         stat.failWidth = widths[1];
         return stat;
     }
-
     function totalStatElem(data) {
         var stat = statElem(data);
         stat.type = stat.label == 'Critical Tests' ? 'critical' : 'all';
         return stat;
     }
-
     function tagStatElem(data) {
         var stat = statElem(data);
         stat.links = parseLinks(stat.links);
         return stat;
     }
-
     function suiteStatElem(data) {
         var stat = statElem(data);
         stat.fullName = stat.label;
@@ -914,7 +889,6 @@ window.stats = (function () {
             stat.name = stat.label.split('.').pop();
         return stat;
     }
-
     function parseLinks(linksData) {
         if (!linksData)
             return [];
@@ -923,7 +897,6 @@ window.stats = (function () {
                 return {title: link.slice(0, index), url: link.slice(index+1)};
             });
     }
-
     function calculatePercents(total, passed, failed) {
         if (total == 0)
             return [0.0, 0.0];
@@ -935,7 +908,6 @@ window.stats = (function () {
             return [99.9, 0.1];
         return [Math.round(pass*10)/10, Math.round(fail*10)/10];
     }
-
     function calculateWidths(num1, num2) {
         if (num1 + num2 == 0)
             return [0.0, 0.0];
@@ -953,16 +925,13 @@ window.stats = (function () {
         }
         return [num1, num2];
     }
-
     return {
         Statistics: Statistics
     };
-
 }());
 </script>
 <script type="text/javascript">
 window.util = function () {
-
     function map(elems, func) {
         var ret = [];
         for (var i = 0, len = elems.length; i < len; i++) {
@@ -970,7 +939,6 @@ window.util = function () {
         }
         return ret;
     }
-
     function filter(elems, predicate) {
         var ret = [];
         for (var i = 0, len = elems.length; i < len; i++) {
@@ -979,7 +947,6 @@ window.util = function () {
         }
         return ret;
     }
-
     function all(elems) {
         for (var i = 0, len = elems.length; i < len; i++) {
             if (!elems[i])
@@ -987,7 +954,6 @@ window.util = function () {
         }
         return true;
     }
-
     function any(elems) {
         for (var i = 0, len = elems.length; i < len; i++) {
             if (elems[i])
@@ -995,7 +961,6 @@ window.util = function () {
         }
         return false;
     }
-
     function contains(elems, e) {
         for (var i = 0, len = elems.length; i < len; i++) {
             if (elems[i] == e)
@@ -1003,23 +968,18 @@ window.util = function () {
         }
         return false;
     }
-
     function last(items) {
         return items[items.length-1];
     }
-
     function unescape(string) {
         return string.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
     }
-
     function normalize(string) {
         return string.toLowerCase().replace(/ /g, '').replace(/_/g, '');
     }
-
     function regexpEscape(string) {
         return string.replace(/[-[\]{}()+?*.,\\^$|#]/g, "\\$&");
     }
-
     function Matcher(pattern) {
         pattern = regexpEscape(normalize(pattern));
         var rePattern = '^' + pattern.replace(/\\\?/g, ".").replace(/\\\*/g, ".*") + '$';
@@ -1028,19 +988,16 @@ window.util = function () {
             matches: function (string) { return regexp.test(string); }
         }
     }
-
     function formatParentName(item) {
         var parentName = item.fullName.slice(0, item.fullName.length - item.name.length);
         return parentName.replace(/\./g, ' . ');
     }
-
     function timeFromDate(date) {
         if (!date)
             return 'N/A';
         return formatTime(date.getHours(), date.getMinutes(),
                           date.getSeconds(), date.getMilliseconds());
     }
-
     function dateFromDate(date) {
         if (!date)
             return 'N/A';
@@ -1048,20 +1005,17 @@ window.util = function () {
                padTo(date.getMonth() + 1, 2) +
                padTo(date.getDate(), 2);
     }
-
     function dateTimeFromDate(date) {
         if (!date)
             return 'N/A';
         return dateFromDate(date) + ' ' + timeFromDate(date);
     }
-
     function formatTime(hours, minutes, seconds, milliseconds) {
         return padTo(hours, 2) + ':' +
                padTo(minutes, 2) + ':' +
                padTo(seconds, 2) + '.' +
                padTo(milliseconds, 3);
     }
-
     function formatElapsed(elapsed) {
         var millis = elapsed;
         var hours = Math.floor(millis / (60 * 60 * 1000));
@@ -1072,19 +1026,16 @@ window.util = function () {
         millis -= seconds * 1000;
         return formatTime(hours, minutes, seconds, millis);
     }
-
     function padTo(number, len) {
         var numString = number + "";
         while (numString.length < len) numString = "0" + numString;
         return numString;
     }
-
     function timestamp(millis) {
         // used also by tools that do not set window.output.baseMillis
         var base = window.output ? window.output.baseMillis : 0;
         return new Date(base + millis);
     }
-
     function createGeneratedAgoString(generatedMillis) {
         generatedMillis = timestamp(generatedMillis);
         function timeString(time, shortUnit) {
@@ -1124,7 +1075,6 @@ window.util = function () {
             return prefix + timeString(secs, 's');
         }
     }
-
     return {
         map: map,
         filter: filter,
@@ -1147,26 +1097,22 @@ window.util = function () {
 </script>
 <script type="text/javascript">
 window.testdata = function () {
-
     var elementsById = {};
     var idCounter = 0;
     var _statistics = null;
     var LEVELS = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'FAIL', 'ERROR'];
     var STATUSES = ['FAIL', 'PASS', 'NOT_RUN'];
     var KEYWORDS = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'VAR'];
-
     function addElement(elem) {
         if (!elem.id)
             elem.id = uniqueId();
         elementsById[elem.id] = elem;
         return elem;
     }
-
     function uniqueId() {
         idCounter++;
         return 'element-id-' + idCounter;
     }
-
     function times(stats) {
         var startMillis = stats[1];
         var elapsed = stats[2];
@@ -1176,24 +1122,20 @@ window.testdata = function () {
                 util.timestamp(startMillis + elapsed),
                 elapsed];
     }
-
     function message(element, strings) {
         return addElement(model.Message(LEVELS[element[1]],
                                         util.timestamp(element[0]),
                                         strings.get(element[2]),
                                         strings.get(element[3])));
     }
-
     function parseStatus(stats) {
         return STATUSES[stats[0]];
     }
-
     function childCreator(parent, childType) {
         return function (elem, strings, index) {
             return addElement(childType(parent, elem, strings, index));
         };
     }
-
     function createKeyword(parent, element, strings, index) {
         var kw = model.Keyword({
             parent: parent,
@@ -1215,7 +1157,6 @@ window.testdata = function () {
         kw.populateMessages(Populator(element[7], strings, message));
         return kw;
     }
-
     function lazyPopulateKeywordsFromFile(parent, keywordsOrIndex, strings) {
         if (parent.isChildrenLoaded) {
             var keywords = keywordsOrIndex;
@@ -1226,11 +1167,9 @@ window.testdata = function () {
             parent.populateKeywords(SplitLogPopulator(keywordsOrIndex, childCreator(parent, createKeyword)));
         }
     }
-
     function tags(taglist, strings) {
         return util.map(taglist, strings.get);
     }
-
     function createTest(parent, element, strings, index) {
         var statusElement = element[5];
         var test = model.Test({
@@ -1257,11 +1196,9 @@ window.testdata = function () {
         lazyPopulateKeywordsFromFile(test, element[6], strings);
         return test;
     }
-
     function createMessage(statusElement, strings) {
         return statusElement.length == 4 ? strings.get(statusElement[3]) : '';
     }
-
     function createSuite(parent, element, strings, index) {
         var statusElement = element[5];
         var suite = model.Suite({
@@ -1290,7 +1227,6 @@ window.testdata = function () {
         suite.populateSuites(Populator(element[6], strings, childCreator(suite, createSuite)));
         return suite;
     }
-
     function parseMetadata(data, strings) {
         var metadata = [];
         for (var i=0; i<data.length; i+=2) {
@@ -1298,7 +1234,6 @@ window.testdata = function () {
         }
         return metadata;
     }
-
     function suiteStats(stats) {
         return {
             total: stats[0],
@@ -1309,7 +1244,6 @@ window.testdata = function () {
             criticalFailed: stats[2] - stats[3]
         };
     }
-
     function Populator(items, strings, creator) {
         return {
             numberOfItems: function () {
@@ -1320,7 +1254,6 @@ window.testdata = function () {
             }
         };
     }
-
     function SplitLogPopulator(structureIndex, creator) {
         return {
             numberOfItems: function () {
@@ -1333,7 +1266,6 @@ window.testdata = function () {
             }
         };
     }
-
     function suite() {
         var elem = window.output.suite;
         if (elementsById[elem.id])
@@ -1342,18 +1274,15 @@ window.testdata = function () {
         window.output.suite = root;
         return root;
     }
-
     function findLoaded(id) {
         return elementsById[id];
     }
-
     function ensureLoaded(id, callback) {
         var ids = id.split('-');
         var root = suite();
         ids.shift();
         loadItems(ids, root, [root.id], callback);
     }
-
     function loadItems(ids, current, result, callback) {
         if (!ids.length) {
             callback(result);
@@ -1368,7 +1297,6 @@ window.testdata = function () {
             loadItems(ids, item, result, callback);
         });
     }
-
     function selectFrom(element, type, index) {
         if (type === 'k') {
             return element.keywords()[index];
@@ -1378,7 +1306,6 @@ window.testdata = function () {
             return element.suites()[index];
         }
     }
-
     function errorIterator() {
         return {
             next: function () {
@@ -1390,7 +1317,6 @@ window.testdata = function () {
             }
         };
     }
-
     function statistics() {
         if (!_statistics) {
             var statData = window.output.stats;
@@ -1398,9 +1324,7 @@ window.testdata = function () {
         }
         return _statistics;
     }
-
     function StringStore(strings) {
-
         function getText(id) {
             var text = strings[id];
             if (!text)
@@ -1411,21 +1335,17 @@ window.testdata = function () {
             strings[id] = '*' + extracted;
             return extracted;
         }
-
         function extract(text) {
             var decoded = JXG.Util.Base64.decodeAsArray(text);
             var extracted = (new JXG.Util.Unzip(decoded)).unzip()[0][0];
-            return JXG.Util.utf8Decode(extracted);
+            return JXG.Util.UTF8.decode(extracted);
         }
-
         function get(id) {
             if (id === null) return null;
             return getText(id);
         }
-
         return {get: get};
     }
-
     return {
         suite: suite,
         errorIterator: errorIterator,
@@ -1435,7 +1355,6 @@ window.testdata = function () {
         StringStore: StringStore,  // exposed for tests
         LEVELS: LEVELS
     };
-
 }();
 </script>
 <script type="text/javascript">
@@ -1443,30 +1362,27 @@ function removeJavaScriptDisabledWarning() {
     // Not using jQuery here for maximum speed
     document.getElementById('javascript-disabled').style.display = 'none';
 }
-
-function addJavaScriptDisabledWarning() {
+function addJavaScriptDisabledWarning(error) {
+    if (window.console)
+        console.error('Opening failed: ' + error.name + ': ' + error.message);
     document.getElementById('javascript-disabled').style.display = 'block';
 }
-
 function initLayout(suiteName, type) {
     parseTemplates();
     setTitle(suiteName, type);
     addHeader();
     addReportOrLogLink(type);
 }
-
 function parseTemplates() {
     $('script[type="text/x-jquery-tmpl"]').map(function (idx, elem) {
         $.template(elem.id, elem.text);
     });
 }
-
 function setTitle(suiteName, type) {
     var givenTitle = window.settings.title;
     var title = givenTitle ? givenTitle : suiteName + " Test " + type;
     document.title = util.unescape(title);
 }
-
 function addHeader() {
     $.tmpl('<h1>${title}</h1>' +
            '<div id="generated">' +
@@ -1481,7 +1397,6 @@ function addHeader() {
         title: document.title
     }).appendTo($('#header'));
 }
-
 function addReportOrLogLink(myType) {
     var url;
     var text;
@@ -1500,7 +1415,6 @@ function addReportOrLogLink(myType) {
         container.remove();
     }
 }
-
 function addStatistics() {
     var statHeaders =
         '<th class="stats-col-stat">Total</th>' +
@@ -1524,7 +1438,6 @@ function addStatistics() {
     addTooltipsToElapsedTimes();
     enableStatisticsSorter();
 }
-
 function addTooltipsToElapsedTimes() {
     $('.stats-col-elapsed').attr('title',
         'Total execution time of these test cases. ' +
@@ -1532,7 +1445,6 @@ function addTooltipsToElapsedTimes() {
     $('#suite-stats').find('.stats-col-elapsed').attr('title',
         'Total execution time of this test suite.');
 }
-
 function enableStatisticsSorter() {
     $.tablesorter.addParser({
         id: 'statName',
@@ -1552,7 +1464,6 @@ function enableStatisticsSorter() {
                   5: {sorter: false}}
     });
 }
-
 function addStatTable(tableName) {
     var stats = window.testdata.statistics()[tableName];
     if (tableName == 'tag' && stats.length == 0) {
@@ -1561,7 +1472,6 @@ function addStatTable(tableName) {
         renderStatTable(tableName, stats);
     }
 }
-
 function renderNoTagStatTable() {
     $('<tbody><tr class="row-0">' +
         '<td class="stats-col-name">No Tags</td>' +
@@ -1574,7 +1484,6 @@ function renderNoTagStatTable() {
         '</td>' +
       '</tr></tbody>').appendTo('#tag-stats');
 }
-
 function renderStatTable(tableName, stats) {
     var template = tableName + 'StatisticsRowTemplate';
     var tbody = $('<tbody></tbody>');
@@ -1583,7 +1492,6 @@ function renderStatTable(tableName, stats) {
     }
     tbody.appendTo('#' + tableName + '-stats');
 }
-
 $.template('statColumnsTemplate',
     '<td class="stats-col-stat">${total}</td>' +
     '<td class="stats-col-stat">${pass}</td>' +
@@ -1600,7 +1508,6 @@ $.template('statColumnsTemplate',
       '{{/if}}' +
     '</td>'
 );
-
 $.template('suiteStatusMessageTemplate',
     '${critical} critical test, ' +
     '${criticalPassed} passed, ' +
@@ -1609,7 +1516,6 @@ $.template('suiteStatusMessageTemplate',
     '${totalPassed} passed, ' +
     '<span class="{{if totalFailed}}fail{{else}}pass{{/if}}">${totalFailed} failed</span>'
 );
-
 // For complete cross-browser experience..
 // http://www.quirksmode.org/js/events_order.html
 function stopPropagation(event) {
@@ -1623,28 +1529,28 @@ function stopPropagation(event) {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[0,0,40914],[],[[4,0,1,0,[],[0,198,40711,5],[[1,6,0,0,0,[1,212,4843],[[0,7,0,8,9,[1,213,2453],[],[[213,2,10]]],[0,11,0,12,0,[1,2666,771],[[0,13,0,14,15,[1,2667,770],[[0,16,0,17,18,[1,2669,216],[],[[2670,2,19]]],[0,20,0,21,22,[1,2885,40],[],[[2925,2,23]]],[0,20,0,21,24,[1,2926,8],[],[[2934,2,25]]],[0,20,0,21,26,[1,2934,4],[],[[2938,2,27]]],[0,28,0,29,30,[1,2939,96],[[0,31,0,32,0,[1,2940,1],[],[[2941,2,33]]],[0,34,0,35,0,[1,2941,0],[],[[2942,2,36]]],[0,37,0,38,39,[1,2942,93],[[0,40,0,41,42,[1,2943,92],[[0,43,0,44,45,[1,2944,20],[],[]],[0,46,0,47,42,[1,2965,59],[],[[2965,2,48]]],[0,49,0,50,45,[1,3024,10],[],[[3034,2,51]]],[0,52,0,53,54,[1,3035,0],[],[[3035,2,55]]]],[]]],[]]],[]],[0,28,0,29,56,[1,3036,98],[[0,31,0,32,0,[1,3038,0],[],[[3038,2,33]]],[0,34,0,35,0,[1,3038,1],[],[[3039,2,36]]],[0,37,0,38,39,[1,3039,94],[[0,40,0,57,42,[1,3040,93],[[0,43,0,44,45,[1,3040,22],[],[]],[0,46,0,47,42,[1,3063,52],[],[[3063,2,58]]],[0,49,0,50,45,[1,3116,14],[],[[3130,2,59]]],[0,52,0,53,54,[1,3131,2],[],[[3132,2,55]]]],[]]],[]]],[]],[0,60,0,61,26,[1,3134,303],[],[[3135,2,62]]]],[]]],[]],[0,63,0,0,0,[1,3438,1403],[[0,64,0,0,65,[1,3439,1401],[[0,16,0,17,66,[1,3440,227],[],[[3441,2,67]]],[0,68,0,0,0,[1,3668,139],[[0,69,0,0,70,[1,3672,135],[[0,71,0,72,73,[1,3673,24],[],[[3673,2,74]]],[0,75,0,76,77,[1,3698,12],[],[[3699,2,78]]],[0,79,0,80,81,[1,3711,72],[],[[3711,2,82]]],[0,37,0,38,83,[1,3784,23],[[0,71,0,72,77,[1,3785,21],[],[[3786,2,84]]]],[]]],[]]],[]],[0,85,0,86,87,[1,3808,276],[[0,79,0,80,88,[1,3809,274],[],[[3810,2,89]]]],[[4084,2,90]]],[0,91,0,92,93,[1,4085,1],[],[]],[0,46,0,47,94,[1,4086,64],[],[[4086,2,95]]],[0,60,0,61,96,[1,4151,648],[],[[4152,2,97]]],[0,98,0,99,100,[1,4800,16],[],[[4816,2,101]]],[0,98,0,99,102,[1,4817,15],[],[[4832,2,103]]],[0,104,0,105,0,[1,4833,6],[],[[4840,2,106]]]],[]]],[]],[0,107,0,0,0,[1,4841,214],[[0,16,0,17,108,[1,4844,205],[],[[4845,2,109]]],[0,20,0,21,110,[1,5050,5],[],[[5055,2,111]]]],[]]],[]],[0,112,0,0,0,[1,5056,8],[[0,113,0,114,115,[1,5057,6],[],[[5062,2,116]]]],[]],[0,117,0,118,0,[1,5064,35832],[[0,119,0,120,121,[1,5066,1],[],[]],[0,122,0,123,0,[1,5067,35828],[],[]]],[]],[0,124,0,0,0,[0,40897,9],[[0,79,0,80,125,[0,40900,5],[[0,126,0,127,0,[0,40902,2],[],[[40904,4,128]]]],[[40901,2,129],[40904,3,131],[40905,4,132]]]],[]],[2,133,0,134,0,[0,40906,3,128],[[0,126,0,127,0,[0,40907,1],[],[[40908,4,128]]]],[[40908,3,131],[40909,4,128]]]]]],[],[1,0,1,0]];
+window.output["suite"] = [1,2,3,0,[],[1,0,56819],[],[[4,0,1,0,[],[1,99,10553],[[1,5,0,6,7,[1,100,3636],[],[[100,2,8]]],[0,9,0,10,11,[1,3736,1],[],[[3737,2,12]]],[0,13,0,0,0,[1,3737,4115],[[0,14,0,15,16,[1,3737,1194],[],[[3738,2,17]]],[0,18,0,19,20,[1,4932,17],[],[[4949,2,21]]],[0,18,0,19,22,[1,4950,16],[],[[4966,2,23]]],[0,18,0,19,24,[1,4966,17],[],[[4983,2,25]]],[0,26,0,27,16,[1,4984,35],[],[[5019,2,28]]],[0,29,0,0,0,[1,5019,343],[[0,30,0,31,32,[1,5021,82],[],[[5022,2,33]]],[0,30,0,31,34,[1,5103,95],[],[[5104,2,35]]],[0,30,0,31,36,[1,5198,101],[],[[5198,2,37]]],[0,30,0,31,38,[1,5300,62],[],[[5300,2,39]]]],[]],[0,14,0,15,40,[1,5362,79],[],[[5363,2,41]]],[0,42,0,0,0,[1,5441,282],[[0,30,0,31,43,[1,5442,60],[],[[5442,2,44]]],[0,30,0,31,45,[1,5503,75],[],[[5504,2,46]]],[0,30,0,31,47,[1,5578,80],[],[[5579,2,48]]],[0,30,0,31,49,[1,5658,64],[],[[5658,2,50]]]],[]],[0,14,0,15,22,[1,5723,110],[],[[5723,2,51]]],[0,52,0,0,0,[1,5834,491],[[0,30,0,31,53,[1,5834,66],[],[[5835,2,54]]],[0,30,0,31,55,[1,5901,101],[],[[5902,2,56]]],[0,30,0,31,57,[1,6002,80],[],[[6003,2,58]]],[0,30,0,31,59,[1,6082,91],[],[[6083,2,60]]],[0,30,0,31,61,[1,6173,72],[],[[6174,2,62]]],[0,30,0,31,63,[1,6245,79],[],[[6245,2,64]]]],[]],[0,65,0,66,16,[1,6325,1527],[],[[6325,2,67]]]],[]],[0,18,0,19,68,[1,7853,21],[],[[7874,2,69]]],[0,70,0,71,72,[1,7875,2703],[[0,73,0,74,75,[1,7876,1007],[],[[7876,2,76]]],[0,77,0,78,79,[1,8884,8],[],[[8891,2,80]]],[0,77,0,78,81,[1,8893,6],[],[[8898,2,82]]],[0,77,0,78,83,[1,8899,8],[],[[8907,2,84]]],[0,85,0,86,87,[1,8907,105],[[0,88,0,89,0,[1,8908,0],[],[[8908,2,90]]],[0,91,0,92,0,[1,8908,0],[],[[8908,2,93]]],[0,94,0,95,96,[1,8909,103],[[0,97,0,98,99,[1,8909,102],[[0,100,0,101,102,[1,8910,16],[],[]],[0,30,0,31,99,[1,8926,70],[],[[8926,2,103]]],[0,104,0,105,102,[1,8996,13],[],[[9009,2,106]]],[0,107,0,108,109,[1,9010,1],[],[[9010,2,110]]]],[]]],[]]],[]],[0,85,0,86,111,[1,9013,104],[[0,88,0,89,0,[1,9016,0],[],[[9016,2,90]]],[0,91,0,92,0,[1,9017,0],[],[[9018,2,93]]],[0,94,0,95,96,[1,9018,99],[[0,97,0,112,99,[1,9020,97],[[0,100,0,101,102,[1,9022,24],[],[]],[0,30,0,31,99,[1,9046,54],[],[[9047,2,113]]],[0,104,0,105,102,[1,9101,13],[],[[9114,2,114]]],[0,107,0,108,109,[1,9115,1],[],[[9116,2,110]]]],[]]],[]]],[]],[0,65,0,66,83,[1,9118,1459],[],[[9118,2,115]]]],[]],[0,18,0,19,116,[1,10579,18],[],[[10597,2,117]]],[2,118,0,119,0,[1,10597,55],[],[]]]],[120,0,1,0,[],[1,10653,28962],[[1,5,0,6,7,[1,10655,3766],[],[[10655,2,8]]],[0,9,0,10,11,[1,14423,0],[],[[14423,2,12]]],[0,13,0,0,0,[1,14423,3787],[[0,14,0,15,16,[1,14424,1228],[],[[14424,2,17]]],[0,18,0,19,20,[1,15652,16],[],[[15668,2,21]]],[0,18,0,19,22,[1,15668,15],[],[[15682,2,23]]],[0,18,0,19,24,[1,15683,13],[],[[15696,2,25]]],[0,26,0,27,16,[1,15697,11],[],[[15707,2,28]]],[0,29,0,0,0,[1,15708,332],[[0,30,0,31,32,[1,15711,61],[],[[15711,2,33]]],[0,30,0,31,34,[1,15772,95],[],[[15773,2,35]]],[0,30,0,31,36,[1,15868,105],[],[[15868,2,37]]],[0,30,0,31,38,[1,15973,67],[],[[15973,2,39]]]],[]],[0,14,0,15,40,[1,16041,77],[],[[16041,2,41]]],[0,42,0,0,0,[1,16118,295],[[0,30,0,31,43,[1,16119,78],[],[[16120,2,44]]],[0,30,0,31,45,[1,16198,69],[],[[16199,2,46]]],[0,30,0,31,47,[1,16267,82],[],[[16268,2,48]]],[0,30,0,31,49,[1,16350,63],[],[[16350,2,50]]]],[]],[0,14,0,15,22,[1,16413,88],[],[[16414,2,51]]],[0,52,0,0,0,[1,16501,471],[[0,30,0,31,53,[1,16502,79],[],[[16502,2,54]]],[0,30,0,31,55,[1,16581,104],[],[[16582,2,56]]],[0,30,0,31,57,[1,16685,72],[],[[16685,2,58]]],[0,30,0,31,59,[1,16758,81],[],[[16758,2,60]]],[0,30,0,31,61,[1,16839,70],[],[[16840,2,62]]],[0,30,0,31,63,[1,16909,63],[],[[16909,2,64]]]],[]],[0,65,0,66,16,[1,16973,1237],[],[[16973,2,67]]]],[]],[0,70,0,71,72,[1,18212,2730],[[0,73,0,74,75,[1,18213,1049],[],[[18213,2,76]]],[0,77,0,78,79,[1,19262,5],[],[[19267,2,80]]],[0,77,0,78,81,[1,19268,7],[],[[19275,2,82]]],[0,77,0,78,83,[1,19275,8],[],[[19283,2,84]]],[0,85,0,86,87,[1,19283,89],[[0,88,0,89,0,[1,19284,0],[],[[19284,2,90]]],[0,91,0,92,0,[1,19285,0],[],[[19285,2,93]]],[0,94,0,95,96,[1,19285,86],[[0,97,0,98,99,[1,19286,85],[[0,100,0,101,102,[1,19287,10],[],[]],[0,30,0,31,99,[1,19297,57],[],[[19298,2,103]]],[0,104,0,105,102,[1,19355,13],[],[[19369,2,106]]],[0,107,0,108,109,[1,19369,1],[],[[19370,2,110]]]],[]]],[]]],[]],[0,85,0,86,111,[1,19373,104],[[0,88,0,89,0,[1,19375,1],[],[[19376,2,90]]],[0,91,0,92,0,[1,19377,0],[],[[19377,2,93]]],[0,94,0,95,96,[1,19378,99],[[0,97,0,112,99,[1,19379,98],[[0,100,0,101,102,[1,19380,22],[],[]],[0,30,0,31,99,[1,19402,53],[],[[19403,2,113]]],[0,104,0,105,102,[1,19456,20],[],[[19476,2,114]]],[0,107,0,108,109,[1,19476,1],[],[[19477,2,110]]]],[]]],[]]],[]],[0,65,0,66,83,[1,19477,1465],[],[[19478,2,115]]]],[]],[0,121,0,0,0,[1,20942,5907],[[0,14,0,15,122,[1,20945,717],[],[[20945,2,123]]],[0,124,0,125,126,[1,21663,8],[],[]],[0,127,0,0,0,[1,21672,416],[[0,30,0,31,128,[1,21672,78],[],[[21672,2,129]]],[0,30,0,31,130,[1,21751,97],[],[[21751,2,131]]],[0,132,0,133,134,[1,21848,43],[],[[21891,2,135]]],[0,18,0,19,136,[1,21891,139],[],[[22029,2,137]]],[0,18,0,19,138,[1,22030,11],[],[[22041,2,139]]],[0,30,0,31,140,[1,22042,46],[],[[22042,2,141]]]],[]],[0,142,0,0,0,[1,22088,58],[[0,30,0,31,143,[1,22089,57],[],[[22089,2,144]]]],[]],[0,145,0,0,146,[1,22147,174],[[0,30,0,31,147,[1,22149,70],[],[[22150,2,148]]],[0,30,0,31,149,[1,22220,61],[],[[22220,2,150]]],[0,151,0,152,153,[1,22281,40],[],[]]],[]],[0,154,0,0,0,[1,22322,354],[[0,30,0,31,155,[1,22323,51],[],[[22323,2,156]]],[0,30,0,31,157,[1,22374,51],[],[[22374,2,158]]],[0,30,0,31,159,[1,22425,60],[],[[22426,2,160]]],[0,30,0,31,161,[1,22485,60],[],[[22486,2,162]]],[0,30,0,31,163,[1,22546,62],[],[[22547,2,164]]],[0,30,0,31,165,[1,22609,67],[],[[22609,2,166]]]],[]],[0,65,0,66,167,[1,22677,4172],[],[[22678,2,168]]]],[]],[0,169,0,170,171,[1,26849,10002],[],[[36850,2,172]]],[0,173,0,0,0,[1,36852,86],[[0,14,0,15,174,[1,36853,84],[],[[36854,2,175]]]],[]],[0,169,0,170,176,[1,36939,1001],[],[[37940,2,177]]],[0,178,0,0,179,[1,37941,24],[[0,18,0,19,180,[1,37944,21],[],[[37965,2,181]]]],[]],[0,178,0,0,182,[1,37965,14],[[0,18,0,19,180,[1,37966,13],[],[[37979,2,183]]]],[]],[0,178,0,0,184,[1,37979,14],[[0,18,0,19,180,[1,37980,13],[],[[37993,2,185]]]],[]],[0,178,0,0,186,[1,37994,25],[[0,18,0,19,180,[1,37994,25],[],[[38019,2,187]]]],[]],[0,14,0,15,188,[1,38019,1523],[],[[38020,2,189]]],[0,190,0,191,192,[1,39543,16],[],[]],[2,118,0,119,0,[1,39560,55],[],[]]]],[193,0,1,0,[],[1,39615,17202],[[1,5,0,6,7,[1,39617,3839],[],[[39618,2,8]]],[0,9,0,10,11,[1,43457,1],[],[[43458,2,12]]],[0,13,0,0,0,[1,43458,3877],[[0,14,0,15,16,[1,43459,1227],[],[[43459,2,17]]],[0,18,0,19,20,[1,44687,14],[],[[44701,2,21]]],[0,18,0,19,22,[1,44702,19],[],[[44721,2,23]]],[0,18,0,19,24,[1,44722,15],[],[[44737,2,25]]],[0,26,0,27,16,[1,44737,10],[],[[44747,2,28]]],[0,29,0,0,0,[1,44748,347],[[0,30,0,31,32,[1,44750,71],[],[[44751,2,33]]],[0,30,0,31,34,[1,44821,102],[],[[44821,2,35]]],[0,30,0,31,36,[1,44923,101],[],[[44924,2,37]]],[0,30,0,31,38,[1,45024,71],[],[[45025,2,39]]]],[]],[0,14,0,15,40,[1,45095,88],[],[[45096,2,41]]],[0,42,0,0,0,[1,45184,292],[[0,30,0,31,43,[1,45184,73],[],[[45185,2,44]]],[0,30,0,31,45,[1,45258,78],[],[[45258,2,46]]],[0,30,0,31,47,[1,45336,76],[],[[45336,2,48]]],[0,30,0,31,49,[1,45412,64],[],[[45413,2,50]]]],[]],[0,14,0,15,22,[1,45477,91],[],[[45477,2,51]]],[0,52,0,0,0,[1,45568,500],[[0,30,0,31,53,[1,45569,74],[],[[45570,2,54]]],[0,30,0,31,55,[1,45644,90],[],[[45644,2,56]]],[0,30,0,31,57,[1,45735,74],[],[[45735,2,58]]],[0,30,0,31,59,[1,45809,99],[],[[45810,2,60]]],[0,30,0,31,61,[1,45909,83],[],[[45910,2,62]]],[0,30,0,31,63,[1,45993,74],[],[[45993,2,64]]]],[]],[0,65,0,66,16,[1,46068,1266],[],[[46069,2,67]]]],[]],[0,70,0,71,72,[1,47335,2743],[[0,73,0,74,75,[1,47336,1113],[],[[47337,2,76]]],[0,77,0,78,79,[1,48449,8],[],[[48457,2,80]]],[0,77,0,78,81,[1,48457,6],[],[[48463,2,82]]],[0,77,0,78,83,[1,48463,5],[],[[48468,2,84]]],[0,85,0,86,87,[1,48468,106],[[0,88,0,89,0,[1,48469,0],[],[[48469,2,90]]],[0,91,0,92,0,[1,48470,0],[],[[48470,2,93]]],[0,94,0,95,96,[1,48470,104],[[0,97,0,98,99,[1,48471,103],[[0,100,0,101,102,[1,48473,13],[],[]],[0,30,0,31,99,[1,48486,65],[],[[48487,2,103]]],[0,104,0,105,102,[1,48552,19],[],[[48571,2,106]]],[0,107,0,108,109,[1,48572,1],[],[[48573,2,110]]]],[]]],[]]],[]],[0,85,0,86,111,[1,48575,90],[[0,88,0,89,0,[1,48576,0],[],[[48576,2,90]]],[0,91,0,92,0,[1,48576,0],[],[[48576,2,93]]],[0,94,0,95,96,[1,48576,89],[[0,97,0,112,99,[1,48577,88],[[0,100,0,101,102,[1,48577,23],[],[]],[0,30,0,31,99,[1,48601,50],[],[[48601,2,113]]],[0,104,0,105,102,[1,48651,12],[],[[48663,2,114]]],[0,107,0,108,109,[1,48664,1],[],[[48664,2,110]]]],[]]],[]]],[]],[0,65,0,66,83,[1,48665,1412],[],[[48665,2,115]]]],[]],[0,14,0,15,122,[1,50078,652],[],[[50079,2,123]]],[0,124,0,125,126,[1,50731,46],[],[]],[0,127,0,0,0,[1,50777,379],[[0,30,0,31,128,[1,50779,116],[],[[50780,2,129]]],[0,30,0,31,130,[1,50896,69],[],[[50897,2,131]]],[0,132,0,133,134,[1,50966,15],[],[[50981,2,135]]],[0,18,0,19,136,[1,50981,10],[],[[50991,2,137]]],[0,18,0,19,138,[1,50991,11],[],[[51002,2,139]]],[0,30,0,31,140,[1,51003,152],[],[[51004,2,141]]]],[]],[0,154,0,0,0,[1,51156,367],[[0,30,0,31,155,[1,51159,65],[],[[51159,2,156]]],[0,30,0,31,157,[1,51225,68],[],[[51226,2,158]]],[0,30,0,31,159,[1,51293,45],[],[[51294,2,160]]],[0,30,0,31,161,[1,51339,65],[],[[51339,2,162]]],[0,30,0,31,163,[1,51404,58],[],[[51405,2,164]]],[0,30,0,31,165,[1,51463,60],[],[[51463,2,166]]]],[]],[0,142,0,0,0,[1,51524,67],[[0,30,0,31,143,[1,51526,65],[],[[51527,2,144]]]],[]],[0,145,0,0,194,[1,51591,175],[[0,30,0,31,147,[1,51593,77],[],[[51593,2,148]]],[0,30,0,31,149,[1,51671,60],[],[[51671,2,195]]],[0,151,0,152,153,[1,51732,34],[],[]]],[]],[0,190,0,191,196,[1,51766,233],[],[]],[0,65,0,66,197,[1,52000,1537],[],[[52000,2,198]]],[0,18,0,19,199,[1,53538,27],[],[[53565,2,200]]],[0,73,0,74,7,[1,53565,1266],[],[[53566,2,201]]],[0,14,0,15,122,[1,54832,559],[],[[54832,2,123]]],[0,124,0,125,126,[1,55391,11],[],[]],[0,127,0,0,0,[1,55402,269],[[0,30,0,31,128,[1,55403,87],[],[[55403,2,129]]],[0,30,0,31,130,[1,55490,65],[],[[55491,2,131]]],[0,132,0,133,134,[1,55556,25],[],[[55581,2,135]]],[0,18,0,19,136,[1,55581,24],[],[[55604,2,137]]],[0,18,0,19,138,[1,55605,20],[],[[55624,2,139]]],[0,30,0,31,140,[1,55625,45],[],[[55626,2,141]]]],[]],[0,154,0,0,0,[1,55671,361],[[0,30,0,31,155,[1,55672,70],[],[[55672,2,156]]],[0,30,0,31,157,[1,55743,58],[],[[55743,2,158]]],[0,30,0,31,159,[1,55801,44],[],[[55802,2,160]]],[0,30,0,31,161,[1,55846,59],[],[[55846,2,162]]],[0,30,0,31,163,[1,55906,56],[],[[55906,2,164]]],[0,30,0,31,165,[1,55962,69],[],[[55963,2,166]]]],[]],[0,142,0,0,0,[1,56032,64],[[0,30,0,31,143,[1,56033,63],[],[[56033,2,144]]]],[]],[0,145,0,0,202,[1,56096,207],[[0,30,0,31,147,[1,56098,105],[],[[56098,2,148]]],[0,30,0,31,149,[1,56203,56],[],[[56204,2,203]]],[0,151,0,152,153,[1,56259,44],[],[]]],[]],[0,190,0,191,204,[1,56303,447],[],[]],[2,118,0,119,0,[1,56751,66],[],[]]]]],[],[3,3,3,3]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*At02","*/opt/edeposit/docs/tests/at02.robot","*at02.robot","*UC02-01 Ohl\u00e1\u0161en\u00ed se soubory - s aktivnim pripojenim do Alephu","*error: [Errno 111] Connection refused\n\nAlso teardown failed:\nCannotSendRequest","*my-keywords.Open browser and create all folders","*Selenium2Library.Open Browser","*<p>Opens a new browser instance to given URL.</p>","*${PLONE_URL}, firefox","*Opening browser 'firefox' to base url '<a href=\"http://localhost:55001/plone\">http://localhost:55001/plone</a>'","*keywords.Log in as site owner","*<p>Log in as the SITE_OWNER provided by plone.app.testing,</p>","*keywords.Log in","*<p>Log in to the site as ${userid} using ${password}. There</p>","*${SITE_OWNER_NAME}, ${SITE_OWNER_PASSWORD}","*Selenium2Library.Go To","*<p>Navigates the active browser instance to the provided URL.</p>","*${PLONE_URL}/login_form","*Opening url '<a href=\"http://localhost:55001/plone/login_form\">http://localhost:55001/plone/login_form</a>'","*Selenium2Library.Page Should Contain Element","*<p>Verifies element identified by `locator` is found on the current page.</p>","*__ac_name","*Current page contains element '__ac_name'.","*__ac_password","*Current page contains element '__ac_password'.","*css=#login-form .formControls input[name=submit]","*Current page contains element 'css=#login-form .formControls input[name=submit]'.","*selenium.Input text for sure","*<p>Locate input element by ${locator} and enter the given</p>","*__ac_name, ${userid}","*${TIMEOUT} = Selenium2Library.Get Selenium Timeout","*<p>Gets the timeout in seconds that is used by various keywords.</p>","*${TIMEOUT} = 30 seconds","*${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait","*<p>Gets the wait in seconds that is waited by Selenium.</p>","*${IMPLICIT_WAIT} = 500 milliseconds","*BuiltIn.Wait Until Keyword Succeeds","*<p>Waits until the specified keyword succeeds or the given timeout expires.</p>","*${TIMEOUT}, ${IMPLICIT_WAIT}, Input text and validate, ${locator}, ${text}","*selenium.Input text and validate","*<p>Locate input element by __ac_name and enter the given</p>","*${locator}, ${text}","*Selenium2Library.Focus","*<p>Sets focus to element identified by `locator`.</p>","*${locator}","*Selenium2Library.Input Text","*<p>Types the given `text` into text field identified by `locator`.</p>","*Typing text 'admin' into text field '__ac_name'","*${value} = Selenium2Library.Get Value","*<p>Returns the value attribute of element identified by `locator`.</p>","*${value} = admin","*BuiltIn.Should Be Equal","*<p>Fails if the given objects are unequal.</p>","*${text}, ${value}","*Argument types are:\n&lt;type 'str'&gt;\n&lt;type 'unicode'&gt;","*__ac_password, ${password}","*<p>Locate input element by __ac_password and enter the given</p>","*Typing text 'secret' into text field '__ac_password'","*${value} = secret","*Selenium2Library.Click Button","*<p>Clicks a button identified by `locator`.</p>","*Clicking button 'css=#login-form .formControls input[name=submit]'.","*my-keywords.Create producents folder","*my-keywords.Add Dexterity Content","*${PLONE_URL}, edeposit-user-producentfolder, producents","*${url}","*Opening url '<a href=\"http://localhost:55001/plone\">http://localhost:55001/plone</a>'","*keywords.Open Add New Menu","*keywords.Open Menu","*plone-contentmenu-factories","*Selenium2Library.Element Should Be Visible","*<p>Verifies that the element identified by `locator` is visible.</p>","*css=dl#${elementId} span","*Verifying element 'css=dl#plone-contentmenu-factories span' is visible.","*Selenium2Library.Element Should Not Be Visible","*<p>Verifies that the element identified by `locator` is NOT visible.</p>","*css=dl#${elementId} dd.actionMenuContent","*Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.","*Selenium2Library.Click Link","*<p>Clicks a link identified by locator.</p>","*css=dl#${elementId} dt.actionMenuHeader a","*Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.","*1, 5, Element Should Be Visible, css=dl#${elementId} dd.actionMenuContent","*Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.","*${status} = BuiltIn.Run Keyword And Return Status","*<p>Runs the given keyword with given arguments and returns the status as a Boolean value.</p>","*Click Link, css=#plone-contentmenu-factories a.contenttype-${content_type}","*css=#plone-contentmenu-factories a.contenttype-${content_type}","*Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.","*${status} = True","*BuiltIn.Run Keyword If","*<p>Runs the given keyword with the given arguments, if `condition` is true.</p>","*${status} != True, Click Link, ${content_type}","*form.widgets.IBasic.title, ${title}","*Typing text 'producents' into text field 'form.widgets.IBasic.title'","*name=form.buttons.save","*Clicking button 'name=form.buttons.save'.","*Selenium2Library.Page Should Contain","*<p>Verifies that current page contains `text`.</p>","*Polo\u017eka byla vytvo\u0159ena","*Current page contains text 'Polo\u017eka byla vytvo\u0159ena'.","*${title}","*Current page contains text 'producents'.","*${location} = Selenium2Library.Get Location","*<p>Returns the current location.</p>","*${location} = <a href=\"http://localhost:55001/plone/producents/view\">http://localhost:55001/plone/producents/view</a>","*keywords.Log out","*${PLONE_URL}/logout","*Opening url '<a href=\"http://localhost:55001/plone/logout\">http://localhost:55001/plone/logout</a>'","*css=#login-form","*Current page contains element 'css=#login-form'.","*my-keywords.Start Aleph Daemon","*OperatingSystem.Start Process","*<p>Starts the given command as a background process.</p>","*python /usr/local/lib/python2.7/dist-packages/edeposit/amqp/alephdaemon.py start","*Running command 'python /usr/local/lib/python2.7/dist-packages/edeposit/amqp/alephdaemon.py start 2&gt;&amp;1'","*keywords.Pause","*<p>Visually pause test execution with interactive dialog by</p>","*BuiltIn.Import Library","*<p>Imports a library with the given name and optional arguments.</p>","*Dialogs","*Dialogs.Pause Execution","*<p>Pauses test execution until user clicks `Ok` button.</p>","*my-keywords.Registrace producenta","*Registrovat","*Selenium2Library.Capture Page Screenshot","*<p>Takes a screenshot of the current page and embeds it into the log.</p>","*CannotSendRequest","*Clicking link 'Registrovat'.","*s1-t1-k4-k1","*Keyword 'Capture Page Screenshot' could not be run on failure: CannotSendRequest","*error: [Errno 111] Connection refused","*Selenium2Library.Close All Browsers","*<p>Closes all open browsers and resets the browser cache.</p>","*s1-t1-k5"]);
+window.output["strings"] = window.output["strings"].concat(["*","*It02","*/opt/edeposit/docs/tests/it02.robot","*it02.robot","*UC01 Registrace producenta","*Selenium2Library.Open Browser","*<p>Opens a new browser instance to given URL.\x3c/p>","*${PLONE_URL}","*Opening browser 'firefox' to base url '<a href=\"http://localhost:8080/Plone\">http://localhost:8080/Plone\x3c/a>'","*${USER_NAME} = BuiltIn.Catenate","*<p>Catenates the given items together and returns the resulted string.\x3c/p>","*SEPARATOR=-, test-user, ${TEST_SEED}","*${USER_NAME} = test-user-977f5","*my-keywords.Registrace producenta","*Selenium2Library.Click Link","*<p>Clicks a link identified by locator.\x3c/p>","*Registrovat","*Clicking link 'Registrovat'.","*Selenium2Library.Page Should Contain","*<p>Verifies that current page contains `text`.\x3c/p>","*Registrace producenta","*Current page contains text 'Registrace producenta'.","*Producent","*Current page contains text 'Producent'.","*Název producenta","*Current page contains text 'Název producenta'.","*Selenium2Library.Page Should Contain Button","*<p>Verifies button identified by `locator` is found from current page.\x3c/p>","*Current page contains input 'Registrovat'.","*my-keywords.Fill inputs about producent","*Selenium2Library.Input Text","*<p>Types the given `text` into text field identified by `locator`.\x3c/p>","*css=#form-widgets-IBasic-title, ${PRODUCENT_TITLE}","*Typing text 'Zlínsky vydavatel' into text field 'css=#form-widgets-IBasic-title'","*css=#form-widgets-IBasic-description, Malý lokální vydavatel zajímavých publikací","*Typing text 'Malý lokální vydavatel zajímavých publikací' into text field 'css=#form-widgets-IBasic-description'","*css=#form-widgets-home_page, <a href=\"http://www.e-deposit.cz\">http://www.e-deposit.cz\x3c/a>","*Typing text '<a href=\"http://www.e-deposit.cz\">http://www.e-deposit.cz\x3c/a>' into text field 'css=#form-widgets-home_page'","*css=#form-widgets-location, Praha","*Typing text 'Praha' into text field 'css=#form-widgets-location'","*Adresa","*Clicking link 'Adresa'.","*my-keywords.Fill inputs about address","*css=#form-widgets-street, Pašovice 71","*Typing text 'Pašovice 71' into text field 'css=#form-widgets-street'","*css=#form-widgets-city, Prakšice","*Typing text 'Prakšice' into text field 'css=#form-widgets-city'","*css=#form-widgets-country, Česká republika","*Typing text 'Česká republika' into text field 'css=#form-widgets-country'","*css=#form-widgets-psc, 68756","*Typing text '68756' into text field 'css=#form-widgets-psc'","*Clicking link 'Producent'.","*my-keywords.Add one administrator","*css=#form-widgets-IAdministrator-administrator-widgets-fullname, Jan Stavěl","*Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-fullname'","*css=#form-widgets-IAdministrator-administrator-widgets-email, stavel.jan@gmail.com","*Typing text 'stavel.jan@gmail.com' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-email'","*css=#form-widgets-IAdministrator-administrator-widgets-phone, 773230772","*Typing text '773230772' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-phone'","*css=#form-widgets-IAdministrator-administrator-widgets-username, ${USER_NAME}","*Typing text 'test-user-977f5' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-username'","*css=#form-widgets-IAdministrator-administrator-widgets-password, ${USER_PASSWORD}","*Typing text 'fafs08ja' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-password'","*css=#form-widgets-IAdministrator-administrator-widgets-password_ctl, ${USER_PASSWORD}","*Typing text 'fafs08ja' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-password_ctl'","*Selenium2Library.Click Button","*<p>Clicks a button identified by `locator`.\x3c/p>","*Clicking button 'Registrovat'.","*Vítejte!","*Current page contains text 'Vítejte!'.","*it-keywords.Log in","*<p>Log in to the site as ${userid} using ${password}. There\x3c/p>","*${USER_NAME}, ${USER_PASSWORD}","*Selenium2Library.Go To","*<p>Navigates the active browser instance to the provided URL.\x3c/p>","*${PLONE_URL}/login_form","*Opening url '<a href=\"http://localhost:8080/Plone/login_form\">http://localhost:8080/Plone/login_form\x3c/a>'","*Selenium2Library.Page Should Contain Element","*<p>Verifies element identified by `locator` is found on the current page.\x3c/p>","*__ac_name","*Current page contains element '__ac_name'.","*__ac_password","*Current page contains element '__ac_password'.","*css=#login-form .formControls input[name=submit]","*Current page contains element 'css=#login-form .formControls input[name=submit]'.","*it-keywords.Input text for sure","*<p>Locate input element by ${locator} and enter the given\x3c/p>","*__ac_name, ${userid}","*${TIMEOUT} = Selenium2Library.Get Selenium Timeout","*<p>Gets the timeout in seconds that is used by various keywords.\x3c/p>","*${TIMEOUT} = 5 seconds","*${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait","*<p>Gets the wait in seconds that is waited by Selenium.\x3c/p>","*${IMPLICIT_WAIT} = 0 seconds","*BuiltIn.Wait Until Keyword Succeeds","*<p>Waits until the specified keyword succeeds or the given timeout expires.\x3c/p>","*${TIMEOUT}, ${IMPLICIT_WAIT}, Input text and validate, ${locator}, ${text}","*it-keywords.Input text and validate","*<p>Locate input element by __ac_name and enter the given\x3c/p>","*${locator}, ${text}","*Selenium2Library.Focus","*<p>Sets focus to element identified by `locator`.\x3c/p>","*${locator}","*Typing text 'test-user-977f5' into text field '__ac_name'","*${value} = Selenium2Library.Get Value","*<p>Returns the value attribute of element identified by `locator`.\x3c/p>","*${value} = test-user-977f5","*BuiltIn.Should Be Equal","*<p>Fails if the given objects are unequal.\x3c/p>","*${text}, ${value}","*Argument types are:\n&lt;type 'unicode'&gt;\n&lt;type 'unicode'&gt;","*__ac_password, ${password}","*<p>Locate input element by __ac_password and enter the given\x3c/p>","*Typing text 'fafs08ja' into text field '__ac_password'","*${value} = fafs08ja","*Clicking button 'css=#login-form .formControls input[name=submit]'.","*Přehledová stránka uživatele","*Current page contains text 'Přehledová stránka uživatele'.","*Selenium2Library.Close Browser","*<p>Closes the current browser.\x3c/p>","*UC02 Ohlášení ePublikace","*my-keywords.Ohlášení se soubory","*Ohlášení ePublikací","*Clicking link 'Ohlášení ePublikací'.","*Selenium2Library.Wait Until Page Contains Element","*<p>Waits until element specified with `locator` appears on current page.\x3c/p>","*css=input[value=\"Ohlásit\"]","*my-keywords.Fill inputs about ePublication","*css=#form-widgets-IBasic-title, Lesní školky ve Zlíně","*Typing text 'Lesní školky ve Zlíně' into text field 'css=#form-widgets-IBasic-title'","*css=#form-widgets-podnazev, Alternativní vzdělávání","*Typing text 'Alternativní vzdělávání' into text field 'css=#form-widgets-podnazev'","*Selenium2Library.Page Should Not Contain","*<p>Verifies the current page does not contain `text`.\x3c/p>","*Obsah","*Current page does not contain text 'Obsah'.","*ePublikace","*Current page contains text 'ePublikace'.","*Název","*Current page contains text 'Název'.","*css=#form-widgets-cena, 0","*Typing text '0' into text field 'css=#form-widgets-cena'","*my-keywords.Add authors for ePublication","*css=#form-widgets-IAuthors-authors-0-widgets-fullname, Jan Stavěl","*Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-fullname'","*my-keywords.Add Original Files for ePublication","*${VALID_ISBN}","*css=#form-widgets-IOriginalFile-url, <a href=\"http://www.grada.cz/book/1000\">http://www.grada.cz/book/1000\x3c/a>","*Typing text '<a href=\"http://www.grada.cz/book/1000\">http://www.grada.cz/book/1000\x3c/a>' into text field 'css=#form-widgets-IOriginalFile-url'","*css=#form-widgets-IOriginalFile-isbn, ${ISBN}","*Typing text '978-0-306-40615-7' into text field 'css=#form-widgets-IOriginalFile-isbn'","*Selenium2Library.Choose File","*<p>Inputs the `file_path` into file input field found by `identifier`.\x3c/p>","*css=#form-widgets-IOriginalFile-file-input, /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf","*my-keywords.Fill inputs about Vydani","*css=#form-widgets-nakladatel_vydavatel, In Zlín","*Typing text 'In Zlín' into text field 'css=#form-widgets-nakladatel_vydavatel'","*css=#form-widgets-misto_vydani, Zlín","*Typing text 'Zlín' into text field 'css=#form-widgets-misto_vydani'","*css=#form-widgets-datum_vydani-day, 10","*Typing text '10' into text field 'css=#form-widgets-datum_vydani-day'","*css=#form-widgets-datum_vydani-year, 2013","*Typing text '2013' into text field 'css=#form-widgets-datum_vydani-year'","*css=#form-widgets-poradi_vydani, první","*Typing text 'první' into text field 'css=#form-widgets-poradi_vydani'","*css=#form-widgets-zpracovatel_zaznamu, Jan Stavěl","*Typing text 'Jan Stavěl' into text field 'css=#form-widgets-zpracovatel_zaznamu'","*form.buttons.save","*Clicking button 'form.buttons.save'.","*BuiltIn.Sleep","*<p>Pauses the test executed for the given time.\x3c/p>","*10s","*Slept 10 seconds","*my-keywords.Zobrazit historii","*Historie","*Clicking link 'Historie'.","*1s","*Slept 1 second","*my-keywords.Historie obsahuje zprávu","*K akvizici","*${message}","*Current page contains text 'K akvizici'.","*Poslal jsem jeden záznam k exportu do Alephu","*Current page contains text 'Poslal jsem jeden záznam k exportu do Alephu'.","*Export jednoho záznamu do Alephu","*Current page contains text 'Export jednoho záznamu do Alephu'.","*Všechny exporty do Alephu proběhly úspěšně","*Current page contains text 'Všechny exporty do Alephu proběhly úspěšně'.","*Zobrazení","*Clicking link 'Zobrazení'.","*Selenium2Library.Wait Until Page Contains","*<p>Waits until `text` appears on current page.\x3c/p>","*Čekání na Aleph","*UC02 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN","*${WRONG_ISBN}","*Typing text '80-12312-3241-324124' into text field 'css=#form-widgets-IOriginalFile-isbn'","*chyba v isbn","*form.buttons.cancel","*Clicking button 'form.buttons.cancel'.","*Ohlášení bylo přerušeno.","*Current page contains text 'Ohlášení bylo přerušeno.'.","*Opening url '<a href=\"http://localhost:8080/Plone\">http://localhost:8080/Plone\x3c/a>'","*${VALID_BUT_DUPLICIT_ISBN}","*Typing text '80-85432-66-8' into text field 'css=#form-widgets-IOriginalFile-isbn'","*isbn je už použito. Použijte jíné, nebo nahlašte opravu."]);
 </script>
 <script type="text/javascript">
-window.output["generatedTimestamp"] = "20140418 12:41:11 GMT +02:00";
+window.output["generatedTimestamp"] = "20140512 21:30:32 GMT +02:00";
 </script>
 <script type="text/javascript">
-window.output["errors"] = [[40904,3,131,130],[40908,3,131,135]];
+window.output["errors"] = [];
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:41","fail":1,"label":"Critical Tests","pass":0},{"elapsed":"00:00:41","fail":1,"label":"All Tests","pass":0}],[],[{"elapsed":"00:00:41","fail":1,"id":"s1","label":"At02","name":"At02","pass":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:57","fail":0,"label":"Critical Tests","pass":3},{"elapsed":"00:00:57","fail":0,"label":"All Tests","pass":3}],[],[{"elapsed":"00:00:57","fail":0,"id":"s1","label":"It02","name":"It02","pass":3}]];
 </script>
 <script type="text/javascript">
-window.output["generatedMillis"] = 40303;
+window.output["generatedMillis"] = 56855;
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1397817630697;
+window.output["baseMillis"] = 1399922975145;
 </script>
 <script type="text/javascript">
 window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.html","splitLogBase":"log","title":""};
@@ -1669,8 +1575,8 @@ window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.h
 $(document).ready(function() {
     try {
         var topsuite = window.testdata.suite();
-    } catch (e) {
-        addJavaScriptDisabledWarning();
+    } catch (error) {
+        addJavaScriptDisabledWarning(error);
         return;
     }
     initLayout(topsuite.name, 'Log');
@@ -1717,6 +1623,7 @@ function scrollToHash() {
     if (window.location.hash)
         setTimeout(function () {
             var id = window.location.hash.substring(1);
+            window.location.hash = '#';
             window.location.hash = id;
             highlight($('#' + id));
         }, 0);
@@ -1777,7 +1684,7 @@ function addTestExecutionLog(main) {
       </div>
       <div class="tag-links">
         {{each links}}
-        <span>[<a href="${$value.url}" title="${$value.url}">{{html $value.title}}</a>]</span>
+        <span>[<a href="{{html $value.url}}" title="{{html $value.url}}">{{html $value.title}}</a>]</span>
         {{/each}}
       </div>
     </td>
@@ -1818,10 +1725,13 @@ function addTestExecutionLog(main) {
 <script type="text/x-jquery-tmpl" id="suiteTemplate">
   <div id="${id}" class="suite">
     <div class="element-header closed" onclick="toggleSuite('${id}')" title="${fullName}">
-      <a class="expand" href="javascript:expandAllChildren('${id}')"
-         onclick="stopPropagation(event)">Expand All</a>
       <span class="${status.toLowerCase()}">TEST SUITE: </span>
       <span class="name">{{html name}}</span>
+      <a class="expand" title="Expand this suite fully"
+         href="javascript:expandAllChildren('${id}')"
+         onclick="stopPropagation(event)">Expand All</a>
+      <a class="ext-link" title="Link to this suite" href="#${id}"
+         onclick="makeElementVisible('${id}'); stopPropagation(event)">&para;</a>
     </div>
     <div class="children">
       <table class="metadata">
@@ -1873,11 +1783,14 @@ function addTestExecutionLog(main) {
 <script type="text/x-jquery-tmpl" id="testTemplate">
   <div id="${id}" class="test">
     <div class="element-header closed" onclick="toggleTest('${id}')" title="${fullName}">
-      <a class="expand" href="javascript:expandAllChildren('${id}')"
-         onclick="stopPropagation(event)">Expand All</a>
       <span class="${status.toLowerCase()}">TEST CASE: </span>
       <span class="name">{{html name}}</span>
       {{if !isCritical}}(non-critical){{/if}}
+      <a class="expand" title="Expand this test fully"
+         href="javascript:expandAllChildren('${id}')"
+         onclick="stopPropagation(event)">Expand All</a>
+      <a class="ext-link" title="Link to this test" href="#${id}"
+         onclick="makeElementVisible('${id}'); stopPropagation(event)">&para;</a>
     </div>
     <div class="children">
       <table class="metadata">
@@ -1925,11 +1838,14 @@ function addTestExecutionLog(main) {
 <script type="text/x-jquery-tmpl" id="keywordTemplate">
   <div id="${id}" class="keyword">
     <div class="element-header closed" onclick="toggleKeyword('${id}')" title="${name}">
-      <a class="expand" href="javascript:expandAllChildren('${id}')"
-         onclick="stopPropagation(event)">Expand All</a>
       <span class="${status.toLowerCase()}">${type}: </span>
       <span class="name">{{html name}}</span>
       <span class="arg">{{html arguments}}</span>
+      <a class="expand" title="Expand this keyword fully"
+         href="javascript:expandAllChildren('${id}')"
+         onclick="stopPropagation(event)">Expand All</a>
+      <a class="ext-link" title="Link to this keyword" href="#${id}"
+         onclick="makeElementVisible('${id}'); stopPropagation(event)">&para;</a>
     </div>
     <div class="children">
       <table class="metadata keyword-metadata">

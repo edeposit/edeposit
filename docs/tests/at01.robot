@@ -3,8 +3,6 @@
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
 
-${PLONE_URL} = http://edeposit-aplikace.nkp.cz
-
 Test Setup       Open browser and create all folders
 Test Teardown    Close all browsers
 
@@ -14,11 +12,20 @@ Library  Dialogs
 Resource  my-keywords.robot
     
 *** Variables ***
-    
 ${USER_NAME}        jans
 ${USER_PASSWORD}    PhiEso7
+    
 ${PRODUCENT_ID}     zlinsky-vydavatel
 ${PRODUCENT_TITLE}  Zlínsky vydavatel
+    
+${EDITOR1_NAME}        editor1
+${EDITOR1_PASSWORD}    PhiEso7
+    
+${EDITOR2_NAME}        editor2
+${EDITOR2_PASSWORD}    PhiEso7
+    
+${EDITOR3_NAME}        editor3
+${EDITOR3_PASSWORD}    PhiEso7
     
 *** Keywords ***
 
@@ -45,7 +52,7 @@ Domovská stránka
      Title Should be   E-Deposit - portál pro ohlašování elektronických publikací
      Page Should Contain     Vítejte na stránkách E-Deposit
 
-Přidávání producenta
+Přidávání producenta pres new contentent menu
     Log In as site owner
     Go to     ${PLONE_URL}/producents/    
     Open add new menu
@@ -58,9 +65,7 @@ Přidávání producenta
     Click Link                          Producent
     Add one administrator
     Click button   name=form.buttons.register
-    Page Should Contain   Item created
-    # Page should contain   ${PRODUCENT_TITLE}
-    Page Should Contain   Vítejte
+    Page Should Contain   Položka byla vytvořena
 
 Bezpečnost složky producentů 
      Go to homepage
@@ -77,11 +82,7 @@ Bezpečnost složky producentů
      Page Should Not Contain Link    ePublications waiting for preparing of acquisition
      Page Should Not Contain Link    ePublications with errors
     
-UC01-01 Stažení smlouvy
-     Click link          Smlouva s Národní knihovnou
-     Page Should Not Contain Error
-
-UC01-01 Registrace producenta a kontrola producenta
+UC01-01 Registrace producenta a kontrola administratora
     Registrace producenta
     Page Should Contain                 Vaše uživatelská registrace proběhla.
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
@@ -91,15 +92,14 @@ UC01-01 Registrace producenta a kontrola producenta
     Click Link                          Členství ve skupinách
     Group Should Be Assigned            Producent Administrators
     Group Should Be Assigned            Producent Editors
-    Group Should Be Assigned            Producent Contributors
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
     Workflow State Is                   waitingForApproving
     Click Link                          Sdílení
-    Local Role is Assigned              E-Deposit: Producent Administrator
-    Local Role is Assigned              Reader
-    Local Role is Assigned              Editor
-    Local Role is Assigned              Reviewer
-    Local Role is Assigned              Contributor
+    Local Role is Assigned              ${USER_NAME}   E-Deposit: Producent Administrator
+    Local Role is Assigned              ${USER_NAME}   Reader
+    Local Role is Assigned              ${USER_NAME}   Editor
+    Local Role is Assigned              ${USER_NAME}   Reviewer
+    Local Role is Assigned              ${USER_NAME}   Contributor
     Log Out
     Log in                              ${USER_NAME}   ${USER_PASSWORD}
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
@@ -116,20 +116,20 @@ UC01-01 Kontrola zadaných hesel
     Click Link                          Producent
     Add one administrator with wrong passwords
     Click Button			Registrovat
+    Pause
     Page should contain                 problém v údajích administrátora
     Page should contain                 hesla se musí shodovat
     
-# UC01-01 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
-#     Click link        Registrovat
-#     Page Should Contain   		Registrace producenta
-#     Page Should Contain Button   	Registrovat
-#     Fill inputs about producent
-#     Click Link				Adresa
-#     Fill inputs about address
-#     Click Link                          Producent
-#     Add two administrators with the same username
-#     Click Button			Registrovat
-#     Pause
+UC01-01 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
+    Click link        Registrovat
+    Page Should Contain   		Registrace producenta
+    Page Should Contain Button   	Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add two administrators with the same username
+    Click Button			Registrovat
 
 UC01-01 Kontrola dostupnosti uzivatelskeho jmena
     Registrace producenta
@@ -142,6 +142,34 @@ UC01-01 Kontrola dostupnosti uzivatelskeho jmena
     Click Button			Registrovat
     Page Should Contain                 problém v údajích administrátora
     Page Should Contain                 toto uživatelské jméno je už obsazeno, zvolte jiné
+
+UC01-01 Registrace producenta s editorem a kontrola editora
+    Registrace producenta s editorem
+    Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
+    Page Should Contain Button          Přihlásit se
+    Log in as site owner
+    User Should Exist                   ${EDITOR1_NAME}
+    Click Link                          Členství ve skupinách
+    Group Should Not Be Assigned        Producent Administrators
+    Group Should Be Assigned            Producent Editors
+    Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
+    Click Link                          Sdílení
+    Local Role is not Assigned          ${EDITOR1_NAME}  E-Deposit: Producent Administrator
+    Local Role is Assigned              ${EDITOR1_NAME}  E-Deposit: Producent Editor
+    Local Role is Assigned              ${EDITOR1_NAME}  Reader
+    Local Role is not Assigned          ${EDITOR1_NAME}  Editor
+    Local Role is not Assigned          ${EDITOR1_NAME}  Reviewer
+    Local Role is not Assigned          ${EDITOR1_NAME}  Contributor
+    Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
+    Page Should Contain                 Čeká na schválení
+    Log Out
+    Log in                              ${EDITOR1_NAME}   ${EDITOR1_PASSWORD}
+    Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
+    Location Should Be                  ${PLONE_URL}/producents/${PRODUCENT_ID}
+    Sharing tab is not available    
+    User can not edit
+    User can not add any content
+    User can add ePublication
 
 UC01-01 Název producenta v portletech je klikací
      Registrace producenta
