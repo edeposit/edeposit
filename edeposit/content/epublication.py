@@ -19,6 +19,7 @@ from plone.formwidget.autocomplete import AutocompleteFieldWidget, AutocompleteM
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 
 from edeposit.content.library import ILibrary
 from edeposit.content import MessageFactory as _
@@ -43,6 +44,7 @@ from zope.event import notify
 from plone.dexterity.events import AddBegunEvent
 from plone.dexterity.events import AddCancelledEvent
 
+import edeposit.amqp.aleph
 # Interface class; used to define content-type schema.
 
 class IePublication(form.Schema, IImageScaleTraversable):
@@ -297,9 +299,35 @@ class EPublicationAddForm(DefaultAddForm):
         self.widgets['IBasic.title'].label=u"Název ePublikace"
         
     def extractData(self):
+        def getErrorView(widget,error):
+            view = zope.component.getMultiAdapter( (error, 
+                                                    self.request, 
+                                                    widget, 
+                                                    widget.field, 
+                                                    widget.form, 
+                                                    self.context), 
+                                                   IErrorViewSnippet)
+            view.update()
+            widget.error = view
+            return view
+
         data, errors = super(EPublicationAddForm,self).extractData()
-        if 'form.widgets.IOriginalFile.isbn' in self.request.keys():
-            print 'ISBN is invalid'
+        isbn = data.get('IOriginalFile.isbn',None)
+        if isbn:
+            print "isbn appeared: ", isbn
+            isbnWidget = self.widgets.get('IOriginalFile.isbn',None)
+            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(isbn)
+            if not valid:
+                # validity error
+                errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'chyba v isbn')),)
+                pass
+            else:
+                appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
+                if appearedAtAleph:
+                    # duplicity error
+                    errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
+                    pass
+            pass
         return (data,errors)
 
     @button.buttonAndHandler(_(u'Cancel'), name='cancel')
