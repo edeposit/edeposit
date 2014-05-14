@@ -166,7 +166,33 @@ Fill inputs about Vydani
     Input Text                          css=#form-widgets-poradi_vydani        první
     Input Text                          css=#form-widgets-zpracovatel_zaznamu        Jan Stavěl
 
+Fill nakladatel
+    [arguments]                         ${NAKLADATEL}
+    Input Text                          css=#form-widgets-nakladatel_vydavatel        ${NAKLADATEL}
+
+Fill cena
+    [arguments]                         ${PRICE}
+    Input Text                          css=#form-widgets-cena      ${PRICE}
+
+Fill misto vydani
+    [arguments]                         ${VALUE}
+    Input Text                          css=#form-widgets-misto_vydani      ${VALUE}
+
+Fill zpracovatel
+    [arguments]                         ${VALUE}
+    Input Text                          css=#form-widgets-zpracovatel_zaznamu      ${VALUE}
+
+Fill poradi vydani
+    [arguments]                         ${VALUE}
+    Input Text                          css=#form-widgets-poradi_vydani      ${VALUE}
+
+Fill datum vydani
+    [arguments]                         ${DAY}  ${YEAR}
+    Input Text                          css=#form-widgets-datum_vydani-day     ${DAY}
+    Input Text                          css=#form-widgets-datum_vydani-year    ${YEAR}
+
 Add authors for ePublication
+    [arguments]                         ${AUTHOR}
     Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-fullname  Jan Stavěl
 
 Add Original Files for ePublication

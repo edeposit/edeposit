@@ -13,7 +13,7 @@ Resource        it-keywords.robot
 ${PLONE_URL}        http://edeposit-aplikace.nkp.cz
 #${PLONE_URL}        http://localhost:8080/edeposit
 ${USER_NAME}        alzaltest
-${USER_PASSWORD}    mentostest
+${USER_PASSWORD}    ********
 ${ISBN}             978-80-251-2235-8
 ${TITLE}            Jak vést a motivovat lidi
 ${AUTHOR}            Bělohlávek František
