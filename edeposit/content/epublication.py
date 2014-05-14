@@ -299,6 +299,7 @@ class EPublicationAddForm(DefaultAddForm):
         self.widgets['IBasic.title'].label=u"Název ePublikace"
         
     def extractData(self):
+        print "extract data"
         def getErrorView(widget,error):
             view = zope.component.getMultiAdapter( (error, 
                                                     self.request, 
@@ -313,18 +314,21 @@ class EPublicationAddForm(DefaultAddForm):
 
         data, errors = super(EPublicationAddForm,self).extractData()
         isbn = data.get('IOriginalFile.isbn',None)
+        print 'isbn: ', isbn
         if isbn:
             print "isbn appeared: ", isbn
             isbnWidget = self.widgets.get('IOriginalFile.isbn',None)
             valid = edeposit.amqp.aleph.isbn.is_valid_isbn(isbn)
             if not valid:
                 # validity error
+                print "isbn is not valid"
                 errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'chyba v isbn')),)
                 pass
             else:
                 try:
                     appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
                     if appearedAtAleph:
+                        print "isbn appeared in Aleph yet"
                         # duplicity error
                         errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
                 except:
