@@ -25,11 +25,6 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     E-Deposit Original File
     """
 
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/originalfile.xml to define the content type.
-
     url = schema.ASCIILine(
         title=_("URL"),
         constraint=urlCodeIsValid,
@@ -53,6 +48,21 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         vocabulary="edeposit.content.fileTypes",
         required = True,
     )
+
+    aleph_sys_number = schema.ASCIILine (
+        title = _(u'Aleph SysNumber'),
+        description = _(u'Internal SysNumber that Aleph refers to metadata of this ePublication'),
+        required = False,
+    )
+
+    generated_isbn = schema.Bool(
+        title = _(u'Generate ISBN'),
+        description = _(u'Whether ISBN agency should generate ISBN number.'),
+        required = False,
+        default = False,
+        missing_value = False,
+    )
+
 
 
 # Custom content-type class; objects created for this content type will
