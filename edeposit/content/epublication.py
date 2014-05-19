@@ -44,6 +44,8 @@ from zope.event import notify
 from plone.dexterity.events import AddBegunEvent
 from plone.dexterity.events import AddCancelledEvent
 
+import z3c.form.browser.radio
+
 import edeposit.amqp.aleph
 # Interface class; used to define content-type schema.
 
@@ -130,20 +132,20 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = True,
         )
 
-    datum_vydani = schema.Date (
-        title = u"Datum vydání",
+    rok_vydani = schema.Int (
+        title = u"Rok vydání",
         required = True,
-        )
+    )
     
     poradi_vydani = schema.TextLine(
         title = u'Pořadí vydání',
         required = True,
-        )
+    )
 
     misto_vydani = schema.TextLine(
         title = u'Místo vydání',
         required = True,
-        )
+    )
 
     vydano_v_koedici_s = schema.TextLine(
         title = u'Vydáno v koedici s',
@@ -181,21 +183,8 @@ class IePublication(form.Schema, IImageScaleTraversable):
     zpracovatel_zaznamu = schema.TextLine(
         title = u'Zpracovatel záznamu',
         required = True,
-        )
+    )
 
-    aleph_doc_number = schema.ASCIILine(
-        title = _(u'Aleph DocNumber'),
-        description = _(u'Internal DocNumber that Aleph refers to metadata of this ePublication'),
-        required = False,
-        )
-
-    # generated_isbn = schema.Bool(
-    #     title = _(u'Generate ISBN'),
-    #     description = _(u'Whether ISBN agency should generate ISBN number.'),
-    #     required = False,
-    #     default = False,
-    #     missing_value = False,
-    #     )
 
     # form.fieldset('accessing',
     #               label=u'Zpřístupnění',
@@ -203,10 +192,30 @@ class IePublication(form.Schema, IImageScaleTraversable):
     #                         'libraries_that_can_access_at_public',
     #                         ])
 
-    #form.widget(libraries_that_can_access_at_library_terminal=AutocompleteMultiFieldWidget)    
-    libraries_that_can_access_at_library_terminal = RelationList(
-        title = _(u'Libraries that can access at library terminal'),
-        description = _(u'Choose libraries that can show an ePublication at its terminal.'),
+    is_public = schema.Bool(
+        title = u'ePublikace je veřejná',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
+
+    form.widget(libraries_accessing=z3c.form.browser.radio.RadioFieldWidget)
+    libraries_accessing = schema.Choice (
+        title = u"Oprávnění knihovnám",
+        required = False,
+        readonly = False,
+        default =  'Vybrané knihovny mají přístup',
+        missing_value =  'Vybrané knihovny mají přístup',
+        values = ['Žádná knihovna nemá přístup k ePublikaci',
+                  'Všechny knihovny mají přístup k ePublikaci',
+                  'Vybrané knihovny mají přístup'
+              ],
+    )
+
+    #form.widget(libraries_that_can_access=AutocompleteMultiFieldWidget)    
+    libraries_that_can_access = RelationList(
+        title = _(u'Libraries that can access this ePublication'),
+        #description = _(u'Choose libraries that can show an ePublication at its terminal.'),
         required = False,
         readonly = False,
         default = [],
@@ -215,19 +224,6 @@ class IePublication(form.Schema, IImageScaleTraversable):
             source = ObjPathSourceBinder(object_provides=ILibrary.__identifier__),
             )
         )
-    #form.widget(libraries_that_can_access_at_public=AutocompleteMultiFieldWidget)    
-    libraries_that_can_access_at_public = RelationList(
-        title = _(u'Libraries that can access at public'),
-        description = _(u'Choose libraries that can show an ePublication at public.'),
-        required = False,
-        readonly = False,
-        default = [],
-        value_type = RelationChoice(
-            title = _(u'Related libraries at public'),
-            source = ObjPathSourceBinder(object_provides=ILibrary.__identifier__),
-            )
-        )
-
     # form.fieldset('riv',
     #               label=_(u'RIV'),
     #               fields = [

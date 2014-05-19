@@ -45,3 +45,4 @@ class CategoriesForRIVVocabulary(object):
                 terms.append(SimpleVocabulary.createTerm(item, token, item))
         return SimpleVocabulary(terms)
 grok.global_utility(CategoriesForRIVVocabulary, name=u"edeposit.content.categoriesForRIV")
+
