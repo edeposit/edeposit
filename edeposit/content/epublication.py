@@ -196,11 +196,11 @@ class IePublication(form.Schema, IImageScaleTraversable):
         title = u"Oprávnění knihovnám",
         required = False,
         readonly = False,
-        default =  'Vybrané knihovny mají přístup',
-        missing_value =  'Vybrané knihovny mají přístup',
-        values = ['Žádná knihovna nemá přístup k ePublikaci',
-                  'Všechny knihovny mají přístup k ePublikaci',
-                  'Vybrané knihovny mají přístup'
+        default =  u'Vybrané knihovny mají přístup',
+        missing_value =  u'Vybrané knihovny mají přístup',
+        values = [u'Žádná knihovna nemá přístup k ePublikaci',
+                  u'Všechny knihovny mají přístup k ePublikaci',
+                  u'Vybrané knihovny mají přístup'
               ],
     )
 
