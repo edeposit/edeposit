@@ -119,14 +119,6 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = False,
         )
     
-    # form.fieldset('Publishing',
-    #               label=_(u"Publishing"),
-    #               fields = [ 'nakladatel_vydavatel',
-    #                          'datum_vydani',
-    #                          'poradi_vydani',
-    #                          'misto_vydani',
-    #                      ]
-    #               )
     nakladatel_vydavatel = schema.TextLine (
         title = u"Nakladatel/vydavatel",
         required = True,
