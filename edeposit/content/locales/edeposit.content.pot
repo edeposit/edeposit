@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-04-17 13:14+0000\n"
+"POT-Creation-Date: 2014-05-21 08:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Accessing"
 msgstr ""
 
-#: edeposit/content/epublication.py:302
+#: edeposit/content/epublication.py:330
 msgid "Add New Item operation cancelled"
 msgstr ""
 
@@ -30,6 +30,10 @@ msgstr ""
 #: edeposit/content/eperiodical.py:112
 #: edeposit/content/eperiodicalpart.py:131
 msgid "Aleph DocNumber"
+msgstr ""
+
+#: edeposit/content/profiles/default/types/edeposit.content.alephexception.xml
+msgid "Aleph Exception"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.alephexportrequest.xml
@@ -42,6 +46,10 @@ msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.alephsearchsysnumberrequest.xml
 msgid "Aleph Search SysNumber Request"
+msgstr ""
+
+#: edeposit/content/originalfile.py:53
+msgid "Aleph SysNumber"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.author.xml
@@ -65,7 +73,7 @@ msgstr ""
 msgid "BookFolder"
 msgstr ""
 
-#: edeposit/content/epublication.py:300
+#: edeposit/content/epublication.py:328
 msgid "Cancel"
 msgstr ""
 
@@ -80,13 +88,11 @@ msgstr ""
 
 #: edeposit/content/eperiodical.py:128
 #: edeposit/content/eperiodicalpart.py:147
-#: edeposit/content/epublication.py:207
 msgid "Choose libraries that can show an ePublication at its terminal."
 msgstr ""
 
 #: edeposit/content/eperiodical.py:140
 #: edeposit/content/eperiodicalpart.py:159
-#: edeposit/content/epublication.py:219
 msgid "Choose libraries that can show an ePublication at public."
 msgstr ""
 
@@ -149,6 +155,10 @@ msgstr ""
 msgid "Edition"
 msgstr ""
 
+#: edeposit/content/profiles/default/types/edeposit.content.alephexception.xml
+msgid "Exception that Aleph Daemon sends"
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.printingfile.xml
 msgid "File used for printing of a publication"
 msgstr ""
@@ -168,10 +178,6 @@ msgstr ""
 
 #: edeposit/content/printingfile.py:29
 msgid "Fill in a file that contains of a printing file for a publication"
-msgstr ""
-
-#: edeposit/content/originalfile.py:49
-msgid "Fill in a file that contains of an epublication"
 msgstr ""
 
 #: edeposit/content/book.py:128
@@ -213,18 +219,19 @@ msgstr ""
 msgid "Folder holds libraries"
 msgstr ""
 
-#: edeposit/content/originalfile.py:54
+#: edeposit/content/originalfile.py:47
 #: edeposit/content/previewfile.py:34
 #: edeposit/content/printingfile.py:34
 msgid "Format of a file."
 msgstr ""
 
 #: edeposit/content/book.py:145
+#: edeposit/content/originalfile.py:59
 msgid "Generate ISBN"
 msgstr ""
 
 #: edeposit/content/isbn.py:31
-#: edeposit/content/originalfile.py:41
+#: edeposit/content/originalfile.py:35
 #: edeposit/content/profiles/default/types/edeposit.content.isbn.xml
 msgid "ISBN"
 msgstr ""
@@ -269,24 +276,26 @@ msgstr ""
 msgid "Internal DocNumber that Aleph refers to metadata of this ePeriodical part"
 msgstr ""
 
-#: edeposit/content/epublication.py:186
-msgid "Internal DocNumber that Aleph refers to metadata of this ePublication"
+#: edeposit/content/originalfile.py:54
+msgid "Internal SysNumber that Aleph refers to metadata of this ePublication"
 msgstr ""
 
-#: edeposit/content/epublication.py:318
+#: edeposit/content/epublication.py:347
 msgid "Item created"
 msgstr ""
 
 #: edeposit/content/eperiodical.py:127
 #: edeposit/content/eperiodicalpart.py:146
-#: edeposit/content/epublication.py:206
 msgid "Libraries that can access at library terminal"
 msgstr ""
 
 #: edeposit/content/eperiodical.py:139
 #: edeposit/content/eperiodicalpart.py:158
-#: edeposit/content/epublication.py:218
 msgid "Libraries that can access at public"
+msgstr ""
+
+#: edeposit/content/epublication.py:209
+msgid "Libraries that can access this ePublication"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.library.xml
@@ -301,7 +310,7 @@ msgstr ""
 msgid "Messages Folder"
 msgstr ""
 
-#: edeposit/content/originalfile.py:48
+#: edeposit/content/originalfile.py:42
 msgid "Original File of an ePublication"
 msgstr ""
 
@@ -384,13 +393,12 @@ msgstr ""
 
 #: edeposit/content/eperiodical.py:133
 #: edeposit/content/eperiodicalpart.py:152
-#: edeposit/content/epublication.py:212
+#: edeposit/content/epublication.py:215
 msgid "Related libraries"
 msgstr ""
 
 #: edeposit/content/eperiodical.py:145
 #: edeposit/content/eperiodicalpart.py:164
-#: edeposit/content/epublication.py:224
 msgid "Related libraries at public"
 msgstr ""
 
@@ -410,7 +418,7 @@ msgstr ""
 msgid "Result sent by Aleph amqp daemon"
 msgstr ""
 
-#: edeposit/content/handlers.py:159
+#: edeposit/content/handlers.py:177
 msgid "Review of authors"
 msgstr ""
 
@@ -427,16 +435,12 @@ msgid "Technical"
 msgstr ""
 
 #: edeposit/content/library.py:38
-#: edeposit/content/originalfile.py:34
+#: edeposit/content/originalfile.py:29
 msgid "URL"
 msgstr ""
 
 #: edeposit/content/library.py:45
 msgid "URL of Kramerius"
-msgstr ""
-
-#: edeposit/content/originalfile.py:35
-msgid "URL of a file source."
 msgstr ""
 
 #: edeposit/content/library.py:39
@@ -452,7 +456,7 @@ msgid "URLs"
 msgstr ""
 
 #: edeposit/content/isbn.py:32
-#: edeposit/content/originalfile.py:42
+#: edeposit/content/originalfile.py:36
 msgid "Value of ISBN"
 msgstr ""
 
@@ -475,6 +479,7 @@ msgid "Volume Title"
 msgstr ""
 
 #: edeposit/content/book.py:146
+#: edeposit/content/originalfile.py:60
 msgid "Whether ISBN agency should generate ISBN number."
 msgstr ""
 
@@ -498,15 +503,19 @@ msgstr ""
 msgid "ePublicationFolder"
 msgstr ""
 
-#: edeposit/content/handlers.py:197
+#: edeposit/content/handlers.py:215
 msgid "ePublications in declaring"
 msgstr ""
 
-#: edeposit/content/handlers.py:202
+#: edeposit/content/handlers.py:230
+msgid "ePublications waiting for RIV to be reviewed"
+msgstr ""
+
+#: edeposit/content/handlers.py:220
 msgid "ePublications waiting for preparing of acquisition"
 msgstr ""
 
-#: edeposit/content/handlers.py:207
+#: edeposit/content/handlers.py:225
 msgid "ePublications with errors"
 msgstr ""
 

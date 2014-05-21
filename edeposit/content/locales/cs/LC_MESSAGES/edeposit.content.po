@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2014-04-17 13:14+0000\n"
-"PO-Revision-Date: 2014-04-17 15:14+0200\n"
+"POT-Creation-Date: 2014-05-21 08:30+0000\n"
+"PO-Revision-Date: 2014-05-21 10:30+0200\n"
 "Last-Translator: Jan Stavěl <stavel.jan@gmail.com>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Accessing"
 msgstr "Zpřístupnění"
 
-#: edeposit/content/epublication.py:302
+#: edeposit/content/epublication.py:330
 msgid "Add New Item operation cancelled"
 msgstr "Ohlášení bylo přerušeno."
 
@@ -43,6 +43,10 @@ msgstr "Ohlášení bylo přerušeno."
 #: edeposit/content/eperiodicalpart.py:131
 msgid "Aleph DocNumber"
 msgstr "Aleph DocNumber"
+
+#: edeposit/content/profiles/default/types/edeposit.content.alephexception.xml
+msgid "Aleph Exception"
+msgstr "Výjimka z Aleph služby"
 
 #: edeposit/content/profiles/default/types/edeposit.content.alephexportrequest.xml
 msgid "Aleph Export Request"
@@ -54,6 +58,10 @@ msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.alephsearchsysnumberrequest.xml
 msgid "Aleph Search SysNumber Request"
+msgstr ""
+
+#: edeposit/content/originalfile.py:53
+msgid "Aleph SysNumber"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.author.xml
@@ -77,7 +85,7 @@ msgstr "Knižní vazba"
 msgid "BookFolder"
 msgstr "Složka knihy"
 
-#: edeposit/content/epublication.py:300
+#: edeposit/content/epublication.py:328
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -92,19 +100,17 @@ msgstr "Kategorie ePublikace pro RIV"
 
 #: edeposit/content/eperiodical.py:128
 #: edeposit/content/eperiodicalpart.py:147
-#: edeposit/content/epublication.py:207
 msgid "Choose libraries that can show an ePublication at its terminal."
 msgstr "Vyberte knihovny, které mohou ePublikaci zpřístupnit na svých terminálech."
 
 #: edeposit/content/eperiodical.py:140
 #: edeposit/content/eperiodicalpart.py:159
-#: edeposit/content/epublication.py:219
 msgid "Choose libraries that can show an ePublication at public."
 msgstr "Vyberte knihovny, které mohou ePublikaci zpřístupnit veřejně."
 
 #: edeposit/content/profiles/default/types/edeposit.content.isbncountrequest.xml
 msgid "Count ISBN occurrences in Aleph"
-msgstr ""
+msgstr "Spočítat výskyt ISBN v Alephu"
 
 #: edeposit/content/book.py:105
 #: edeposit/content/eperiodicalpart.py:110
@@ -161,6 +167,10 @@ msgstr "E-Deposit - ePublikace"
 msgid "Edition"
 msgstr "Edice"
 
+#: edeposit/content/profiles/default/types/edeposit.content.alephexception.xml
+msgid "Exception that Aleph Daemon sends"
+msgstr "Výjimka, co posílá Aleph služba"
+
 #: edeposit/content/profiles/default/types/edeposit.content.printingfile.xml
 msgid "File used for printing of a publication"
 msgstr "Soubor určený pro tisk publikace"
@@ -181,10 +191,6 @@ msgstr "Doplňte soubor, který obsahuje náhled."
 #: edeposit/content/printingfile.py:29
 msgid "Fill in a file that contains of a printing file for a publication"
 msgstr "Doplňte tiskovou předlohu ePublikace."
-
-#: edeposit/content/originalfile.py:49
-msgid "Fill in a file that contains of an epublication"
-msgstr "Doplňte soubor který obsahuje ePublikaci"
 
 #: edeposit/content/book.py:128
 msgid "Fill in a name of a person who processed this book."
@@ -225,18 +231,19 @@ msgstr "Složka pro amqp zprávy"
 msgid "Folder holds libraries"
 msgstr "Složka obsahuje záznamy o knihovnách"
 
-#: edeposit/content/originalfile.py:54
+#: edeposit/content/originalfile.py:47
 #: edeposit/content/previewfile.py:34
 #: edeposit/content/printingfile.py:34
 msgid "Format of a file."
 msgstr "Formát souboru."
 
 #: edeposit/content/book.py:145
+#: edeposit/content/originalfile.py:59
 msgid "Generate ISBN"
 msgstr "Přiřadit ISBN"
 
 #: edeposit/content/isbn.py:31
-#: edeposit/content/originalfile.py:41
+#: edeposit/content/originalfile.py:35
 #: edeposit/content/profiles/default/types/edeposit.content.isbn.xml
 msgid "ISBN"
 msgstr "ISBN"
@@ -281,25 +288,27 @@ msgstr "Interní číslo, podle kterého Aleph zařadí informace o tomto pokra�
 msgid "Internal DocNumber that Aleph refers to metadata of this ePeriodical part"
 msgstr "Interní číslo podle kterého systém Aleph zařadí informace o tomto vydání pokračujícího zdroje"
 
-#: edeposit/content/epublication.py:186
-msgid "Internal DocNumber that Aleph refers to metadata of this ePublication"
-msgstr "Interní číslo, podle nějž si Aleph zařadí metadata této ePublikace"
+#: edeposit/content/originalfile.py:54
+msgid "Internal SysNumber that Aleph refers to metadata of this ePublication"
+msgstr ""
 
-#: edeposit/content/epublication.py:318
+#: edeposit/content/epublication.py:347
 msgid "Item created"
 msgstr "Položka byla vytvořena"
 
 #: edeposit/content/eperiodical.py:127
 #: edeposit/content/eperiodicalpart.py:146
-#: edeposit/content/epublication.py:206
 msgid "Libraries that can access at library terminal"
 msgstr "Knihovny, které mohou ePublikaci zpřístupnit na svém terminálu."
 
 #: edeposit/content/eperiodical.py:139
 #: edeposit/content/eperiodicalpart.py:158
-#: edeposit/content/epublication.py:218
 msgid "Libraries that can access at public"
 msgstr "Knihovny, které mohou ePublikaci zpřístupnit veřejně."
+
+#: edeposit/content/epublication.py:209
+msgid "Libraries that can access this ePublication"
+msgstr "Knihovny, co mají přístup k ePublikaci"
 
 #: edeposit/content/profiles/default/types/edeposit.content.library.xml
 msgid "Library"
@@ -307,13 +316,13 @@ msgstr "Knihovna"
 
 #: edeposit/content/profiles/default/types/edeposit.content.alephexportrequest.xml
 msgid "Message that informs export to Aleph was submitted"
-msgstr ""
+msgstr "Zpráva, co informuje o výsledku exportu do Alephu"
 
 #: edeposit/content/profiles/default/types/edeposit.content.messagesfolder.xml
 msgid "Messages Folder"
 msgstr "Složka se systémovými zprávami"
 
-#: edeposit/content/originalfile.py:48
+#: edeposit/content/originalfile.py:42
 msgid "Original File of an ePublication"
 msgstr "Originál ePublikace"
 
@@ -396,13 +405,12 @@ msgstr "kategorie pro RIV"
 
 #: edeposit/content/eperiodical.py:133
 #: edeposit/content/eperiodicalpart.py:152
-#: edeposit/content/epublication.py:212
+#: edeposit/content/epublication.py:215
 msgid "Related libraries"
 msgstr "Vybrané knihovny"
 
 #: edeposit/content/eperiodical.py:145
 #: edeposit/content/eperiodicalpart.py:164
-#: edeposit/content/epublication.py:224
 msgid "Related libraries at public"
 msgstr "Vybrané knihovny pro veřejné zpřístupnění."
 
@@ -422,7 +430,7 @@ msgstr ""
 msgid "Result sent by Aleph amqp daemon"
 msgstr ""
 
-#: edeposit/content/handlers.py:159
+#: edeposit/content/handlers.py:177
 msgid "Review of authors"
 msgstr "Přehled autorů"
 
@@ -439,17 +447,13 @@ msgid "Technical"
 msgstr "Technické údaje"
 
 #: edeposit/content/library.py:38
-#: edeposit/content/originalfile.py:34
+#: edeposit/content/originalfile.py:29
 msgid "URL"
 msgstr "URL"
 
 #: edeposit/content/library.py:45
 msgid "URL of Kramerius"
 msgstr "Web stránka Krameria"
-
-#: edeposit/content/originalfile.py:35
-msgid "URL of a file source."
-msgstr "Web stránka pro stažení souboru"
 
 #: edeposit/content/library.py:39
 msgid "URL of a library"
@@ -464,7 +468,7 @@ msgid "URLs"
 msgstr "Cesty URL"
 
 #: edeposit/content/isbn.py:32
-#: edeposit/content/originalfile.py:42
+#: edeposit/content/originalfile.py:36
 msgid "Value of ISBN"
 msgstr "Hodnota ISBN"
 
@@ -487,6 +491,7 @@ msgid "Volume Title"
 msgstr "Titul svazku"
 
 #: edeposit/content/book.py:146
+#: edeposit/content/originalfile.py:60
 msgid "Whether ISBN agency should generate ISBN number."
 msgstr "Má ISBN agentura přiřadit ISBN?"
 
@@ -510,15 +515,19 @@ msgstr "E-Deposit - ePublikace"
 msgid "ePublicationFolder"
 msgstr "E-Deposit - Složka ePublikací"
 
-#: edeposit/content/handlers.py:197
+#: edeposit/content/handlers.py:215
 msgid "ePublications in declaring"
 msgstr "ePublikace v zadání"
 
-#: edeposit/content/handlers.py:202
+#: edeposit/content/handlers.py:230
+msgid "ePublications waiting for RIV to be reviewed"
+msgstr ""
+
+#: edeposit/content/handlers.py:220
 msgid "ePublications waiting for preparing of acquisition"
 msgstr "ePublikace čekající na akvizici"
 
-#: edeposit/content/handlers.py:207
+#: edeposit/content/handlers.py:225
 msgid "ePublications with errors"
 msgstr "ePublikace s chybami"
 
