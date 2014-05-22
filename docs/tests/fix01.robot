@@ -43,7 +43,7 @@ Ohlašení knihy s jiz pouzitym ISBN
     Fill misto vydani                     ${MISTO_VYDANI}
     Fill poradi vydani                    ${PORADI_VYDANI}
     Fill zpracovatel                      ${ZPRACOVATEL_ZAZNAMU}
-    Fill datum vydani                     ${DATUM_VYDANI_DAY}   ${DATUM_VYDANI_YEAR}
+    Fill rok vydani                       ${DATUM_VYDANI_YEAR}
     Click Button                          form.buttons.save    
     Wait Until Page Contains              isbn je už použito. Použijte jíné, nebo nahlašte opravu.
 

@@ -22,18 +22,27 @@ ${USER_PASSWORD}    fafs08ja
 #     # update security
 #     # reguild catalog
     
-UC01 Registrace producenta
-    ${USER_NAME}=     Catenate     SEPARATOR=-  test-user   ${TEST_SEED}
-    Registrace producenta
-    Page Should Contain            Vítejte!
-    Log in                         ${USER_NAME}   ${USER_PASSWORD}
-    Page Should Contain            Přehledová stránka uživatele
+# UC01 Registrace producenta
+#     ${USER_NAME}=     Catenate     SEPARATOR=-  test-user   ${TEST_SEED}
+#     Registrace producenta
+#     Page Should Contain            Vítejte!
+#     Log in                         ${USER_NAME}   ${USER_PASSWORD}
+#     Page Should Contain            Přehledová stránka uživatele
     
 UC02 Ohlášení ePublikace
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}
     Registrace producenta
     Log in                           ${USER_NAME}   ${USER_PASSWORD}
-    Ohlášení se soubory
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains Element      css=input[value="Ohlásit"]
+    Pause
+    Fill inputs about ePublication    
+    Pause
+    Add authors for ePublication
+    Pause
+    Add Original Files for ePublication   ${VALID_ISBN}
+    Fill inputs about Vydani
+    Click Button                          form.buttons.save    
     Sleep     10s
     Zobrazit historii
     Sleep     1s
@@ -45,26 +54,26 @@ UC02 Ohlášení ePublikace
     Wait Until Page Contains         Čekání na Aleph
 
 
-UC02 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
-    ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}
-    Registrace producenta
-    Log in                           ${USER_NAME}   ${USER_PASSWORD}
-    Click Link                            Ohlášení ePublikací
-    Wait Until Page Contains Element      css=input[value="Ohlásit"]
-    Fill inputs about ePublication        
-    Fill inputs about Vydani
-    Add authors for ePublication
-    Add Original Files for ePublication   ${WRONG_ISBN}
-    Wait Until Page Contains              chyba v isbn
-    Click Button                          form.buttons.cancel
-    Page Should Contain                   Ohlášení bylo přerušeno.
-    Go to                                 ${PLONE_URL}
-    Click Link                            Ohlášení ePublikací
-    Wait Until Page Contains Element      css=input[value="Ohlásit"]
-    Fill inputs about ePublication        
-    Fill inputs about Vydani
-    Add authors for ePublication
-    Add Original Files for ePublication   ${VALID_BUT_DUPLICIT_ISBN}
-    Wait Until Page Contains              isbn je už použito. Použijte jíné, nebo nahlašte opravu.
+# UC02 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
+#     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}
+#     Registrace producenta
+#     Log in                           ${USER_NAME}   ${USER_PASSWORD}
+#     Click Link                            Ohlášení ePublikací
+#     Wait Until Page Contains Element      css=input[value="Ohlásit"]
+#     Fill inputs about ePublication        
+#     Fill inputs about Vydani
+#     Add authors for ePublication
+#     Add Original Files for ePublication   ${WRONG_ISBN}
+#     Wait Until Page Contains              chyba v isbn
+#     Click Button                          form.buttons.cancel
+#     Page Should Contain                   Ohlášení bylo přerušeno.
+#     Go to                                 ${PLONE_URL}
+#     Click Link                            Ohlášení ePublikací
+#     Wait Until Page Contains Element      css=input[value="Ohlásit"]
+#     Fill inputs about ePublication        
+#     Fill inputs about Vydani
+#     Add authors for ePublication
+#     Add Original Files for ePublication   ${VALID_BUT_DUPLICIT_ISBN}
+#     Wait Until Page Contains              isbn je už použito. Použijte jíné, nebo nahlašte opravu.
     
 *** Keywords ***
