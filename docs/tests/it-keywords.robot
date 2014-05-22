@@ -33,3 +33,9 @@ Log in
     Input text for sure  __ac_name  ${userid}
     Input text for sure  __ac_password  ${password}
     Click Button  css=#login-form .formControls input[name=submit]
+
+Log In as Admin
+    Log in    admin    ${ADMIN_PASSWORD}
+    
+Pause
+    Pause Execution

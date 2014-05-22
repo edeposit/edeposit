@@ -32,15 +32,17 @@ ${EDITOR3_PASSWORD}    PhiEso7
 *** Test Cases ***
 
 Local roles are available
-     Log in as site owner
-     Go To                               ${PLONE_URL}/producents/
-     Local role is available             Producent Administrator
+    Log in as site owner
+    Go To                               ${PLONE_URL}/producents/
+    Local role is available             Producent Administrator
+    Local role is available             Producent Editor
 
 Práce se skupinami uživatelů
     Log in as site owner
     Go To                             ${PLONE_URL}/@@usergroup-groupprefs
     Page Should Contain Element          css=input[name="group_Producent Administrators:list"]
     Page Should Contain Element          css=input[name="group_Testers:list"]
+    Page Should Contain Element          css=input[name="group_Producent Editors:list"]
 
 Domovská stránka
      Go to homepage
@@ -81,7 +83,19 @@ Bezpečnost složky producentů
      Page Should Not Contain Link    ePublications in declaring
      Page Should Not Contain Link    ePublications waiting for preparing of acquisition
      Page Should Not Contain Link    ePublications with errors
-    
+
+UC01-01 Registrace producenta bez editora
+    Click link        Registrovat
+    Page Should Contain   		Registrace producenta
+    Page Should Contain Button   	Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add one administrator
+    Click Button			Registrovat
+    Page Should Contain                 Vaše uživatelská registrace proběhla.
+
 UC01-01 Registrace producenta a kontrola administratora
     Registrace producenta
     Page Should Contain                 Vaše uživatelská registrace proběhla.
@@ -106,7 +120,7 @@ UC01-01 Registrace producenta a kontrola administratora
     Location Should Be                  ${PLONE_URL}/producents/${PRODUCENT_ID}
     Sharing tab is available    
 
-UC01-01 Kontrola zadaných hesel
+UC01-01 Registrace producenta s editorem
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -114,34 +128,11 @@ UC01-01 Kontrola zadaných hesel
     Click Link				Adresa
     Fill inputs about address
     Click Link                          Producent
-    Add one administrator with wrong passwords
+    Add one administrator
+    Click Link                          Editor producenta
+    Add one editor
     Click Button			Registrovat
-    Pause
-    Page should contain                 problém v údajích administrátora
-    Page should contain                 hesla se musí shodovat
-    
-UC01-01 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
-    Click link        Registrovat
-    Page Should Contain   		Registrace producenta
-    Page Should Contain Button   	Registrovat
-    Fill inputs about producent
-    Click Link				Adresa
-    Fill inputs about address
-    Click Link                          Producent
-    Add two administrators with the same username
-    Click Button			Registrovat
-
-UC01-01 Kontrola dostupnosti uzivatelskeho jmena
-    Registrace producenta
-    Click link        Registrovat
-    Fill inputs about producent
-    Click Link				Adresa
-    Fill inputs about address
-    Click Link                          Producent
-    Add one administrator    
-    Click Button			Registrovat
-    Page Should Contain                 problém v údajích administrátora
-    Page Should Contain                 toto uživatelské jméno je už obsazeno, zvolte jiné
+    Page Should Contain                 Vaše uživatelská registrace proběhla.
 
 UC01-01 Registrace producenta s editorem a kontrola editora
     Registrace producenta s editorem
@@ -170,6 +161,91 @@ UC01-01 Registrace producenta s editorem a kontrola editora
     User can not edit
     User can not add any content
     User can add ePublication
+
+UC01-01 Registrace producenta s editorem - kontrola povinnych policek, shodnosti hesel
+    Click link                          Registrovat
+    Page Should Contain   		Registrace producenta
+    Page Should Contain Button   	Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add one administrator
+    Click Link                          Editor producenta
+    Input Text                          css=#form-widgets-IEditor-fullname     Jan Stavěl
+    Click Button			Registrovat
+    Page Should Contain                 Prosím opravte vyznačené chyby.
+    Page Should Contain                 Některé položky u editora nejsou vyplněny. Buď vyplňte editorovi všechny položky, nebo je všechny smažte.
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password      ${USER_PASSWORD}
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password_ctl    ${USER_PASSWORD}
+    Click Link                          Editor producenta
+    Input Text                          css=#form-widgets-IEditor-email   stavel.jan@gmail.com
+    Click Button			Registrovat
+    Page Should Contain                 Prosím opravte vyznačené chyby.
+    # Page Should Contain                 css=#form-widgets-IAdministrator-administrator-widgets-password[value=''${USER_PASSWORD}']
+    # Page Should Contain                 css=#form-widgets-IAdministrator-administrator-widgets-password_ctl[value='${USER_PASSWORD}']
+    Page Should Contain                 Některé položky u editora nejsou vyplněny. Buď vyplňte editorovi všechny položky, nebo je všechny smažte.
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password      ${USER_PASSWORD}
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password_ctl    ${USER_PASSWORD}
+    Click Link                          Editor producenta
+    Input Text                          css=#form-widgets-IEditor-phone   773230772
+    Input Text                          css=#form-widgets-IEditor-username   ${EDITOR1_NAME}
+    Input Text                          css=#form-widgets-IEditor-password   ${EDITOR1_PASSWORD}
+    Click Button			Registrovat
+    Page Should Contain                 Prosím opravte vyznačené chyby.
+    Page Should Contain                 Některé položky u editora nejsou vyplněny. Buď vyplňte editorovi všechny položky, nebo je všechny smažte.
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password      ${USER_PASSWORD}
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password_ctl    ${USER_PASSWORD}
+    Click Link                          Editor producenta
+    Input Text                          css=#form-widgets-IEditor-password   ${EDITOR1_PASSWORD}
+    Input Text                          css=#form-widgets-IEditor-password_ctl   wrongpassword
+    Click Button			Registrovat
+    Page Should Contain                 Prosím opravte vyznačené chyby.
+    Page Should Contain                 U editora se neshodují zadaná hesla. Vyplňte hesla znovu.
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password      ${USER_PASSWORD}
+    Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password_ctl    ${USER_PASSWORD}
+    Click Link                          Editor producenta
+    Input Text                          css=#form-widgets-IEditor-password       ${EDITOR1_PASSWORD}
+    Input Text                          css=#form-widgets-IEditor-password_ctl   ${EDITOR1_PASSWORD}
+    Click Button			Registrovat
+    Page Should Contain                 Vítejte!
+    Page Should Contain                 Vaše uživatelská registrace proběhla.
+
+UC01-01 Kontrola zadaných hesel
+    Click link        Registrovat
+    Page Should Contain   		Registrace producenta
+    Page Should Contain Button   	Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add one administrator with wrong passwords
+    Click Button			Registrovat
+    Page should contain                 problém v údajích administrátora
+    Page should contain                 hesla se musí shodovat
+    
+UC01-01 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
+    Click link        Registrovat
+    Page Should Contain   		Registrace producenta
+    Page Should Contain Button   	Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add two administrators with the same username
+    Click Button			Registrovat
+
+UC01-01 Kontrola dostupnosti uzivatelskeho jmena
+    Registrace producenta
+    Click link        Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add one administrator    
+    Click Button			Registrovat
+    Page Should Contain                 problém v údajích administrátora
+    Page Should Contain                 toto uživatelské jméno je už obsazeno, zvolte jiné
 
 UC01-01 Název producenta v portletech je klikací
      Registrace producenta

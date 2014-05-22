@@ -53,6 +53,11 @@ User Should Exist
     Go to                   ${PLONE_URL}/@@user-information?userid=${username}
     Page Should Contain     Osobní informace
 
+User Can Log In
+    [arguments]   ${username}    ${password}
+    Log In        ${username}   ${password}
+    Page Should Contain         Přehledová stránka uživatele
+
 Fill inputs about producent
     Input Text				css=#form-widgets-IBasic-title        ${PRODUCENT_TITLE}
     Input Text				css=#form-widgets-IBasic-description  Malý lokální vydavatel zajímavých publikací 
@@ -74,12 +79,12 @@ Add one administrator
     Input Text                          css=#form-widgets-IAdministrator-administrator-widgets-password_ctl   ${USER_PASSWORD}
 
 Add one editor
-    Input Text                          css=#form-widgets-IProducentEditors-editor1-widgets-fullname   Jan Stavěl
-    Input Text                          css=#form-widgets-IProducentEditors-editor1-widgets-email   stavel.jan@gmail.com
-    Input Text                          css=#form-widgets-IProducentEditors-editor1-widgets-phone   773230772
-    Input Text                          css=#form-widgets-IProducentEditors-editor1-widgets-username   ${EDITOR1_NAME}
-    Input Text                          css=#form-widgets-IProducentEditors-editor1-widgets-password   ${EDITOR1_PASSWORD}
-    Input Text                          css=#form-widgets-IProducentEditors-editor1-widgets-password_ctl   ${EDITOR1_PASSWORD}
+    Input Text                          css=#form-widgets-IEditor-fullname   Jan Stavěl
+    Input Text                          css=#form-widgets-IEditor-email   stavel.jan@gmail.com
+    Input Text                          css=#form-widgets-IEditor-phone   773230772
+    Input Text                          css=#form-widgets-IEditor-username   ${EDITOR1_NAME}
+    Input Text                          css=#form-widgets-IEditor-password   ${EDITOR1_PASSWORD}
+    Input Text                          css=#form-widgets-IEditor-password_ctl   ${EDITOR1_PASSWORD}
 
 Add one administrator with wrong passwords
     #Click Button                        Přidat
@@ -130,7 +135,7 @@ Registrace producenta s editorem
     Fill inputs about address
     Click Link                          Producent
     Add one administrator    
-    Click Link                          Editoři producenta
+    Click Link                          Editor producenta
     Add one editor
     Click Button			Registrovat
 
@@ -160,11 +165,10 @@ Fill inputs about ePublication
 
 Fill inputs about Vydani
     Input Text                          css=#form-widgets-nakladatel_vydavatel        In Zlín
-    Input Text                          css=#form-widgets-misto_vydani         Zlín
-    Input Text                          css=#form-widgets-datum_vydani-day     10
-    Input Text                          css=#form-widgets-datum_vydani-year    2013
-    Input Text                          css=#form-widgets-poradi_vydani        první
-    Input Text                          css=#form-widgets-zpracovatel_zaznamu        Jan Stavěl
+    Input Text                          css=#form-widgets-misto_vydani                Zlín
+    Input Text                          css=#form-widgets-rok_vydani                  2013
+    Input Text                          css=#form-widgets-poradi_vydani               první
+    Input Text                          css=#form-widgets-zpracovatel_zaznamu         Jan Stavěl
 
 Fill nakladatel
     [arguments]                         ${NAKLADATEL}
@@ -186,10 +190,9 @@ Fill poradi vydani
     [arguments]                         ${VALUE}
     Input Text                          css=#form-widgets-poradi_vydani      ${VALUE}
 
-Fill datum vydani
-    [arguments]                         ${DAY}  ${YEAR}
-    Input Text                          css=#form-widgets-datum_vydani-day     ${DAY}
-    Input Text                          css=#form-widgets-datum_vydani-year    ${YEAR}
+Fill rok vydani
+    [arguments]                         ${YEAR}
+    Input Text                          css=#form-widgets-rok_vydani     ${YEAR}
 
 Add authors for ePublication
     [arguments]                         ${AUTHOR}
@@ -200,7 +203,6 @@ Add Original Files for ePublication
     Input Text                          css=#form-widgets-IOriginalFile-url  http://www.grada.cz/book/1000
     Input Text                          css=#form-widgets-IOriginalFile-isbn  ${ISBN}
     Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
-
 
 Fill inputs about RIV
     Select Checkbox                     css=#form-widgets-offer_to_riv-0
@@ -233,9 +235,6 @@ User can add ePublication
     Click Element          css=#edeposit-content-epublication
     Page Should Contain    Přidat E-Deposit - ePublikace
 
-Pause
-    Pause Execution
-    
 Go to user page
     Pause
 
