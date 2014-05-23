@@ -380,7 +380,7 @@ class EPublicationAddForm(DefaultAddForm):
                 
         self.authors = getAndRemoveKey(data,'IAuthors.authors',[]) or []
         self.originalFile = dict(map(lambda key: (key, getAndRemoveKey(data,'IOriginalFile.' + key,None)),
-                                     ['file','isbn','url','format']))
+                                     IOriginalFile.names()))
         self.submittedData = data
         self.submitAgain = self.request.get('REPEAT','N') == 'Y'
         created = DefaultAddForm.create(self,data)
