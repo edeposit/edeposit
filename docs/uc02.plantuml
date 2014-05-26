@@ -30,7 +30,6 @@ rectangle  {
 	   :nakl: --> (UC02-15 Dodatečná oprava metadat)
 	   :sys: -left-> (UC02-16 Automatická kontrola ISBN)
 	   :sys: -left-> (UC02-17 Upozornění na duplicitní ISBN)
-	   :nakl: -left-> (UC02-18 Odevzdání dokumentu)
 }
 
 @enduml

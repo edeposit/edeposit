@@ -1,0 +1,57 @@
+.. _uc15-01:
+
+UC15-01 Odevzdání dokumentu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. admonition:: účastníci
+
+   - Producent
+   - Systém
+
+.. admonition:: vstupní podmínky
+
+   - V Alephu existuje záznam pro daný dokument
+   - Nakladatel/vydavatel se přihlásil do systému.
+
+.. admonition:: tok událostí
+
+   1. Systém zobrazí :ref:`úvodní stránku <uc02-02-01>`
+   2. Producent klikne na linku "Odevzdat dokument"
+   3. Systém zobrazí políčko pro zadání ISBN
+   4. Producent zadá ISBN dokumentu 
+      - a klikne na linku "Načíst záznam z Alephu"
+   5. Systém se dotáže do Alephu a zobrazí údaje o záznamu
+      systém zobrazí políčka pro:
+        - upload souboru
+        - url s informacemi o dokumentu
+        - format souboru
+        - predvyplnene ISBN
+
+   6. Producent klikne na linku "Odevzdat"
+   7. Systém načte dokument a provede:
+      - kontrolu na viry
+      - kontrolu na typ formátu
+
+.. admonition:: následné podmínky
+
+   Dokument se dostane na začátek schvalování akvizicí.
+
+   - pracovník akvizice má dokument ke schválení
+
+.. raw:: html
+
+	<div id="disqus_thread"></div>
+	<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'edeposit'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    

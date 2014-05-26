@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+title Práce s dokumenty
+skinparam packageStyle rect
+
+actor :Nakladatel/vydavatel: as nakl
+actor :Pracovník agentury ISBN: as isbn
+actor :Pracovník akvizice: as akv
+actor :Systém: as sys
+
+:sys: -> (LTP: Získání souboru)
+
+rectangle  {
+	   :nakl: --> (UC15-01 Odevzdání dokumentu)
+	   :sys: -left-> (UC15-02 Kontroly souboru)
+	   :sys: -left-> (UC15-03 Načtení metadat ze souboru)
+	   :sys: -left-> (UC15-04 Transformace souboru)
+	   :sys: -left-> (UC15-05 Vytvoření náhledu na soubor)
+	   :akv: --> (UC15-06 Kontrola dokumentu akvizicí)
+}
+
+@enduml

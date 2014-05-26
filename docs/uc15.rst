@@ -1,29 +1,16 @@
-.. _uc02:
+.. _uc15:
 
-UC02 - Ohlášení publikace
-...........................................
+UC15 - Práce s dokumenty
+................................................................
 
-.. image:: uc02.png
+Jedná se o případy, kdy existuje záznam v Alephu a dodatečně se
+odevzdává dokument s ISBN dotyčného záznamu.
+
+.. image:: uc15.png
 
 .. toctree::
    
-   uc02-01
-   uc02-02
-   uc02-03
-   uc02-04
-   uc02-05
-   uc02-06
-   uc02-07
-   uc02-08
-   uc02-09
-   uc02-10
-   uc02-11
-   uc02-12
-   uc02-13
-   uc02-14
-   uc02-15
-   uc02-16
-   uc02-17
+   uc15-01
 
 .. raw:: html
 
