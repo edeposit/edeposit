@@ -16,6 +16,6 @@ Pridavani noveho uzivatele
     Log In as Admin
     Go to   ${PLONE_URL}/@@usergroup-userprefs
     Click Button    Přidat nového uživatele
+    Sleep   1s    
     Page Should Not Contain   Omlouváme se, ale zřejmě došlo k chybě...
-    Page Should Contain     Přidat
-    Page Should Contain     Registrovat
+    Page Should Contain     Přidat uživatlele

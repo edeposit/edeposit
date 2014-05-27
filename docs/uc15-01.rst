@@ -19,9 +19,12 @@ UC15-01 Odevzdání dokumentu
    2. Producent klikne na linku "Odevzdat dokument"
    3. Systém zobrazí políčko pro zadání ISBN
    4. Producent zadá ISBN dokumentu 
+
       - a klikne na linku "Načíst záznam z Alephu"
+
    5. Systém se dotáže do Alephu a zobrazí údaje o záznamu
       systém zobrazí políčka pro:
+
         - upload souboru
         - url s informacemi o dokumentu
         - format souboru
@@ -29,13 +32,13 @@ UC15-01 Odevzdání dokumentu
 
    6. Producent klikne na linku "Odevzdat"
    7. Systém načte dokument a provede:
+
       - kontrolu na viry
       - kontrolu na typ formátu
 
 .. admonition:: následné podmínky
 
    Dokument se dostane na začátek schvalování akvizicí.
-
    - pracovník akvizice má dokument ke schválení
 
 .. raw:: html

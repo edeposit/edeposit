@@ -34,36 +34,37 @@ ${SYSTEM_USER_NAME}   system
 #     Page Should Contain                   Vyhledat
 #     Page Should Contain                   Zlínsky vydavatel    
 
-UC02-01 Ohlášení bez autoru
-    Registrace producenta
-    Log in                                ${USER_NAME}   ${USER_PASSWORD}
-    Click Link                            Ohlášení ePublikací
-    Wait Until Page Contains              Přidat E-Deposit - ePublikace
-    Page Should Not Contain               Obsah
-    Page Should Contain                   ePublikace
-    Page Should Contain                   Název ePublikace
-    Page Should Contain                   RIV
-    Fill inputs about ePublication    
-    Fill inputs about Vydani
-    Add Original Files for ePublication   ${VALID_ISBN}
-    Click Button                          form.buttons.save  
-    Pause
-    Page Should Contain                   Položka byla vytvořena
-
-# UC02-01 Ohlášení se soubory
-#     Stop Aleph Daemon
+# UC02-01 Ohlášení bez autoru
 #     Registrace producenta
 #     Log in                                ${USER_NAME}   ${USER_PASSWORD}
 #     Click Link                            Ohlášení ePublikací
 #     Wait Until Page Contains              Přidat E-Deposit - ePublikace
+#     Page Should Not Contain               Obsah
+#     Page Should Contain                   ePublikace
+#     Page Should Contain                   Název ePublikace
+#     Page Should Contain                   RIV
 #     Fill inputs about ePublication    
 #     Fill inputs about Vydani
-#     Add authors for ePublication
 #     Add Original Files for ePublication   ${VALID_ISBN}
-#     Click Button                          form.buttons.save    
+#     Click Button                          form.buttons.save  
+#     Pause
 #     Page Should Contain                   Položka byla vytvořena
-#     Location Should Contain               lesni-skolky-ve-zline
-#     Page Should Contain                   Kontrola ISBN
+
+UC02-01 Ohlášení se soubory
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Fill inputs about Vydani
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication   ${VALID_ISBN}
+    Click Button                          form.buttons.save    
+    Pause
+    Page Should Contain                   Položka byla vytvořena
+    Location Should Contain               lesni-skolky-ve-zline
+    Page Should Contain                   Kontrola ISBN
 
 # UC02-01 Ohlášení s RIV kategorií
 #     Registrace producenta

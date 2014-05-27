@@ -1,7 +1,4 @@
 *** VARIABLES ***
-${VALID_ISBN}     978-0-306-40615-7
-${VALID_BUT_DUPLICIT_ISBN}     80-85432-66-8
-${WRONG_ISBN}     80-12312-3241-324124
 
 *** Keywords ***
 
@@ -196,7 +193,7 @@ Fill rok vydani
 
 Add authors for ePublication
     [arguments]                         ${AUTHOR}
-    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-fullname  Jan Stavěl
+    Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-fullname    ${AUTHOR}
 
 Add Original Files for ePublication
     [Arguments]                         ${ISBN}
@@ -215,7 +212,7 @@ Ohlášení se soubory
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains Element      css=input[value="Ohlásit"]
     Fill inputs about ePublication    
-    Add authors for ePublication
+    Add authors for ePublication          Jan Stavěl
     Add Original Files for ePublication   ${VALID_ISBN}
     Fill inputs about Vydani
     Click Button                          form.buttons.save    

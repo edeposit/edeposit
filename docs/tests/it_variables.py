@@ -9,6 +9,16 @@ SYSTEM_NAME=            "system"
 SYSTEM_PASSWORD=        "password"
 PRODUCENT_ID=           "zlinsky-vydavatel"
 PRODUCENT_TITLE=        u"Zlínsky vydavatel"
+
+EDITOR1_NAME=       "editor1"
+EDITOR1_PASSWORD=   ""
+    
+EDITOR2_NAME=       "editor2"
+EDITOR2_PASSWORD=   ""
+    
+EDITOR3_NAME=       "editor3"
+EDITOR3_PASSWORD=   ""
+
 SYSTEM_USER_PASSWORD=   "password"
 SYSTEM_USER_NAME=       "system"
 ADMIN_PASSWORD=         "password"

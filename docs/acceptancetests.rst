@@ -7,6 +7,7 @@ Akceptační testy
    
    tests/at01
    tests/at02
+   tests/at15
 
 :download:`test report <tests/report.html>`
 

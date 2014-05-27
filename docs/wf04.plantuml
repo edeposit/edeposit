@@ -1,0 +1,54 @@
+@startuml
+title <b>Pracovní cyklus dokumentu ePublikace</b>
+skinparam DefaultFontSize 16pt
+
+skinparam state {
+  StartColor MediumBlue
+  EndColor MediumBlue
+  BackgroundColor Peru
+  BackgroundColor<< Begin >> Olive
+  BorderColor Peru
+  FontName Impact
+  ArrowColor Green
+}
+
+state "Odevzdání" as declaration #SandyBrown
+declaration : možnost odevzdat dokument k již existujícímu záznamu v Alephu
+
+state "Akvizice" as acquisition #ECE8DF
+state "Příprava akvizice" as acquisitionPreparing #ECE8DF
+state "Oprava" as declarationWithError #SandyBrown
+state "Export do LTP" as exportToLTP #SteelBlue
+state "Export do Krameria" as exportToKramerius #SteelBlue
+state "Antivir" as antivirus #SteelBlue
+state "Kontrola ISBN" as isbnValidation #SteelBlue
+state "Generování náhledu" as thumbnailGenerating #SteelBlue
+state "Stažený z oběhu" as withdrawn #ECE8DF
+state "Zpracovaný" as processed #ECE8DF
+
+[*] ---> declaration
+
+declaration ---> isbnValidation : << producent >> \n << akvizice >> \n K akvizici
+isbnValidation ---> antivirus : << system >> \n ISBN is valid
+isbnValidation ---> declarationWithError : << system >> \n ISBN is not valid
+antivirus ---> thumbnailGenerating : << system >> \n File is virus free
+antivirus ---> declarationWithError : << system >> \n File contains of a virus
+thumbnailGenerating ---> acquisitionPreparing : << system >> \n File is virus free
+thumbnailGenerating ---> declarationWithError : << system >> \n File contains of a virus
+acquisitionPreparing ---> acquisition : << správce akvizice >> \n Potvrdit přidělení
+acquisition ---> declarationWithError : << isbn agentura >> \n Vrátit k opravě
+acquisition ---> declarationWithError : << akvizice >> \n Vrátit k opravě
+acquisition ---> acquisition : << isbn agentura >> \n ISBN je správně
+acquisition ---> acquisition : << akvizice >> \n Metadata jsou správně
+acquisition ---> exportToLTP : << isbn agentura >> \n << akvizice >> (akvizice i ISBN je OK) \n Potvrdit správnost
+acquisition ---> declarationWithError : << producent >> \n Vrátit k opravě
+acquisition ---> withdrawn : << akvizice >> \n Stáhnout z oběhu
+exportToLTP ---> exportToKramerius: << system >>
+exportToKramerius ---> processed : << system >>
+declarationWithError ---> isbnValidation : << producent >> \n K akvizici
+declarationWithError ---> withdrawn : << akvizice >> \n Stáhnout z oběhu
+
+withdrawn ---> [*]
+processed ---> [*]
+
+@enduml

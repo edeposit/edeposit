@@ -36,6 +36,10 @@ Log in
 
 Log In as Admin
     Log in    admin    ${ADMIN_PASSWORD}
-    
+
+Log out
+    Go to  ${PLONE_URL}/logout
+    Page Should Contain Element  css=#login-form
+
 Pause
     Pause Execution
