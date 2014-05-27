@@ -15,3 +15,5 @@ var/*
 develop-eggs/*
 docs/_build
 build/*
+my_it_variables.py
+my_variables.py
