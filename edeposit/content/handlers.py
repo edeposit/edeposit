@@ -318,8 +318,7 @@ def addedAlephExportRequest(context, event):
     systemMessages = aq_parent(aq_inner(context))
     epublication = aq_parent(aq_inner(systemMessages))
     originalFile = epublication[context.originalFileID]
-    authors = [ Author(lastName = aa.fullname, firstName="", title = "")
-                for aa in epublication.authors.results() ]
+    authors = map(lambda aa: Author(lastName = aa.fullname, firstName="", title = ""), epublication.authors.results())
     epublicationRecord =  EPublication (
         ISBN = originalFile.isbn or "",
         nazev = epublication.title or "",
@@ -336,7 +335,7 @@ def addedAlephExportRequest(context, event):
         url = originalFile.url or "",
         mistoVydani = epublication.misto_vydani,
         ISBNSouboruPublikaci = epublication.isbn_souboru_publikaci or "",
-        autori = map(lambda author: author.fullname, filter(lambda author: author.fullname, authors)),
+        autori = map(lambda author: author.lastName, filter(lambda author: author.lastName, authors)),
         originaly = [],
         internal_url = originalFile.absolute_url() or "",
     )
