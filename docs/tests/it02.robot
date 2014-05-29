@@ -2,7 +2,9 @@
 Library    Selenium2Library    5    run_on_failure=Capture Page Screenshot
 Library    Dialogs
 Library    String
-
+Library    amqp.RabbitMQ
+Library    Collections
+    
 Test Setup      Open Browser      ${PLONE_URL}
 Test Teardown   Close Browser
 Variables       it_variables.py
@@ -20,30 +22,50 @@ ${USER_PASSWORD}    fafs08ja
 
 # UC00 Instalace produktu
 #     # update security
-#     # reguild catalog
-    
-# UC02 Ohlášení ePublikace
-#     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
-#     Registrace producenta
-#     Log in                           ${USER_NAME}   ${USER_PASSWORD}
-#     Click Link                            Ohlášení ePublikací
-#     Wait Until Page Contains Element      css=input[value="Ohlásit"]
-#     Fill inputs about ePublication    
-#     Add authors for ePublication          Jan Stavěl
-#     Add Original Files for ePublication   ${VALID_ISBN}
-#     Fill inputs about Vydani
-#     Click Button                          form.buttons.save    
-#     Sleep     10s
-#     Pause
-#     Zobrazit historii
-#     Sleep     1s
-#     Historie obsahuje zprávu         K akvizici
-#     Historie obsahuje zprávu         Poslal jsem jeden záznam k exportu do Alephu
-#     Historie obsahuje zprávu         Export jednoho záznamu do Alephu
-#     Historie obsahuje zprávu         Všechny exporty do Alephu proběhly úspěšně
-#     Click Link                       Zobrazení
-#     Wait Until Page Contains         Čekání na Aleph
+#     # rebuild catalog
 
+UC02 Ohlášení ePublikace - kontrola Aleph amqp sluzby
+    Declare Queue                    ${QUEUE_NAME}
+    Declare Queue Binding            search    ${QUEUE_NAME}   *
+    Registrace producenta
+    Log in                           ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains Element      css=input[value="Ohlásit"]
+    Fill inputs about ePublication    
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication   ${VALID_ISBN}
+    Fill inputs about Vydani
+    Click Button                          form.buttons.save    
+    Sleep     5s
+    ${MSG}=                          Get Message From Queue          ${QUEUE_NAME}
+    Log Dictionary                   ${MSG}   WARN
+    Dictionary Should Contain Item   ${MSG}   __nt_name   ISBNValidationResult
+    Dictionary Should Contain Item   ${MSG}   is_valid    True
+    ${MSG}=                          Get Message From Queue          ${QUEUE_NAME}
+    Log Dictionary                   ${MSG}   WARN
+    Dictionary Should Contain Item   ${MSG}   __nt_name   CountResult
+    Dictionary Should Contain Item   ${MSG}   num_of_records    0
+    Delete Queue                     ${QUEUE_NAME}
+    
+UC02 Ohlášení ePublikace
+    Registrace producenta
+    Log in                           ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains Element      css=input[value="Ohlásit"]
+    Fill inputs about ePublication    
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication   ${VALID_ISBN}
+    Fill inputs about Vydani
+    Click Button                          form.buttons.save    
+    Sleep     5s
+    Zobrazit historii
+    Sleep     1s
+    Historie obsahuje zprávu         K akvizici
+    Historie obsahuje zprávu         Poslal jsem jeden záznam k exportu do Alephu
+    Historie obsahuje zprávu         Export jednoho záznamu do Alephu
+    Historie obsahuje zprávu         Všechny exporty do Alephu proběhly úspěšně
+    Click Link                       Zobrazení
+    Wait Until Page Contains         Čekání na Aleph
 
 UC02 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01

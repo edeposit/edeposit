@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from variables import *
+
 import os,binascii
 TEST_SEED=binascii.b2a_hex(os.urandom(15))[:5]
 
-USER_NAME=              "jans"
+QUEUE_NAME=             "-".join(['integration-tests-queue',TEST_SEED,'01'])
+USER_NAME=              "-".join(['test-user',TEST_SEED,'01'])
+
 USER_PASSWORD=          "password"
 SYSTEM_NAME=            "system"
 SYSTEM_PASSWORD=        "password"
