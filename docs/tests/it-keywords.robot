@@ -44,6 +44,3 @@ Log out
 Pause
     Pause Execution
 
-
-Declare test amqp queue
-        

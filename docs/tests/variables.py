@@ -2,6 +2,7 @@
 from edeposit.amqp.aleph.datastructures import epublication
 
 VALID_ISBN=                  "978-0-306-40615-7"
+VALID_ENGLISH_ISBN=          "978-0-306-40615-7"
 VALID_BUT_DUPLICIT_ISBN=     "80-85432-66-8"
 WRONG_ISBN=                  "80-12312-3241-324124"
 

@@ -218,6 +218,16 @@ Ohlášení se soubory
     Click Button                          form.buttons.save    
 
 
+Ohlášení se soubory a anglickym ISBN
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains Element      css=input[value="Ohlásit"]
+    Fill inputs about ePublication    
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication   ${VALID_ENGLISH_ISBN}
+    Fill inputs about Vydani
+    Click Button                          form.buttons.save    
+
+
 Zobrazit historii
     Click link       Historie
     

@@ -3,7 +3,7 @@
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
 Resource  my-keywords.robot
-    
+Variables        variables.py
 Test Setup       Open browser and create all folders
 Test Teardown    Close all browsers
 
@@ -12,15 +12,6 @@ Library  Dialogs
 Library  OperatingSystem
     
 *** Variables ***
-    
-${USER_NAME}        jans
-${USER_PASSWORD}    PhiEso7
-${SYSTEM_NAME}        system
-${SYSTEM_PASSWORD}    shoj98Phai9
-${PRODUCENT_ID}     zlinsky-vydavatel
-${PRODUCENT_TITLE}  Zlínsky vydavatel
-${SYSTEM_USER_PASSWORD}   shoj98Phai9    
-${SYSTEM_USER_NAME}   system
 
 *** Test Cases ***
 
@@ -50,21 +41,21 @@ ${SYSTEM_USER_NAME}   system
 #     Pause
 #     Page Should Contain                   Položka byla vytvořena
 
-UC02-01 Ohlášení se soubory
-    Stop Aleph Daemon
-    Registrace producenta
-    Log in                                ${USER_NAME}   ${USER_PASSWORD}
-    Click Link                            Ohlášení ePublikací
-    Wait Until Page Contains              Přidat E-Deposit - ePublikace
-    Fill inputs about ePublication    
-    Fill inputs about Vydani
-    Add authors for ePublication          Jan Stavěl
-    Add Original Files for ePublication   ${VALID_ISBN}
-    Click Button                          form.buttons.save    
-    Pause
-    Page Should Contain                   Položka byla vytvořena
-    Location Should Contain               lesni-skolky-ve-zline
-    Page Should Contain                   Kontrola ISBN
+# UC02-01 Ohlášení se soubory
+#     Stop Aleph Daemon
+#     Registrace producenta
+#     Log in                                ${USER_NAME}   ${USER_PASSWORD}
+#     Click Link                            Ohlášení ePublikací
+#     Wait Until Page Contains              Přidat E-Deposit - ePublikace
+#     Fill inputs about ePublication    
+#     Fill inputs about Vydani
+#     Add authors for ePublication          Jan Stavěl
+#     Add Original Files for ePublication   ${VALID_ISBN}
+#     Click Button                          form.buttons.save    
+#     Pause
+#     Page Should Contain                   Položka byla vytvořena
+#     Location Should Contain               lesni-skolky-ve-zline
+#     Page Should Contain                   Kontrola ISBN
 
 # UC02-01 Ohlášení s RIV kategorií
 #     Registrace producenta
@@ -398,6 +389,18 @@ UC02-01 Ohlášení se soubory
 #     Historie obsahuje zprávu             Poslal jsem jeden záznam k exportu do Alephu
 #     Historie obsahuje zprávu             Export jednoho záznamu do Alephu
 #     Stop Aleph Daemon
+
+UC02-01 Ohlášení se soubory - s aktivnim pripojenim do Alephu a zobrazenim chyby z Alephu
+    Start Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory a anglickym ISBN
+    Sleep    4s
+    Zobrazit historii
+    Historie obsahuje zprávu             Poslal jsem jeden záznam k exportu do Alephu
+    Historie obsahuje zprávu             Export jednoho záznamu do Alephu
+    Pause
+    Stop Aleph Daemon
 
 # UC02-01 Ohlášení se soubory - kontrola online isbn kontroly
 #     Stop Aleph Daemon

@@ -30,12 +30,16 @@ class RabbitMQ(object):
         
     def get_message_from_queue(self, queue_name):
         method_frame, header_frame, body = self.channel.basic_get(queue_name)
-        self.message = {'frame': method_frame,
-                        'header': header_frame,
-                        'body': body,
+        try:
+            data = json.loads(body)
+        except ValueError, ex:
+            data = body
+        message = {'frame': method_frame,
+                   'headers': header_frame.headers,
+                   'body': data,
         }
         self.channel.basic_ack(method_frame.delivery_tag)
-        return json.loads(body)
+        return message
 
     def close_connection(self):
         self.connection.close()

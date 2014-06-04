@@ -21,11 +21,11 @@ UC15-01 Odevzdání dokumentu
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Odevzdání dokumentu
-    Page Should Contain                   css=input#isbn
-    Page Should Contain                   css=#forms.button.submit
-    Input Text                            css=input#isbn      ${VALID_BUT_DUPLICIT_ISBN}
+    Page Should Contain Element           css=input#form-widgets-isbn
+    Page Should Contain Element           css=#form-buttons-odevzdat
+    Input Text                            css=input#form-widgets-isbn      ${VALID_BUT_DUPLICIT_ISBN}
     Click Button                          Načíst záznam z Alephu
-    Wait Until Page Contain               Odevzdat
+    Pause
     Add OriginalFile for ePublication
     Click Link                            css=#forms.buttons.save
     
