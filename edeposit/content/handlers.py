@@ -160,6 +160,7 @@ def handleAlephResponse(message, event):
                                      isbn = requestMessage.isbn,
                                  )
             pass
+
         print "There was an error in processing request ", headers["UUID"]
         print headers["exception_name"] + ": " + headers["exception"]
     else:
@@ -296,6 +297,13 @@ def addedISBNValidateResult(context, event):
     systemMessages = aq_parent(aq_inner(context))
     epublication = aq_parent(aq_inner(systemMessages))
     wft.doActionFor(epublication, 'notifySystemAction', comment=context.title)
+    pass
+
+def addedAlephException(context, event):
+    wft = api.portal.get_tool('portal_workflow')
+    systemMessages = aq_parent(aq_inner(context))
+    epublication = aq_parent(aq_inner(systemMessages))
+    wft.doActionFor(epublication, 'alephException', comment=context.title)
     pass
 
 class AlephExportRequestProducent(Producer):
