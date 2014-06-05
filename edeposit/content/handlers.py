@@ -151,7 +151,7 @@ def handleAlephResponse(message, event):
     elif "exception" in headers:
         with api.env.adopt_user(username="system"):
             createContentInContainer(systemMessages,'edeposit.content.alephexception', 
-                                     title="".join([u"Chyba pri volani Aleph služby: ",
+                                     title="".join([u"Chyba při volání služby Aleph: ",
                                                     requestMessage.isbn,
                                                 ]),
                                      message = "".join([ str(headers),
