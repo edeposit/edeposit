@@ -57,10 +57,9 @@ UC02 Ohlášení ePublikace s anglickym ISBN a zobrazeni exception
     Sleep     1s
     Historie obsahuje zprávu         K akvizici
     Historie obsahuje zprávu         Poslal jsem jeden záznam k exportu do Alephu
-    Historie obsahuje zprávu         Chyba ze služby Aleph
+    Historie obsahuje zprávu         Chyba při volání služby Aleph
     Click Link                       Zobrazení
     Wait Until Page Contains         Export do Alephu
-
 
 *** Keywords ***
 
