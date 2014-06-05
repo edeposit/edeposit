@@ -5,8 +5,8 @@ Library    String
 Library    amqp.RabbitMQ
 Library    Collections
 
-Test Setup      Open Browser      ${PLONE_URL}
-Test Teardown   Run Keywords      Close Browser     Delete Test Queue
+Test Setup      Run Keywords      Open Browser with RabbitMQ      Open Browser with Application
+Test Teardown   Run Keywords      Close All Browsers     Delete Test Queue
 Variables       it_variables.py
 Resource        my-keywords.robot
 Resource        it-keywords.robot
@@ -62,9 +62,17 @@ UC02 Ohlášení ePublikace s anglickym ISBN a zobrazeni exception
     Wait Until Page Contains         Export do Alephu
 
 
-
 *** Keywords ***
 
 Delete Test Queue
     Delete Queue     ${QUEUE_NAME}
-        
+
+Open Browser with Application
+    Open Browser      ${PLONE_URL}
+
+Open Browser with RabbitMQ
+    Open Browser      http://localhost:15672/#/queues
+    Input Text        css=input[name="username"]    guest
+    Input Text        css=input[name="password"]    guest
+    Click Button      Login
+    Select From List by Value    css=#show-vhost    aleph

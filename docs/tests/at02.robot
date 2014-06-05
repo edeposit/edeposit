@@ -398,8 +398,8 @@ UC02-01 Ohlášení se soubory - s aktivnim pripojenim do Alephu a zobrazenim ch
     Sleep    4s
     Zobrazit historii
     Historie obsahuje zprávu             Poslal jsem jeden záznam k exportu do Alephu
-    Historie obsahuje zprávu             Export jednoho záznamu do Alephu
-    Pause
+    Historie obsahuje zprávu             Export jednoho záznamu do Alephu skon?il s chybou
+    Historie obsahuje zprávu             Chyba pri volani Aleph služby
     Stop Aleph Daemon
 
 # UC02-01 Ohlášení se soubory - kontrola online isbn kontroly
