@@ -37,10 +37,12 @@ Add Dexterity Content
     [return]  ${location}
 
 Start Aleph Daemon
-    Start Process      python /usr/local/lib/python2.7/dist-packages/edeposit/amqp/alephdaemon.py start
+    Start Process      /usr/bin/python /home/jan/lib/edeposit/bin/edeposit_amqp_alephdaemon.py start    shell=yes
+    ${output}=        Run   ps ax | grep alephdaemon
+    Should Contain    ${output}   edeposit_amqp_alephdaemon.py
 
 Stop Aleph Daemon
-    Start Process      pkill -f alephdaemon
+    Start Process      pkill -f alephdaemon     shell=yes
 
 Create producents folder
     Add Dexterity Content     ${PLONE_URL}     edeposit-user-producentfolder    producents
@@ -278,3 +280,29 @@ Nastaveni portletu pro skupinu Akvizitori
     Go To                             ${PLONE_URL}/@@usergroup-groupmembership?groupname=Acquisitors
     Click Link                        Přehledová stránka skupiny
     Select From List                  //div[@id='dashboard-portlets1']//select    /++groupdashboard++plone.dashboard1+Acquisitors/+/portlets.Review
+
+ISBNValidationResult is at RabbitMQ Test Queue
+    ${MSG}=                          Get Message From Queue          ${QUEUE_NAME}
+    Log Dictionary                   ${MSG}   WARN
+    ${MSG_BODY}=                     Get From Dictionary   ${MSG}   body
+    ${MSG_HEADERS}=                  Get From Dictionary   ${MSG}   headers
+    Dictionary Should Contain Item   ${MSG_BODY}   __nt_name   ISBNValidationResult
+    Dictionary Should Contain Item   ${MSG_BODY}   is_valid    True
+
+CountResult is at RabbitMQ Test Queue    
+    ${MSG}=                          Get Message From Queue          ${QUEUE_NAME}
+    Log Dictionary                   ${MSG}   WARN
+    ${MSG_BODY}=                     Get From Dictionary   ${MSG}   body
+    ${MSG_HEADERS}=                  Get From Dictionary   ${MSG}   headers
+    Dictionary Should Contain Item   ${MSG_BODY}   __nt_name   CountResult
+    Dictionary Should Contain Item   ${MSG_BODY}   num_of_records    0
+    
+Open Browser with RabbitMQ
+    Open Browser      http://localhost:15672/#/queues
+    Input Text        css=input[name="username"]    guest
+    Input Text        css=input[name="password"]    guest
+    Click Button      Login
+    Select From List by Value    css=#show-vhost    aleph
+
+Delete Test Queue
+    Delete Queue     ${QUEUE_NAME}

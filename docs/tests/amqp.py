@@ -23,13 +23,13 @@ class RabbitMQ(object):
         
     def declare_queue_binding(self, exchange_name, queue_name,  routing_key):
         self.channel.queue_bind( 
-            exchange = exchange_name,
-            queue = queue_name,
-            routing_key = routing_key
+            exchange = str(exchange_name),
+            queue = str(queue_name),
+            routing_key = str(routing_key)
         )
         
     def get_message_from_queue(self, queue_name):
-        method_frame, header_frame, body = self.channel.basic_get(queue_name)
+        method_frame, header_frame, body = self.channel.basic_get(queue=queue_name)
         try:
             data = json.loads(body)
         except ValueError, ex:
