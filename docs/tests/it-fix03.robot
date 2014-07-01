@@ -57,10 +57,9 @@ UC02 Ohlášení ePublikace s anglickym ISBN a zobrazeni exception
     Sleep     1s
     Historie obsahuje zprávu         K akvizici
     Historie obsahuje zprávu         Poslal jsem jeden záznam k exportu do Alephu
-    Historie obsahuje zprávu         Chyba ze služby Aleph
+    Historie obsahuje zprávu         Chyba při volání služby Aleph
     Click Link                       Zobrazení
     Wait Until Page Contains         Export do Alephu
-
 
 *** Keywords ***
 
@@ -70,9 +69,3 @@ Delete Test Queue
 Open Browser with Application
     Open Browser      ${PLONE_URL}
 
-Open Browser with RabbitMQ
-    Open Browser      http://localhost:15672/#/queues
-    Input Text        css=input[name="username"]    guest
-    Input Text        css=input[name="password"]    guest
-    Click Button      Login
-    Select From List by Value    css=#show-vhost    aleph

@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 from edeposit.amqp.aleph.datastructures import epublication
 
+import os,binascii
+TEST_SEED=binascii.b2a_hex(os.urandom(15))[:5]
+
+QUEUE_NAME=             "-".join(['acceptation-tests-queue',TEST_SEED,'01'])
+
 VALID_ISBN=                  "978-0-306-40615-7"
 VALID_ENGLISH_ISBN=          "978-0-306-40615-7"
 VALID_BUT_DUPLICIT_ISBN=     "80-85432-66-8"
@@ -47,5 +52,8 @@ AKVIZITOR_PASSWORD= ""
 
 RIV_NAME=     "akvizitor"
 RIV_PASSWORD= ""
+
+SYSTEM_USER_PASSWORD = ""
+SYSTEM_USER_NAME = "system"
 
 from my_variables import *
