@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="edeposit.content">
+
+    <!-- Define new permissions -->
+    
+    <permission
+        id="edeposit.AddBookFolder"
+        title="E-Deposit: Add Book Folder"
+        />
+
+    <permission
+        id="edeposit.AddBook"
+        title="E-Deposit: Add Book"
+        />
+
+    <permission
+        id="edeposit.AddEPublication"
+        title="E-Deposit: Add ePublication"
+        />
+
+    <permission
+        id="edeposit.AddEPeriodical"
+        title="E-Deposit: Add ePeriodical"
+        />
+
+</configure>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 edeposit.policy Installation
 ----------------------------
 
@@ -6,6 +7,16 @@ using a traditional Zope 2 instance, you can do this:
 
 * When you're reading this you have probably already run 
   ``easy_install edeposit.policy``. Find out how to install setuptools
+=======
+edeposit.content Installation
+-----------------------------
+
+To install edeposit.content into the global Python environment (or a workingenv),
+using a traditional Zope 2 instance, you can do this:
+
+* When you're reading this you have probably already run 
+  ``easy_install edeposit.content``. Find out how to install setuptools
+>>>>>>> 641fa14102e045e3a932c094a7ea321b684ff0c4
   (and EasyInstall) here:
   http://peak.telecommunity.com/DevCenter/EasyInstall
 
@@ -16,11 +27,19 @@ using a traditional Zope 2 instance, you can do this:
 
 into your Zope instance.
 
+<<<<<<< HEAD
 * Create a file called ``edeposit.policy-configure.zcml`` in the
   ``/path/to/instance/etc/package-includes`` directory.  The file
   should only contain this::
 
     <include package="edeposit.policy" />
+=======
+* Create a file called ``edeposit.content-configure.zcml`` in the
+  ``/path/to/instance/etc/package-includes`` directory.  The file
+  should only contain this::
+
+    <include package="edeposit.content" />
+>>>>>>> 641fa14102e045e3a932c094a7ea321b684ff0c4
 
 .. _pythonproducts: http://plone.org/products/pythonproducts
 
@@ -28,13 +47,21 @@ into your Zope instance.
 Alternatively, if you are using zc.buildout and the plone.recipe.zope2instance
 recipe to manage your project, you can do this:
 
+<<<<<<< HEAD
 * Add ``edeposit.policy`` to the list of eggs to install, e.g.:
+=======
+* Add ``edeposit.content`` to the list of eggs to install, e.g.:
+>>>>>>> 641fa14102e045e3a932c094a7ea321b684ff0c4
 
     [buildout]
     ...
     eggs =
         ...
+<<<<<<< HEAD
         edeposit.policy
+=======
+        edeposit.content
+>>>>>>> 641fa14102e045e3a932c094a7ea321b684ff0c4
        
 * Tell the plone.recipe.zope2instance recipe to install a ZCML slug:
 
@@ -42,7 +69,11 @@ recipe to manage your project, you can do this:
     recipe = plone.recipe.zope2instance
     ...
     zcml =
+<<<<<<< HEAD
         edeposit.policy
+=======
+        edeposit.content
+>>>>>>> 641fa14102e045e3a932c094a7ea321b684ff0c4
       
 * Re-run buildout, e.g. with:
 
