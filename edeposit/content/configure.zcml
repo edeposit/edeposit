@@ -15,20 +15,6 @@
   <include file="permissions.zcml" />
   <include package="collective.zamqp" />
 
-  <browser:page
-        for="edeposit.content.epublication.IePublication"
-        name="view-at-once"
-        class="plone.dexterity.browser.view.DefaultView"
-        template="epublication_templates/viewatonce.pt"
-        permission="zope2.View"
-        />
-
-  <browser:page
-      for="edeposit.content.epublication.IePublication"
-      name="edit-at-once"
-      class="plone.dexterity.browser.edit.DefaultEditView"
-      permission="cmf.ModifyPortalContent"
-      />
 
   <!-- Register components configured using Python directives -->
   <grok:grok package="." />
@@ -102,13 +88,29 @@
   <!--       permission="zope2.View" -->
   <!--       /> -->
 
-  <adapter  for="Products.CMFCore.interfaces.IFolderish
-                 Products.CMFDefault.interfaces.ICMFDefaultSkin
-                 plone.dexterity.interfaces.IDexterityFTI"
-            provides="zope.publisher.interfaces.browser.IBrowserPage"
-            factory=".epublication.EPublicationAddView"
-            name="edeposit.content.epublication"
-            />
+  <!-- ePublication contributing -->
+  <browser:page
+        for="edeposit.content.epublication.IePublication"
+        name="view-at-once"
+        class="plone.dexterity.browser.view.DefaultView"
+        template="epublication_templates/viewatonce.pt"
+        permission="zope2.View"
+        />
+
+  <browser:page
+      for="edeposit.content.epublicationfolder.IePublicationFolder"
+      name="add-at-once"
+      class="edeposit.content.epublication.EPublicationAddForm"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <!-- <adapter  for="Products.CMFCore.interfaces.IFolderish -->
+  <!--                Products.CMFDefault.interfaces.ICMFDefaultSkin -->
+  <!--                plone.dexterity.interfaces.IDexterityFTI" -->
+  <!--           provides="zope.publisher.interfaces.browser.IBrowserPage" -->
+  <!--           factory=".epublication.EPublicationAddView" -->
+  <!--           name="edeposit.content.epublication" -->
+  <!--           /> -->
   
   <adapter factory=".epublication.AuthorFactory" 
            name="edeposit.content.author.IAuthor" /> 

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-21 08:30+0000\n"
+"POT-Creation-Date: 2014-06-12 06:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,10 +44,15 @@ msgstr ""
 msgid "Aleph Export Result"
 msgstr ""
 
+#: edeposit/content/profiles/default/types/edeposit.content.alephrecord.xml
+msgid "Aleph Record"
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.alephsearchsysnumberrequest.xml
 msgid "Aleph Search SysNumber Request"
 msgstr ""
 
+#: edeposit/content/aleph_record.py:60
 #: edeposit/content/originalfile.py:53
 msgid "Aleph SysNumber"
 msgstr ""
@@ -141,6 +146,10 @@ msgstr ""
 msgid "E-Deposit Original File"
 msgstr ""
 
+#: edeposit/content/profiles/default/types/edeposit.content.originalfilecontributingrequest.xml
+msgid "E-Deposit Original File Contributing Request"
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.previewfile.xml
 msgid "E-Deposit Preview File"
 msgstr ""
@@ -215,6 +224,10 @@ msgstr ""
 msgid "Folder for AMQP messages."
 msgstr ""
 
+#: edeposit/content/profiles/default/types/edeposit.content.originalfilecontributingrequestsfolder.xml
+msgid "Folder for original file contributing requests"
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.libraryfolder.xml
 msgid "Folder holds libraries"
 msgstr ""
@@ -230,9 +243,9 @@ msgstr ""
 msgid "Generate ISBN"
 msgstr ""
 
+#: edeposit/content/aleph_record.py:30
 #: edeposit/content/isbn.py:31
 #: edeposit/content/originalfile.py:35
-#: edeposit/content/profiles/default/types/edeposit.content.isbn.xml
 msgid "ISBN"
 msgstr ""
 
@@ -276,6 +289,7 @@ msgstr ""
 msgid "Internal DocNumber that Aleph refers to metadata of this ePeriodical part"
 msgstr ""
 
+#: edeposit/content/aleph_record.py:61
 #: edeposit/content/originalfile.py:54
 msgid "Internal SysNumber that Aleph refers to metadata of this ePublication"
 msgstr ""
@@ -310,12 +324,25 @@ msgstr ""
 msgid "Messages Folder"
 msgstr ""
 
+#: edeposit/content/originalfile_contributing_requests_folder.py:70
+msgid "Odevzdání dokumentu"
+msgstr ""
+
 #: edeposit/content/originalfile.py:42
 msgid "Original File of an ePublication"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.originalfile.xml
 msgid "OriginalFile"
+msgstr ""
+
+#: edeposit/content/originalfile_contributing_requests_folder.py:123
+#: edeposit/content/profiles/default/types/edeposit.content.originalfilecontributingrequest.xml
+msgid "OriginalFile Contributing Request"
+msgstr ""
+
+#: edeposit/content/profiles/default/types/edeposit.content.originalfilecontributingrequestsfolder.xml
+msgid "OriginalFile Contributing Requests Folder"
 msgstr ""
 
 #: edeposit/content/book.py:127
@@ -391,6 +418,10 @@ msgstr ""
 msgid "RIV category"
 msgstr ""
 
+#: edeposit/content/profiles/default/types/edeposit.content.alephrecord.xml
+msgid "Record stored in Aleph"
+msgstr ""
+
 #: edeposit/content/eperiodical.py:133
 #: edeposit/content/eperiodicalpart.py:152
 #: edeposit/content/epublication.py:215
@@ -418,7 +449,7 @@ msgstr ""
 msgid "Result sent by Aleph amqp daemon"
 msgstr ""
 
-#: edeposit/content/handlers.py:177
+#: edeposit/content/handlers.py:178
 msgid "Review of authors"
 msgstr ""
 
@@ -455,6 +486,7 @@ msgstr ""
 msgid "URLs"
 msgstr ""
 
+#: edeposit/content/aleph_record.py:31
 #: edeposit/content/isbn.py:32
 #: edeposit/content/originalfile.py:36
 msgid "Value of ISBN"
@@ -483,6 +515,10 @@ msgstr ""
 msgid "Whether ISBN agency should generate ISBN number."
 msgstr ""
 
+#: edeposit/content/originalfile_contributing_requests_folder.py:71
+msgid "Známe ISBN záznamu v Alephu, chceme k němu odevzdat odpovídající dokument."
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.eperiodical.xml
 msgid "ePeriodical"
 msgstr ""
@@ -503,19 +539,19 @@ msgstr ""
 msgid "ePublicationFolder"
 msgstr ""
 
-#: edeposit/content/handlers.py:215
+#: edeposit/content/handlers.py:217
 msgid "ePublications in declaring"
 msgstr ""
 
-#: edeposit/content/handlers.py:230
+#: edeposit/content/handlers.py:232
 msgid "ePublications waiting for RIV to be reviewed"
 msgstr ""
 
-#: edeposit/content/handlers.py:220
+#: edeposit/content/handlers.py:222
 msgid "ePublications waiting for preparing of acquisition"
 msgstr ""
 
-#: edeposit/content/handlers.py:225
+#: edeposit/content/handlers.py:227
 msgid "ePublications with errors"
 msgstr ""
 

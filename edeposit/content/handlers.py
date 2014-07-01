@@ -5,7 +5,9 @@ from zope.container.interfaces import (
     IObjectRemovedEvent,
     IContainerModifiedEvent
 )
+import re
 from logging import getLogger
+from decimal import Decimal
 logger = getLogger('edeposit.content.handlers')
 
 from plone.dexterity.utils import createContentInContainer
@@ -29,9 +31,14 @@ from edeposit.amqp.aleph.datastructures.epublication import (
     Author
 )
 
+from edeposit.amqp.aleph.datastructures.alephrecord import (
+    AlephRecord
+)
+
 from edeposit.amqp.aleph.datastructures.results import (
     ISBNValidationResult,
     CountResult,
+    SearchResult,
     ExportResult,
 )
 
@@ -59,7 +66,6 @@ class ISBNValidateRequestProducent(Producer):
     exchange_durable = True
     auto_delete = False
     durable = True
-    #routing_key = "plone.aleph.isbn.validate.request"
     routing_key = "request"
     pass
 
@@ -73,7 +79,6 @@ class ISBNCountRequestProducent(Producer):
     exchange_durable = True
     auto_delete = False
     durable = True
-    #routing_key = "plone.aleph.isbn.count.request"
     routing_key = "request"
     pass
 
@@ -91,6 +96,7 @@ class AlephResponseConsumer(Consumer):
 @grok.subscribe(IAlephResponse, IMessageArrivedEvent)
 def handleAlephResponse(message, event):
     print "handle aleph response"
+    wft = api.portal.get_tool('portal_workflow')
     headers = message.header_frame.headers
     key=headers.get('UUID',None)
     if not key:
@@ -99,15 +105,18 @@ def handleAlephResponse(message, event):
         message.ack()
         return
 
-    def getIfKeyExists(keyName,key):
+    def getContentIfKeyExists(keyName,key):
         if key.get(keyName,None):
             return api.content.get(UID=key[keyName])
         return None
 
     keyContent = json.loads(key)
-    systemMessages = getIfKeyExists('systemMessages_UID',keyContent)
-    requestMessage = getIfKeyExists('request_UID',keyContent)
-    if not systemMessages or not requestMessage:
+    print "key contents of: " , keyContent
+    systemMessages = getContentIfKeyExists('systemMessages_UID',keyContent)
+    requestMessage = getContentIfKeyExists('request_UID',keyContent)
+    uuidType  = keyContent.get('type',None)
+    uuidValue = keyContent.get('value', None)
+    if (not systemMessages or not requestMessage) and (not uuidType or not uuidValue):
         print "no system message or no request message exists in key"
         print message.body
         message.ack()
@@ -116,8 +125,14 @@ def handleAlephResponse(message, event):
     # Messages from Aleph has its own deserialization logic. 
     # So we will use it.
     data = deserialize(json.dumps(message.body),globals())
-    print data
-    if isinstance(data, ISBNValidationResult):
+    if isinstance(data, SearchResult):
+        try:
+            handleSearchResult(key, data)
+        except HandlerError,e:
+            print str(e)
+            pass
+        message.ack()            
+    elif isinstance(data, ISBNValidationResult):
         with api.env.adopt_user(username="system"):
             createContentInContainer(systemMessages,'edeposit.content.isbnvalidationresult', 
                                      title="".join(["Výsledky kontroly ISBN: ",
@@ -149,16 +164,20 @@ def handleAlephResponse(message, event):
         pass
 
     elif "exception" in headers:
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         with api.env.adopt_user(username="system"):
-            createContentInContainer(systemMessages,'edeposit.content.alephexception', 
-                                     title="".join([u"Chyba při volání služby Aleph: ",
-                                                    requestMessage.isbn,
-                                                ]),
-                                     message = "".join([ str(headers),
-                                                         str(data)
-                                                     ]),
-                                     isbn = requestMessage.isbn,
-                                 )
+            if systemMessages:
+                createContentInContainer(systemMessages,'edeposit.content.alephexception', 
+                                         title="".join([u"Chyba při volání služby Aleph: ",
+                                                        getattr(requestMessage,'isbn',""),
+                                                    ]),
+                                         message = "".join([ str(headers),
+                                                             str(data)
+                                                         ]),
+                                         isbn = getattr(requestMessage,'isbn',""),
+                                     )
+            else:
+                print "exception without systemMessages folder, so I print it only", str(headers)
             pass
 
         print "There was an error in processing request ", headers["UUID"]
@@ -197,6 +216,7 @@ def added(context,event):
                           )
     context.invokeFactory('edeposit.content.messagesfolder','system-messages',
                           title=u"Systémové zprávy")
+
 
 def addedEPublicationFolder(context, event):
     def queryForStates(*args):
@@ -371,3 +391,86 @@ def addedAlephExportResult(context, event):
     # producer = getUtility(IProducer, name="amqp.aleph-export-result")
     wft.doActionFor(epublication, 'exportToAlephOK')
     return
+
+class HandlerError(Exception):
+    pass
+
+def handleSearchResult(uuid, data):
+    wft = api.portal.get_tool('portal_workflow')
+    keyContent = json.loads(uuid)
+    print "key contents of: " , keyContent
+    uuidType  = keyContent.get('type',None)
+    uuidValue = keyContent.get('value', None)
+    if (not uuidType or not uuidValue):
+        raise HandlerError("no system message or no request message exists in key")
+
+    def getContentIfKeyExists(keyName,key):
+        if key.get(keyName,None):
+            return api.content.get(UID=key[keyName])
+        return None
+
+    context = getContentIfKeyExists('context_UID',uuidValue)
+    if not context:
+        raise HandlerError("chyba: toto uuid neexistuje: " + str(uuid))
+    if uuidType == 'edeposit.originalfile-load-epublication-request':
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        with api.env.adopt_user(username="system"):
+            producent = aq_parent(aq_parent(context))
+            ePublicationsFolder = producent['epublications']
+            for record in data.records:
+                epublication = record.epublication
+                result = re.search('([0-9]+[\.,]{0,1}[0-9]*)',epublication.cena)
+                price = (result and result.group(0) or "").replace(",",".")
+                dataForFactory = {
+                    'title': str(epublication.nazev),
+                    'podnazev': epublication.podnazev,
+                    'cena': price and Decimal(price),
+                    'isbn_souboru_publikaci': epublication.ISBNSouboruPublikaci,
+                    'cast': epublication.castDil,
+                    'nazev_casti': epublication.nazevCasti,
+                    'nakladatel_vydavatel': epublication.nakladatelVydavatel,
+                    'rok_vydani':  int(epublication.datumVydani),
+                    'poradi_vydani': epublication.poradiVydani,
+                    'misto_vydani': epublication.mistoVydani,
+                    'vydano_v_koedici_s': "",  # TODO
+                    'zpracovatel_zaznamu': epublication.zpracovatelZaznamu,
+                }
+                newObject = createContentInContainer(ePublicationsFolder,
+                                                     'edeposit.content.epublication',
+                                                     **dataForFactory
+                                                 )
+                # TODO: nacteni autoru
+                for author in epublication.autori:
+                    pass
+                # set wfState
+                wft.doActionFor(newObject,'loadedFromAleph')
+                #wft.doActionFor(context, 'gotAnEPublication')
+            pass
+        pass
+    elif uuidType == 'edeposit.originalfile-search-alephrecords-request':
+        with api.env.adopt_user(username="system"):
+            for record in data.records:
+                epublication = record.epublication
+                dataForFactory = {
+                    'title': "".join([u"Záznam v Alephu: ",
+                                      str(epublication.nazev), 
+                                      '(', 
+                                      str(record.docNumber),
+                                      ')']),
+                    'nazev':  str(epublication.nazev),
+                    'isbn': epublication.ISBN[0],
+                    'podnazev': epublication.podnazev,
+                    'cast': epublication.castDil,
+                    'nazev_casti': epublication.nazevCasti,
+                    'rok_vydani': epublication.datumVydani,
+                    'aleph_sys_number': record.docNumber,
+                    'aleph_library': record.library,
+                }
+                createContentInContainer(context,'edeposit.content.alephrecord',
+                                         **dataForFactory
+                                     )
+                wft.doActionFor(context, 'gotAlephRecords')
+        pass
+    else:
+        raise HandlerError('wrong type of uuid: ' + uuidType)
+    

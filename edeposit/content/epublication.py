@@ -268,11 +268,14 @@ class IOriginalFiles(model.Schema):
     )
 
 from originalfile import OriginalFile
+from epublicationfolder import IePublicationFolder
 
 class EPublicationAddForm(DefaultAddForm):
     # label = _(u"Registration of a producent")
     # description = _(u"Please fill informations about user and producent.")
     default_fieldset_label = u"ePublikace"
+    portal_type="edeposit.content.epublication"
+    grok.context(IePublicationFolder)
 
     @property
     def additionalSchemata(self):
@@ -283,7 +286,7 @@ class EPublicationAddForm(DefaultAddForm):
 
     def update(self):
         print "update"
-        DefaultAddForm.update(self)
+        super(DefaultAddForm,self).update()
         self.widgets['IBasic.title'].label=u"Název ePublikace"
         
     def extractData(self):
@@ -389,6 +392,7 @@ class EPublicationAddForm(DefaultAddForm):
 class EPublicationAddView(DefaultAddView):
     form = EPublicationAddForm
     #index = ViewPageTemplateFile('epublication_templates/editatonce.pt')
+    pass
 
 class AuthorFactory(object):
     adapts(Interface, Interface, Interface, Interface)
