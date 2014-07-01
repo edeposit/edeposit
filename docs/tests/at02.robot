@@ -445,3 +445,27 @@ UC02-01 Ohlášení se soubory - kontrola online isbn kontroly
     Add Original Files for ePublication   ${VALID_BUT_DUPLICIT_ISBN}
     Page Should Contain                   isbn je už použito. Použijte jíné, nebo nahlašte opravu.
 
+
+UC02-01 Ohlaseni ePublikace editorem
+    Click link    Registrovat
+    Wait Until Page Contains   Registrace producenta
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add one administrator
+    Click Link                          Editor producenta
+    Add one editor
+    Click Button               Registrovat
+    Page Should Contain                 Vítejte!
+    Page Should Contain                 Vaše uživatelská registrace proběhla.
+    Log In                     ${USER_NAME}      ${USER_PASSWORD}
+    Page Should Contain        Přehledová stránka uživatele
+    Click Link                 Ohlášení ePublikací
+    Page Should Contain        Ohlašovací lístek ISBN - ePublikace
+    Log out
+    Log In                     ${EDITOR1_NAME}   ${EDITOR1_PASSWORD}
+    Pause
+    Page Should Contain        Přehledová stránka uživatele
+    Click Link                 Ohlášení ePublikací
+    Page Should Contain        Ohlašovací lístek ISBN - ePublikace 
