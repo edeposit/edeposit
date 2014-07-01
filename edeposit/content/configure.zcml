@@ -1,0 +1,120 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="edeposit.content">
+
+  <i18n:registerTranslations directory="locales" />
+
+  <!-- Include dependencies' configuration -->
+  <includeDependencies package="." />
+  
+  <!-- Include files -->
+  <include file="permissions.zcml" />
+  <include package="collective.zamqp" />
+
+  <browser:page
+        for="edeposit.content.epublication.IePublication"
+        name="view-at-once"
+        class="plone.dexterity.browser.view.DefaultView"
+        template="epublication_templates/viewatonce.pt"
+        permission="zope2.View"
+        />
+
+  <browser:page
+      for="edeposit.content.epublication.IePublication"
+      name="edit-at-once"
+      class="plone.dexterity.browser.edit.DefaultEditView"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <!-- Register components configured using Python directives -->
+  <grok:grok package="." />
+  
+  <!-- Register installation profile -->
+  <genericsetup:registerProfile
+      name="default"
+      title="E-Deposit content types"
+      directory="profiles/default"
+      description="Installs the edeposit.content package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <subscriber
+      for=".epublication.IePublication
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.added"/>
+
+  <subscriber
+      for=".epublicationfolder.IePublicationFolder
+           zope.container.interfaces.IObjectModifiedEvent"
+      handler=".handlers.addedEPublicationFolder"/>
+
+  <subscriber
+      for=".epublicationfolder.IePublicationFolder
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedEPublicationFolder"/>
+
+  <!-- system messages for AMQP -->
+  <subscriber
+      for=".isbn_validation_request.IISBNValidationRequest
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNValidateRequest"/>
+
+  <subscriber
+      for=".isbn_validation_result.IISBNValidationResult
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNValidateResult"/>
+
+  <subscriber
+      for=".isbn_count_request.IISBNCountRequest
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNCountRequest"/>
+
+  <subscriber
+      for=".isbn_count_result.IISBNCountResult
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedISBNCountResult"/>
+
+  <subscriber
+      for=".aleph_export_request.AlephExportRequest
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedAlephExportRequest"/>
+
+  <subscriber
+      for=".aleph_export_result.AlephExportResult
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedAlephExportResult"/>
+
+  <subscriber
+      for=".aleph_exception.AlephException
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedAlephException"/>
+
+  <!-- <browser:viewlet -->
+  <!--       name="plone.contentactions" -->
+  <!--       for="edeposit.content.epublication.IePublication" -->
+  <!--       view="plone.app.layout.globals.interfaces.IViewView" -->
+  <!--       manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle" -->
+  <!--       class=".viewlets.common.ContentActionsViewlet" -->
+  <!--       permission="zope2.View" -->
+  <!--       /> -->
+
+  <adapter  for="Products.CMFCore.interfaces.IFolderish
+                 Products.CMFDefault.interfaces.ICMFDefaultSkin
+                 plone.dexterity.interfaces.IDexterityFTI"
+            provides="zope.publisher.interfaces.browser.IBrowserPage"
+            factory=".epublication.EPublicationAddView"
+            name="edeposit.content.epublication"
+            />
+  
+  <adapter factory=".epublication.AuthorFactory" 
+           name="edeposit.content.author.IAuthor" /> 
+  
+  <adapter factory=".epublication.OriginalFileFactory" 
+           name="edeposit.content.originalfile.IOriginalFile" /> 
+
+  <!-- -*- extra stuff goes here -*- -->
+</configure>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<object name="edeposit.content.epublication"
+   meta_type="Dexterity FTI"
+   i18n:domain="edeposit.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <!-- Basic metadata -->
+  <property name="title" i18n:translate="">ePublication</property>
+  <property name="description"
+    i18n:translate="">E-Deposit ePublication</property>
+  <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
+  <property name="factory">edeposit.content.epublication</property>
+  <property name="global_allow">False</property>
+  <property name="filter_content_types">True</property>
+  <property name="allowed_content_types">
+    <element value="edeposit.content.printingfile"/>
+    <element value="edeposit.content.originalfile"/>
+    <element value="edeposit.content.previewfile"/>
+    <element value="edeposit.content.author"/>
+    <element value="Collection"/>
+    <element value="edeposit.content.messagesfolder"/>
+  </property>
+  <property name="allow_discussion">True</property>
+
+  <!-- schema and class used for content items -->
+  <property name="schema">edeposit.content.epublication.IePublication</property>
+  <property name="klass">edeposit.content.epublication.ePublication</property>
+
+  <property name="behaviors">
+    <element value="plone.app.content.interfaces.INameFromTitle" />
+    <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
+  </property>
+  
+  <!-- View information -->
+  <property name="link_target"></property>
+  <property name="immediate_view">view</property>
+  <property name="default_view">view</property>
+  <property name="view_methods">
+   <element value="view"/>
+   <element value="view-at-once"/>
+  </property>
+  <property name="default_view_fallback">False</property>
+  <property name="add_permission">edeposit.AddEPublication</property>
+
+
+  <!-- Method aliases -->
+  <alias from="(Default)" to="(dynamic view)" />
+  <alias from="view" to="(selected layout)" />
+  <alias from="edit" to="@@edit" />
+  <alias from="sharing" to="@@sharing" />
+
+  <!-- Actions -->
+  <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${object_url}/" visible="True">
+    <permission value="View" />
+  </action>
+  <action title="Edit" action_id="edit" category="object" condition_expr=""
+    url_expr="string:${object_url}/edit" visible="True">
+    <permission value="Modify portal content" />
+  </action>
+</object>

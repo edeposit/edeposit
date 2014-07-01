@@ -7,7 +7,6 @@
 director balancer round-robin {
   { .backend = { .host = "${hosts:instance1}"; .port = "${ports:instance1}"; } }
   { .backend = { .host = "${hosts:instance2}"; .port = "${ports:instance2}"; } }
-  { .backend = { .host = "${hosts:instance3}"; .port = "${ports:instance3}"; } }
 }
 
 # Only allow PURGE from localhost

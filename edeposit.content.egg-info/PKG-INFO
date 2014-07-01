@@ -1,0 +1,27 @@
+Metadata-Version: 1.1
+Name: edeposit.content
+Version: 1.0.0
+Summary: E-Deposit Content
+Home-page: https://github.com/jstavel/edeposit.content
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: GPL
+Description: Introduction
+        ============
+        
+        
+        
+        This product may contain traces of nuts.
+        
+        Changelog
+        =========
+        
+        1.0dev (unreleased)
+        -------------------
+        
+        - Initial release
+        
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="edeposit.content">
+
+<metal:css fill-slot="style_slot">
+<style type="text/css">
+    <!-- Replace this with your views' custom CSS -->
+</style>
+</metal:css>
+
+<metal:block fill-slot="top_slot"
+             tal:define="dummy python:request.set('disable_border',1);
+                         disable_column_one python:request.set('disable_plone.leftcolumn',1);
+                         disable_column_two python:request.set('disable_plone.rightcolumn',1);" />
+
+<metal:javascript fill-slot="javascript_head_slot">
+<script type="text/javascript">
+jQuery(function($) {
+
+});
+</script>
+</metal:javascript>
+
+<body>
+
+<metal:content-core fill-slot="content-core">
+  <metal:content-core define-macro="content-core">
+
+<!--                       tal:define="widgets nocall:context/@@view">  -->
+
+        <span tal:replace="structure view/contents" />
+
+    <!-- <tal:block repeat="widget view/form/widgets"> -->
+    <!--     <tal:block tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)"> -->
+    <!--         <tal:widget tal:replace="structure widget/@@ploneform-render-widget"/> -->
+    <!--     </tal:block> -->
+    <!-- </tal:block> -->
+
+    <!-- <div tal:replace="structure view/form/widgets/++widget++IBasic.title/render"> -->
+    <!--   This will be replaced with the rendered content of the field. -->
+    <!-- </div> -->
+    
+    <!-- Replace this with the HTML layouf of your custom view.
+         
+         The widgets-variable, which is defined above, gives you access
+         to the field widgets of your custom fields through the built-in
+         default view included in Dexterity (but only for the fields that
+         are visible in the built-in default view, excluding e.g. widgets
+         for Dublin Core metadata fields).
+         
+         It's crucial to use the available widgets for rendering
+         RichText-fields, but widgets also do some special formatting for
+         numeric fields, at least. In general, it's a good practice to
+         use the widget for rendering the field value.
+         
+         You can render a field widget (e.g. for **Rich Text** -field or
+         **File Upload** -field) with the following TAL-syntax:
+         
+         <div tal:replace="structure widgets/++widget++shortnameofmyfield/render">
+           This will be replaced with the rendered content of the field.
+         </div>
+         
+         Widgets for fields of activated behaviors are prefixed with the
+         interface of the behavior:
+
+         <div tal:replace="structure widgets/++widget++IMyBehavior.fieldname/render">
+           This will be replaced with the rendered content of the field.
+         </div>
+         
+         Images are best rendred with plone.app.imaging-tags, like:
+         
+         <img tal:replace="structure context/@@images/shortnameofmyfield/thumb" />
+         
+         You can define the available sizes (e.g. **thumb**) in **Site
+         Setup**.
+         
+         Finally, you can always get and render values manually, like
+         required for hidden Dublin Core -fields:
+         
+    <p>Last updated:
+      <span tal:define="modification_date context/modification_date"
+            tal:content="python:modification_date.strftime('%Y-%m-%d')">
+        YYYY-MM-DD</span></p>
+    -->
+
+    </metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
