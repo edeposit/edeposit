@@ -448,7 +448,7 @@ UC02-01 Ohlášení se soubory - kontrola online isbn kontroly
 
 UC02-01 Ohlaseni ePublikace editorem
     Click link    Registrovat
-    Wait Until Page Contains   Registrace producenta
+    Wait Until Page Contains    Registrace producenta
     Fill inputs about producent
     Click Link				Adresa
     Fill inputs about address
@@ -457,15 +457,15 @@ UC02-01 Ohlaseni ePublikace editorem
     Click Link                          Editor producenta
     Add one editor
     Click Button               Registrovat
-    Page Should Contain                 Vítejte!
-    Page Should Contain                 Vaše uživatelská registrace proběhla.
+    Page Should Contain        Vítejte!
+    Page Should Contain        Vaše uživatelská registrace proběhla.
     Log In                     ${USER_NAME}      ${USER_PASSWORD}
     Page Should Contain        Přehledová stránka uživatele
     Click Link                 Ohlášení ePublikací
-    Page Should Contain        Ohlašovací lístek ISBN - ePublikace
+    Page Should Contain        Přidat E-Deposit - ePublikace
     Log out
     Log In                     ${EDITOR1_NAME}   ${EDITOR1_PASSWORD}
-    Pause
     Page Should Contain        Přehledová stránka uživatele
     Click Link                 Ohlášení ePublikací
-    Page Should Contain        Ohlašovací lístek ISBN - ePublikace 
+    Pause
+    Page Should Contain        Přidat E-Deposit - ePublikace
