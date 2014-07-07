@@ -37,7 +37,7 @@ Add Dexterity Content
     [return]  ${location}
 
 Start Aleph Daemon
-    Start Process      /usr/bin/python /home/jan/lib/edeposit/bin/edeposit_amqp_alephdaemon.py start    shell=yes
+    Start Process      /home/jan/lib/edeposit/bin/python /home/jan/lib/edeposit/bin/edeposit_amqp_alephdaemon.py start    shell=yes
     ${output}=        Run   ps ax | grep alephdaemon
     Should Contain    ${output}   edeposit_amqp_alephdaemon.py
 
