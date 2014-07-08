@@ -13,10 +13,9 @@ from plone.app.textfield import RichText
 from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
-
-
+import simplejson as json
+from plone import api
 from edeposit.content import MessageFactory as _
-
 
 # Interface class; used to define content-type schema.
 
@@ -63,12 +62,16 @@ class OriginalFileContributingRequest(Container):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-class SampleView(grok.View):
+class StateView(grok.View):
     """ sample view class """
 
     grok.context(IOriginalFileContributingRequest)
     grok.require('zope2.View')
+    grok.name('state')
 
-    # grok.name('view')
-
-    # Add view methods here
+    def render(self):
+        data = {'state': api.content.get_state(obj=self.context),
+                'relatedItems': map(lambda item: {'to_path': item.to_path }, self.context.relatedItems),
+        }
+        self.request.response.setHeader("Content-type", "application/json")
+        return json.dumps(data, sort_keys=True)
