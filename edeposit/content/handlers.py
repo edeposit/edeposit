@@ -5,6 +5,10 @@ from zope.container.interfaces import (
     IObjectRemovedEvent,
     IContainerModifiedEvent
 )
+
+from z3c.relationfield import RelationValue
+from zope.app.intid.interfaces import IIntIds
+
 import re
 from logging import getLogger
 from decimal import Decimal
@@ -29,6 +33,10 @@ from edeposit.amqp.serializers import (
 from edeposit.amqp.aleph.datastructures.epublication import (
     EPublication,
     Author
+)
+
+from edeposit.amqp.aleph.datastructures.semanticinfo import (
+    SemanticInfo
 )
 
 from edeposit.amqp.aleph.datastructures.alephrecord import (
@@ -442,9 +450,12 @@ def handleSearchResult(uuid, data):
                 # TODO: nacteni autoru
                 for author in epublication.autori:
                     pass
-                # set wfState
+
+                # doplneni relationItems v zadosti
+                intids = getUtility(IIntIds)
+                context.relatedItems = [ RelationValue(intids.getId(newObject)) ]
                 wft.doActionFor(newObject,'loadedFromAleph')
-                #wft.doActionFor(context, 'gotAnEPublication')
+                wft.doActionFor(context, 'ePublicationWasLoadedFromAleph')
             pass
         pass
     elif uuidType == 'edeposit.originalfile-search-alephrecords-request':
