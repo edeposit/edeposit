@@ -71,7 +71,10 @@ class StateView(grok.View):
 
     def render(self):
         data = {'state': api.content.get_state(obj=self.context),
-                'relatedItems': map(lambda item: {'to_path': item.to_path }, self.context.relatedItems),
+                'relatedItems': map(lambda item: {
+                    'to_path': item.to_path,
+                    'to_object': str(item.to_object),
+                }, self.context.relatedItems),
         }
         self.request.response.setHeader("Content-type", "application/json")
         return json.dumps(data, sort_keys=True)

@@ -421,11 +421,11 @@ def handleSearchResult(uuid, data):
     if not context:
         raise HandlerError("chyba: toto uuid neexistuje: " + str(uuid))
     if uuidType == 'edeposit.originalfile-load-epublication-request':
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         with api.env.adopt_user(username="system"):
             producent = aq_parent(aq_parent(context))
             ePublicationsFolder = producent['epublications']
             for record in data.records:
+                #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
                 epublication = record.epublication
                 result = re.search('([0-9]+[\.,]{0,1}[0-9]*)',epublication.cena)
                 price = (result and result.group(0) or "").replace(",",".")
@@ -443,7 +443,7 @@ def handleSearchResult(uuid, data):
                     'vydano_v_koedici_s': "",  # TODO
                     'zpracovatel_zaznamu': epublication.zpracovatelZaznamu,
                 }
-                newObject = createContentInContainer(ePublicationsFolder,
+                newEPublication = createContentInContainer(ePublicationsFolder,
                                                      'edeposit.content.epublication',
                                                      **dataForFactory
                                                  )
@@ -451,10 +451,27 @@ def handleSearchResult(uuid, data):
                 for author in epublication.autori:
                     pass
 
+                # vytvoreni predpripraveneho originalFile
                 # doplneni relationItems v zadosti
+                #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+                dataForOriginalFile = {
+                    'title': epublication.nazev + u' - originál',
+                    'isbn': epublication.ISBN[0],
+                    'generated_isbn': False,
+                }
+                newOriginalFile = createContentInContainer( 
+                    newEPublication,
+                    'edeposit.content.originalfile',
+                    **dataForOriginalFile
+                )
+                # ulozeni aleph record do original file
                 intids = getUtility(IIntIds)
-                context.relatedItems = [ RelationValue(intids.getId(newObject)) ]
-                wft.doActionFor(newObject,'loadedFromAleph')
+                #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+                context.relatedItems = [ 
+                    RelationValue(intids.getId(newEPublication)),
+                    RelationValue(intids.getId(newOriginalFile))
+                ]
+                wft.doActionFor(newEPublication,'loadedFromAleph')
                 wft.doActionFor(context, 'ePublicationWasLoadedFromAleph')
             pass
         pass

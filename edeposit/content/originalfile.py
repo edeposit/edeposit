@@ -40,13 +40,13 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     form.primary('file')
     file = NamedBlobFile(
         title=_(u"Original File of an ePublication"),
-        required = True,
+        required = False,
         )
     
     format = schema.Choice(
         title=_(u"Format of a file."),
         vocabulary="edeposit.content.fileTypes",
-        required = True,
+        required = False,
     )
 
     aleph_sys_number = schema.ASCIILine (
