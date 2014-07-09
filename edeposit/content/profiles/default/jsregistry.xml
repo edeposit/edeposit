@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+    <javascript
+        id="++resource++edeposit.content/js/request-for-original-file-contributing.js"
+        cacheable="False" 
+        compression="safe" 
+        cookable="False"
+        enabled="True" 
+        expression=""
+        authenticated="True"
+        inline="False" 
+        insert-after=""/>
+</object>

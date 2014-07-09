@@ -15,6 +15,10 @@
   <include file="permissions.zcml" />
   <include package="collective.zamqp" />
 
+  <browser:resourceDirectory
+      name="edeposit.content"
+      directory="static"
+      />
 
   <!-- Register components configured using Python directives -->
   <grok:grok package="." />
