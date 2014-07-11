@@ -36,6 +36,7 @@ UC15-01 Vytvoreni ePublikace bez dokumentu systemem
 
 UC15-01 Odevzdání dokumentu - kontrola složky pro žádosti a vytvoreni zadosti rucne
     Stop Aleph Daemon
+    Set Javascript Testing Mode
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            ${PRODUCENT_TITLE}
@@ -47,8 +48,6 @@ UC15-01 Odevzdání dokumentu - kontrola složky pro žádosti a vytvoreni zados
     Click button   name=form.buttons.save
     Page Should Contain   Položka byla vytvořena
     Page Should Contain   odevzdaný dokument
-    Open Workflow Menu
-    Click Element                         link=načíst záznamy z Alephu
     Wait Until Page Contains              čekání na odpověď Alephu
     Page Should not Contain               Dostali jsme záznamy z Alephu
     Page Should Not Contain               Přidat novou položku
@@ -62,19 +61,22 @@ UC15-01 Odevzdání dokumentu - kontrola složky pro žádosti a vytvoreni zados
     Input Text    form.widgets.isbn                ${VALID_BUT_DUPLICIT_ISBN}
     Input Text    form.widgets.rok_vydani          2014
     Input Text    form.widgets.aleph_sys_number    123456
+    Input Text    form.widgets.aleph_library       NKC01
     Click Button                                   Uložit
     Wait Until Page Contains                       Položka byla vytvořena
     Page Should Contain      odpoved z Alephu
     Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/originalfile-contributing/odevzdany-dokument/
     Open Workflow Menu
     Click Element                         link=Dostali jsme záznamy z Alephu
+    Open Workflow Menu
+    Click Element                         link=Načetl jsem ePublikaci z Alephu
+    Page Should Contain Element           css=#form-widgets-choosen_aleph_record > div > a
+    Click Element                         css=#form-widgets-choosen_aleph_record > div > a
+    Page Should Contain                   odpoved z Alephu
 
 UC15-01 Odevzdání dokumentu s jednim zaznamem v Alephu
     Start Aleph Daemon
-    Open Browser with RabbitMQ
-    Declare Queue                    ${QUEUE_NAME}
-    Declare Queue Binding            search    ${QUEUE_NAME}   *
-    Switch Browser      1
+    Set Javascript Testing Mode
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Odevzdat dokument
@@ -82,10 +84,8 @@ UC15-01 Odevzdání dokumentu s jednim zaznamem v Alephu
     Input Text                            css=input#form-widgets-isbn      ${VALID_BUT_DUPLICIT_ISBN}
     Click Button                          Načíst záznam z Alephu
     Page Should Contain                   Žádost na odevzdání dokumentu
-    Open Workflow Menu
-    Click Element                         link=načíst záznamy z Alephu
     Page Should Contain                   čekání na odpověď Alephu
-    Sleep    4s
+    Sleep    5s
     Click Link                            Zobrazení
     Wait Until Page Contains              Záznam v Alephu
     Click Link                            Záznam v Alephu: Derviš :(81754)
@@ -96,12 +96,24 @@ UC15-01 Odevzdání dokumentu s jednim zaznamem v Alephu
     Page Should Not Contain               Úpravy
     Zobrazit historii
     Historie obsahuje zprávu              Dostali jsme záznamy z Alephu
-    Pause
-    # Page Should Contain                   Odevzdat dokument
-    # Click Link                            Odevzdat dokument
-    # Page Should Contain                   Odevzdat
-    # Add OriginalFile for ePublication
-    # Click Link                            css=#forms.buttons.save
-    Delete Test Queue
+    Historie obsahuje zprávu              Na?etl jsem ePublikaci z Alephu
+    Page Should Contain Element           css=a[href="${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/${EPUBLICATION_ID}"]
+    Page Should Contain Element           css=a[href="${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/${EPUBLICATION_ID}/edeposit-content-originalfile"]
+    Page Should Contain                   odevzdání dokumentu
+    Unset Javascript Testing Mode
+    Wait Until Page Contains              Upravit E-Deposit - Soubor s originálem
+    Input Text                            css=#form-widgets-url  http://www.grada.cz/book/1000
+    Choose File                           css=#form-widgets-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Select From List by Value             css=#form-widgets-format    PDF
+    Click Button                          Uložit    
+    Wait Until Page Contains              Změny byly uloženy
+    Page Should Contain Element           css=span.summary > a.contenttype-edeposit-content-alephrecord
+    Click Link                            Úpravy
+    Click Element                         css=input[value="browse..."]
+    Choose an Aleph Record
+    Page Should Contain Element           css=input[id="form-widgets-related_aleph_record-0"][checked="checked"]
+    Click Button                          form.buttons.save
+    Wait Until Page Contains              Změny byly uloženy
+    Page Should Contain Element           css=#form-widgets-related_aleph_record > div > a
     Stop Aleph Daemon
 
