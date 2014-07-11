@@ -306,3 +306,18 @@ Open Browser with RabbitMQ
 
 Delete Test Queue
     Delete Queue     ${QUEUE_NAME}
+
+
+Set Javascript Testing Mode
+    Execute Javascript    jQuery().setTestingMode()
+
+Unset Javascript Testing Mode
+    Execute Javascript    jQuery().unsetTestingMode()
+
+
+Fill Aleph Record
+    Input Text				css=#form-widgets-IBasic-title     Aleph Record
+    Input Text				css=#form-widgets-isbn             ${VALID_ISBN}
+    Input Text				css=#form-widgets-rok_vydani       2013
+    Input Text				css=#form-widgets-aleph_sys_number       129087
+    Input Text				css=#form-widgets-aleph_library       NKC01

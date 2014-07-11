@@ -469,3 +469,32 @@ UC02-01 Ohlaseni ePublikace editorem
     Click Link                 Ohlášení ePublikací
     Pause
     Page Should Contain        Přidat E-Deposit - ePublikace
+
+UC02-01 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Page Should Contain                   Lesní školky ve Zlíně
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline/inzlin-01-2013-s-nasi-tabinkou.pdf
+    Page Should Contain                   inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Open add new menu    
+    Click Element                         link=Aleph Record
+    Fill Aleph Record
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Aleph Record
+    Click Link                            inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Page Should Contain                   Aleph Record
+    Click Link                            Úpravy
+    Click Element                         css=input[value="browse..."]
+    Wait Until Page Contains Element      css=a.contenttype-edeposit-content-alephrecord
+    Click Element                         css=a.contenttype-edeposit-content-alephrecord
+    Wait Until Page Contains Element      css=input.contentTreeAdd
+    Execute Javascript                    jQuery('input.contentTreeAdd').click()
+    Page Should Contain Element           css=input[id="form-widgets-related_aleph_record-1"][checked="checked"]
+    Click Button                          form.buttons.save
+    Wait Until Page Contains              Změny byly uloženy
+    Page Should Contain Element           css=#form-widgets-related_aleph_record > div > a

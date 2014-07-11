@@ -11,10 +11,12 @@ VALID_ENGLISH_ISBN=          "978-0-306-40615-7"
 VALID_BUT_DUPLICIT_ISBN=     "80-85432-66-8"
 WRONG_ISBN=                  "80-12312-3241-324124"
 
+EPUBLICATION_ID = "dervis"
+
 ePublication_IN_ALEPH = epublication.EPublication(
     ISBN = VALID_BUT_DUPLICIT_ISBN,
-    nazev = u'Derviš : [1. román z cyklu Třemi díly světa] / Karel May',
-    podnazev =  u'Třemi díly světa',
+    nazev = u'Derviš :',
+    podnazev =  u'[1. román z cyklu Třemi díly světa] /',
     vazba = u'pevná',
     cena = '59',
     castDil = '',
