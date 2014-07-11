@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from five import grok
 
 from z3c.form import group, field
@@ -16,8 +17,20 @@ from plone.namedfile.interfaces import IImageScaleTraversable
 import simplejson as json
 from plone import api
 from edeposit.content import MessageFactory as _
+from .aleph_record import IAlephRecord
+
+from z3c.relationfield.schema import RelationChoice, Relation
+from plone.formwidget.contenttree import ObjPathSourceBinder
 
 # Interface class; used to define content-type schema.
+
+@grok.provider(IContextSourceBinder)
+def availableAlephRecords(context):
+    path = '/'.join(context.getPhysicalPath())
+    query = { "portal_type" : ("edeposit.content.alephrecord",),
+              "path": {'query' :path } 
+             }
+    return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
 
 class IOriginalFileContributingRequest(form.Schema, IImageScaleTraversable):
     """
@@ -28,17 +41,9 @@ class IOriginalFileContributingRequest(form.Schema, IImageScaleTraversable):
         description=_(u"Value of ISBN"),
         required = True,
         )
-    choosen_aleph_sys_number = schema.ASCIILine (
-        title = _(u'Aleph SysNumber to load this document for'),
-        description = _(u'Internal SysNumber of a record in Aleph to load this document for.'),
-        required = False,
-    )
-    choosen_aleph_library = schema.ASCIILine (
-        title = _(u'Aleph Library to load this document for'),
-        description = _(u'Library of a record in Aleph to load this document for.'),
-        required = False,
-    )
-
+    choosen_aleph_record = RelationChoice( title=u"Odpovídající záznam v Alephu",
+                                           required = False,
+                                           source = availableAlephRecords)
     
 
 # Custom content-type class; objects created for this content type will
@@ -71,6 +76,8 @@ class StateView(grok.View):
 
     def render(self):
         data = {'state': api.content.get_state(obj=self.context),
+                'choosen_aleph_record': self.context.choosen_aleph_record \
+                and self.context.choosen_aleph_record.to_path or "",
                 'relatedItems': map(lambda item: {
                     'to_path': item.to_path,
                     'to_object': str(item.to_object),
