@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from five import grok
 
 from z3c.form import group, field
@@ -15,10 +16,24 @@ from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
 from edeposit.content import MessageFactory as _
+from z3c.relationfield.schema import RelationChoice, Relation
+from plone.formwidget.contenttree import ObjPathSourceBinder, PathSourceBinder
+
+from edeposit.content.aleph_record import IAlephRecord
+from Products.CMFCore.utils import getToolByName
+from zope.schema.vocabulary import SimpleVocabulary
 
 
 def urlCodeIsValid(value):
     return True
+
+@grok.provider(IContextSourceBinder)
+def availableAlephRecords(context):
+    path = '/'.join(context.getPhysicalPath())
+    query = { "portal_type" : ("edeposit.content.alephrecord",),
+              "path": {'query' :path } 
+             }
+    return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
 
 class IOriginalFile(form.Schema, IImageScaleTraversable):
     """
@@ -49,12 +64,6 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
-    aleph_sys_number = schema.ASCIILine (
-        title = _(u'Aleph SysNumber'),
-        description = _(u'Internal SysNumber that Aleph refers to metadata of this ePublication'),
-        required = False,
-    )
-
     generated_isbn = schema.Bool(
         title = _(u'Generate ISBN'),
         description = _(u'Whether ISBN agency should generate ISBN number.'),
@@ -63,7 +72,11 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         missing_value = False,
     )
 
-
+    related_aleph_record = RelationChoice( title=u"Odpovídající záznam v Alephu",
+                                           required = False,
+                                           source = availableAlephRecords)
+                                           
+    
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific

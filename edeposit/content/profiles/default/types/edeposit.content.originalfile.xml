@@ -14,6 +14,7 @@
   <property name="allowed_content_types">
     <element value="edeposit.content.isbn"/>
     <element value="edeposit.content.previewfile"/>
+    <element value="edeposit.content.alephrecord"/>
   </property>
   <property name="allow_discussion">False</property>
 
@@ -23,6 +24,9 @@
 
   <property name="behaviors">
     <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
+    <element value="plone.app.relationfield.behavior.IRelatedItems"/>
+    <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
+    <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
   </property>
 
   <!-- View information -->

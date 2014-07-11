@@ -5,7 +5,7 @@ from zope.container.interfaces import (
     IObjectRemovedEvent,
     IContainerModifiedEvent
 )
-
+from zope.lifecycleevent import modified
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
 
@@ -453,7 +453,6 @@ def handleSearchResult(uuid, data):
 
                 # vytvoreni predpripraveneho originalFile
                 # doplneni relationItems v zadosti
-                #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
                 dataForOriginalFile = {
                     'title': epublication.nazev + u' - originál',
                     'isbn': epublication.ISBN[0],
@@ -464,9 +463,15 @@ def handleSearchResult(uuid, data):
                     'edeposit.content.originalfile',
                     **dataForOriginalFile
                 )
-                # ulozeni aleph record do original file
+                # ulozeni odkazu na aleph record do original file
                 intids = getUtility(IIntIds)
-                #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+                newOriginalFile.related_aleph_record = RelationValue(intids.getId(context.choosen_aleph_record.to_object))
+                newOriginalFile.relatedItems = [
+                    RelationValue(intids.getId(newEPublication)),
+                    RelationValue(intids.getId(context)),
+                    RelationValue(intids.getId(context.choosen_aleph_record.to_object))
+                ]
+
                 context.relatedItems = [ 
                     RelationValue(intids.getId(newEPublication)),
                     RelationValue(intids.getId(newOriginalFile))
@@ -497,6 +502,7 @@ def handleSearchResult(uuid, data):
                 createContentInContainer(context,'edeposit.content.alephrecord',
                                          **dataForFactory
                                      )
+                modified(context)
                 wft.doActionFor(context, 'gotAlephRecords')
         pass
     else:
