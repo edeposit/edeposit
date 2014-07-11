@@ -321,3 +321,10 @@ Fill Aleph Record
     Input Text				css=#form-widgets-rok_vydani       2013
     Input Text				css=#form-widgets-aleph_sys_number       129087
     Input Text				css=#form-widgets-aleph_library       NKC01
+
+
+Choose an Aleph Record
+    Wait Until Page Contains Element      css=a.contenttype-edeposit-content-alephrecord
+    Click Element                         css=a.contenttype-edeposit-content-alephrecord
+    Wait Until Page Contains Element      css=input.contentTreeAdd
+    Execute Javascript                    jQuery('input.contentTreeAdd').click()
