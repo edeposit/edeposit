@@ -18,14 +18,15 @@
                 }
         };
         var checkState = function () {
-                $.ajax(window.location + "/state")
+                var canonicalUrl = $('link[rel="canonical"]')[0].href;
+                $.ajax(canonicalUrl + "/state")
                 .done(successCheckState)
                 .fail(function(){
                         setTimeout(checkState,1000);
                 });
         };
         $(document).ready(function() {
-                if( window.location.href.match("/originalfile-contributing/")){
+                if( window.location.href.match(/\/originalfile-contributing\/.+/)){
                         setTimeout(checkState, 1000);
                 }
         })
