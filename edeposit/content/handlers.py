@@ -465,11 +465,15 @@ def handleSearchResult(uuid, data):
                 )
                 # ulozeni odkazu na aleph record do original file
                 intids = getUtility(IIntIds)
-                newOriginalFile.related_aleph_record = RelationValue(intids.getId(context.choosen_aleph_record.to_object))
+
+                # aleph record zkopirujeme do original file
+                # bude jednodussi prace s vyberem primarniho aleph
+                # zaznamu
+                newAlephRecord = api.content.copy(context.choosen_aleph_record.to_object, newOriginalFile)
+                newOriginalFile.related_aleph_record = RelationValue(intids.getId(newAlephRecord))
                 newOriginalFile.relatedItems = [
                     RelationValue(intids.getId(newEPublication)),
                     RelationValue(intids.getId(context)),
-                    RelationValue(intids.getId(context.choosen_aleph_record.to_object))
                 ]
 
                 context.relatedItems = [ 
