@@ -49,7 +49,7 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     isbn = schema.ASCIILine(
         title=_("ISBN"),
         description=_(u"Value of ISBN"),
-        required = True,
+        required = False,
         )
 
     form.primary('file')
