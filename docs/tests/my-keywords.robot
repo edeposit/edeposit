@@ -203,6 +203,11 @@ Add Original Files for ePublication
     Input Text                          css=#form-widgets-IOriginalFile-isbn  ${ISBN}
     Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
 
+Add Original Files for ePublication with ISBN generated
+    Input Text                          css=#form-widgets-IOriginalFile-url  http://www.grada.cz/book/1000
+    Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Select Checkbox                     css=#form-widgets-IOriginalFile-generated_isbn-0
+
 Fill inputs about RIV
     Select Checkbox                     css=#form-widgets-offer_to_riv-0
     Select From List By Label           css=#form-widgets-category_for_riv           1. společenské, humanitní a umělecké vědy (SHVa)

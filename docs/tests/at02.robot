@@ -140,9 +140,8 @@ UC02-01 Start Aleph Daemon test
     Log        ${output}   WARN
     Should Not Contain    ${output}   edeposit_amqp_alephdaemon.py
 
-    
 UC02-01 Jaké typy systémových zpráv systém generuje ve stavu Kontrola ISBN
-    Start Aleph Daemon
+    Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Ohlášení se soubory
@@ -152,39 +151,38 @@ UC02-01 Jaké typy systémových zpráv systém generuje ve stavu Kontrola ISBN
     Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline/system-messages
     Open add new menu    
     Click Element                         link=ISBN Count Request
-    Input Text                            css=#form-widgets-IBasic-title   Kontrola ISBN
-    Input Text                            css=#form-widgets-isbn    fasdfasdfas
+    Input Text                            css=input[id="form-widgets-IBasic-title"]   Kontrola ISBN
+    Input Text                            css=input[id="form-widgets-isbn"]    fasdfasdfas
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
     Click Link                            Systémové zprávy
     Open add new menu    
     Click Element                         link=ISBN Validation Request
-    Input Text                            css=#form-widgets-IBasic-title   Kontrola duplicity ISBN
-    Input Text                            css=#form-widgets-isbn    fasdfasdfas
+    Input Text                            css=input[id="form-widgets-IBasic-title"]   Kontrola duplicity ISBN
+    Input Text                            css=input[id="form-widgets-isbn"]    fasdfasdfas
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
     Click Link                            Systémové zprávy
     Open add new menu    
     Click Element                         link=ISBN Count Result
-    Input Text                            css=#form-widgets-IBasic-title   Kontrola duplicity ISBN
-    Input Text                            css=#form-widgets-isbn    fasdfasdfas
-    Input Text                            css=#form-widgets-num_of_records    10
+    Input Text                            css=input[id="form-widgets-IBasic-title"]   Kontrola duplicity ISBN
+    Input Text                            css=input[id="form-widgets-isbn"]    fasdfasdfas
+    Input Text                            css=input[id="form-widgets-num_of_records"]    10
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
     Click Link                            Systémové zprávy
     Open add new menu
     Click Element                         link=ISBN Validation Result
-    Input Text                            css=#form-widgets-IBasic-title   Kontrola duplicity ISBN
-    Input Text                            css=#form-widgets-isbn    fasdfasdfas
-    Select Checkbox                       css=#form-widgets-is_valid-0
+    Input Text                            css=input[id="form-widgets-IBasic-title"]   Kontrola duplicity ISBN
+    Input Text                            css=input[id="form-widgets-isbn"]    fasdfasdfas
+    Select Checkbox                       css=input[id="form-widgets-is_valid-0"]
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
     Click Link                            Systémové zprávy
     Page Should Contain                   Kontrola ISBN
-    Page Should Contain                   Výsledky dotazu na duplicitu ISBN
     Page Should Contain                   Kontrola duplicity ISBN
-    Page Should Contain                   Výsledky kontroly ISBN
-
+    Page Should Contain                   Zjištění duplicity ISBN
+    
 UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Stop Aleph Daemon
     Start Aleph Daemon
@@ -216,7 +214,6 @@ UC02-01 Ohlaseni ePublikace - stav Antivirus
     Page Should Contain                   Antivirová kontrola
     Page Should Not Contain               Přidat novou položku
     Page Should Not Contain               Úpravy
-
 
 UC02-01 Ohlaseni ePublikace - stav Antivirus - worfklow akce pro system
     Stop Aleph Daemon
@@ -272,7 +269,6 @@ UC02-01 Ohlaseni ePublikace - stav Generovani nahledu - workflow akce pro system
     Page Should Contain Element           link=Generování jednoho náhledu skončilo s chybou
     Page Should Contain Element           link=Generování jednoho náhledu proběhlo úspěšně
 
-
 UC02-01 Ohlaseni ePublikace - stav Export do Alephu
     Stop Aleph Daemon
     Registrace producenta
@@ -316,7 +312,6 @@ UC02-01 Ohlaseni ePublikace - stav Export do Alephu - systemove akce
     Page Should Contain Element           link=Všechny exporty do Alephu proběhly úspěšně
     Page Should Contain Element           link=Některé exporty do Alephu skončily s chybou
 
-
 UC02-01 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
     Stop Aleph Daemon
     Registrace producenta
@@ -334,16 +329,18 @@ UC02-01 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
     Click Link                            Systémové zprávy
     Open add new menu    
     Click Element                         link=Aleph Export Request
-    Input Text                            css=#form-widgets-IBasic-title     Zaznam k exportu do Alephu
-    Input Text                            css=#form-widgets-originalFileID   inzlin-01-2013-s-nasi-tabinkou.pdf
-    Input Text                            css=#form-widgets-isbn             isbn-fadsfaljfa
+    Input Text                            css=input[id="form-widgets-IBasic-title"]     Zaznam k exportu do Alephu
+    Pause
+    Input Text                            css=input[id="form-widgets-originalFileID"]   inzlin-01-2013-s-nasi-tabinkou.pdf
+    Input Text                            css=input[id="form-widgets-isbn"]             isbn-fadsfaljfa
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
     Click Link                            Systémové zprávy
     Open add new menu
     Click Element                         link=Aleph Export Result
-    Input Text                            css=#form-widgets-IBasic-title   Vysledek exportu do Alephu
-    Input Text                            css=#form-widgets-isbn           isbn-fadsfjasd
+    Pause
+    Input Text                            css=input[id="form-widgets-IBasic-title"]   Vysledek exportu do Alephu
+    Input Text                            css=input[id="form-widgets-isbn"]           isbn-fadsfjasd
     Click Button                          form.buttons.save
     Page Should Contain                   Položka byla vytvořena
 
@@ -389,8 +386,8 @@ UC02-01 Ohlaseni ePublikace - stav Příprava akvizice - systémové akce
     Click Link                            Systémové zprávy
     Open add new menu    
     Click Element                         link=Aleph Search SysNumber Request
-    Input Text                            css=#form-widgets-IBasic-title     Zaznam k dohledání SysNumber v Alephu
-    Input Text                            css=#form-widgets-isbn           isbn-fadsfjasd
+    Input Text                            css=input[id="form-widgets-IBasic-title"]     Zaznam k dohledání SysNumber v Alephu
+    Input Text                            css=input[id="form-widgets-isbn"]           isbn-fadsfjasd
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
 
@@ -467,7 +464,6 @@ UC02-01 Ohlaseni ePublikace editorem
     Log In                     ${EDITOR1_NAME}   ${EDITOR1_PASSWORD}
     Page Should Contain        Přehledová stránka uživatele
     Click Link                 Ohlášení ePublikací
-    Pause
     Page Should Contain        Přidat E-Deposit - ePublikace
 
 UC02-01 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
@@ -497,4 +493,46 @@ UC02-01 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
     Page Should Contain Element           css=input[id="form-widgets-related_aleph_record-1"][checked="checked"]
     Click Button                          form.buttons.save
     Wait Until Page Contains              Změny byly uloženy
-    Page Should Contain Element           css=#form-widgets-related_aleph_record > div > a
+    Page Should Contain Element           css=span[id="form-widgets-related_aleph_record"] > div > a
+
+UC02-01 Ohlášení se soubory a s pridelenim ISBN
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Fill inputs about Vydani
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication with ISBN generated
+    Click Button                          form.buttons.save
+    Page Should Contain                   Položka byla vytvořena
+    Location Should Contain               lesni-skolky-ve-zline
+    Page Should Contain                   Přidělení ISBN
+
+UC02-01 Ohlášení se soubory a s chybou kolem ISBN
+    Stop Aleph Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Fill inputs about Vydani
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication with ISBN generated
+    Unselect Checkbox                     css=input[id="form-widgets-IOriginalFile-generated_isbn-0"]
+    Click Button                          form.buttons.save
+    Page Should Contain                   Přidat E-Deposit - ePublikace
+    Page Should Contain                   Prosím opravte vyznačené chyby.    
+    Page Should Contain                   Buď zadejte ISBN, nebo vyberte - generovat isbn. V tom případě Vám ISBN přiřadí agentura
+    Select Checkbox                       css=input[id="form-widgets-IOriginalFile-generated_isbn-0"]
+    Input Text                            css=input[id="form-widgets-IOriginalFile-isbn"]  ${VALID_ISBN}
+    Click Button                          form.buttons.save
+    Page Should Contain                   Přidat E-Deposit - ePublikace
+    Page Should Contain                   Prosím opravte vyznačené chyby.    
+    Page Should Contain                   Buď zadejte ISBN, nebo vyberte - generovat isbn. V tom případě Vám ISBN přiřadí agentura
+    Unselect Checkbox                     css=input[id="form-widgets-IOriginalFile-generated_isbn-0"]
+    Click Button                          form.buttons.save
+    Page Should Contain                   Položka byla vytvořena
+    Location Should Contain               lesni-skolky-ve-zline
+    Page Should Contain                   Kontrola ISBN
