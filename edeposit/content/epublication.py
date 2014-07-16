@@ -342,6 +342,14 @@ class EPublicationAddForm(DefaultAddForm):
         if errors:
             self.status = self.formErrorsMessage
             return
+
+        if (not data['IOriginalFile.isbn'] and not data['IOriginalFile.generated_isbn']) or \
+           (data['IOriginalFile.isbn'] and data['IOriginalFile.generated_isbn']):
+            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - generovat isbn. V tom případě Vám ISBN přiřadí agentura"))
+
+        transitionName = (data['IOriginalFile.isbn'] and 'toAcquisition') or \
+                         (data['IOriginalFile.generated_isbn'] and 'toGenerateISBN')
+
         obj = self.createAndAdd(data)
         if obj is not None:
             # mark only as finished if we get the new object and not
@@ -349,8 +357,7 @@ class EPublicationAddForm(DefaultAddForm):
             self._finishedAdd = getattr(self,'submitAgain',False) == False
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
             wft = api.portal.get_tool('portal_workflow')
-            wft.doActionFor(self.new_object, 'toAcquisition', comment='handled automatically')
-       
+            wft.doActionFor(self.new_object, transitionName, comment='handled automatically')
 
     def add(self,object):
         print "add"
@@ -363,7 +370,7 @@ class EPublicationAddForm(DefaultAddForm):
         else:
             self.immediate_view = "%s/%s" % (container.absolute_url(), new_object.id)
 
-        for author in self.authors:
+        for author in filter(lambda author: author.fullname, self.authors):
             author.title = author.fullname
             addContentToContainer(new_object, author, True)
             
