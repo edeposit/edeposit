@@ -1,17 +1,15 @@
 .. _at02:
 
-AT02
-~~~~~~~~~~~
+AT02 - ohlášení ePublikace
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
    :maxdepth: 2
 
-   at02-keywords
-
+.. robot_tests::
+   :source: at02.robot
 
 .. robot_variables::
    :source: at02.robot
 
-.. robot_tests::
-   :source: at02.robot
 

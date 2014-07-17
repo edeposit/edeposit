@@ -9,7 +9,8 @@ Resource        my-keywords.robot
 Resource        it-keywords.robot
 
 *** Variables ***
-${PLONE_URL}        http://localhost:8080/Plone
+${PLONE_URL}        http://edeposit-test.nkp.cz
+#${PLONE_URL}        http://localhost:8080/Plone
 ${USER_PASSWORD}   fafs08ja
     
 # ${TEST_SEED} ... nahodny string
@@ -78,6 +79,7 @@ Registrace producenta - registrace s editorem
     Log In                     ${EDITOR1_NAME}   ${EDITOR1_PASSWORD}
     Page Should Contain        Přehledová stránka uživatele
     Click Link                 Ohlášení ePublikací
+    Pause
     Page Should Contain        Ohlašovací lístek ISBN - ePublikace 
     
 *** Keywords ***

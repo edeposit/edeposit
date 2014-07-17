@@ -5,7 +5,7 @@ Library    String
 Library    amqp.RabbitMQ
 Library    Collections
 
-Test Setup      Run Keywords      Open Browser with RabbitMQ      Open Browser with Application
+Test Setup      Open Browser with Application
 Test Teardown   Run Keywords      Close All Browsers     Delete Test Queue
 Variables       it_variables.py
 Resource        my-keywords.robot
@@ -28,7 +28,7 @@ UC02 Ohlášení ePublikace s anglickym ISBN a zobrazeni exception
     Add Original Files for ePublication   ${VALID_ENGLISH_ISBN}
     Fill inputs about Vydani
     Click Button                          form.buttons.save    
-    Sleep     5s
+    Sleep     7s
 
     ${MSG}=                          Get Message From Queue          ${QUEUE_NAME}
     Log Dictionary                   ${MSG}   WARN
@@ -43,7 +43,7 @@ UC02 Ohlášení ePublikace s anglickym ISBN a zobrazeni exception
     ${MSG_HEADERS}=                  Get From Dictionary   ${MSG}   headers
     Dictionary Should Contain Item   ${MSG_BODY}   __nt_name   CountResult
     Dictionary Should Contain Item   ${MSG_BODY}   num_of_records    0
-    
+
     ${MSG}=                          Get Message From Queue          ${QUEUE_NAME}
     Log Dictionary                   ${MSG}   WARN
     ${MSG_BODY}=                     Get From Dictionary   ${MSG}   body

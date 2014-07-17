@@ -1,17 +1,13 @@
 .. _at01:
 
-AT01
-~~~~~~~~~~~
+AT01 - registrace producenta
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
    :maxdepth: 2
 
-   at01-keywords
-
-.. robot_variables::
-   :source: at01.robot
-
 .. robot_tests::
    :source: at01.robot
 
-
+.. robot_variables::
+   :source: at01.robot

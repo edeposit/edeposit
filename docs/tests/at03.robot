@@ -52,65 +52,65 @@ Existuje systemovy uzivatel a je ve spravne skupine
     Click Link                           Členství ve skupinách
     Page Should Contain Element          xpath=//input[@name="delete:list" and @value="System Users"]
     
-# Local roles are available
-#     Log in as site owner
-#     Go To                               ${PLONE_URL}/producents/
-#     Local role is available             Acquisitor
+Local roles are available
+    Log in as site owner
+    Go To                               ${PLONE_URL}/producents/
+    Local role is available             Acquisitor
 
-# Práce se skupinami uživatelů
-#     Log in as site owner
-#     Go To                             ${PLONE_URL}/@@usergroup-groupprefs
-#     Page Should Contain Element          css=input[name="group_Acquisitors:list"]
+Práce se skupinami uživatelů
+    Log in as site owner
+    Go To                             ${PLONE_URL}/@@usergroup-groupprefs
+    Page Should Contain Element          css=input[name="group_Acquisitors:list"]
 
-# Vytvoření Akvizitora
-#     Log in as site owner
-#     Go To                             ${PLONE_URL}/@@usergroup-userprefs
-#     Click Overlay Button        Přidat nového uživatele
-#     Input Text       //input[@id='form.fullname']   Jan Stavel
-#     Input Text       //input[@id='form.username']   ${AKVIZITOR_NAME}
-#     Input Text       //input[@id='form.email']      ${AKVIZITOR_NAME}@nkp.cz
-#     Input Text       //input[@id='form.password']   ${AKVIZITOR_PASSWORD}
-#     Input Text       //input[@id='form.password_ctl']   ${AKVIZITOR_PASSWORD}
-#     Select Checkbox  //input[@id='form.groups.2']
-#     Click Button     Registrovat
-#     Page Should Contain    Přehled uživatelů
-#     Click Link       Skupiny
-#     Page Should Contain Element          xpath=//input[@name="group_Acquisitors:list" and @value="E-Deposit: Acquisitor" and @checked="checked"]
+Vytvoření Akvizitora
+    Log in as site owner
+    Go To                             ${PLONE_URL}/@@usergroup-userprefs
+    Click Overlay Button        Přidat nového uživatele
+    Input Text       //input[@id='form.fullname']   Jan Stavel
+    Input Text       //input[@id='form.username']   ${AKVIZITOR_NAME}
+    Input Text       //input[@id='form.email']      ${AKVIZITOR_NAME}@nkp.cz
+    Input Text       //input[@id='form.password']   ${AKVIZITOR_PASSWORD}
+    Input Text       //input[@id='form.password_ctl']   ${AKVIZITOR_PASSWORD}
+    Select Checkbox  //input[@id='form.groups.2']
+    Click Button     Registrovat
+    Page Should Contain    Přehled uživatelů
+    Click Link       Skupiny
+    Page Should Contain Element          xpath=//input[@name="group_Acquisitors:list" and @value="E-Deposit: Acquisitor" and @checked="checked"]
     
-# Přehledová stránka pro akvizitora
-#     Vytvoření Akvizitora
-#     Log In           ${AKVIZITOR_NAME}   ${AKVIZITOR_PASSWORD}
-#     Page Should Contain         Přehledová stránka uživatele Jan Stavel
+Přehledová stránka pro akvizitora
+    Vytvoření Akvizitora
+    Log In           ${AKVIZITOR_NAME}   ${AKVIZITOR_PASSWORD}
+    Page Should Contain         Přehledová stránka uživatele Jan Stavel
 
-# Ohlaseni ePublikace - Akvizice - Prehledova stranka
-#     Stop Aleph Daemon
-#     Vytvoření akvizitora
-#     Log out
-#     Go To                             ${PLONE_URL}
-#     Registrace producenta
-#     Log in                                ${USER_NAME}   ${USER_PASSWORD}
-#     Ohlášení se soubory
-#     Open Workflow Menu
-#     Click Element                         link=K akvizici
-#     Log out
-#     Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
-#     Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
-#     Open Workflow Menu
-#     Click Element                         link=Všechna ISBN jsou v pořádku
-#     Open Workflow Menu
-#     Click Element                         link=Žádný soubor neobsahuje virus
-#     Open Workflow Menu
-#     Click Element                         link=Máme všechny náhledy vygenerovány
-#     Open Workflow Menu
-#     Click Element                         link=Všechny exporty do Alephu proběhly úspěšně
-#     Open Workflow Menu
-#     Click Element                         link=Máme všechny sysNumbers z Alephu
-#     Open Workflow Menu
-#     Click Element                         link=Dokončit přípravu akvizice
-#     Log Out
-#     Log in                                ${AKVIZITOR_NAME}   ${AKVIZITOR_PASSWORD}
-#     Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
-#     Page Should Contain                   Lesní školky ve Zlíně
-#     Go to                                 ${PLONE_URL}/dashboard
-#     Page Should Contain                   Žádosti o zveřejnění
-#     Page Should Contain                   Lesní školky ve Zlíně
+Ohlaseni ePublikace - Akvizice - Prehledova stranka
+    Stop Aleph Daemon
+    Vytvoření akvizitora
+    Log out
+    Go To                             ${PLONE_URL}
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Open Workflow Menu
+    Click Element                         link=K akvizici
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Open Workflow Menu
+    Click Element                         link=Všechna ISBN jsou v pořádku
+    Open Workflow Menu
+    Click Element                         link=Žádný soubor neobsahuje virus
+    Open Workflow Menu
+    Click Element                         link=Máme všechny náhledy vygenerovány
+    Open Workflow Menu
+    Click Element                         link=Všechny exporty do Alephu proběhly úspěšně
+    Open Workflow Menu
+    Click Element                         link=Máme všechny sysNumbers z Alephu
+    Open Workflow Menu
+    Click Element                         link=Dokončit přípravu akvizice
+    Log Out
+    Log in                                ${AKVIZITOR_NAME}   ${AKVIZITOR_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    Page Should Contain                   Lesní školky ve Zlíně
+    Go to                                 ${PLONE_URL}/dashboard
+    Page Should Contain                   Žádosti o zveřejnění
+    Page Should Contain                   Lesní školky ve Zlíně
