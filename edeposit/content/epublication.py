@@ -345,7 +345,7 @@ class EPublicationAddForm(DefaultAddForm):
 
         if (not data['IOriginalFile.isbn'] and not data['IOriginalFile.generated_isbn']) or \
            (data['IOriginalFile.isbn'] and data['IOriginalFile.generated_isbn']):
-            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - přidělit isbn. V tom případě Vám ISBN přiřadí agentura"))
+            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přidělit isbn. V tom případě Vám ISBN přiřadí agentura"))
 
         transitionName = (data['IOriginalFile.isbn'] and 'toAcquisition') or \
                          (data['IOriginalFile.generated_isbn'] and 'toGenerateISBN')
