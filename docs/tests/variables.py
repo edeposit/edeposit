@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+PLONE_URL=        "http://edeposit-test.nkp.cz"
+
 from edeposit.amqp.aleph.datastructures import epublication
 
 import os,binascii
