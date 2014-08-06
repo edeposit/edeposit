@@ -12,7 +12,7 @@ Resource        my-keywords.robot
 Resource        it-keywords.robot
 
 *** Variables ***
-${PLONE_URL}    http://localhost:8080/Plone
+#${PLONE_URL}    http://localhost:8080/Plone
     
 *** Test Cases ***
 
