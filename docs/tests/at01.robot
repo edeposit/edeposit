@@ -10,22 +10,9 @@ Library  Remote  ${PLONE_URL}/RobotRemote
 Library  Dialogs
 
 Resource  my-keywords.robot
-    
+Variables   variables.py
+        
 *** Variables ***
-${USER_NAME}        jans
-${USER_PASSWORD}    PhiEso7
-    
-${PRODUCENT_ID}     zlinsky-vydavatel
-${PRODUCENT_TITLE}  Zlínsky vydavatel
-    
-${EDITOR1_NAME}        editor1
-${EDITOR1_PASSWORD}    PhiEso7
-    
-${EDITOR2_NAME}        editor2
-${EDITOR2_PASSWORD}    PhiEso7
-    
-${EDITOR3_NAME}        editor3
-${EDITOR3_PASSWORD}    PhiEso7
     
 *** Keywords ***
 
@@ -96,7 +83,7 @@ UC01-01 Registrace producenta bez editora
     Click Button			Registrovat
     Page Should Contain                 Vaše uživatelská registrace proběhla.
 
-UC01-01 Registrace producenta a kontrola administratora
+UC01-02 Registrace producenta a kontrola administratora
     Registrace producenta
     Page Should Contain                 Vaše uživatelská registrace proběhla.
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
@@ -120,7 +107,7 @@ UC01-01 Registrace producenta a kontrola administratora
     Location Should Be                  ${PLONE_URL}/producents/${PRODUCENT_ID}
     Sharing tab is available    
 
-UC01-01 Registrace producenta s editorem
+UC01-03 Registrace producenta s editorem
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -134,7 +121,7 @@ UC01-01 Registrace producenta s editorem
     Click Button			Registrovat
     Page Should Contain                 Vaše uživatelská registrace proběhla.
 
-UC01-01 Registrace producenta s editorem a kontrola editora
+UC01-04 Registrace producenta s editorem a kontrola editora
     Registrace producenta s editorem
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
     Page Should Contain Button          Přihlásit se
@@ -162,7 +149,7 @@ UC01-01 Registrace producenta s editorem a kontrola editora
     User can not add any content
     User can add ePublication
 
-UC01-01 Registrace producenta s editorem - kontrola povinnych policek, shodnosti hesel
+UC01-05 Registrace producenta s editorem - kontrola povinnych policek, shodnosti hesel
     Click link                          Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -211,7 +198,7 @@ UC01-01 Registrace producenta s editorem - kontrola povinnych policek, shodnosti
     Page Should Contain                 Vítejte!
     Page Should Contain                 Vaše uživatelská registrace proběhla.
 
-UC01-01 Kontrola zadaných hesel
+UC01-06 Kontrola zadaných hesel
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -221,32 +208,48 @@ UC01-01 Kontrola zadaných hesel
     Click Link                          Producent
     Add one administrator with wrong passwords
     Click Button			Registrovat
-    Page should contain                 problém v údajích administrátora
-    Page should contain                 hesla se musí shodovat
+    Page should contain                 Prosím opravte vyznačené chyby.
+    Page should contain                 U správce producenta se neshodují zadaná hesla. Vyplňte hesla znovu.
     
-UC01-01 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
-    Click link        Registrovat
-    Page Should Contain   		Registrace producenta
-    Page Should Contain Button   	Registrovat
-    Fill inputs about producent
-    Click Link				Adresa
-    Fill inputs about address
-    Click Link                          Producent
-    Add two administrators with the same username
-    Click Button			Registrovat
-
-UC01-01 Kontrola dostupnosti uzivatelskeho jmena
+UC01-07 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
     Registrace producenta
     Click link        Registrovat
+    Page Should Contain   		Registrace producenta
     Fill inputs about producent
     Click Link				Adresa
     Fill inputs about address
     Click Link                          Producent
-    Add one administrator    
+    Add one administrator
     Click Button			Registrovat
-    Page Should Contain                 problém v údajích administrátora
-    Page Should Contain                 toto uživatelské jméno je už obsazeno, zvolte jiné
+    Page should contain                 Prosím opravte vyznačené chyby.
+    Page should contain                 Uživatelské jméno u správce producenta je již použito. Vyplňte jiné.
+    Add one administrator
+    Input Text       css=#form-widgets-IAdministrator-administrator-widgets-username   unique-name
+    Click Button			Registrovat
+    Wait Until Page Contains            Položka byla vytvořena
 
-UC01-01 Název producenta v portletech je klikací
+UC01-08 Kontrola dostupnosti uzivatelskeho jmena u editoru
+    Registrace producenta s editorem
+    Click link        Registrovat
+    Fill inputs about producent
+    Click Link				Adresa
+    Fill inputs about address
+    Click Link                          Producent
+    Add one administrator
+    Input Text       css=#form-widgets-IAdministrator-administrator-widgets-username   unique-name
+    Click Link                          Editor producenta
+    Add one editor
+    Click Button			Registrovat
+    Page should contain                 Prosím opravte vyznačené chyby.
+    Page should contain                 Uživatelské jméno u editora je již obsazené. Vyplňte jiné.
+    Add one administrator
+    Input Text       css=#form-widgets-IAdministrator-administrator-widgets-username   unique-name
+    Click Link                          Editor producenta
+    Add one editor
+    Input Text                          css=#form-widgets-IEditor-username     unique-editor-name
+    Click Button			Registrovat
+    Wait Until Page Contains            Položka byla vytvořena
+
+UC01-09 Název producenta v portletech je klikací
      Registrace producenta
      Log in                              ${USER_NAME}   ${USER_PASSWORD}
