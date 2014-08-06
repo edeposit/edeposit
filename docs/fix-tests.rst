@@ -1,6 +1,6 @@
 .. _fixtests:
 
-Testy na opravy
+Testy pro opravy
 ................................
 
 .. toctree::

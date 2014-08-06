@@ -25,8 +25,9 @@ Toto je pracovní verze. Tj. dokumentace není úplná a jsou v ní chyby.
    roles
    workflows
    architecture
-   acceptancetests
    middleware/index
+   acceptancetests
+   fix-tests
    security
    openned
    todo
