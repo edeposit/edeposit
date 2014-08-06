@@ -15,7 +15,7 @@ ${PLONE_URL}        http://edeposit-test.nkp.cz
 Problem s roli akvizitora
     Go to   http://edeposit-aplikace.nkp.cz/producents/zizala/epublications/patobiomechanika-srdecnecevniho-systemu
     Log in As acquisitor
-    nema opravneni na zobrazeni original souboru
-    nema opravneni na zobrazeni historie
-    nevidi ani stav
-    nevidi producenty cekajici ke schvaleni
+    He should have opravneni na zobrazeni original souboru
+    He should have opravneni na zobrazeni historie
+    He should see a state
+    He should see producents waiting for approving
