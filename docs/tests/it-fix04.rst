@@ -1,6 +1,6 @@
 .. _it-fix04:
 
-IT-FIX04 - registrace producenta
+IT-FIX04 - UC02 Ohlášení ePublikace - chybne zadana cena
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
