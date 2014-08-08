@@ -359,3 +359,10 @@ Choose a Producent Administrator
     ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
     Run keyword if  ${status} != True  Click Link  ${content_type}
     Wait Until Page Contains    Přidat
+
+Choose a Producent Editor
+    ${content_type}=    Catenate   edeposit-user-producenteditor
+    ${status} =  Run Keyword And Return Status  Click Link
+    ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
+    Run keyword if  ${status} != True  Click Link  ${content_type}
+    Wait Until Page Contains    Přidat

@@ -293,3 +293,43 @@ AT01-11 Přidání nového administrátora k existujícímu producentovi a kontr
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo   heslo
     Click Button                  Uložit
     Wait Until Page Contains      Položka byla vytvořena
+
+AT01-12 Přidání nového editora k existujícímu producentovi a kontrola dostupnosti uzivatelskeho jmena
+    Registrace producenta
+    Log in                              ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                          ${PRODUCENT_TITLE}
+    Click Link                          Editoři
+    Open add new menu
+    Choose a Producent Editor
+    Fill inputs about Obsah       producent editor       krátký popisek
+    Click Link                    Osobní informace
+    Fill inputs about Osobni informace
+    Click Link                    Přihlášení
+    Fill inputs about Prihlaseni  ${USER_NAME}
+    Click Button                  Uložit
+    Wait Until Page Contains      Prosím opravte vyznačené chyby.
+    Page Should Contain           Uživatelské jméno již existuje. Použijte jiné.
+    Click Link                    Přihlášení
+    Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}
+    Click Button                  Uložit
+    Wait Until Page Contains      Položka byla vytvořena
+
+AT01-13 Přidání nového editora k existujícímu producentovi a kontrola hesel
+    Registrace producenta
+    Log in                              ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                          ${PRODUCENT_TITLE}
+    Click Link                          Editoři
+    Open add new menu
+    Choose a Producent Editor
+    Fill inputs about Obsah       producent editor       krátký popisek
+    Click Link                    Osobní informace
+    Fill inputs about Osobni informace
+    Click Link                    Přihlášení
+    Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo  jineheslo
+    Click Button                  Uložit
+    Wait Until Page Contains      Prosím opravte vyznačené chyby.
+    Page Should Contain           Hesla se neshodují. Zadejte hesla znovu.
+    Click Link                    Přihlášení
+    Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo   heslo
+    Click Button                  Uložit
+    Wait Until Page Contains      Položka byla vytvořena
