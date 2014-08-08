@@ -267,4 +267,5 @@ AT01-10 Přidání nového administrátora k existujícímu producentovi a kontr
     Click Link                    Přihlášení
     Fill inputs about Prihlaseni  ${USER_NAME}
     Click Button                  Uložit
-    Wait Until Page Contains      Položka byla vytvořena
+    Wait Until Page Contains      Prosím opravte vyznačené chyby.
+    Page Should Contain           Uživatelské jméno již existuje. Použijte jiné.
