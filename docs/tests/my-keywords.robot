@@ -57,6 +57,23 @@ User Can Log In
     Log In        ${username}   ${password}
     Page Should Contain         Přehledová stránka uživatele
 
+Fill inputs about Prihlaseni
+    [arguments]   ${username}=${USER_NAME}      ${password}=${USER_PASSWORD}    ${password_ctl}=${USER_PASSWORD}
+    Input Text    css=#form-widgets-username   ${username}
+    Input Text    css=#form-widgets-password   ${password}
+    Input Text    css=#form-widgets-password_ctl   ${password_ctl}
+    
+Fill inputs about Osobni informace
+    [arguments]   ${fullname}=Jan Stavěl   ${email}=stavel.jan@gmail.com   ${phone}=733230772
+    Input Text    css=#form-widgets-fullname     ${fullname}
+    Input Text    css=#form-widgets-email   ${email}
+    Input Text    css=#form-widgets-phone   ${phone}
+    
+Fill inputs about Obsah
+    [arguments]   ${title}    ${description}
+    Input Text				css=#form-widgets-IBasic-title        ${title}
+    Input Text				css=#form-widgets-IBasic-description  ${description}
+
 Fill inputs about producent
     Input Text				css=#form-widgets-IBasic-title        ${PRODUCENT_TITLE}
     Input Text				css=#form-widgets-IBasic-description  Malý lokální vydavatel zajímavých publikací 
@@ -234,7 +251,6 @@ Ohlášení se soubory a anglickym ISBN
     Fill inputs about Vydani
     Click Button                          form.buttons.save    
 
-
 Zobrazit historii
     Click link       Historie
     
@@ -312,13 +328,11 @@ Open Browser with RabbitMQ
 Delete Test Queue
     Delete Queue     ${QUEUE_NAME}
 
-
 Set Javascript Testing Mode
     Execute Javascript    jQuery().setTestingMode()
 
 Unset Javascript Testing Mode
     Execute Javascript    jQuery().unsetTestingMode()
-
 
 Fill Aleph Record
     Input Text				css=#form-widgets-IBasic-title     Aleph Record
@@ -333,3 +347,15 @@ Choose an Aleph Record
     Click Element                         css=a.contenttype-edeposit-content-alephrecord
     Wait Until Page Contains Element      css=input.contentTreeAdd
     Execute Javascript                    jQuery('input.contentTreeAdd').click()
+
+Fill Unique Username
+    ${random}=       Generate Random String    4
+    ${value}=        Catenate    SEPARATOR=-  username   ${TEST_SEED}    ${random}
+    Input Text       css=#form-widgets-IAdministrator-administrator-widgets-username   ${value}
+
+Choose a Producent Administrator
+    ${content_type}=    Catenate   edeposit-user-producentadministrator    
+    ${status} =  Run Keyword And Return Status  Click Link
+    ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
+    Run keyword if  ${status} != True  Click Link  ${content_type}
+    Wait Until Page Contains    Přidat
