@@ -4,6 +4,7 @@ Akceptační testy
 ................................
 
 .. toctree::
+   :maxdepth: 2
    
    tests/at01
    tests/at02

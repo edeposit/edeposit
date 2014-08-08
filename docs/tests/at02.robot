@@ -18,7 +18,7 @@ Library  Collections
 
 *** Test Cases ***
 
-UC02-01 Domovská stránka uživatele
+AT02-01 Domovská stránka uživatele
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Page Should Contain                   Přehledová stránka uživatele
@@ -26,7 +26,7 @@ UC02-01 Domovská stránka uživatele
     Page Should Contain                   Vyhledat
     Page Should Contain                   Zlínsky vydavatel    
 
-UC02-01 Ohlášení bez autoru
+AT02-02 Ohlášení bez autoru
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
@@ -41,7 +41,7 @@ UC02-01 Ohlášení bez autoru
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
 
-UC02-01 Ohlášení se soubory
+AT02-03 Ohlášení se soubory
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -56,7 +56,7 @@ UC02-01 Ohlášení se soubory
     Location Should Contain               lesni-skolky-ve-zline
     Page Should Contain                   Kontrola ISBN
 
-UC02-01 Ohlášení s RIV kategorií
+AT02-04 Ohlášení s RIV kategorií
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Page Should Contain                   Ohlášení ePublikací
@@ -73,7 +73,7 @@ UC02-01 Ohlášení s RIV kategorií
     Page Should Contain                   Položka byla vytvořena
     RIV category should be selected
 
-UC02-01 Nastavení kategorií pro RIV
+AT02-05 Nastavení kategorií pro RIV
     Log in as site owner
     Click Link                   admin
     Click Link                   Nastavení portálu
@@ -83,11 +83,11 @@ UC02-01 Nastavení kategorií pro RIV
     Click Link                   edeposit content categoriesForRIV
     Page Should Contain          Upravit záznam    
 
-UC02-01 Existuje uživatel pro systémové akce
+AT02-06 Existuje uživatel pro systémové akce
     Log in                             system    shoj98Phai9
     Page Should Contain                Přehledová stránka uživatele system
 
-UC02-01 Ohlášení a odeslání k akvizici - stav Kontrola ISBN
+AT02-07 Ohlášení a odeslání k akvizici - stav Kontrola ISBN
     Stop Aleph daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -96,14 +96,14 @@ UC02-01 Ohlášení a odeslání k akvizici - stav Kontrola ISBN
     Page Should Not Contain           Přidat novou položku
     Page Should Not Contain           Úpravy
     
-UC02-01 Historie akcí s ePublikací
+AT02-08 Historie akcí s ePublikací
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Ohlášení se soubory
     Click Link                        Historie
     Log                               Otevře se okno s historií akcí
     
-UC02-01 Systémové zprávy ePublikace
+AT02-09 Systémové zprávy ePublikace
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Ohlášení se soubory
@@ -111,7 +111,7 @@ UC02-01 Systémové zprávy ePublikace
     Click Link                            Systémové zprávy
     Page Should Contain                   Systémové zprávy
 
-UC02-01 Ohlášení a odeslání k akvizici - systemový uživatel může informovat o probíhajících akcích
+AT02-10 Ohlášení a odeslání k akvizici - systemový uživatel může informovat o probíhajících akcích
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -123,7 +123,7 @@ UC02-01 Ohlášení a odeslání k akvizici - systemový uživatel může inform
     Open Workflow Menu
     Click Element                     link=Oznámit systémovou akci
 
-UC02-01 Start Aleph Daemon test
+AT02-11 Start Aleph Daemon test
     Stop Aleph Daemon
     Sleep   1s
     ${output}=     Run    ps ax | grep alephdaemon
@@ -140,7 +140,7 @@ UC02-01 Start Aleph Daemon test
     Log        ${output}   WARN
     Should Not Contain    ${output}   edeposit_amqp_alephdaemon.py
 
-UC02-01 Jaké typy systémových zpráv systém generuje ve stavu Kontrola ISBN
+AT02-12 Jaké typy systémových zpráv systém generuje ve stavu Kontrola ISBN
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -183,7 +183,7 @@ UC02-01 Jaké typy systémových zpráv systém generuje ve stavu Kontrola ISBN
     Page Should Contain                   Kontrola duplicity ISBN
     Page Should Contain                   Zjištění duplicity ISBN
     
-UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
+AT02-13 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Stop Aleph Daemon
     Start Aleph Daemon
     Registrace producenta
@@ -197,7 +197,7 @@ UC02-01 Po odeslání ePublikace k akvizici se objeví systémové zprávy
     Page Should Contain                   Výsledky dotazu na duplicitu ISBN
     Stop Aleph Daemon
 
-UC02-01 Ohlaseni ePublikace - stav Antivirus
+AT02-14 Ohlaseni ePublikace - stav Antivirus
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -215,7 +215,7 @@ UC02-01 Ohlaseni ePublikace - stav Antivirus
     Page Should Not Contain               Přidat novou položku
     Page Should Not Contain               Úpravy
 
-UC02-01 Ohlaseni ePublikace - stav Antivirus - worfklow akce pro system
+AT02-15 Ohlaseni ePublikace - stav Antivirus - worfklow akce pro system
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -231,7 +231,7 @@ UC02-01 Ohlaseni ePublikace - stav Antivirus - worfklow akce pro system
     Page Should Contain                   Antivirová kontrola jednoho souboru neprošla
     Page Should Contain                   Některý soubor obsahuje virus
 
-UC02-01 Ohlaseni ePublikace - stav Generovani nahledu
+AT02-16 Ohlaseni ePublikace - stav Generovani nahledu
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -251,7 +251,7 @@ UC02-01 Ohlaseni ePublikace - stav Generovani nahledu
     Page Should Not Contain               Úpravy
 
 
-UC02-01 Ohlaseni ePublikace - stav Generovani nahledu - workflow akce pro system
+AT02-17 Ohlaseni ePublikace - stav Generovani nahledu - workflow akce pro system
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -269,7 +269,7 @@ UC02-01 Ohlaseni ePublikace - stav Generovani nahledu - workflow akce pro system
     Page Should Contain Element           link=Generování jednoho náhledu skončilo s chybou
     Page Should Contain Element           link=Generování jednoho náhledu proběhlo úspěšně
 
-UC02-01 Ohlaseni ePublikace - stav Export do Alephu
+AT02-18 Ohlaseni ePublikace - stav Export do Alephu
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -290,7 +290,7 @@ UC02-01 Ohlaseni ePublikace - stav Export do Alephu
     Page Should Not Contain               Přidat novou položku
     Page Should Not Contain               Úpravy
 
-UC02-01 Ohlaseni ePublikace - stav Export do Alephu - systemove akce
+AT02-19 Ohlaseni ePublikace - stav Export do Alephu - systemove akce
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -312,7 +312,7 @@ UC02-01 Ohlaseni ePublikace - stav Export do Alephu - systemove akce
     Page Should Contain Element           link=Všechny exporty do Alephu proběhly úspěšně
     Page Should Contain Element           link=Některé exporty do Alephu skončily s chybou
 
-UC02-01 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
+AT02-20 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -344,7 +344,7 @@ UC02-01 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
     Click Button                          form.buttons.save
     Page Should Contain                   Položka byla vytvořena
 
-UC02-01 Ohlaseni ePublikace - stav Čekání na Aleph
+AT02-21 Ohlaseni ePublikace - stav Čekání na Aleph
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -367,7 +367,7 @@ UC02-01 Ohlaseni ePublikace - stav Čekání na Aleph
     Page Should Not Contain               Přidat novou položku
     Page Should Not Contain               Úpravy
 
-UC02-01 Ohlaseni ePublikace - stav Příprava akvizice - systémové akce
+AT02-22 Ohlaseni ePublikace - stav Příprava akvizice - systémové akce
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -391,7 +391,7 @@ UC02-01 Ohlaseni ePublikace - stav Příprava akvizice - systémové akce
     Click Button                          form.buttons.save  
     Page Should Contain                   Položka byla vytvořena
 
-UC02-01 Ohlášení se soubory - s aktivnim pripojenim do Alephu
+AT02-23 Ohlášení se soubory - s aktivnim pripojenim do Alephu
     Open Browser with RabbitMQ
     Switch Browser      1
     Start Aleph Daemon
@@ -409,7 +409,7 @@ UC02-01 Ohlášení se soubory - s aktivnim pripojenim do Alephu
     Stop Aleph Daemon
     Delete Test Queue
 
-UC02-01 Ohlášení se soubory - s aktivnim pripojenim do Alephu a zobrazenim chyby z Alephu
+AT02-24 Ohlášení se soubory - s aktivnim pripojenim do Alephu a zobrazenim chyby z Alephu
     Start Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -421,7 +421,7 @@ UC02-01 Ohlášení se soubory - s aktivnim pripojenim do Alephu a zobrazenim ch
     Historie obsahuje zprávu             Chyba p?i volání služby Aleph
     Stop Aleph Daemon
 
-UC02-01 Ohlášení se soubory - kontrola online isbn kontroly
+AT02-25 Ohlášení se soubory - kontrola online isbn kontroly
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -443,7 +443,7 @@ UC02-01 Ohlášení se soubory - kontrola online isbn kontroly
     Page Should Contain                   isbn je už použito. Použijte jíné, nebo nahlašte opravu.
 
 
-UC02-01 Ohlaseni ePublikace editorem
+AT02-26 Ohlaseni ePublikace editorem
     Click link    Registrovat
     Wait Until Page Contains    Registrace producenta
     Fill inputs about producent
@@ -466,7 +466,7 @@ UC02-01 Ohlaseni ePublikace editorem
     Click Link                 Ohlášení ePublikací
     Page Should Contain        Přidat E-Deposit - ePublikace
 
-UC02-01 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
+AT02-27 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -495,7 +495,7 @@ UC02-01 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
     Wait Until Page Contains              Změny byly uloženy
     Page Should Contain Element           css=span[id="form-widgets-related_aleph_record"] > div > a
 
-UC02-01 Ohlášení se soubory a s pridelenim ISBN
+AT02-28 Ohlášení se soubory a s pridelenim ISBN
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -510,7 +510,7 @@ UC02-01 Ohlášení se soubory a s pridelenim ISBN
     Location Should Contain               lesni-skolky-ve-zline
     Page Should Contain                   Přidělení ISBN
 
-UC02-01 Ohlášení se soubory a s chybou kolem ISBN
+AT02-29 Ohlášení se soubory a s chybou kolem ISBN
     Stop Aleph Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}

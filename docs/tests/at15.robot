@@ -18,7 +18,7 @@ Library  amqp.RabbitMQ
 
 *** Test Cases ***
 
-UC15-01 Vytvoreni ePublikace bez dokumentu systemem
+AT15-01 Vytvoreni ePublikace bez dokumentu systemem
     Registrace producenta
     Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
     Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/
@@ -34,7 +34,7 @@ UC15-01 Vytvoreni ePublikace bez dokumentu systemem
     Click Element                         link=Načetl jsem ePublikaci z Alephu
     Page Should Contain                   Zpřístupnění
 
-UC15-01 Odevzdání dokumentu - kontrola složky pro žádosti a vytvoreni zadosti rucne
+AT15-02 Odevzdání dokumentu - kontrola složky pro žádosti a vytvoreni zadosti rucne
     Stop Aleph Daemon
     Set Javascript Testing Mode
     Registrace producenta
@@ -74,7 +74,7 @@ UC15-01 Odevzdání dokumentu - kontrola složky pro žádosti a vytvoreni zados
     Click Element                         css=#form-widgets-choosen_aleph_record > div > a
     Page Should Contain                   odpoved z Alephu
 
-UC15-01 Odevzdání dokumentu s jednim zaznamem v Alephu
+AT15-03 Odevzdání dokumentu s jednim zaznamem v Alephu
     Start Aleph Daemon
     Set Javascript Testing Mode
     Registrace producenta
