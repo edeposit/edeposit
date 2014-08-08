@@ -269,3 +269,27 @@ AT01-10 Přidání nového administrátora k existujícímu producentovi a kontr
     Click Button                  Uložit
     Wait Until Page Contains      Prosím opravte vyznačené chyby.
     Page Should Contain           Uživatelské jméno již existuje. Použijte jiné.
+    Click Link                    Přihlášení
+    Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}
+    Click Button                  Uložit
+    Wait Until Page Contains      Položka byla vytvořena
+
+AT01-11 Přidání nového administrátora k existujícímu producentovi a kontrola hesel
+    Registrace producenta
+    Log in                              ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                          ${PRODUCENT_TITLE}
+    Click Link                          Administrátoři
+    Open add new menu
+    Choose a Producent Administrator
+    Fill inputs about Obsah       producent administrátor       krátký popisek
+    Click Link                    Osobní informace
+    Fill inputs about Osobni informace
+    Click Link                    Přihlášení
+    Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo  jineheslo
+    Click Button                  Uložit
+    Wait Until Page Contains      Prosím opravte vyznačené chyby.
+    Page Should Contain           Hesla se neshodují. Zadejte hesla znovu.
+    Click Link                    Přihlášení
+    Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo   heslo
+    Click Button                  Uložit
+    Wait Until Page Contains      Položka byla vytvořena

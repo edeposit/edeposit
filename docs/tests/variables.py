@@ -4,6 +4,7 @@ PLONE_URL=        "http://edeposit-test.nkp.cz"
 from edeposit.amqp.aleph.datastructures import epublication
 
 import os,binascii
+
 TEST_SEED=binascii.b2a_hex(os.urandom(15))[:5]
 
 QUEUE_NAME=             "-".join(['acceptation-tests-queue',TEST_SEED,'01'])
@@ -39,8 +40,11 @@ ePublication_IN_ALEPH = epublication.EPublication(
 PRODUCENT_ID=           "zlinsky-vydavatel"
 PRODUCENT_TITLE=        u"Zlínsky vydavatel"
 
+
 USER_NAME=       "jans"
 USER_PASSWORD=   ""
+
+NEW_UNIQ_USER_NAME="-".join([USER_NAME,TEST_SEED,binascii.b2a_hex(os.urandom(15))[:5]])
     
 EDITOR1_NAME=       "editor1"
 EDITOR1_PASSWORD=   ""
