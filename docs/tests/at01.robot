@@ -71,7 +71,7 @@ Bezpečnost složky producentů
      Page Should Not Contain Link    ePublications waiting for preparing of acquisition
      Page Should Not Contain Link    ePublications with errors
 
-UC01-01 Registrace producenta bez editora
+AT01-01 Registrace producenta bez editora
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -83,7 +83,7 @@ UC01-01 Registrace producenta bez editora
     Click Button			Registrovat
     Page Should Contain                 Vaše uživatelská registrace proběhla.
 
-UC01-02 Registrace producenta a kontrola administratora
+AT01-02 Registrace producenta a kontrola administratora
     Registrace producenta
     Page Should Contain                 Vaše uživatelská registrace proběhla.
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
@@ -107,7 +107,7 @@ UC01-02 Registrace producenta a kontrola administratora
     Location Should Be                  ${PLONE_URL}/producents/${PRODUCENT_ID}
     Sharing tab is available    
 
-UC01-03 Registrace producenta s editorem
+AT01-03 Registrace producenta s editorem
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -121,7 +121,7 @@ UC01-03 Registrace producenta s editorem
     Click Button			Registrovat
     Page Should Contain                 Vaše uživatelská registrace proběhla.
 
-UC01-04 Registrace producenta s editorem a kontrola editora
+AT01-04 Registrace producenta s editorem a kontrola editora
     Registrace producenta s editorem
     Go To                               ${PLONE_URL}/producents/${PRODUCENT_ID}
     Page Should Contain Button          Přihlásit se
@@ -149,7 +149,7 @@ UC01-04 Registrace producenta s editorem a kontrola editora
     User can not add any content
     User can add ePublication
 
-UC01-05 Registrace producenta s editorem - kontrola povinnych policek, shodnosti hesel
+AT01-05 Registrace producenta s editorem - kontrola povinnych policek, shodnosti hesel
     Click link                          Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -198,7 +198,7 @@ UC01-05 Registrace producenta s editorem - kontrola povinnych policek, shodnosti
     Page Should Contain                 Vítejte!
     Page Should Contain                 Vaše uživatelská registrace proběhla.
 
-UC01-06 Kontrola zadaných hesel
+AT01-06 Kontrola zadaných hesel
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
     Page Should Contain Button   	Registrovat
@@ -211,7 +211,7 @@ UC01-06 Kontrola zadaných hesel
     Page should contain                 Prosím opravte vyznačené chyby.
     Page should contain                 U správce producenta se neshodují zadaná hesla. Vyplňte hesla znovu.
     
-UC01-07 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
+AT01-07 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
     Registrace producenta
     Click link        Registrovat
     Page Should Contain   		Registrace producenta
@@ -228,7 +228,7 @@ UC01-07 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci
     Click Button			Registrovat
     Wait Until Page Contains            Položka byla vytvořena
 
-UC01-08 Kontrola dostupnosti uzivatelskeho jmena u editoru
+AT01-08 Kontrola dostupnosti uzivatelskeho jmena u editoru
     Registrace producenta s editorem
     Click link        Registrovat
     Fill inputs about producent
@@ -250,11 +250,11 @@ UC01-08 Kontrola dostupnosti uzivatelskeho jmena u editoru
     Click Button			Registrovat
     Wait Until Page Contains            Položka byla vytvořena
 
-UC01-09 Název producenta v portletech je klikací
+AT01-09 Název producenta v portletech je klikací
      Registrace producenta
      Log in                              ${USER_NAME}   ${USER_PASSWORD}
 
-UC01-10 Přidání nového administrátora k existujícímu producentovi
+AT01-10 Přidání nového administrátora k existujícímu producentovi
     Registrace producenta
     Log in                              ${USER_NAME}   ${USER_PASSWORD}
     Click Link                          ${PRODUCENT_TITLE}
