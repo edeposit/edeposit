@@ -1,0 +1,13 @@
+.. _at04:
+
+AT04 - katalogizace ePublikace
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+.. robot_tests::
+   :source: at04.robot
+
+.. robot_variables::
+   :source: at04.robot
