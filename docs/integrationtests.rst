@@ -1,16 +1,14 @@
-.. _acceptancetests:
+.. _integrationtests:
 
-Akceptační testy
+Integrační testy
 ................................
 
 .. toctree::
    :maxdepth: 2
    
-   tests/at01
-   tests/at02
-   tests/at03
-   tests/at04
-   tests/at15
+   tests/it01
+   tests/it02
+   tests/it03
 
 :download:`test report <tests/report.html>`
 

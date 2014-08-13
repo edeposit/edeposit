@@ -1,0 +1,13 @@
+.. _it01:
+
+IT01 - registrace producenta
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+.. robot_tests::
+   :source: it01.robot
+
+.. robot_variables::
+   :source: it01.robot

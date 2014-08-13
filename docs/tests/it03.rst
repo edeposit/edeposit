@@ -1,0 +1,13 @@
+.. _it03:
+
+IT03 - akvizice
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+.. robot_tests::
+   :source: it03.robot
+
+.. robot_variables::
+   :source: it03.robot

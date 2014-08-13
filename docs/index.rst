@@ -27,6 +27,7 @@ Toto je pracovní verze. Tj. dokumentace není úplná a jsou v ní chyby.
    architecture
    middleware/index
    acceptancetests
+   integrationtests
    fix-tests
    security
    openned

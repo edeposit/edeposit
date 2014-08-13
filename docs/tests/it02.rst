@@ -1,0 +1,13 @@
+.. _it02:
+
+IT02 - ohlášení ePublikace
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+.. robot_tests::
+   :source: it02.robot
+
+.. robot_variables::
+   :source: it02.robot
