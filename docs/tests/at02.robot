@@ -536,3 +536,29 @@ AT02-29 Ohlášení se soubory a s chybou kolem ISBN
     Page Should Contain                   Položka byla vytvořena
     Location Should Contain               lesni-skolky-ve-zline
     Page Should Contain                   Kontrola ISBN
+
+AT02-30 Ohlášení se soubory - sledovani zmen zaznamu v Alephu
+    Stop Aleph Daemon
+    Declare Queue                    ${QUEUE_NAME}
+    Declare Queue Binding            search    ${QUEUE_NAME}   *
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Ohlášení se soubory
+    Wait Until Page Contains              Položka byla vytvořena
+    Log out
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline
+    System potvrdi ze                     Všechna ISBN jsou v pořádku
+    System potvrdi ze                     Žádný soubor neobsahuje virus
+    System potvrdi ze                     Máme všechny náhledy vygenerovány
+    System potvrdi ze                     Všechny exporty do Alephu proběhly úspěšně
+    Open Workflow Menu
+    Click Element                         link=Load Aleph Records from Aleph
+    Zobrazit historii
+    Historie obsahuje zprávu              Na?tení záznam? z Alephu pro:
+    ${MSG}=                               Get Message From Queue          ${QUEUE_NAME}
+    Log Dictionary                        ${MSG}   WARN
+    Simulate Aleph Search Response        ${MSG}   ${VALID_ISBN}
+    Sleep  1s
+    Click Link                            inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Wait Until Page Contains              Záznam v Alephu: Derviš :(81754)

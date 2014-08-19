@@ -1,0 +1,48 @@
+{
+    "records": [
+        {
+            "docNumber": 81754, 
+            "xml": "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n<find-doc>\n<record>\n<metadata>\n<oai_marc>\n<fixfield id=\"LDR\">-----nam-a22------a-4500</fixfield>\n<fixfield id=\"FMT\">BK</fixfield>\n<fixfield id=\"001\">cpk20050081754</fixfield>\n<fixfield id=\"003\">CZ-PrNK</fixfield>\n<fixfield id=\"005\">20050805101739.0</fixfield>\n<fixfield id=\"007\">ta</fixfield>\n<fixfield id=\"008\">940824s1993----xr-----j------000-1-cze--</fixfield>\n<varfield id=\"015\" i1=\" \" i2=\" \">\n<subfield label=\"a\">cnb000081754</subfield>\n</varfield>\n<varfield id=\"020\" i1=\" \" i2=\" \">\n<subfield label=\"a\">80-85432-66-8 (v\u00e1z.) :</subfield>\n<subfield label=\"c\">K\u010d 59,00</subfield>\n</varfield>\n<varfield id=\"035\" i1=\" \" i2=\" \">\n<subfield label=\"a\">(OCoLC)85013788</subfield>\n</varfield>\n<varfield id=\"040\" i1=\" \" i2=\" \">\n<subfield label=\"a\">ABA001</subfield>\n<subfield label=\"b\">cze</subfield>\n</varfield>\n<varfield id=\"041\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">cze</subfield>\n<subfield label=\"h\">ger</subfield>\n</varfield>\n<varfield id=\"072\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">821-93</subfield>\n<subfield label=\"x\">Literatura pro d\u011bti a ml\u00e1de\u017e (beletrie)</subfield>\n<subfield label=\"2\">Konspekt</subfield>\n<subfield label=\"9\">26</subfield>\n</varfield>\n<varfield id=\"080\" i1=\" \" i2=\" \">\n<subfield label=\"a\">82-93</subfield>\n<subfield label=\"2\">undef</subfield>\n</varfield>\n<varfield id=\"080\" i1=\" \" i2=\" \">\n<subfield label=\"a\">830-31</subfield>\n<subfield label=\"2\">undef</subfield>\n</varfield>\n<varfield id=\"100\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">May, Karl,</subfield>\n<subfield label=\"d\">1842-1912</subfield>\n<subfield label=\"7\">jn19990005499</subfield>\n<subfield label=\"4\">aut</subfield>\n</varfield>\n<varfield id=\"245\" i1=\"1\" i2=\"0\">\n<subfield label=\"a\">Dervi\u0161 :</subfield>\n<subfield label=\"b\">[1. rom\u00e1n z cyklu T\u0159emi d\u00edly sv\u011bta] /</subfield>\n<subfield label=\"c\">Karel May</subfield>\n</varfield>\n<varfield id=\"246\" i1=\"3\" i2=\" \">\n<subfield label=\"a\">T\u0159emi d\u00edly sv\u011bta</subfield>\n</varfield>\n<varfield id=\"250\" i1=\" \" i2=\" \">\n<subfield label=\"a\">1. vyd.</subfield>\n</varfield>\n<varfield id=\"260\" i1=\" \" i2=\" \">\n<subfield label=\"a\">Brno :</subfield>\n<subfield label=\"b\">N\u00e1vrat,</subfield>\n<subfield label=\"c\">1993</subfield>\n<subfield label=\"e\">(Brno :</subfield>\n<subfield label=\"f\">Spektrum)</subfield>\n</varfield>\n<varfield id=\"300\" i1=\" \" i2=\" \">\n<subfield label=\"a\">369 s. ;</subfield>\n<subfield label=\"c\">19 cm</subfield>\n</varfield>\n<varfield id=\"490\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">Dobrodru\u017estv\u00ed z cel\u00e9ho sv\u011bta ;</subfield>\n<subfield label=\"v\">sv. 1</subfield>\n</varfield>\n<varfield id=\"500\" i1=\" \" i2=\" \">\n<subfield label=\"a\">P\u0159elo\u017eeno z n\u011bm\u010diny</subfield>\n</varfield>\n<varfield id=\"500\" i1=\" \" i2=\" \">\n<subfield label=\"a\">Adaptace Petr Dor\u0148\u00e1k</subfield>\n</varfield>\n<varfield id=\"500\" i1=\" \" i2=\" \">\n<subfield label=\"a\">20000 v\u00fdt.</subfield>\n</varfield>\n<varfield id=\"655\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">publikace pro d\u011bti</subfield>\n<subfield label=\"7\">fd133156</subfield>\n<subfield label=\"2\">czenas</subfield>\n</varfield>\n<varfield id=\"655\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">dobrodru\u017en\u00e9 rom\u00e1ny</subfield>\n<subfield label=\"7\">fd132061</subfield>\n<subfield label=\"2\">czenas</subfield>\n</varfield>\n<varfield id=\"700\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">Dor\u0148\u00e1k, Petr</subfield>\n<subfield label=\"7\">jn19981000730</subfield>\n<subfield label=\"4\">adp</subfield>\n</varfield>\n<varfield id=\"830\" i1=\" \" i2=\"0\">\n<subfield label=\"a\">Dobrodru\u017estv\u00ed z cel\u00e9ho sv\u011bta (N\u00e1vrat)</subfield>\n</varfield>\n<varfield id=\"856\" i1=\"4\" i2=\"1\">\n<subfield label=\"u\">http://kramerius4.nkp.cz/search/handle/uuid:23e62d00-36fd-11e3-a5bb-005056827e52</subfield>\n<subfield label=\"y\">Digitalizovan\u00fd dokument</subfield>\n</varfield>\n<varfield id=\"910\" i1=\" \" i2=\" \">\n<subfield label=\"a\">ABA001</subfield>\n</varfield>\n<varfield id=\"998\" i1=\" \" i2=\" \">\n<subfield label=\"a\">http://aleph.nkp.cz/F/?func=direct&amp;doc_number=000081754&amp;local_base=NKC01</subfield>\n</varfield>\n</oai_marc>\n</metadata>\n</record>\n<session-id>MIELYCSFT229Y4M9TALPIR5CB5I4E1F6SI4SDTLHJ8PM7AEE5D</session-id>\n</find-doc>\n ", 
+            "epublication": {
+                "podnazev": "[1. rom\u00e1n z cyklu T\u0159emi d\u00edly sv\u011bta] /", 
+                "castDil": "", 
+                "ISBN": [
+                    "80-85432-66-8"
+                ], 
+                "format": "19 cm", 
+                "url": "http://kramerius4.nkp.cz/search/handle/uuid:23e62d00-36fd-11e3-a5bb-005056827e52", 
+                "nakladatelVydavatel": "N\u00e1vrat,", 
+                "__nt_name": "EPublication", 
+                "internal_url": "", 
+                "originaly": [], 
+                "autori": [
+                    {
+                        "lastName": "May", 
+                        "title": "", 
+                        "firstName": "Karl,", 
+                        "__nt_name": "Author"
+                    }
+                ], 
+                "zpracovatelZaznamu": "ABA001", 
+                "vazba": "(v\u00e1z.) :", 
+                "nazevCasti": "", 
+                "poradiVydani": "", 
+                "cena": "K\u010d 59,00", 
+                "nazev": "Dervi\u0161 :", 
+                "mistoVydani": "Brno :", 
+                "ISBNSouboruPublikaci": [], 
+                "datumVydani": "1993"
+            }, 
+            "__nt_name": "AlephRecord", 
+            "library": "NKC01", 
+            "base": "nkc", 
+            "semantic_info": {
+                "hasISBNAgencyFields": false, 
+                "hasCatalogizationFields": false, 
+                "hasAcquisitionFields": false, 
+                "__nt_name": "SemanticInfo"
+            }
+        }
+    ], 
+    "__nt_name": "SearchResult"
+}

@@ -18,11 +18,11 @@ ${PLONE_URL}        http://localhost:8080/Plone
     
 *** Test Cases ***
 
-UC00 Instalace produktu
+IT00 Instalace produktu
     # update security
     # rebuild catalog
 
-UC02 Ohlášení ePublikace - kontrola Aleph amqp sluzby
+IT02-01 Ohlášení ePublikace - kontrola Aleph amqp sluzby
     Declare Queue                    ${QUEUE_NAME}
     Declare Queue Binding            search    ${QUEUE_NAME}   *
     Registrace producenta
@@ -49,7 +49,7 @@ UC02 Ohlášení ePublikace - kontrola Aleph amqp sluzby
     Dictionary Should Contain Item   ${MSG_BODY}   num_of_records    0
     Delete Queue                     ${QUEUE_NAME}
     
-UC02 Ohlášení ePublikace
+IT02-02 Ohlášení ePublikace
     Registrace producenta
     Log in                           ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
@@ -72,7 +72,7 @@ UC02 Ohlášení ePublikace
     Click Link                       Zobrazení
     Wait Until Page Contains         Export do Alephu
 
-UC02 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
+IT02-03 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -94,7 +94,7 @@ UC02 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
     Add Original Files for ePublication   ${VALID_BUT_DUPLICIT_ISBN}
     Wait Until Page Contains              isbn je už použito. Použijte jíné, nebo nahlašte opravu.
 
-UC02 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu k již ohlášené ePublikaci
+IT02-04 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu k již ohlášené ePublikaci
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -107,7 +107,7 @@ UC02 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu k již ohláš
     Wait Until Page Contains              isbn je už použito. Použijte jíné, nebo nahlašte opravu.
     Pause
 
-UC02 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN
+IT02-05 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -121,7 +121,7 @@ UC02 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělení
     Wait Until Page Contains              Položka byla vytvořena
     Page Should Contain                   Přidělení ISBN
 
-UC02 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN, zobrazeni chyby
+IT02-06 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN, zobrazeni chyby
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}

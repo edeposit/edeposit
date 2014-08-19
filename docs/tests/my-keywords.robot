@@ -233,11 +233,12 @@ RIV category should be selected
     Page Should Contain                 společenské, humanitní a umělecké vědy (SHVa)
 
 Ohlášení se soubory
+    [arguments]   ${isbn}=${VALID_ISBN}
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains Element      css=input[value="Ohlásit"]
     Fill inputs about ePublication    
     Add authors for ePublication          Jan Stavěl
-    Add Original Files for ePublication   ${VALID_ISBN}
+    Add Original Files for ePublication   ${isbn}
     Fill inputs about Vydani
     Click Button                          form.buttons.save    
 
@@ -366,3 +367,24 @@ Choose a Producent Editor
     ...  css=#plone-contentmenu-factories a.contenttype-${content_type}
     Run keyword if  ${status} != True  Click Link  ${content_type}
     Wait Until Page Contains    Přidat
+
+System potvrdi ze
+    [arguments]     ${state_label}
+    Open Workflow Menu
+    Click Element                     link=${state_label}
+
+Vytvorit systemovou zpravu
+    [arguments]      ${link}
+    Open add new menu    
+    Click Element                         link=${link}
+    Input Text                            css=input[id="form-widgets-IBasic-title"]     systemova zprava
+    Input Text                            css=input[id="form-widgets-isbn"]             isbn-fadsfjasd
+    Click Button                          form.buttons.save  
+    Page Should Contain                   Položka byla vytvořena
+
+Systémové zprávy obsahují
+    [arguments]   ${text}
+    ${current_location}=       Get Location
+    Click Link                 Systémové zprávy
+    Wait Until Page Contains   ${text}    
+    Go To                      ${current_location}
