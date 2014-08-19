@@ -172,7 +172,6 @@ def handleAlephResponse(message, event):
         pass
 
     elif "exception" in headers:
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         with api.env.adopt_user(username="system"):
             if systemMessages:
                 createContentInContainer(systemMessages,'edeposit.content.alephexception', 
@@ -425,7 +424,6 @@ def handleSearchResult(uuid, data):
             producent = aq_parent(aq_parent(context))
             ePublicationsFolder = producent['epublications']
             for record in data.records:
-                #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
                 epublication = record.epublication
                 result = re.search('([0-9]+[\.,]{0,1}[0-9]*)',epublication.cena)
                 price = (result and result.group(0) or "").replace(",",".")
@@ -509,6 +507,41 @@ def handleSearchResult(uuid, data):
                 modified(context)
                 wft.doActionFor(context, 'gotAlephRecords')
         pass
+    elif uuidType == 'edeposit.epublication-load-aleph-records':
+        with api.env.adopt_user(username="system"):
+            originalFiles = [aa for aa in context.items() if aa[1].portal_type == "edeposit.content.originalfile"]
+            for record in data.records:
+                epublication = record.epublication
+                isbn = epublication.ISBN[0]
+                dataForFactory = {
+                    'title': "".join([u"Záznam v Alephu: ",
+                                      str(epublication.nazev), 
+                                      '(', 
+                                      str(record.docNumber),
+                                      ')']),
+                    'nazev':  str(epublication.nazev),
+                    'isbn': isbn,
+                    'podnazev': epublication.podnazev,
+                    'cast': epublication.castDil,
+                    'nazev_casti': epublication.nazevCasti,
+                    'rok_vydani': epublication.datumVydani,
+                    'aleph_sys_number': record.docNumber,
+                    'aleph_library': record.library,
+                }
+                # najit original-file pro odpovidajici zaznamy
+                originalFilesWithGivenISBN = [ of[1] for of in originalFiles if of[1].isbn == isbn ]
+                if not originalFilesWithGivenISBN:
+                    wft.doActionFor(context,'notifySystemAction', 
+                                    comment="No original file found for aleph record with isbn: %s, docNumber: %s" % (isbn, str(record.docNumber)))
+                else:
+                    for of in originalFilesWithGivenISBN:
+                        of.updateOrAddAlephRecord(dataForFactory)
+                        pass
+                    modified(context)
+                    wft.doActionFor(context, 'notifySystemAction', 
+                                    comment = "Got an Aleph record with isbn: %s, docNumber: %s" % (isbn, str(record.docNumber)))
+            pass
+
     else:
         raise HandlerError('wrong type of uuid: ' + uuidType)
     

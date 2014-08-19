@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from five import grok
 
-from z3c.form import group, field
+from z3c.form import group, field, button
 from zope import schema
-from zope.interface import invariant, Invalid
+from zope.interface import invariant, Invalid, Interface
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
@@ -12,10 +13,13 @@ from plone.app.textfield import RichText
 from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
-
-
+from Acquisition import aq_inner, aq_parent
+from zope.globalrequest import getRequest
+from plone import api
 from edeposit.content import MessageFactory as _
+from z3c.form.form import extends
 
+from collective.z3cform.datagridfield import DataGridFieldFactory, DictRow
 
 # Interface class; used to define content-type schema.
 
@@ -62,3 +66,89 @@ class SampleView(grok.View):
     # grok.name('view')
 
     # Add view methods here
+
+
+@grok.provider(IContextSourceBinder)
+def selectedEPublications(context):
+    request = getRequest()
+    selected_paths = request.form['paths']
+    pcatalog = api.portal.get_tool('portal_catalog')
+    parentPath = context.absolute_url_path()
+    query=dict(portal_type = 'edeposit.content.epublication',
+               path = filter(lambda path: path.index(parentPath)==0, selected_paths)
+           )
+    brains = pcatalog(query)
+    import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+    terms = map(lambda item: SimpleVocabulary.createTerm(item, item['id'], item['id']),  brains)
+    return SimpleVocabulary(terms)
+
+@grok.provider(IContextSourceBinder)
+def availableProducentWorkers(context):
+    administrators = aq_parent(aq_inner(context))['producent-administrators']
+    terms = map(lambda admin: SimpleVocabulary.createTerm(admin, admin.title, admin.title), administrators)
+    return SimpleVocabulary(terms)
+
+
+class IEPublicationsTableRow(form.Schema):
+    def getNazev(self):
+        return self.title
+
+    podnazev = schema.TextLine (
+        title = u"Podnázev",
+        required = False,
+    )
+
+    pass
+
+class IFormSchema(Interface):
+    four = schema.TextLine(title=u"Four")
+    table = schema.List(title=u"Table",
+                        value_type=DictRow(title=u"tablerow", schema=IEPublicationsTableRow))
+    
+class EPublicationsTableForm(form.EditForm):
+    extends(form.EditForm)
+    grok.name('grid_view')
+    grok.require('zope2.View')
+    grok.context(IePublicationFolder)
+    fields = field.Fields(IFormSchema)
+        
+    
+# class IAssignWorkerForm(form.Schema):
+#     selectedEPublications = schema.List(
+#         title = u"Selected EPublications",
+#         required = False,
+#         value_type = schema.Choice(source = selectedEPublications)
+#     )
+#     asignedWorker = schema.Choice (
+#         title = u"Assigned worker",
+#         source = availableProducentWorkers,
+#         required = False
+#     )
+    
+
+# class AssignWorkerForm(form.SchemaForm):
+#     grok.name('assign_worker')
+#     grok.require('zope2.View')
+#     grok.context(IePublicationFolder)
+
+#     schema = IAssignWorkerForm
+#     ignoreContext = True
+
+#     label = u"You can assign worker for those ePublications"
+#     description = u"Assign a worker"
+
+#     # @button.buttonAndHandler(u'Potvrdit')
+#     # def handleSubmit(self, action):
+#     #     data, errors = self.extractData()
+#     #     if errors:
+#     #         self.status = self.formErrorsMessage
+#     #         return
+
+#     #     # Do something with valid data here
+
+#     #     # Set status on this form page
+#     #     # (this status message is not bind to the session and does not go thru redirects)
+#     #     self.status = "Thank you very much!"
+#     #     pass
+
+    

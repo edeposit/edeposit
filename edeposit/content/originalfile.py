@@ -22,6 +22,7 @@ from plone.formwidget.contenttree import ObjPathSourceBinder, PathSourceBinder
 from edeposit.content.aleph_record import IAlephRecord
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary
+from plone.dexterity.utils import createContentInContainer
 
 
 def urlCodeIsValid(value):
@@ -87,6 +88,10 @@ class OriginalFile(Container):
     grok.implements(IOriginalFile)
 
     # Add your class methods and properties here
+
+    def updateOrAddAlephRecord(self, dataForFactory):
+        createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
+        pass
 
 # View class
 # The view will automatically use a similarly named template in
