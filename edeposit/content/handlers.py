@@ -399,6 +399,17 @@ def addedAlephExportResult(context, event):
     wft.doActionFor(epublication, 'exportToAlephOK')
     return
 
+def addedOriginalFile(context, event):
+    # find related epublication
+    epublication = aq_parent(aq_inner(context))
+    intids = getUtility(IIntIds)
+    context.relatedItems = [RelationValue(intids.getId(epublication))]
+    pass
+
+def addedAlephRecord(context, event):
+    originalfile = aq_parent(aq_inner(context))
+    originalfile.updateAlephRelatedData()
+
 class HandlerError(Exception):
     pass
 
@@ -509,7 +520,6 @@ def handleSearchResult(uuid, data):
         pass
     elif uuidType == 'edeposit.epublication-load-aleph-records':
         with api.env.adopt_user(username="system"):
-            originalFiles = [aa for aa in context.items() if aa[1].portal_type == "edeposit.content.originalfile"]
             for record in data.records:
                 epublication = record.epublication
                 isbn = epublication.ISBN[0]
@@ -528,18 +538,7 @@ def handleSearchResult(uuid, data):
                     'aleph_sys_number': record.docNumber,
                     'aleph_library': record.library,
                 }
-                # najit original-file pro odpovidajici zaznamy
-                originalFilesWithGivenISBN = [ of[1] for of in originalFiles if of[1].isbn == isbn ]
-                if not originalFilesWithGivenISBN:
-                    wft.doActionFor(context,'notifySystemAction', 
-                                    comment="No original file found for aleph record with isbn: %s, docNumber: %s" % (isbn, str(record.docNumber)))
-                else:
-                    for of in originalFilesWithGivenISBN:
-                        of.updateOrAddAlephRecord(dataForFactory)
-                        pass
-                    modified(context)
-                    wft.doActionFor(context, 'notifySystemAction', 
-                                    comment = "Got an Aleph record with isbn: %s, docNumber: %s" % (isbn, str(record.docNumber)))
+                context.updateOrAddAlephRecord(dataForFactory)
             pass
 
     else:

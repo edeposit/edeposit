@@ -84,6 +84,16 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.addedAlephException"/>
 
+  <subscriber
+      for=".originalfile.IOriginalFile
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedOriginalFile"/>
+
+  <subscriber
+      for=".aleph_record.IAlephRecord
+           zope.container.interfaces.IObjectAddedEvent"
+      handler=".handlers.addedAlephRecord"/>
+
   <!-- <browser:viewlet -->
   <!--       name="plone.contentactions" -->
   <!--       for="edeposit.content.epublication.IePublication" -->
