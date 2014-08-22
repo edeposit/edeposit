@@ -562,3 +562,5 @@ AT02-30 Ohlášení se soubory - sledovani zmen zaznamu v Alephu
     Sleep  1s
     Click Link                            inzlin-01-2013-s-nasi-Tabinkou.pdf
     Wait Until Page Contains              Záznam v Alephu: Derviš :(81754)
+    Page Should Contain Element           xpath=//span[@id="form-widgets-IRelatedItems-relatedItems"]//a[text()="Lesní školky ve Zlíně"]
+    Page Should Contain Element           xpath=//span[@id="form-widgets-related_aleph_record"]//a[text()="Záznam v Alephu: Derviš :(81754)"]
