@@ -64,4 +64,7 @@ RIV_PASSWORD= ""
 SYSTEM_USER_PASSWORD = ""
 SYSTEM_USER_NAME = "system"
 
+ADMINISTRATOR_NAME="admin"
+ADMINISTRATOR_PASSWORD = ""
+
 from my_variables import *

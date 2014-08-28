@@ -330,7 +330,6 @@ AT02-20 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
     Open add new menu    
     Click Element                         link=Aleph Export Request
     Input Text                            css=input[id="form-widgets-IBasic-title"]     Zaznam k exportu do Alephu
-    Pause
     Input Text                            css=input[id="form-widgets-originalFileID"]   inzlin-01-2013-s-nasi-tabinkou.pdf
     Input Text                            css=input[id="form-widgets-isbn"]             isbn-fadsfaljfa
     Click Button                          form.buttons.save  
@@ -338,7 +337,6 @@ AT02-20 Ohlaseni ePublikace - Export do Alephu - systemove zpravy
     Click Link                            Systémové zprávy
     Open add new menu
     Click Element                         link=Aleph Export Result
-    Pause
     Input Text                            css=input[id="form-widgets-IBasic-title"]   Vysledek exportu do Alephu
     Input Text                            css=input[id="form-widgets-isbn"]           isbn-fadsfjasd
     Click Button                          form.buttons.save
@@ -466,6 +464,12 @@ AT02-26 Ohlaseni ePublikace editorem
     Click Link                 Ohlášení ePublikací
     Page Should Contain        Přidat E-Deposit - ePublikace
 
+AT02-27-00 Ohlaseni ePublikace - balicek pro podporu verzovani je nainstalovany
+    Log in                     ${ADMINISTRATOR_NAME}   ${ADMINISTRATOR_PASSWORD}
+    Go to                      ${PLONE_URL}/prefs_install_products_form
+    Page Should Contain Element   xpath=//input[@id="edeposit.content" and @name="products:list"]
+    Page Should Contain Element   xpath=//input[@id="plone.app.versioningbehavior" and @name="products:list"]
+    
 AT02-27 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
     Stop Aleph Daemon
     Registrace producenta
@@ -480,7 +484,7 @@ AT02-27 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
     Open add new menu    
     Click Element                         link=Aleph Record
     Fill Aleph Record
-    Click Button                          form.buttons.save    
+    Click Button                          form.buttons.save
     Page Should Contain                   Aleph Record
     Click Link                            inzlin-01-2013-s-nasi-Tabinkou.pdf
     Page Should Contain                   Aleph Record
@@ -490,10 +494,12 @@ AT02-27 Ohlaseni ePublikace - Original File obsahuje zaznamy z alephu
     Click Element                         css=a.contenttype-edeposit-content-alephrecord
     Wait Until Page Contains Element      css=input.contentTreeAdd
     Execute Javascript                    jQuery('input.contentTreeAdd').click()
-    Page Should Contain Element           css=input[id="form-widgets-related_aleph_record-1"][checked="checked"]
+    Page Should Contain Element           css=input[id="form-widgets-related_aleph_record-0"][checked="checked"]
     Click Button                          form.buttons.save
     Wait Until Page Contains              Změny byly uloženy
-    Page Should Contain Element           css=span[id="form-widgets-related_aleph_record"] > div > a
+    Page Should Contain Element           xpath=//div[@id="formfield-form-widgets-related_aleph_record"]//a[text()="Aleph Record"]
+    Page Should Contain Element           xpath=//div[@id="formfield-form-widgets-IRelatedItems-relatedItems"]//a[text()="Lesní školky ve Zlíně"]    
+    Page Should Contain Element           xpath=//fieldset[@id="folder-listing"]//a[text()="Aleph Record"]
 
 AT02-28 Ohlášení se soubory a s pridelenim ISBN
     Stop Aleph Daemon
@@ -523,14 +529,14 @@ AT02-29 Ohlášení se soubory a s chybou kolem ISBN
     Unselect Checkbox                     css=input[id="form-widgets-IOriginalFile-generated_isbn-0"]
     Click Button                          form.buttons.save
     Page Should Contain                   Přidat E-Deposit - ePublikace
-    Page Should Contain                   Prosím opravte vyznačené chyby.    
-    Page Should Contain                   Buď zadejte ISBN, nebo vyberte - generovat isbn. V tom případě Vám ISBN přiřadí agentura
+    Page Should Contain                   Prosím opravte vyznačené chyby.
+    Page Should Contain                   Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura
     Select Checkbox                       css=input[id="form-widgets-IOriginalFile-generated_isbn-0"]
     Input Text                            css=input[id="form-widgets-IOriginalFile-isbn"]  ${VALID_ISBN}
     Click Button                          form.buttons.save
     Page Should Contain                   Přidat E-Deposit - ePublikace
     Page Should Contain                   Prosím opravte vyznačené chyby.    
-    Page Should Contain                   Buď zadejte ISBN, nebo vyberte - generovat isbn. V tom případě Vám ISBN přiřadí agentura
+    Page Should Contain                   Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura
     Unselect Checkbox                     css=input[id="form-widgets-IOriginalFile-generated_isbn-0"]
     Click Button                          form.buttons.save
     Page Should Contain                   Položka byla vytvořena

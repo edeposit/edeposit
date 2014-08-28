@@ -268,7 +268,7 @@ AT01-10 Přidání nového administrátora k existujícímu producentovi a kontr
     Fill inputs about Prihlaseni  ${USER_NAME}
     Click Button                  Uložit
     Wait Until Page Contains      Prosím opravte vyznačené chyby.
-    Page Should Contain           Uživatelské jméno již existuje. Použijte jiné.
+    Page Should Contain           Uživatelské jméno již existuje. Na záložce Přihlášení použijte jiné.
     Click Link                    Přihlášení
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}
     Click Button                  Uložit
@@ -288,7 +288,7 @@ AT01-11 Přidání nového administrátora k existujícímu producentovi a kontr
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo  jineheslo
     Click Button                  Uložit
     Wait Until Page Contains      Prosím opravte vyznačené chyby.
-    Page Should Contain           Hesla se neshodují. Zadejte hesla znovu.
+    Page Should Contain           Hesla se neshodují. Na záložce Přihlášení zadejte hesla znovu.
     Click Link                    Přihlášení
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo   heslo
     Click Button                  Uložit
@@ -308,7 +308,7 @@ AT01-12 Přidání nového editora k existujícímu producentovi a kontrola dost
     Fill inputs about Prihlaseni  ${USER_NAME}
     Click Button                  Uložit
     Wait Until Page Contains      Prosím opravte vyznačené chyby.
-    Page Should Contain           Uživatelské jméno již existuje. Použijte jiné.
+    Page Should Contain           Uživatelské jméno již existuje. Na záložce Přihlášení použijte jiné.
     Click Link                    Přihlášení
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}
     Click Button                  Uložit
@@ -328,7 +328,7 @@ AT01-13 Přidání nového editora k existujícímu producentovi a kontrola hese
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo  jineheslo
     Click Button                  Uložit
     Wait Until Page Contains      Prosím opravte vyznačené chyby.
-    Page Should Contain           Hesla se neshodují. Zadejte hesla znovu.
+    Page Should Contain           Hesla se neshodují. Na záložce Přihlášení zadejte hesla znovu.
     Click Link                    Přihlášení
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo   heslo
     Click Button                  Uložit
