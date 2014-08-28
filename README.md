@@ -23,6 +23,22 @@ Prepare buildout for E-Deposit
 	jan@jan-XPS-L421X:/opt/edeposit# virtualenv .
 
 
+Add optimistic transaction at code Product.CMFEdition
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is due to plone.app.versioningbehavior.
+
+CopyModifyMergeRepositoryTool.py
+
+- set optimistic to True
+
+::
+
+        def _retrieve(...
+            ...
+            saved = transaction.savepoint(optimistic=True)
+            ...
+   
 Clone packages for E-Deposit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
