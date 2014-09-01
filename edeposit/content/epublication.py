@@ -270,6 +270,11 @@ class ePublication(Container):
                 
         pass
 
+    def allOriginalFilesHaveRelatedAlephRecord(self):
+        originalFiles = self.listFolderContents(contentFilter={"portal_type" : "edeposit.content.originalfile"})
+        ofWithoutRelatedAlephRecord = filter(lambda of: not of.related_aleph_record, originalFiles)
+        return originalFiles and not ofWithoutRelatedAlephRecord
+
 class IAuthors(model.Schema):
     authors = zope.schema.List(
         title = u"Autoři",

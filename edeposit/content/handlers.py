@@ -515,8 +515,9 @@ def handleSearchResult(uuid, data):
                 createContentInContainer(context,'edeposit.content.alephrecord',
                                          **dataForFactory
                                      )
-                modified(context)
-                wft.doActionFor(context, 'gotAlephRecords')
+                pass
+            modified(context)
+            wft.doActionFor(context, 'gotAlephRecords')
         pass
     elif uuidType == 'edeposit.epublication-load-aleph-records':
         with api.env.adopt_user(username="system"):
@@ -526,9 +527,7 @@ def handleSearchResult(uuid, data):
                 dataForFactory = {
                     'title': "".join([u"Záznam v Alephu: ",
                                       str(epublication.nazev), 
-                                      '(', 
-                                      str(record.docNumber),
-                                      ')']),
+                                      '(', str(record.docNumber), ')']),
                     'nazev':  str(epublication.nazev),
                     'isbn': isbn,
                     'podnazev': epublication.podnazev,
@@ -540,7 +539,6 @@ def handleSearchResult(uuid, data):
                 }
                 context.updateOrAddAlephRecord(dataForFactory)
             pass
-
     else:
         raise HandlerError('wrong type of uuid: ' + uuidType)
     
