@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
 from five import grok
+from zope.component import queryUtility, getUtility
+from z3c.relationfield import RelationValue
+from zope.app.intid.interfaces import IIntIds
 
 from z3c.form import group, field
 from zope import schema
@@ -15,10 +19,24 @@ from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
 from edeposit.content import MessageFactory as _
+from z3c.relationfield.schema import RelationChoice, Relation
+from plone.formwidget.contenttree import ObjPathSourceBinder, PathSourceBinder
 
+from edeposit.content.aleph_record import IAlephRecord
+from Products.CMFCore.utils import getToolByName
+from zope.schema.vocabulary import SimpleVocabulary
+from plone.dexterity.utils import createContentInContainer
 
 def urlCodeIsValid(value):
     return True
+
+@grok.provider(IContextSourceBinder)
+def availableAlephRecords(context):
+    path = '/'.join(context.getPhysicalPath())
+    query = { "portal_type" : ("edeposit.content.alephrecord",),
+              "path": {'query' :path } 
+             }
+    return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
 
 class IOriginalFile(form.Schema, IImageScaleTraversable):
     """
@@ -34,24 +52,18 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     isbn = schema.ASCIILine(
         title=_("ISBN"),
         description=_(u"Value of ISBN"),
-        required = True,
+        required = False,
         )
 
     form.primary('file')
     file = NamedBlobFile(
         title=_(u"Original File of an ePublication"),
-        required = True,
+        required = False,
         )
     
     format = schema.Choice(
         title=_(u"Format of a file."),
         vocabulary="edeposit.content.fileTypes",
-        required = True,
-    )
-
-    aleph_sys_number = schema.ASCIILine (
-        title = _(u'Aleph SysNumber'),
-        description = _(u'Internal SysNumber that Aleph refers to metadata of this ePublication'),
         required = False,
     )
 
@@ -63,7 +75,11 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         missing_value = False,
     )
 
-
+    related_aleph_record = RelationChoice( title=u"Odpovídající záznam v Alephu",
+                                           required = False,
+                                           source = availableAlephRecords)
+                                           
+    
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
@@ -74,6 +90,34 @@ class OriginalFile(Container):
     grok.implements(IOriginalFile)
 
     # Add your class methods and properties here
+    def updateOrAddAlephRecord(self, dataForFactory):
+        sysNumber = dataForFactory.get('aleph_sys_number',None)
+        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+
+        # exist some record with the same sysNumber?
+        arecordWithTheSameSysNumber = filter(lambda arecord: arecord.aleph_sys_number == sysNumber,
+                                             alephRecords)
+        if arecordWithTheSameSysNumber:
+            # update this record
+            import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+            pass
+        else:
+            createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
+
+    def updateAlephRelatedData(self):
+        # try to choose related_aleph_record
+        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+        if len(alephRecords) == 1:
+            intids = getUtility(IIntIds)
+            self.related_aleph_record = RelationValue(intids.getId(alephRecords[0]))
+        if len(alephRecords) > 1:
+            self.related_aleph_record = None
+            # skocit do nejakeho stavu
+            # jestli je vice aleph records (ie. vice sysnumber) tak je
+            # potreba aby akvizitor rozhodl, jaky zaznam je ten pravy
+            import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+            pass
+        
 
 # View class
 # The view will automatically use a similarly named template in

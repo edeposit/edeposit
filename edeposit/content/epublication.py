@@ -6,6 +6,7 @@ from zope import schema
 from zope.interface import invariant, Invalid
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
+from zope.lifecycleevent import modified
 
 from plone.dexterity.content import Container
 from plone.directives import dexterity, form
@@ -248,6 +249,26 @@ class ePublication(Container):
     grok.implements(IePublication)
 
     # Add your class methods and properties here
+    def updateOrAddAlephRecord(self, dataForFactory):
+        wft = api.portal.get_tool('portal_workflow')
+        isbn = dataForFactory['isbn']
+        sysNumber = dataForFactory['aleph_sys_number']
+        originalFiles = [aa for aa in self.items() if aa[1].portal_type == "edeposit.content.originalfile"]
+
+        # najit original-file pro odpovidajici zaznamy
+        originalFilesWithGivenISBN = [ of[1] for of in originalFiles if of[1].isbn == isbn ]
+        if not originalFilesWithGivenISBN:
+            wft.doActionFor(self,'notifySystemAction', 
+                            comment="No original file found for aleph record with isbn: %s, docNumber: %s" % (isbn, str(sysNumber)))
+        else:
+            for of in originalFilesWithGivenISBN:
+                of.updateOrAddAlephRecord(dataForFactory)
+            pass
+            modified(self)
+            wft.doActionFor(self, 'alephRecordLoaded', 
+                            comment = "Got an Aleph record with isbn: %s, docNumber: %s" % (isbn, str(sysNumber)))
+                
+        pass
 
 class IAuthors(model.Schema):
     authors = zope.schema.List(
@@ -268,11 +289,14 @@ class IOriginalFiles(model.Schema):
     )
 
 from originalfile import OriginalFile
+from epublicationfolder import IePublicationFolder
 
 class EPublicationAddForm(DefaultAddForm):
     # label = _(u"Registration of a producent")
     # description = _(u"Please fill informations about user and producent.")
     default_fieldset_label = u"ePublikace"
+    portal_type="edeposit.content.epublication"
+    grok.context(IePublicationFolder)
 
     @property
     def additionalSchemata(self):
@@ -283,7 +307,7 @@ class EPublicationAddForm(DefaultAddForm):
 
     def update(self):
         print "update"
-        DefaultAddForm.update(self)
+        super(DefaultAddForm,self).update()
         self.widgets['IBasic.title'].label=u"Název ePublikace"
         
     def extractData(self):
@@ -339,6 +363,14 @@ class EPublicationAddForm(DefaultAddForm):
         if errors:
             self.status = self.formErrorsMessage
             return
+
+        if (not data['IOriginalFile.isbn'] and not data['IOriginalFile.generated_isbn']) or \
+           (data['IOriginalFile.isbn'] and data['IOriginalFile.generated_isbn']):
+            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura"))
+
+        transitionName = (data['IOriginalFile.isbn'] and 'toAcquisition') or \
+                         (data['IOriginalFile.generated_isbn'] and 'toGenerateISBN')
+
         obj = self.createAndAdd(data)
         if obj is not None:
             # mark only as finished if we get the new object and not
@@ -346,8 +378,7 @@ class EPublicationAddForm(DefaultAddForm):
             self._finishedAdd = getattr(self,'submitAgain',False) == False
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
             wft = api.portal.get_tool('portal_workflow')
-            wft.doActionFor(self.new_object, 'toAcquisition', comment='handled automatically')
-       
+            wft.doActionFor(self.new_object, transitionName, comment='handled automatically')
 
     def add(self,object):
         print "add"
@@ -360,7 +391,7 @@ class EPublicationAddForm(DefaultAddForm):
         else:
             self.immediate_view = "%s/%s" % (container.absolute_url(), new_object.id)
 
-        for author in self.authors:
+        for author in filter(lambda author: author.fullname, self.authors):
             author.title = author.fullname
             addContentToContainer(new_object, author, True)
             
@@ -389,6 +420,7 @@ class EPublicationAddForm(DefaultAddForm):
 class EPublicationAddView(DefaultAddView):
     form = EPublicationAddForm
     #index = ViewPageTemplateFile('epublication_templates/editatonce.pt')
+    pass
 
 class AuthorFactory(object):
     adapts(Interface, Interface, Interface, Interface)
