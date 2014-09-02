@@ -391,7 +391,7 @@ def addedAlephExportRequest(context, event):
 def addedAlephExportResult(context, event):
     logger.debug('added aleph export result')
     wft = api.portal.get_tool('portal_workflow')
-    systemMessages = aq_parent(aq_inner(context))
+    systemMessages = event.newParent
     epublication = aq_parent(aq_inner(systemMessages))
     print "added aleph export result"
     # request = AlephExportRequest(context.isbn)
@@ -401,7 +401,8 @@ def addedAlephExportResult(context, event):
 
 def addedOriginalFile(context, event):
     # find related epublication
-    epublication = aq_parent(aq_inner(context))
+    epublication = event.newParent
+    logger.debug('addedOriginalFile: ' + str(epublication))
     intids = getUtility(IIntIds)
     context.relatedItems = [RelationValue(intids.getId(epublication))]
     pass
