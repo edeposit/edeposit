@@ -391,17 +391,17 @@ def addedAlephExportRequest(context, event):
 def addedAlephExportResult(context, event):
     logger.debug('added aleph export result')
     wft = api.portal.get_tool('portal_workflow')
-    systemMessages = aq_parent(aq_inner(context))
+    systemMessages = event.newParent
     epublication = aq_parent(aq_inner(systemMessages))
     print "added aleph export result"
-    # request = AlephExportRequest(context.isbn)
-    # producer = getUtility(IProducer, name="amqp.aleph-export-result")
     wft.doActionFor(epublication, 'exportToAlephOK')
     return
 
 def addedOriginalFile(context, event):
     # find related epublication
-    epublication = aq_parent(aq_inner(context))
+    epublication = event.newParent
+    print "addedOriginalFile", str(epublication)
+    logger.debug('addedOriginalFile: ' + str(epublication))
     intids = getUtility(IIntIds)
     context.relatedItems = [RelationValue(intids.getId(epublication))]
     pass
@@ -515,8 +515,9 @@ def handleSearchResult(uuid, data):
                 createContentInContainer(context,'edeposit.content.alephrecord',
                                          **dataForFactory
                                      )
-                modified(context)
-                wft.doActionFor(context, 'gotAlephRecords')
+                pass
+            modified(context)
+            wft.doActionFor(context, 'gotAlephRecords')
         pass
     elif uuidType == 'edeposit.epublication-load-aleph-records':
         with api.env.adopt_user(username="system"):
@@ -526,9 +527,7 @@ def handleSearchResult(uuid, data):
                 dataForFactory = {
                     'title': "".join([u"Záznam v Alephu: ",
                                       str(epublication.nazev), 
-                                      '(', 
-                                      str(record.docNumber),
-                                      ')']),
+                                      '(', str(record.docNumber), ')']),
                     'nazev':  str(epublication.nazev),
                     'isbn': isbn,
                     'podnazev': epublication.podnazev,
@@ -540,7 +539,6 @@ def handleSearchResult(uuid, data):
                 }
                 context.updateOrAddAlephRecord(dataForFactory)
             pass
-
     else:
         raise HandlerError('wrong type of uuid: ' + uuidType)
     
