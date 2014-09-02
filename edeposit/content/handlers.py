@@ -402,6 +402,7 @@ def addedAlephExportResult(context, event):
 def addedOriginalFile(context, event):
     # find related epublication
     epublication = event.newParent
+    print "addedOriginalFile", str(epublication)
     logger.debug('addedOriginalFile: ' + str(epublication))
     intids = getUtility(IIntIds)
     context.relatedItems = [RelationValue(intids.getId(epublication))]
