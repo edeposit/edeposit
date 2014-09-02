@@ -79,8 +79,6 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
                                            required = False,
                                            source = availableAlephRecords)
                                            
-    
-
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering

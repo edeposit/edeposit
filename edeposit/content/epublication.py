@@ -22,6 +22,9 @@ from plone.dexterity.utils import createContentInContainer, addContentToContaine
 from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 
+from z3c.relationfield import RelationValue
+from zope.app.intid.interfaces import IIntIds
+
 from edeposit.content.library import ILibrary
 from edeposit.content import MessageFactory as _
 
@@ -253,10 +256,10 @@ class ePublication(Container):
         wft = api.portal.get_tool('portal_workflow')
         isbn = dataForFactory['isbn']
         sysNumber = dataForFactory['aleph_sys_number']
-        originalFiles = [aa for aa in self.items() if aa[1].portal_type == "edeposit.content.originalfile"]
+        originalFiles = self.listFolderContents(contentFilter={"portal_type" : "edeposit.content.originalfile"})
 
         # najit original-file pro odpovidajici zaznamy
-        originalFilesWithGivenISBN = [ of[1] for of in originalFiles if of[1].isbn == isbn ]
+        originalFilesWithGivenISBN = [ of for of in originalFiles if of.isbn == isbn ]
         if not originalFilesWithGivenISBN:
             wft.doActionFor(self,'notifySystemAction', 
                             comment="No original file found for aleph record with isbn: %s, docNumber: %s" % (isbn, str(sysNumber)))
@@ -401,8 +404,14 @@ class EPublicationAddForm(DefaultAddForm):
             addContentToContainer(new_object, author, True)
             
         if self.originalFile:
+            intids = getUtility(IIntIds)
+
             value = self.originalFile
-            createContentInContainer(new_object,'edeposit.content.originalfile',**value)
+            newOriginalFile = createContentInContainer(new_object,'edeposit.content.originalfile',**value)
+            newOriginalFile.relatedItems = [
+                    RelationValue(intids.getId(new_object)),
+            ]
+
 
     def create(self, data):
         print "create"
