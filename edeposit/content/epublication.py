@@ -404,14 +404,8 @@ class EPublicationAddForm(DefaultAddForm):
             addContentToContainer(new_object, author, True)
             
         if self.originalFile:
-            intids = getUtility(IIntIds)
-
             value = self.originalFile
             newOriginalFile = createContentInContainer(new_object,'edeposit.content.originalfile',**value)
-            newOriginalFile.relatedItems = [
-                    RelationValue(intids.getId(new_object)),
-            ]
-
 
     def create(self, data):
         print "create"

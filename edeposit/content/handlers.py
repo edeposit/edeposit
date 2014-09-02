@@ -399,7 +399,7 @@ def addedAlephExportResult(context, event):
 
 def addedOriginalFile(context, event):
     # find related epublication
-    epublication = event.newParent
+    epublication = aq_parent(aq_inner(context))
     print "addedOriginalFile", str(epublication)
     logger.debug('addedOriginalFile: ' + str(epublication))
     intids = getUtility(IIntIds)
