@@ -12,8 +12,9 @@ Resource        my-keywords.robot
 Resource        it-keywords.robot
             
 *** Variables ***
-${PLONE_URL}        http://localhost:8080/Plone
-#${PLONE_URL}        http://edeposit-test.nkp.cz
+#${PLONE_URL}        http://localhost:8080/Plone
+#${PLONE_URL}        http://localhost:8080/edeposit
+${PLONE_URL}        http://edeposit-test.nkp.cz
 # ${TEST_SEED} ... nahodny string
     
 *** Test Cases ***
@@ -23,6 +24,7 @@ IT00 Instalace produktu
     # rebuild catalog
 
 IT02-01 Ohlášení ePublikace - kontrola Aleph amqp sluzby
+    Log    ${QUEUE_NAME}   WARN
     Declare Queue                    ${QUEUE_NAME}
     Declare Queue Binding            search    ${QUEUE_NAME}   *
     Registrace producenta
@@ -33,7 +35,7 @@ IT02-01 Ohlášení ePublikace - kontrola Aleph amqp sluzby
     Add authors for ePublication          Jan Stavěl
     Add Original Files for ePublication   ${VALID_ISBN}
     Fill inputs about Vydani
-    Click Button                          form.buttons.save    
+    Click Button                          form.buttons.save
     Sleep     5s
     ${MSG}=                          Get Message From Queue          ${QUEUE_NAME}
     Log Dictionary                   ${MSG}   WARN
@@ -54,8 +56,8 @@ IT02-02 Ohlášení ePublikace
     Log in                           ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains Element      css=input[value="Ohlásit"]
-    Page Should Contain                   Pokud máte k dispozici originál ePublikace, nezapomeňte jej přiložit!
-    Page Should Contain                   Chcete odevzdat dokument k již ohlášené ePublikaci?
+    #Page Should Contain                   Pokud máte k dispozici originál ePublikace, nezapomeňte jej přiložit!
+    #Page Should Contain                   Chcete odevzdat dokument k již ohlášené ePublikaci?
     Fill inputs about ePublication    
     Add authors for ePublication          Jan Stavěl
     Add Original Files for ePublication   ${VALID_ISBN}
@@ -63,6 +65,7 @@ IT02-02 Ohlášení ePublikace
     Pause
     Click Button                          form.buttons.save    
     Sleep     5s
+    Pause
     Zobrazit historii
     Sleep     1s
     Historie obsahuje zprávu         K akvizici
