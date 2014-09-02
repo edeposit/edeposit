@@ -89,10 +89,10 @@
   <!--          zope.container.interfaces.IObjectAddedEvent" -->
   <!--     handler=".handlers.addedOriginalFile"/> -->
 
-  <subscriber
-      for=".originalfile.IOriginalFile
-           zope.intid.interfaces.IIntIdAddedEvent"
-      handler=".handlers.addedOriginalFile"/>
+  <!-- <subscriber -->
+  <!--     for=".originalfile.IOriginalFile -->
+  <!--          zope.intid.interfaces.IIntIdAddedEvent" -->
+  <!--     handler=".handlers.addedOriginalFile"/> -->
 
   <subscriber
       for=".aleph_record.IAlephRecord
