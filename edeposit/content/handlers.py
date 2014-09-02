@@ -394,8 +394,6 @@ def addedAlephExportResult(context, event):
     systemMessages = event.newParent
     epublication = aq_parent(aq_inner(systemMessages))
     print "added aleph export result"
-    # request = AlephExportRequest(context.isbn)
-    # producer = getUtility(IProducer, name="amqp.aleph-export-result")
     wft.doActionFor(epublication, 'exportToAlephOK')
     return
 
