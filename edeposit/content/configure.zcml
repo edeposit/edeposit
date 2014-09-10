@@ -84,10 +84,10 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.addedAlephException"/>
 
-  <subscriber
-      for=".originalfile.IOriginalFile
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedOriginalFile"/>
+  <!-- <subscriber -->
+  <!--     for=".originalfile.IOriginalFile -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedOriginalFile"/> -->
 
   <subscriber
       for=".aleph_record.IAlephRecord
