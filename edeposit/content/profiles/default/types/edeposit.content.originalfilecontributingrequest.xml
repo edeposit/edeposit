@@ -1,29 +1,28 @@
 <?xml version="1.0"?>
-<object name="edeposit.content.originalfile"
+<object name="edeposit.content.originalfilecontributingrequest"
    meta_type="Dexterity FTI"
    i18n:domain="edeposit.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">OriginalFile</property>
+  <property name="title" i18n:translate="">OriginalFile Contributing Request</property>
   <property name="description"
-	    i18n:translate="">E-Deposit Original File</property>
+	    i18n:translate="">E-Deposit Original File Contributing Request</property>
   <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
-  <property name="factory">edeposit.content.originalfile</property>
+  <property name="factory">edeposit.content.originalfilecontributingrequest</property>
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
-    <element value="edeposit.content.isbn"/>
-    <element value="edeposit.content.previewfile"/>
     <element value="edeposit.content.alephrecord"/>
   </property>
   <property name="allow_discussion">False</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">edeposit.content.originalfile.IOriginalFile</property>
-  <property name="klass">edeposit.content.originalfile.OriginalFile</property>
+  <property name="schema">edeposit.content.originalfile_contributing_request.IOriginalFileContributingRequest</property>
+  <property name="klass">edeposit.content.originalfile_contributing_request.OriginalFileContributingRequest</property>
 
   <property name="behaviors">
-    <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
+    <element value="plone.app.content.interfaces.INameFromTitle"/>
+    <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
     <element value="plone.app.relationfield.behavior.IRelatedItems"/>
     <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
     <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
@@ -35,7 +34,6 @@
   <property name="default_view">view</property>
   <property name="view_methods">
     <element value="view"/>
-    <element value="documentviewer"/>
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>

@@ -11,6 +11,9 @@
   <object name="edeposit.content.epublicationfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
   <!-- -*- extra stuff goes here -*- -->
+  <object name="edeposit.content.alephrecord" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.originalfilecontributingrequestsfolder" meta_type="Dexterity FTI" />
+  <object name="edeposit.content.originalfilecontributingrequest" meta_type="Dexterity FTI" />
   <object name="edeposit.content.alephexception" meta_type="Dexterity FTI" />
   <object name="edeposit.content.alephsearchsysnumberrequest" meta_type="Dexterity FTI" />
   <object name="edeposit.content.alephexportrequest" meta_type="Dexterity FTI" />

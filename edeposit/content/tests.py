@@ -22,6 +22,30 @@ ztc.ZopeDocFileSuite(
 
 # -*- extra stuff goes here -*-
 
+        # Integration tests for AlephRecord
+        ztc.ZopeDocFileSuite(
+            'AlephRecord.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for OriginalFileContributingRequestsFolder
+        ztc.ZopeDocFileSuite(
+            'OriginalFileContributingRequestsFolder.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for OriginalFileContributingRequest
+        ztc.ZopeDocFileSuite(
+            'OriginalFileContributingRequest.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
         # Integration tests for AlephException
         ztc.ZopeDocFileSuite(
             'AlephException.txt',

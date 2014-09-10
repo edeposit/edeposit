@@ -23,7 +23,7 @@ class IAuthor(form.Schema, IImageScaleTraversable):
     fullname = schema.TextLine(
         title=u"Plné jméno",
         description = u"příjmení, křestní jm.",
-        required = True,
+        required = False,
         )
 
 
