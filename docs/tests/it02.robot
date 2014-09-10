@@ -62,17 +62,16 @@ IT02-02 Ohlášení ePublikace
     Add authors for ePublication          Jan Stavěl
     Add Original Files for ePublication   ${VALID_ISBN}
     Fill inputs about Vydani
-    Pause
     Click Button                          form.buttons.save    
     Sleep     5s
-    Pause
     Zobrazit historii
-    Sleep     1s
+    Pause
     Historie obsahuje zprávu         K akvizici
     Historie obsahuje zprávu         Poslal jsem jeden záznam k exportu do Alephu
     Historie obsahuje zprávu         Export jednoho záznamu do Alephu
     Historie obsahuje zprávu         Export jednoho záznamu do Alephu skončil s chybou
     Click Link                       Zobrazení
+    Pause
     Wait Until Page Contains         Export do Alephu
 
 IT02-03 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN

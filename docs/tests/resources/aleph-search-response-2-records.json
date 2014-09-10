@@ -1,0 +1,91 @@
+{
+    "records": [
+        {
+            "docNumber": 1807432, 
+            "xml": "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n<find-doc>\n<record>\n<metadata>\n<oai_marc>\n<fixfield id=\"LDR\">-----cam-a22------a-4500</fixfield>\n<fixfield id=\"FMT\">BK</fixfield>\n<fixfield id=\"001\">nkc20081807432</fixfield>\n<fixfield id=\"003\">CZ-PrNK</fixfield>\n<fixfield id=\"005\">20111012085733.0</fixfield>\n<fixfield id=\"007\">ta</fixfield>\n<fixfield id=\"008\">080513s2008----xr-----g------000-f-cze-d</fixfield>\n<varfield id=\"015\" i1=\" \" i2=\" \">\n<subfield label=\"a\">cnb001807432</subfield>\n</varfield>\n<varfield id=\"020\" i1=\" \" i2=\" \">\n<subfield label=\"a\">978-80-260-0791-3 (v knize neuvedeno : bro\u017e.)</subfield>\n<subfield label=\"z\">978-80-85892-15-4</subfield>\n<subfield label=\"z\">80-85892-15-4 :</subfield>\n<subfield label=\"c\">K\u010d 99,00</subfield>\n</varfield>\n<varfield id=\"035\" i1=\" \" i2=\" \">\n<subfield label=\"a\">(OCoLC)761168326</subfield>\n</varfield>\n<varfield id=\"040\" i1=\" \" i2=\" \">\n<subfield label=\"a\">KMG001</subfield>\n<subfield label=\"b\">cze</subfield>\n<subfield label=\"d\">ULG001</subfield>\n<subfield label=\"d\">BOA001</subfield>\n<subfield label=\"d\">ABA001</subfield>\n</varfield>\n<varfield id=\"072\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">821.162.3-3</subfield>\n<subfield label=\"x\">\u010cesk\u00e1 pr\u00f3za</subfield>\n<subfield label=\"2\">Konspekt</subfield>\n<subfield label=\"9\">25</subfield>\n</varfield>\n<varfield id=\"080\" i1=\" \" i2=\" \">\n<subfield label=\"a\">821.162.3-31</subfield>\n<subfield label=\"2\">MRF</subfield>\n</varfield>\n<varfield id=\"080\" i1=\" \" i2=\" \">\n<subfield label=\"a\">(0:82-311.9)</subfield>\n<subfield label=\"2\">MRF</subfield>\n</varfield>\n<varfield id=\"100\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">Mosteck\u00fd, Jaroslav,</subfield>\n<subfield label=\"d\">1963-</subfield>\n<subfield label=\"7\">jn19990009938</subfield>\n<subfield label=\"4\">aut</subfield>\n</varfield>\n<varfield id=\"245\" i1=\"1\" i2=\"0\">\n<subfield label=\"a\">D\u011bti otrok\u016f /</subfield>\n<subfield label=\"c\">Jaroslav Mosteck\u00fd</subfield>\n</varfield>\n<varfield id=\"250\" i1=\" \" i2=\" \">\n<subfield label=\"a\">Vyd. 1.</subfield>\n</varfield>\n<varfield id=\"260\" i1=\" \" i2=\" \">\n<subfield label=\"a\">Praha :</subfield>\n<subfield label=\"b\">Golem,</subfield>\n<subfield label=\"c\">2008</subfield>\n</varfield>\n<varfield id=\"300\" i1=\" \" i2=\" \">\n<subfield label=\"a\">120 s. ;</subfield>\n<subfield label=\"c\">19 cm</subfield>\n</varfield>\n<varfield id=\"490\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">Mark Stone ;</subfield>\n<subfield label=\"v\">21</subfield>\n</varfield>\n<varfield id=\"500\" i1=\" \" i2=\" \">\n<subfield label=\"a\">Vydalo nakl. Golem ve spolupr\u00e1ci s nakl. Poutn\u00edk</subfield>\n</varfield>\n<varfield id=\"655\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">\u010desk\u00e9 rom\u00e1ny</subfield>\n<subfield label=\"7\">fd133974</subfield>\n<subfield label=\"2\">czenas</subfield>\n</varfield>\n<varfield id=\"655\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">v\u011bdecko-fantastick\u00e9 rom\u00e1ny</subfield>\n<subfield label=\"7\">fd133847</subfield>\n<subfield label=\"2\">czenas</subfield>\n</varfield>\n<varfield id=\"655\" i1=\" \" i2=\"9\">\n<subfield label=\"a\">Czech fiction</subfield>\n<subfield label=\"2\">eczenas</subfield>\n</varfield>\n<varfield id=\"655\" i1=\" \" i2=\"9\">\n<subfield label=\"a\">science fiction novels</subfield>\n<subfield label=\"2\">eczenas</subfield>\n</varfield>\n<varfield id=\"830\" i1=\" \" i2=\"0\">\n<subfield label=\"a\">Mark Stone</subfield>\n</varfield>\n<varfield id=\"910\" i1=\" \" i2=\" \">\n<subfield label=\"a\">ABA001</subfield>\n</varfield>\n<varfield id=\"928\" i1=\"9\" i2=\" \">\n<subfield label=\"a\">Poutn\u00edk</subfield>\n</varfield>\n<varfield id=\"998\" i1=\" \" i2=\" \">\n<subfield label=\"a\">http://aleph.nkp.cz/F/?func=direct&amp;doc_number=001807432&amp;local_base=NKC01</subfield>\n</varfield>\n</oai_marc>\n</metadata>\n</record>\n<session-id>9RDGIP2AP8Q3CDNRVASCIXHIYUXVKBL2G5JD7X148LQT58AC8G</session-id>\n</find-doc>\n ", 
+            "epublication": {
+                "podnazev": "", 
+                "castDil": "", 
+                "ISBN": [
+                    "978-80-260-0791-3"
+                ], 
+                "format": "19 cm", 
+                "url": "", 
+                "nakladatelVydavatel": "Golem,", 
+                "__nt_name": "EPublication", 
+                "internal_url": "", 
+                "originaly": [], 
+                "autori": [
+                    {
+                        "lastName": "Mosteck\u00fd", 
+                        "title": "", 
+                        "firstName": "Jaroslav,", 
+                        "__nt_name": "Author"
+                    }
+                ], 
+                "zpracovatelZaznamu": "KMG001", 
+                "vazba": "(v knize neuvedeno : bro\u017e.)", 
+                "nazevCasti": "", 
+                "poradiVydani": "", 
+                "cena": "K\u010d 99,00", 
+                "nazev": "D\u011bti otrok\u016f /", 
+                "mistoVydani": "Praha :", 
+                "ISBNSouboruPublikaci": [], 
+                "datumVydani": "2008"
+            }, 
+            "__nt_name": "AlephRecord", 
+            "library": "NKC01", 
+            "base": "nkc", 
+            "semantic_info": {
+                "hasISBNAgencyFields": false, 
+                "hasCatalogizationFields": false, 
+                "hasAcquisitionFields": false, 
+                "__nt_name": "SemanticInfo"
+            }
+        }, 
+        {
+            "docNumber": 114753, 
+            "xml": "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n<find-doc>\n<record>\n<metadata>\n<oai_marc>\n<fixfield id=\"LDR\">-----nam-a22------a-4500</fixfield>\n<fixfield id=\"FMT\">BK</fixfield>\n<fixfield id=\"001\">cpk19950114753</fixfield>\n<fixfield id=\"003\">CZ-PrNK</fixfield>\n<fixfield id=\"005\">20080408090826.0</fixfield>\n<fixfield id=\"007\">tu</fixfield>\n<fixfield id=\"008\">960220s1995----xr-----e------000-1-cze--</fixfield>\n<varfield id=\"015\" i1=\" \" i2=\" \">\n<subfield label=\"a\">cnb000114753</subfield>\n</varfield>\n<varfield id=\"020\" i1=\" \" i2=\" \">\n<subfield label=\"a\">80-85892-15-4 (Klub Julese Vernea : bro\u017e.) :</subfield>\n<subfield label=\"c\">K\u010d 69,00</subfield>\n</varfield>\n<varfield id=\"035\" i1=\" \" i2=\" \">\n<subfield label=\"a\">(OCoLC)36613782</subfield>\n</varfield>\n<varfield id=\"040\" i1=\" \" i2=\" \">\n<subfield label=\"a\">ABA001</subfield>\n<subfield label=\"b\">cze</subfield>\n</varfield>\n<varfield id=\"072\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">821-31/-34</subfield>\n<subfield label=\"x\">Milostn\u00e1, dobrodru\u017en\u00e1, fantastick\u00e1 pr\u00f3za</subfield>\n<subfield label=\"2\">Konspekt</subfield>\n<subfield label=\"9\">25</subfield>\n</varfield>\n<varfield id=\"080\" i1=\" \" i2=\" \">\n<subfield label=\"a\">885.0-31</subfield>\n<subfield label=\"2\">undef</subfield>\n</varfield>\n<varfield id=\"080\" i1=\" \" i2=\" \">\n<subfield label=\"a\">82-31/-32</subfield>\n<subfield label=\"2\">undef</subfield>\n</varfield>\n<varfield id=\"100\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">Kulh\u00e1nek, Ji\u0159\u00ed,</subfield>\n<subfield label=\"d\">1967-</subfield>\n<subfield label=\"7\">jn99240000567</subfield>\n<subfield label=\"4\">aut</subfield>\n</varfield>\n<varfield id=\"245\" i1=\"1\" i2=\"0\">\n<subfield label=\"a\">Vl\u00e1dci strachu /</subfield>\n<subfield label=\"c\">Ji\u0159\u00ed Kulh\u00e1nek</subfield>\n</varfield>\n<varfield id=\"260\" i1=\" \" i2=\" \">\n<subfield label=\"a\">Praha :</subfield>\n<subfield label=\"b\">United Fans :</subfield>\n<subfield label=\"b\">Klub Julese Vernea,</subfield>\n<subfield label=\"c\">1995</subfield>\n</varfield>\n<varfield id=\"300\" i1=\" \" i2=\" \">\n<subfield label=\"a\">281 s. ;</subfield>\n<subfield label=\"c\">18 cm</subfield>\n</varfield>\n<varfield id=\"490\" i1=\"1\" i2=\" \">\n<subfield label=\"a\">Poutn\u00edk. Kni\u017en\u00ed \u0159ada ;</subfield>\n<subfield label=\"v\">\u010d. 18</subfield>\n</varfield>\n<varfield id=\"500\" i1=\" \" i2=\" \">\n<subfield label=\"a\">Frontispis</subfield>\n</varfield>\n<varfield id=\"655\" i1=\" \" i2=\"7\">\n<subfield label=\"a\">v\u011bdecko-fantastick\u00e9 rom\u00e1ny</subfield>\n<subfield label=\"7\">fd133847</subfield>\n<subfield label=\"2\">czenas</subfield>\n</varfield>\n<varfield id=\"830\" i1=\" \" i2=\"0\">\n<subfield label=\"a\">Poutn\u00edk.</subfield>\n<subfield label=\"p\">Kni\u017en\u00ed \u0159ada</subfield>\n</varfield>\n<varfield id=\"910\" i1=\" \" i2=\" \">\n<subfield label=\"a\">ABA001</subfield>\n</varfield>\n<varfield id=\"998\" i1=\" \" i2=\" \">\n<subfield label=\"a\">http://aleph.nkp.cz/F/?func=direct&amp;doc_number=000114753&amp;local_base=NKC01</subfield>\n</varfield>\n</oai_marc>\n</metadata>\n</record>\n<session-id>SD9AC658DRYU3GL774KA8D7QV1I5UR3YSXEBG61J4GK3H6NCG1</session-id>\n</find-doc>\n ", 
+            "epublication": {
+                "podnazev": "", 
+                "castDil": "", 
+                "ISBN": [
+                    "80-85892-15-4"
+                ], 
+                "format": "18 cm", 
+                "url": "", 
+                "nakladatelVydavatel": "United Fans :Klub Julese Vernea,", 
+                "__nt_name": "EPublication", 
+                "internal_url": "", 
+                "originaly": [], 
+                "autori": [
+                    {
+                        "lastName": "Kulh\u00e1nek", 
+                        "title": "", 
+                        "firstName": "Ji\u0159\u00ed,", 
+                        "__nt_name": "Author"
+                    }
+                ], 
+                "zpracovatelZaznamu": "ABA001", 
+                "vazba": "(Klub Julese Vernea : bro\u017e.) :", 
+                "nazevCasti": "", 
+                "poradiVydani": "", 
+                "cena": "K\u010d 69,00", 
+                "nazev": "Vl\u00e1dci strachu /", 
+                "mistoVydani": "Praha :", 
+                "ISBNSouboruPublikaci": [], 
+                "datumVydani": "1995"
+            }, 
+            "__nt_name": "AlephRecord", 
+            "library": "NKC01", 
+            "base": "nkc", 
+            "semantic_info": {
+                "hasISBNAgencyFields": false, 
+                "hasCatalogizationFields": false, 
+                "hasAcquisitionFields": false, 
+                "__nt_name": "SemanticInfo"
+            }
+        }
+    ], 
+    "__nt_name": "SearchResult"
+}

@@ -44,6 +44,14 @@ Start Aleph Daemon
 Stop Aleph Daemon
     Start Process      pkill -f alephdaemon     shell=yes
 
+Start Aleph Daemon
+    Start Process      /home/jan/lib/edeposit/bin/python /home/jan/lib/edeposit/bin/edeposit_amqp_antivirusd.py start    shell=yes
+    ${output}=        Run   ps ax | grep antivirusd
+    Should Contain    ${output}   edeposit_amqp_antivirusd.py
+
+Stop Antivirus Daemon
+    Start Process      pkill -f amqp_antivirusd     shell=yes
+
 Create producents folder
     Add Dexterity Content     ${PLONE_URL}     edeposit-user-producentfolder    producents
 
@@ -388,3 +396,65 @@ Systémové zprávy obsahují
     Click Link                 Systémové zprávy
     Wait Until Page Contains   ${text}    
     Go To                      ${current_location}
+
+Queue is not empty
+    [arguments]     ${vhost}    ${queue}
+    ${num_of_messages}=    Get Num of Messages at Queue      ${vhost}    ${queue}
+    # Log      ${vhost}     WARN
+    # Log      ${queue}     WARN
+    # Log      ${num_of_messages}     WARN
+    Should not be equal as integers    ${num_of_messages}    0
+
+Respond as Antivirus Daemon
+    Log   Respond as Antivirus    WARN
+    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     antivirus     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      antivirus    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    antivirus-request.json
+    Simulate Antivirus Response           ${MSG}   ${FILENAME}
+
+Respond as ISBN Validation Daemon
+    [arguments]       ${isbn}   ${is_valid}
+    Log   Respond as ISBN Validation Daemon    WARN
+    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    aleph-isbn-validation-request.json
+    Simulate ISBN Validate Response       ${MSG}   ${isbn}   ${is_valid}
+
+
+Respond as Aleph Count Daemon
+    [arguments]       ${isbn}   ${num_of_records}
+    Log   Respond as Aleph Count Daemon    WARN
+    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    aleph-count-request.json
+    Simulate ISBN Count Response          ${MSG}   ${isbn}   ${num_of_records}
+
+Respond as Aleph Export Daemon
+    [arguments]       ${isbn}  
+    Log   Respond as Aleph Export Daemon    WARN
+    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    aleph-export-request.json
+    Simulate Aleph Export Response          ${MSG}   ${isbn}
+
+
+Submit SysNumber Search at Aleph
+    Open browser   ${PLONE_URL}   firefox
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline/inzlin-01-2013-s-nasi-tabinkou.pdf
+    Open Workflow Menu
+    Click Element                         link=Dohledat sysNumber v Alephu
+    Page Should Contain                   Čekání na Aleph
+
+Respond as Aleph Search Daemon
+    [arguments]       ${isbn}  
+    Log   Respond as Aleph Search Daemon    WARN
+    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    aleph-sysnumber-search-request.json
+    Simulate Aleph Search Response          ${MSG}   ${isbn}

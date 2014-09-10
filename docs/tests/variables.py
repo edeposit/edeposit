@@ -7,13 +7,16 @@ import os,binascii
 
 TEST_SEED=binascii.b2a_hex(os.urandom(15))[:5]
 
-QUEUE_NAME=             "-".join(['acceptation-tests-queue',TEST_SEED,'01'])
+QUEUE_PREFIX='acceptation-tests-queue'
+QUEUE_NAME=             "-".join([QUEUE_PREFIX,TEST_SEED,'01'])
 
-VALID_ISBN=                  "978-0-306-40615-7"
+VALID_ISBN=                  "978-80-260-7000-9"
 VALID_ENGLISH_ISBN=          "978-0-306-40615-7"
 VALID_BUT_DUPLICIT_ISBN=     "80-85432-66-8"
+VALID_WITH_2_RECORDS=        "80-85892-15-4"
 WRONG_ISBN=                  "80-12312-3241-324124"
 
+FILENAME=                    "inzlin-01-2013-s-nasi-tabinkou"
 EPUBLICATION_ID = "dervis"
 
 ePublication_IN_ALEPH = epublication.EPublication(

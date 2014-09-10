@@ -1,0 +1,41 @@
+{
+    "records": [
+        {
+            "docNumber": 2762, 
+            "xml": "<?xml version = \"1.0\" encoding = \"UTF-8\"?>\n<find-doc>\n<record>\n<metadata>\n<oai_marc>\n<fixfield id=\"LDR\">-----nam-a22------a-4500</fixfield>\n<fixfield id=\"FMT\">BK</fixfield>\n<fixfield id=\"001\">nkc20140002762</fixfield>\n<fixfield id=\"003\">CZ-PrNK</fixfield>\n<fixfield id=\"005\">20140630103238.0</fixfield>\n<varfield id=\"020\" i1=\" \" i2=\" \">\n<subfield label=\"a\">978-80-85979-67-1 (online : pdf)</subfield>\n</varfield>\n<varfield id=\"245\" i1=\"0\" i2=\"0\">\n<subfield label=\"a\">Dra\u010d\u00ed doup\u011b plus</subfield>\n<subfield label=\"h\">[elektronick\u00fd zdroj] :</subfield>\n<subfield label=\"b\">fantasy hra na hrdiny : besti\u00e1\u0159 /</subfield>\n<subfield label=\"c\">Matou\u0161 Je\u017eek</subfield>\n</varfield>\n<varfield id=\"260\" i1=\" \" i2=\" \">\n<subfield label=\"a\">[Ostrava] :</subfield>\n<subfield label=\"b\">Altar,</subfield>\n<subfield label=\"c\">2012</subfield>\n</varfield>\n<varfield id=\"856\" i1=\"4\" i2=\"0\">\n<subfield label=\"u\">http://edeposit-test.nkp.cz/producents/zizala/epublications/draci-doupe-plus/drdplus-bestiar.pdf</subfield>\n<subfield label=\"4\">N</subfield>\n</varfield>\n<varfield id=\"856\" i1=\"4\" i2=\"2\">\n<subfield label=\"u\">http://edeposit.nkp.cz/</subfield>\n<subfield label=\"4\">N</subfield>\n</varfield>\n<varfield id=\"910\" i1=\" \" i2=\" \">\n<subfield label=\"a\">ABA001</subfield>\n</varfield>\n<varfield id=\"998\" i1=\" \" i2=\" \">\n<subfield label=\"a\">http://aleph.nkp.cz/F/?func=direct&amp;doc_number=000002762&amp;local_base=CZE01</subfield>\n</varfield>\n</oai_marc>\n</metadata>\n</record>\n<session-id>NYDXTIH3C3HUKM2J14IF5BVACQVYX4AIJSX7TSIREKBP194PGR</session-id>\n</find-doc>\n ", 
+            "epublication": {
+                "podnazev": "fantasy hra na hrdiny : besti\u00e1\u0159 /", 
+                "castDil": "", 
+                "ISBN": [
+                    "978-80-85979-67-1"
+                ], 
+                "format": "", 
+                "url": "http://edeposit-test.nkp.cz/producents/zizala/epublications/draci-doupe-plus/drdplus-bestiar.pdf", 
+                "nakladatelVydavatel": "Altar,", 
+                "__nt_name": "EPublication", 
+                "internal_url": "", 
+                "originaly": [], 
+                "autori": [], 
+                "zpracovatelZaznamu": "", 
+                "vazba": "(online : pdf)", 
+                "nazevCasti": "", 
+                "poradiVydani": "", 
+                "cena": "", 
+                "nazev": "Dra\u010d\u00ed doup\u011b plus", 
+                "mistoVydani": "[Ostrava] :", 
+                "ISBNSouboruPublikaci": [], 
+                "datumVydani": "2012"
+            }, 
+            "__nt_name": "AlephRecord", 
+            "library": "CZE01", 
+            "base": "cze-dep", 
+            "semantic_info": {
+                "hasISBNAgencyFields": false, 
+                "hasCatalogizationFields": false, 
+                "hasAcquisitionFields": false, 
+                "__nt_name": "SemanticInfo"
+            }
+        }
+    ], 
+    "__nt_name": "SearchResult"
+}
