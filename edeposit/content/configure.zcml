@@ -48,41 +48,40 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.addedEPublicationFolder"/>
 
-  <!-- system messages for AMQP -->
-  <subscriber
-      for=".isbn_validation_request.IISBNValidationRequest
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNValidateRequest"/>
+  <!-- <subscriber -->
+  <!--     for=".isbn_validation_request.IISBNValidationRequest -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedISBNValidateRequest"/> -->
 
-  <subscriber
-      for=".isbn_validation_result.IISBNValidationResult
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNValidateResult"/>
+  <!-- <subscriber -->
+  <!--     for=".isbn_validation_result.IISBNValidationResult -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedISBNValidateResult"/> -->
 
-  <subscriber
-      for=".isbn_count_request.IISBNCountRequest
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNCountRequest"/>
+  <!-- <subscriber -->
+  <!--     for=".isbn_count_request.IISBNCountRequest -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedISBNCountRequest"/> -->
 
-  <subscriber
-      for=".isbn_count_result.IISBNCountResult
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedISBNCountResult"/>
+  <!-- <subscriber -->
+  <!--     for=".isbn_count_result.IISBNCountResult -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedISBNCountResult"/> -->
 
-  <subscriber
-      for=".aleph_export_request.AlephExportRequest
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedAlephExportRequest"/>
+  <!-- <subscriber -->
+  <!--     for=".aleph_export_request.AlephExportRequest -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedAlephExportRequest"/> -->
 
-  <subscriber
-      for=".aleph_export_result.AlephExportResult
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedAlephExportResult"/>
+  <!-- <subscriber -->
+  <!--     for=".aleph_export_result.AlephExportResult -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedAlephExportResult"/> -->
 
-  <subscriber
-      for=".aleph_exception.AlephException
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedAlephException"/>
+  <!-- <subscriber -->
+  <!--     for=".aleph_exception.AlephException -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedAlephException"/> -->
 
   <!-- <subscriber -->
   <!--     for=".originalfile.IOriginalFile -->
@@ -94,6 +93,81 @@
   <!--          zope.intid.interfaces.IIntIdAddedEvent" -->
   <!--     handler=".handlers.addedOriginalFile"/> -->
 
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileAntivirusRequestSender"
+    name="antivirus-check"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileISNBValidateRequestSender"
+    name="isbn-validate"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileISNBDuplicityCheckRequestSender"
+    name="isbn-duplicity-check"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileSysNumberSearchRequestSender"
+    name="sysnumber-aleph-search"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileExportToAlephRequestSender"
+    name="export-to-aleph"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.IScanResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileAntivirusResultHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.IISBNValidationResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileISBNValidateResultHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.ICountResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileCountResultHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.IAlephExportResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileAlephExportResultHandler"
+    />
+
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.IAlephSearchResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.OriginalFileAlephSearchResultHandler"
+      />
+  
   <subscriber
       for=".aleph_record.IAlephRecord
            zope.container.interfaces.IObjectAddedEvent"
