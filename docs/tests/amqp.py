@@ -125,6 +125,38 @@ class RabbitMQ(object):
         pass
 
 
+    def simulate_aleph_export_exception(self, message):
+        data = message['body']
+        actual_headers = message['headers']
+        #response = json.loads(open("resources/aleph-export-exception.json").read())
+        #headers = dict(response['headers'],**actual_headers)
+        headers = {
+            "exception_type": "<class 'edeposit.amqp.aleph.export.ExportRejectedException'>",
+            "exception": "Export request was rejected by import webform: Error - neplatne ISBN / ISMN",
+            "exception_name": "ExportRejectedException",
+            'traceback':"""Traceback (most recent call last):
+File "/usr/lib/python2.7/site-packages/edeposit/amqp/amqpdaemon.py", line 141, in onMessageReceived
+uuid
+File "/usr/lib/python2.7/site-packages/edeposit/amqp/aleph/__init__.py", line 457, in reactToAMQPMessage
+ISBN = ISBN.ISBN
+File "/usr/lib/python2.7/site-packages/edeposit/amqp/aleph/export.py", line 379, in exportEPublication
+return _sendPostDict(post_dict)
+File "/usr/lib/python2.7/site-packages/edeposit/amqp/aleph/export.py", line 317, in _sendPostDict
+headers["aleph-info"]
+ExportRejectedException: Export request was rejected by import webform: Error - neplatne ISBN / ISMN""",
+            'UUID': actual_headers['UUID']
+        }
+
+        self.channels['aleph'].basic_publish(exchange='export',
+                                             routing_key='result',
+                                             body="Export request was rejected by import webform: Error - neplatne ISBN / ISMN",
+                                             properties = pika.BasicProperties(content_type='application/text',
+                                                                               delivery_mode=2,
+                                                                               headers = headers,  
+                                                                           )
+                                         )
+
+        
     def get_num_of_messages_at_queue(self, vhost, queue_name):
         queue_info =  self.client.get_queue(vhost, queue_name)
         return queue_info['messages_ready']
@@ -141,4 +173,11 @@ class RabbitMQ(object):
         open(filename,"wb").write(json.dumps({'body': msg['body'],
                                               'headers': msg['headers']
                                           }))
+        pass
+
+    def get_amqp_connections(self):
+        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        conn=self.client.get_connections()[0]
+        conn['vhost']
+        self.client.get_connections()
         pass

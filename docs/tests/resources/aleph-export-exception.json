@@ -1,0 +1,9 @@
+{
+"headers": {
+        "exception_type": "<class 'edeposit.amqp.aleph.export.ExportRejectedException'>",
+        "exception": "Export request was rejected by import webform: Error - neplatne ISBN / ISMN",
+        "exception_name": "ExportRejectedException",
+        "UUID": {"context_UID": "ba25b631f8a34a3eb2a8bc5706bf18d0", "session_data": {"msg": "", "isbn": "978-80-260-7000-9"}}
+},
+"payload": "Export request was rejected by import webform: Error - neplatne ISBN / ISMN"
+}

@@ -23,10 +23,44 @@ IT00 Instalace produktu
     # update security
     # rebuild catalog
 
-IT02-01 Ohlášení ePublikace - kontrola Aleph amqp sluzby
+IT02-01 Ohlášení se soubory
+    Delete All Test Queues Starting With    ${QUEUE_PREFIX}
+    Pause
+    Declare Queue                    aleph    ${QUEUE_NAME}
+    Declare Queue                    antivirus    ${QUEUE_NAME}
+    Declare Queue Binding            aleph   search     ${QUEUE_NAME}   request
+    Declare Queue Binding            aleph   count      ${QUEUE_NAME}   request
+    Declare Queue Binding            aleph   validate   ${QUEUE_NAME}   request
+    Declare Queue Binding            aleph   export     ${QUEUE_NAME}   request
+    Declare Queue Binding            antivirus   antivirus   ${QUEUE_NAME}  request
+    # Stop Aleph Daemon
+    # Stop Antivirus Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Fill inputs about Vydani
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication   ${VALID_ISBN}
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Položka byla vytvořena
+    Location Should Contain               lesni-skolky-ve-zline
+    Page Should Contain                   Processing
+    Pause
+    #Respond as ISBN Validation Daemon     ${VALID_ISBN}  True
+    #Respond as Aleph Count Daemon         ${VALID_ISBN}  0
+    #Respond as Antivirus Daemon
+    #Respond as Aleph Export Daemon        ${VALID_ISBN}
+    #Submit SysNumber Search at Aleph
+    #Respond as Aleph Search Daemon        ${VALID_BUT_DUPLICIT_ISBN}
+    Sleep   1s
+    Pause
+
+IT02-0a Ohlášení ePublikace - kontrola Aleph amqp sluzby
     Log    ${QUEUE_NAME}   WARN
-    Declare Queue                    ${QUEUE_NAME}
-    Declare Queue Binding            search    ${QUEUE_NAME}   *
+    Declare Queue                    aleph  ${QUEUE_NAME}
+    Declare Queue Binding            aleph  search    ${QUEUE_NAME}   *
     Registrace producenta
     Log in                           ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací

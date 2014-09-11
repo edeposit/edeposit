@@ -5,7 +5,9 @@ from variables import *
 import os,binascii
 TEST_SEED=binascii.b2a_hex(os.urandom(15))[:5]
 
-QUEUE_NAME=             "-".join(['integration-tests-queue',TEST_SEED,'01'])
+QUEUE_PREFIX='integration-tests-queue'
+QUEUE_NAME=             "-".join([QUEUE_PREFIX,TEST_SEED,'01'])
+
 USER_NAME=              "-".join(['test-user',TEST_SEED,'01'])
 
 USER_PASSWORD=          "password"

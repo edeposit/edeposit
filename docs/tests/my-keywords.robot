@@ -405,14 +405,6 @@ Queue is not empty
     # Log      ${num_of_messages}     WARN
     Should not be equal as integers    ${num_of_messages}    0
 
-Respond as Antivirus Daemon
-    Log   Respond as Antivirus    WARN
-    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     antivirus     ${QUEUE_NAME}
-    Sleep   1s
-    ${MSG}=                               Get Message From Queue      antivirus    ${QUEUE_NAME}
-    Write Msg Into File         ${MSG}    antivirus-request.json
-    Simulate Antivirus Response           ${MSG}   ${FILENAME}
-
 Respond as ISBN Validation Daemon
     [arguments]       ${isbn}   ${is_valid}
     Log   Respond as ISBN Validation Daemon    WARN
@@ -432,6 +424,14 @@ Respond as Aleph Count Daemon
     Write Msg Into File         ${MSG}    aleph-count-request.json
     Simulate ISBN Count Response          ${MSG}   ${isbn}   ${num_of_records}
 
+Respond as Antivirus Daemon
+    Log   Respond as Antivirus    WARN
+    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     antivirus     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      antivirus    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    antivirus-request.json
+    Simulate Antivirus Response           ${MSG}   ${FILENAME}
+
 Respond as Aleph Export Daemon
     [arguments]       ${isbn}  
     Log   Respond as Aleph Export Daemon    WARN
@@ -441,7 +441,15 @@ Respond as Aleph Export Daemon
     Write Msg Into File         ${MSG}    aleph-export-request.json
     Simulate Aleph Export Response          ${MSG}   ${isbn}
 
-
+Respond as Aleph Export Daemon with Exception
+    [arguments]       ${isbn}  
+    Log   Respond as Aleph Export Daemon with Exception    WARN
+    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    aleph-export-request.json
+    Simulate Aleph Export Exception          ${MSG}
+    
 Submit SysNumber Search at Aleph
     Open browser   ${PLONE_URL}   firefox
     Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
@@ -458,3 +466,4 @@ Respond as Aleph Search Daemon
     ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
     Write Msg Into File         ${MSG}    aleph-sysnumber-search-request.json
     Simulate Aleph Search Response          ${MSG}   ${isbn}
+
