@@ -130,6 +130,14 @@
 
   <adapter
     for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.handlers.IAMQPError
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileExceptionHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
          edeposit.content.amqp.IScanResult
          "
     provides="edeposit.content.amqp.IAMQPHandler"

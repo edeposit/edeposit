@@ -231,8 +231,8 @@ def added(context,event):
                                   'v': '../'}
                                  ],
                           )
-    context.invokeFactory('edeposit.content.messagesfolder','system-messages',
-                          title=u"Systémové zprávy")
+    # context.invokeFactory('edeposit.content.messagesfolder','system-messages',
+    #                       title=u"Systémové zprávy")
 
 
 def addedEPublicationFolder(context, event):

@@ -358,3 +358,19 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
             wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
         pass
 
+
+
+class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 'result'])):
+    """ 
+    context: originalfile
+    result:  AMQPError
+    """
+    def handle(self):
+        print "<- Aleph Exception"
+        wft = api.portal.get_tool('portal_workflow')
+        print self.result
+        with api.env.adopt_user(username="system"):
+            wft.doActionFor(self.context,'amqpError', comment=str(self.result.payload))
+            wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=str(self.result.payload))
+        pass
+
