@@ -402,6 +402,7 @@ class EPublicationAddForm(DefaultAddForm):
         if self.originalFile:
             value = self.originalFile
             newOriginalFile = createContentInContainer(new_object,'edeposit.content.originalfile',**value)
+            wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(newOriginalFile, 'submitDeclaration', comment='handled automatically')
 
     def create(self, data):
