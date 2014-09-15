@@ -22,6 +22,46 @@ ztc.ZopeDocFileSuite(
 
 # -*- extra stuff goes here -*-
 
+        # Integration tests for CatalogizationWorkPlansFolder
+        ztc.ZopeDocFileSuite(
+            'CatalogizationWorkPlansFolder.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for CatalogizationWorkPlan
+        ztc.ZopeDocFileSuite(
+            'CatalogizationWorkPlan.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ProducentUserPlansFolder
+        ztc.ZopeDocFileSuite(
+            'ProducentUserPlansFolder.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for ProducentUserPlan
+        ztc.ZopeDocFileSuite(
+            'ProducentUserPlan.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
+        # Integration tests for E-Deposit:ProducentUserPlan
+        ztc.ZopeDocFileSuite(
+            'E-Deposit:ProducentUserPlan.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
         # Integration tests for AlephRecord
         ztc.ZopeDocFileSuite(
             'AlephRecord.txt',
