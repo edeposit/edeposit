@@ -402,6 +402,7 @@ class EPublicationAddForm(DefaultAddForm):
         if self.originalFile:
             value = self.originalFile
             newOriginalFile = createContentInContainer(new_object,'edeposit.content.originalfile',**value)
+            wft.doActionFor(newOriginalFile, 'submitDeclaration', comment='handled automatically')
 
     def create(self, data):
         def getAndRemoveKey(data, key, defaultValue):
