@@ -19,17 +19,17 @@
   <property name="klass">edeposit.content.previewfile.PreviewFile</property>
 
   <property name="behaviors">
-     <element value="plone.app.content.interfaces.INameFromTitle" />
-     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-   </property>
+    <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
+    <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
+  </property>
 
   <!-- View information -->
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
-  <property name="default_view">documentviewer</property>
+  <property name="default_view">view</property>
   <property name="view_methods">
-   <element value="view"/>
-   <element value="documentviewer"/>
+    <element value="view"/>
+    <element value="documentviewer"/>
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>

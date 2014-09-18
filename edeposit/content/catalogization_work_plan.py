@@ -21,28 +21,30 @@ from edeposit.content.aleph_record import IAlephRecord
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary
 from plone.dexterity.utils import createContentInContainer
+from zope.component import queryUtility
+from plone import api
+
+from edeposit.content.originalfile import IOriginalFile
 
 def urlCodeIsValid(value):
     return True
 
 @grok.provider(IContextSourceBinder)
 def availableCatalogizators(context):
-    registry = queryUtility(IRegistry)
-
-    terms = []
-    import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-
-    # for pizza in registry.get('example.dexterityforms.pizzaTypes', ()):
-    #     terms.append(SimpleVocabulary.createTerm(pizza, pizza.encode('utf-8'), pizza))
-
+    def createTerm(user_member_data):
+        username = user_member_data.getUserName()
+        return SimpleVocabulary.createTerm(username, username.encode('utf-8'), username)
+    
+    terms = map(lambda user: createTerm(user),  api.user.get_users())
     return SimpleVocabulary(terms)
 
 @grok.provider(IContextSourceBinder)
 def availableOriginalFiles(context):
     path = '/'.join(context.getPhysicalPath())
-    query = { "portal_type" : ("edeposit.content.originalfile",),
-              "path" : {'query': "/producents"}
-          }
+    query = { 
+        "portal_type" : "edeposit.content.originalfile",
+        'path': "/producents",
+    }
     return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
 
 from edeposit.content import MessageFactory as _
@@ -60,9 +62,9 @@ class ICatalogizationWorkPlan(form.Schema, IImageScaleTraversable):
     # If you want a model-based interface, edit
     # models/catalogization_work_plan.xml to define the content type.
 
-    related_catalogizator = RelationChoice( title=u"Pracovník katalogizace",
-                                            required = True,
-                                            source = availableCatalogizators)
+    related_catalogizator = schema.Choice( title=u"Pracovník katalogizace",
+                                           required = True,
+                                           source = availableCatalogizators)
 
     assigned_originalfiles = RelationList(
         title=u"Dokumenty ke zpracování",
@@ -70,9 +72,13 @@ class ICatalogizationWorkPlan(form.Schema, IImageScaleTraversable):
         default = [],
         value_type =   RelationChoice( 
             title=u"Originály",
-            source = availableOriginalFiles
+            source = ObjPathSourceBinder(object_provides=IOriginalFile.__identifier__)
         )
     )
+    
+# @form.default_value(field=ICatalogizationWorkPlan['related_catalogizator'])
+# def defaultCatalogizator(data):
+#     return "jans"
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific

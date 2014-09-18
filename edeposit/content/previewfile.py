@@ -9,7 +9,6 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from plone.dexterity.content import Container
 from plone.directives import dexterity, form
 from plone.app.textfield import RichText
-from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
@@ -27,12 +26,7 @@ class IPreviewFile(form.Schema, IImageScaleTraversable):
     file = NamedBlobFile(
         title=_(u"Preview File of an ePublication"),
         description=_(u"Fill in a file that contains a preview on an epublication"),
-        required = True,
-        )
-    
-    format = schema.Choice(
-        title=_(u"Format of a file."),
-        vocabulary="edeposit.content.fileTypes"
+        required = False,
         )
     
 

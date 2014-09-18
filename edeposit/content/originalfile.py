@@ -14,7 +14,6 @@ from plone.supermodel import model
 from plone.dexterity.content import Container
 from plone.directives import dexterity, form
 from plone.app.textfield import RichText
-from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
