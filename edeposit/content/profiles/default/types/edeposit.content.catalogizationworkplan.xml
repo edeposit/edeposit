@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
-<object name="edeposit.content.previewfile"
+<object name="edeposit.content.catalogizationworkplan"
    meta_type="Dexterity FTI"
    i18n:domain="edeposit.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">PreviewFile</property>
+  <property name="title" i18n:translate="">Catalogization Work Plan</property>
   <property name="description"
-    i18n:translate="">E-Deposit Preview File</property>
+    i18n:translate="">E-Deposit: Catalogization Work Plan</property>
   <property name="icon_expr">string:${portal_url}/document_icon.png</property>
-  <property name="factory">edeposit.content.previewfile</property>
+  <property name="factory">edeposit.content.catalogizationworkplan</property>
   <property name="global_allow">False</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types" />
   <property name="allow_discussion">False</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">edeposit.content.previewfile.IPreviewFile</property>
-  <property name="klass">edeposit.content.previewfile.PreviewFile</property>
+  <property name="schema">edeposit.content.catalogization_work_plan.ICatalogizationWorkPlan</property>
+  <property name="klass">edeposit.content.catalogization_work_plan.CatalogizationWorkPlan</property>
 
   <property name="behaviors">
-    <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
-    <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
-  </property>
+     <element value="plone.app.content.interfaces.INameFromTitle" />
+     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
+   </property>
 
   <!-- View information -->
   <property name="link_target"></property>
@@ -29,10 +29,10 @@
   <property name="default_view">view</property>
   <property name="view_methods">
     <element value="view"/>
-    <element value="documentviewer"/>
   </property>
   <property name="default_view_fallback">False</property>
   <property name="add_permission">cmf.AddPortalContent</property>
+
   <!-- Method aliases -->
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="view" to="(selected layout)" />

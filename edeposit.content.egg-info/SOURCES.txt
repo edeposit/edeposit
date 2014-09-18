@@ -17,9 +17,12 @@ edeposit/content/aleph_export_request.py
 edeposit/content/aleph_export_result.py
 edeposit/content/aleph_record.py
 edeposit/content/aleph_search_sysnumber_request.py
+edeposit/content/amqp.py
 edeposit/content/author.py
 edeposit/content/book.py
 edeposit/content/bookfolder.py
+edeposit/content/catalogization_work_plan.py
+edeposit/content/catalogization_work_plans_folder.py
 edeposit/content/eperiodical.py
 edeposit/content/eperiodicalfolder.py
 edeposit/content/eperiodicalpart.py
@@ -40,6 +43,8 @@ edeposit/content/originalfile_contributing_request.py
 edeposit/content/originalfile_contributing_requests_folder.py
 edeposit/content/previewfile.py
 edeposit/content/printingfile.py
+edeposit/content/producent_user_plan.py
+edeposit/content/producent_user_plans_folder.py
 edeposit/content/testing.py
 edeposit/content/tests.py
 edeposit/content/vocabularies.py

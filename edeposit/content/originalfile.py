@@ -14,7 +14,6 @@ from plone.supermodel import model
 from plone.dexterity.content import Container
 from plone.directives import dexterity, form
 from plone.app.textfield import RichText
-from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
@@ -87,6 +86,14 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
 class OriginalFile(Container):
     grok.implements(IOriginalFile)
 
+    def needsThumbnailGeneration(self):
+        isPdf = self.file and self.file.contentType == "application/pdf"
+        return self.file and not isPdf
+
+    def hasSomeAlephRecords(self):
+        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+        return len(alephRecords)
+        
     # Add your class methods and properties here
     def updateOrAddAlephRecord(self, dataForFactory):
         sysNumber = dataForFactory.get('aleph_sys_number',None)
@@ -97,7 +104,6 @@ class OriginalFile(Container):
                                              alephRecords)
         if arecordWithTheSameSysNumber:
             # update this record
-            import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
             pass
         else:
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
@@ -110,12 +116,6 @@ class OriginalFile(Container):
             self.related_aleph_record = RelationValue(intids.getId(alephRecords[0]))
         if len(alephRecords) > 1:
             self.related_aleph_record = None
-            # skocit do nejakeho stavu
-            # jestli je vice aleph records (ie. vice sysnumber) tak je
-            # potreba aby akvizitor rozhodl, jaky zaznam je ten pravy
-            import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-            pass
-        
 
 # View class
 # The view will automatically use a similarly named template in
