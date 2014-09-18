@@ -314,12 +314,10 @@ class EPublicationAddForm(DefaultAddForm):
         return schemata
 
     def update(self):
-        print "update"
         super(DefaultAddForm,self).update()
         self.widgets['IBasic.title'].label=u"Název ePublikace"
         
     def extractData(self):
-        print "extract data"
         def getErrorView(widget,error):
             view = zope.component.getMultiAdapter( (error, 
                                                     self.request, 
@@ -334,9 +332,7 @@ class EPublicationAddForm(DefaultAddForm):
 
         data, errors = super(EPublicationAddForm,self).extractData()
         isbn = data.get('IOriginalFile.isbn',None)
-        print 'isbn: ', isbn
         if isbn:
-            print "isbn appeared: ", isbn
             isbnWidget = self.widgets.get('IOriginalFile.isbn',None)
             valid = edeposit.amqp.aleph.isbn.is_valid_isbn(isbn)
             if not valid:
@@ -348,7 +344,7 @@ class EPublicationAddForm(DefaultAddForm):
                 try:
                     appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
                     if appearedAtAleph:
-                        print "isbn appeared in Aleph yet"
+                        print "isbn already appeared in Aleph"
                         # duplicity error
                         errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
                 except:
@@ -359,8 +355,7 @@ class EPublicationAddForm(DefaultAddForm):
 
     @button.buttonAndHandler(_(u'Cancel'), name='cancel')
     def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(_(u"Add New Item operation cancelled"), 
-                                                      "info")
+        IStatusMessage(self.request).addStatusMessage(_(u"Add New Item operation cancelled"), "info")
         self.request.response.redirect(self.nextURL())
         notify(AddCancelledEvent(self.context))
 
@@ -403,7 +398,11 @@ class EPublicationAddForm(DefaultAddForm):
             value = self.originalFile
             newOriginalFile = createContentInContainer(new_object,'edeposit.content.originalfile',**value)
             wft = api.portal.get_tool('portal_workflow')
-            wft.doActionFor(newOriginalFile, 'submitDeclaration', comment='handled automatically')
+            wft.doActionFor(newOriginalFile, 
+                            (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
+                            or (newOriginalFile.file and 'submitDeclarationToAntivirus')
+                            or 'submitDeclarationToISBNGenerating',
+                            comment='handled automatically')
 
     def create(self, data):
         def getAndRemoveKey(data, key, defaultValue):

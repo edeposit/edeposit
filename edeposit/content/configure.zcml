@@ -129,6 +129,13 @@
     />
 
   <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileThumbnailRequestSender"
+    name="generate-thumbnail"
+    />
+
+  <adapter
     for="edeposit.content.originalfile.IOriginalFile
          edeposit.content.handlers.IAMQPError
          "
@@ -174,6 +181,14 @@
            "
       provides="edeposit.content.amqp.IAMQPHandler"
       factory=".amqp.OriginalFileAlephSearchResultHandler"
+      />
+
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.ICalibreConversionResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.OriginalFileThumbnailGeneratingResultHandler"
       />
   
   <subscriber

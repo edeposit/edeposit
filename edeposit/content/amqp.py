@@ -4,6 +4,10 @@ from plone import api
 from zope.interface import Interface, Attribute, implements, classImplements
 from zope.component import getUtility, getAdapter, getMultiAdapter
 from Acquisition import aq_parent, aq_inner
+from plone.namedfile.file import NamedBlobFile
+from base64 import b64encode, b64decode
+from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
+import transaction
 
 from edeposit.amqp.aleph import (
     ISBNQuery, 
@@ -42,6 +46,11 @@ from edeposit.amqp.aleph.datastructures.results import (
 from edeposit.amqp.antivirus.structures import (
     ScanResult,
     ScanFile
+)
+
+from edeposit.amqp.calibre.structures import (
+    ConversionRequest,
+    ConversionResponse
 )
 
 from collective.zamqp.producer import Producer
@@ -96,6 +105,19 @@ class ISBNSearchRequestProducent(Producer):
     routing_key = "request"
     pass
 
+class CalibreConvertProducent(Producer):
+    grok.name('amqp.calibre-convert-request')
+
+    connection_id = "calibre"
+    exchange = "convert"
+    serializer = "text/plain"
+    exchange_type = "topic"
+    exchange_durable = True
+    auto_delete = False
+    durable = True
+    routing_key = "request"
+    pass
+
 
 class IScanResult(Interface):
     result = Attribute("")
@@ -117,6 +139,12 @@ classImplements(ExportResult, IAlephExportResult)
 class IAlephSearchResult(Interface):
     records = Attribute("List os AlephRecords")
 classImplements(SearchResult, IAlephSearchResult)
+
+class ICalibreConversionResult(Interface):
+    type = Attribute("")
+    b64_data = Attribute("")
+    protocol = Attribute("")
+classImplements(ConversionResponse, ICalibreConversionResult)
 
 class IAMQPSender(Interface):
     """
@@ -149,6 +177,24 @@ def parse_headers(headers):
     return (context, data['session_data'])
 
 from collections import namedtuple
+
+class OriginalFileThumbnailRequestSender(namedtuple('ThumbnailGeneratingRequest',['context'])):
+    implements(IAMQPSender)
+    def send(self):
+        print "-> Thumbnail Generating Request"
+        originalfile = self.context
+        fileName = originalfile.file.filename
+        inputFormat = "epub"
+        request = ConversionRequest(inputFormat, "pdf", base64.b64encode(originalfile.file.data))
+        producer = getUtility(IProducer, name="amqp.calibre-convert-request")
+        msg = ""
+        session_data =  { 'isbn': str(self.context.isbn),
+                          'filename': fileName,
+                          'msg': msg
+        }
+        headers = make_headers(self.context, session_data)
+        producer.publish(serialize(request), content_type = 'application/json', headers = headers )
+    pass
 
 class OriginalFileAntivirusRequestSender(namedtuple('AntivirusRequest',['context'])):
     implements(IAMQPSender)
@@ -267,9 +313,33 @@ class OriginalFileAntivirusResultHandler(namedtuple('AntivirusResult',['context'
             else:
                 comment=u"soubor %s prošel antivirovou kontrolou" % (context.file.filename,)
                 wft.doActionFor(epublication,'notifySystemAction', comment=comment)
-                wft.doActionFor(context, context.needsThumbnailGeneration() and 'antivirusOKThumbnail'
-                                or 'antivirusOKAleph')
+                transition =  context.needsThumbnailGeneration() and 'antivirusOKThumbnail' \
+                              or (context.isbn and 'antivirusOKAleph' or 'antivirusOKISBNGeneration')
+                print "transition: %s" % (transition,)
+                wft.doActionFor(context, transition)
             pass
+        pass
+
+class OriginalFileThumbnailGeneratingResultHandler(namedtuple('ThumbnailGeneratingResult',
+                                                              ['context','result'])):
+    """ 
+    context: originalfile
+    result:  ThumbnailGeneratingResult
+    """
+    def handle(self):
+        print "<- Calibre Thumbnail Generating Result"
+        wft = api.portal.get_tool('portal_workflow')
+        epublication=aq_parent(aq_inner(self.context))
+        with api.env.adopt_user(username="system"):
+            comment = u"hurá, máme náhled! %s" % (self.context.file.filename, )
+            bfile = NamedBlobFile(data=b64decode(self.result.b64_data),  filename=u"thumbnail.pdf")
+            previewFileData = { 'file': bfile }
+            previewFile = createContentInContainer(self.context, 
+                                                   'edeposit.content.previewfile',
+                                                   **previewFileData)
+            transaction.savepoint(optimistic=True)
+            wft.doActionFor(epublication,'notifySystemAction', comment=comment)
+            wft.doActionFor(self.context, 'thumbnailOK')
         pass
 
 
