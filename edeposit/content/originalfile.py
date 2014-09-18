@@ -86,6 +86,24 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
 class OriginalFile(Container):
     grok.implements(IOriginalFile)
 
+    def getParentTitle(self):
+        return self.__parent__.title
+
+    def getNakladatelVydavatel(self):
+        return self.__parent__.nakladatel_vydavatel
+
+    def getZpracovatelZaznamu(self):
+        return self.__parent__.zpracovatel_zaznamu
+
+    def getPodnazev(self):
+        return self.__parent__.podnazev
+
+    def getCast(self):
+        return self.__parent__.cast
+
+    def getNazevCasti(self):
+        return self.__parent__.nazev_casti
+
     def needsThumbnailGeneration(self):
         isPdf = self.file and self.file.contentType == "application/pdf"
         return self.file and not isPdf

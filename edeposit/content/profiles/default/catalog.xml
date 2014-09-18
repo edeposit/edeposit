@@ -1,5 +1,9 @@
-<object name="portal_catalog">
-    <index name="offerToRIV" meta_type="FieldIndex">
-        <indexed_attr value="offer_to_riv"/>
-    </index>
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+  <column value="getParentTitle"/>
+  <column value="getNakladatelVydavatel"/>
+  <column value="getZpracovatelZaznamu"/>
+  <column value="getPodnazev"/> 
+  <column value="getCast"/> 
+  <column value="getNazevCasti"/> 
 </object>
