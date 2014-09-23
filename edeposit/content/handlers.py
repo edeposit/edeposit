@@ -168,6 +168,7 @@ def handleAntivirusResponse(message, event):
                               exception = headers.get('exception'),
                               headers = headers)
         getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
     else:
         # Messages from Antivir has its own deserialization logic. 
         # So we will use it.
