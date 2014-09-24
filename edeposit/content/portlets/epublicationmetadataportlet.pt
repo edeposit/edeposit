@@ -1,0 +1,23 @@
+<dl class="portlet portletePublicationMetadataPortlet"
+    i18n:domain="edeposit.content">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span>
+          Metadata ePublikace
+        </span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+      <ul>
+        <li><label>Název</label><span tal:content="here/getParentTitle">nazev</span></li>
+        <li><label>Podnázev</label><span tal:content="here/getPodnazev">Podnazev</span></li>
+        <li><label>Část</label><span tal:content="here/getCast">Cast</span></li>
+        <li><label>Nakladavatel/vydavatel</label><span tal:content="here/getNakladatelVydavatel">Nakladatel/vydavatel</span></li>
+      </ul>
+    </dd>
+
+    <dd class="portletFooter">
+    </dd>
+</dl>

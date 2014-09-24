@@ -1,0 +1,32 @@
+<configure 
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="edeposit.content">
+  <!-- Ensure Plone's portlets ZCML has already been processed; without
+       this, we may get a permission lookup error
+  -->
+  <include package="plone.app.portlets" />
+  <!-- -*- extra stuff goes here -*- -->
+
+  <plone:portlet
+      name="edeposit.content.portlets.ePublicationMetadataPortlet"
+      interface=".epublicationmetadataportlet.IePublicationMetadataPortlet"
+      assignment=".epublicationmetadataportlet.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".epublicationmetadataportlet.Renderer"
+      addview=".epublicationmetadataportlet.AddForm"
+      />
+
+
+  <plone:portlet
+      name="edeposit.content.portlets.ISBNGeneratingPortlet"
+      interface=".isbngeneratingportlet.IISBNGeneratingPortlet"
+      assignment=".isbngeneratingportlet.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".isbngeneratingportlet.Renderer"
+      addview=".isbngeneratingportlet.AddForm"
+      />
+
+</configure>

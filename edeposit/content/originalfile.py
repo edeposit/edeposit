@@ -25,6 +25,7 @@ from edeposit.content.aleph_record import IAlephRecord
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary
 from plone.dexterity.utils import createContentInContainer
+from Acquisition import aq_parent, aq_inner
 
 def urlCodeIsValid(value):
     return True
@@ -87,22 +88,22 @@ class OriginalFile(Container):
     grok.implements(IOriginalFile)
 
     def getParentTitle(self):
-        return self.__parent__.title
+        return aq_parent(aq_inner(self)).title
 
     def getNakladatelVydavatel(self):
-        return self.__parent__.nakladatel_vydavatel
+        return aq_parent(aq_inner(self)).nakladatel_vydavatel
 
     def getZpracovatelZaznamu(self):
-        return self.__parent__.zpracovatel_zaznamu
+        return aq_parent(aq_inner(self)).zpracovatel_zaznamu
 
     def getPodnazev(self):
-        return self.__parent__.podnazev
+        return aq_parent(aq_inner(self)).podnazev
 
     def getCast(self):
-        return self.__parent__.cast
+        return aq_parent(aq_inner(self)).cast
 
     def getNazevCasti(self):
-        return self.__parent__.nazev_casti
+        return aq_parent(aq_inner(self)).nazev_casti
 
     def needsThumbnailGeneration(self):
         isPdf = self.file and self.file.contentType == "application/pdf"
