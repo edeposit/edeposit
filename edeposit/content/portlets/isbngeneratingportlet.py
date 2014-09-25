@@ -19,6 +19,7 @@ import edeposit.amqp.aleph
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 from zope.lifecycleevent import modified
 from plone import api
+import sys
 
 class IISBNGeneration(form.Schema):
     isbn = schema.ASCIILine(
@@ -42,13 +43,27 @@ class ISBNGenerationForm(form.SchemaForm):
         if errors:
             self.status = self.formErrorsMessage
             return
+        try:
+            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(data['isbn'])
+        except:
+            print sys.exc_info()
+            raise ActionExecutionError(Invalid(u"Objevila se nějaká chyby při volání Aleph služby! (%s)" % (str(sys.exc_info()),)))
 
-        valid = edeposit.amqp.aleph.isbn.is_valid_isbn(data['isbn'])
         if not valid:
-           raise ActionExecutionError(Invalid(u"ISBN není validní!"))
+            raise ActionExecutionError(Invalid(u"ISBN není validní!"))
+
+        try:
+            appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(data['isbn'])
+        except:
+            print sys.exc_info()
+            raise ActionExecutionError(Invalid(u"Objevila se nějaká chyby při volání Aleph služby! (%s)" % (str(sys.exc_info()),)))
+
+        if appearedAtAleph:
+            raise ActionExecutionError(Invalid(u"ISBN už v Alephu existuje!"))
 
         wft = api.portal.get_tool('portal_workflow')
         self.context.isbn = data['isbn']
+        modified(self.context)
         wft.doActionFor(self.context, 'submitISBNGeneration')
         self.status = u"Hotovo!"
     pass
