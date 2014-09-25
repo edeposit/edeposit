@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.content.portlets.ISBNGenerationPortlet"
+      interface=".isbngenerationportlet.IISBNGenerationPortlet"
+      assignment=".isbngenerationportlet.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".isbngenerationportlet.Renderer"
+      addview=".isbngenerationportlet.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.content.portlets.ePublicationMetadataPortlet"
       interface=".epublicationmetadataportlet.IePublicationMetadataPortlet"
       assignment=".epublicationmetadataportlet.Assignment"
