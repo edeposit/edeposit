@@ -376,9 +376,6 @@ class EPublicationAddForm(DefaultAddForm):
            (data['IOriginalFile.isbn'] and data['IOriginalFile.generated_isbn']):
             raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura"))
 
-        transitionName = (data['IOriginalFile.isbn'] and 'toAcquisition') or \
-                         (data['IOriginalFile.generated_isbn'] and 'toGenerateISBN')
-
         obj = self.createAndAdd(data)
         if obj is not None:
             # mark only as finished if we get the new object and not
@@ -386,10 +383,9 @@ class EPublicationAddForm(DefaultAddForm):
             self._finishedAdd = getattr(self,'submitAgain',False) == False
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
             wft = api.portal.get_tool('portal_workflow')
-            wft.doActionFor(self.new_object, transitionName, comment='handled automatically')
+            wft.doActionFor(self.new_object, 'submitDeclaration', comment='handled automatically')
 
     def add(self,object):
-        print "add"
         fti = getUtility(IDexterityFTI, name=self.portal_type)
         container = aq_inner(self.context)
         new_object = addContentToContainer(container, object)
@@ -404,17 +400,12 @@ class EPublicationAddForm(DefaultAddForm):
             addContentToContainer(new_object, author, True)
             
         if self.originalFile:
-            intids = getUtility(IIntIds)
-
             value = self.originalFile
             newOriginalFile = createContentInContainer(new_object,'edeposit.content.originalfile',**value)
-            newOriginalFile.relatedItems = [
-                    RelationValue(intids.getId(new_object)),
-            ]
-
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor(newOriginalFile, 'submitDeclaration', comment='handled automatically')
 
     def create(self, data):
-        print "create"
         def getAndRemoveKey(data, key, defaultValue):
             if key in data:
                 value = data[key]

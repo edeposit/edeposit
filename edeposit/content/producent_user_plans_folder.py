@@ -7,8 +7,10 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from plone.dexterity.content import Container
+
 from plone.directives import dexterity, form
 from plone.app.textfield import RichText
+from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 
@@ -18,32 +20,34 @@ from edeposit.content import MessageFactory as _
 
 # Interface class; used to define content-type schema.
 
-class IPreviewFile(form.Schema, IImageScaleTraversable):
+class IProducentUserPlansFolder(form.Schema, IImageScaleTraversable):
     """
-    E-Deposit Preview File
+    E-Deposit: Producent User Plans Folder
     """
-    form.primary('file')
-    file = NamedBlobFile(
-        title=_(u"Preview File of an ePublication"),
-        description=_(u"Fill in a file that contains a preview on an epublication"),
-        required = False,
-        )
-    
+
+    # If you want a schema-defined interface, delete the model.load
+    # line below and delete the matching file in the models sub-directory.
+    # If you want a model-based interface, edit
+    # models/producent_user_plans_folder.xml to define the content type.
+
+    form.model("models/producent_user_plans_folder.xml")
+
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering
 # in separate view classes.
 
-class PreviewFile(Container):
-    grok.implements(IPreviewFile)
+class ProducentUserPlansFolder(Container):
+    grok.implements(IProducentUserPlansFolder)
 
     # Add your class methods and properties here
+    pass
 
 
 # View class
 # The view will automatically use a similarly named template in
-# previewfile_templates.
+# producent_user_plans_folder_templates.
 # Template filenames should be all lower case.
 # The view will render when you request a content object with this
 # interface with "/@@sampleview" appended.
@@ -54,7 +58,7 @@ class PreviewFile(Container):
 class SampleView(grok.View):
     """ sample view class """
 
-    grok.context(IPreviewFile)
+    grok.context(IProducentUserPlansFolder)
     grok.require('zope2.View')
 
     # grok.name('view')
