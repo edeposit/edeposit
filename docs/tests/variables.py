@@ -16,6 +16,10 @@ VALID_BUT_DUPLICIT_ISBN=     "80-85432-66-8"
 VALID_WITH_2_RECORDS=        "80-85892-15-4"
 WRONG_ISBN=                  "80-12312-3241-324124"
 
+VALID_ISBN_01=               "978-80-260-7001-6"
+VALID_ISBN_02=               "978-80-260-7002-3"
+VALID_ISBN_03=               "978-80-260-7003-0"
+
 FILENAME=                    "inzlin-01-2013-s-nasi-tabinkou"
 EPUBLICATION_ID = "dervis"
 
@@ -47,8 +51,14 @@ PRODUCENT_TITLE=        u"Zlínsky vydavatel"
 USER_NAME=       "jans"
 USER_PASSWORD=   ""
 
+UNIQUE_USER_NAME=       "-".join(['test-user',TEST_SEED,'01'])
+UNIQUE_USER_PASSWORD=   ""
+
 NEW_UNIQ_USER_NAME="-".join([USER_NAME,TEST_SEED,binascii.b2a_hex(os.urandom(15))[:5]])
     
+ISBN_AGENCY_USER="isbn-agency-user"
+ISBN_AGENCY_PASSWORD=""
+
 EDITOR1_NAME=       "editor1"
 EDITOR1_PASSWORD=   ""
     
@@ -61,7 +71,7 @@ EDITOR3_PASSWORD=   ""
 AKVIZITOR_NAME=     "akvizitor"
 AKVIZITOR_PASSWORD= ""
 
-RIV_NAME=     "akvizitor"
+RIV_NAME=     "riv-user"
 RIV_PASSWORD= ""
 
 SYSTEM_USER_PASSWORD = ""
@@ -69,5 +79,14 @@ SYSTEM_USER_NAME = "system"
 
 ADMINISTRATOR_NAME="admin"
 ADMINISTRATOR_PASSWORD = ""
+
+LIBRARY_ADMINISTRATOR="admin-knihovnik"
+LIBRARY_ADMINISTRATOR_PASSWORD=""
+
+LIBRARIAN_USER="knihovnik"
+LIBRARIAN_USER_PASSWORD=""
+
+LIBRARIAN_USER_01="knihovnik-01"
+LIBRARIAN_USER_01_PASSWORD=""
 
 from my_variables import *

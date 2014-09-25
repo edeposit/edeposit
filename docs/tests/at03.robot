@@ -2,37 +2,19 @@
 
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/keywords.robot
-
+Resource  my-keywords.robot
+Variables        variables.py
 Test Setup       Open browser and create all folders
 Test Teardown    Close all browsers
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 Library  Dialogs
 Library  OperatingSystem
+Library  String
+Library  amqp.RabbitMQ
+Library  Collections
 
-Resource  my-keywords.robot
-    
 *** Variables ***
-${USER_NAME}        jans
-${USER_PASSWORD}    PhiEso7
-    
-${PRODUCENT_ID}     zlinsky-vydavatel
-${PRODUCENT_TITLE}  Zlínsky vydavatel
-    
-${EDITOR1_NAME}        editor1
-${EDITOR1_PASSWORD}    PhiEso7
-    
-${EDITOR2_NAME}        editor2
-${EDITOR2_PASSWORD}    PhiEso7
-    
-${EDITOR3_NAME}        editor3
-${EDITOR3_PASSWORD}    PhiEso7
-
-${AKVIZITOR_NAME}       akvizice
-${AKVIZITOR_PASSWORD}   PhiEso74123
-
-${SYSTEM_USER_PASSWORD}   shoj98Phai9    
-${SYSTEM_USER_NAME}   system
 
 *** Keywords ***
 
@@ -114,3 +96,13 @@ Ohlaseni ePublikace - Akvizice - Prehledova stranka
     Go to                                 ${PLONE_URL}/dashboard
     Page Should Contain                   Žádosti o zveřejnění
     Page Should Contain                   Lesní školky ve Zlíně
+
+AT03-07 Pracovní prostředí pracovníka ISBN agentury
+    Vytvoření pracovníka ISBN Agentury
+    Log out
+    Log In      ${ISBN_AGENCY_USER}    ${ISBN_AGENCY_PASSWORD}
+    Existuje portlet Prideleni ISBN
+    Existuje portlet Prehled originalu pro prideleni ISBN    
+    Click Element    css=#portal-logo
+    Existuje portlet Prideleni ISBN
+    Pause    

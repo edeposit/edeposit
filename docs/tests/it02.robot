@@ -12,11 +12,14 @@ Resource        my-keywords.robot
 Resource        it-keywords.robot
             
 *** Variables ***
-#${PLONE_URL}        http://localhost:8080/Plone
+${PLONE_URL}        http://localhost:8080/Plone
 #${PLONE_URL}        http://localhost:8080/edeposit
-${PLONE_URL}        http://edeposit-test.nkp.cz
-# ${TEST_SEED} ... nahodny string
-    
+#${PLONE_URL}        http://edeposit-test.nkp.cz
+
+
+*** Keywords ***
+
+
 *** Test Cases ***
 
 IT00 Instalace produktu
@@ -24,21 +27,10 @@ IT00 Instalace produktu
     # rebuild catalog
 
 IT02-01 Ohlášení se soubory
-    Delete All Test Queues Starting With    ${QUEUE_PREFIX}
-    Pause
-    Declare Queue                    aleph    ${QUEUE_NAME}
-    Declare Queue                    antivirus    ${QUEUE_NAME}
-    Declare Queue Binding            aleph   search     ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph   count      ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph   validate   ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph   export     ${QUEUE_NAME}   request
-    Declare Queue Binding            antivirus   antivirus   ${QUEUE_NAME}  request
-    # Stop Aleph Daemon
-    # Stop Antivirus Daemon
-    Registrace producenta
+    Prepare AMQP Test Environment
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
-    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Wait Until Page Contains              Ohlašovací lístek ISBN - ePublikace 
     Fill inputs about ePublication    
     Fill inputs about Vydani
     Add authors for ePublication          Jan Stavěl
@@ -47,16 +39,31 @@ IT02-01 Ohlášení se soubory
     Page Should Contain                   Položka byla vytvořena
     Location Should Contain               lesni-skolky-ve-zline
     Page Should Contain                   Processing
-    Pause
-    #Respond as ISBN Validation Daemon     ${VALID_ISBN}  True
-    #Respond as Aleph Count Daemon         ${VALID_ISBN}  0
-    #Respond as Antivirus Daemon
-    #Respond as Aleph Export Daemon        ${VALID_ISBN}
-    #Submit SysNumber Search at Aleph
-    #Respond as Aleph Search Daemon        ${VALID_BUT_DUPLICIT_ISBN}
     Sleep   1s
     Pause
 
+IT02-02 Ohlášení se soubory s pridelenim ISBN
+    Prepare AMQP Test Environment
+    Open Browser with System User
+    Reinstall E-Deposit modules  
+    Switch Browser   1
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Ohlašovací lístek ISBN - ePublikace 
+    Fill inputs about ePublication    
+    Fill inputs about Vydani
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication with ISBN generated
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Položka byla vytvořena
+    Location Should Contain               lesni-skolky-ve-zline
+    Page Should Contain                   Processing
+    Pause
+    Wait Until Keyword Succeeds      10s  0.5s  ePublication contains Original File at state    isbngeneration
+    Send email to ISBN Agency
+    Switch Browser   1
+    Pause
+ 
 IT02-0a Ohlášení ePublikace - kontrola Aleph amqp sluzby
     Log    ${QUEUE_NAME}   WARN
     Declare Queue                    aleph  ${QUEUE_NAME}
@@ -85,7 +92,7 @@ IT02-0a Ohlášení ePublikace - kontrola Aleph amqp sluzby
     Dictionary Should Contain Item   ${MSG_BODY}   num_of_records    0
     Delete Queue                     ${QUEUE_NAME}
     
-IT02-02 Ohlášení ePublikace
+IT02-03 Ohlášení ePublikace
     Registrace producenta
     Log in                           ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
@@ -108,7 +115,7 @@ IT02-02 Ohlášení ePublikace
     Pause
     Wait Until Page Contains         Export do Alephu
 
-IT02-03 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
+IT02-04 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -130,7 +137,7 @@ IT02-03 Ohlášení ePublikace - Diazo Theme - kontrola online validace ISBN
     Add Original Files for ePublication   ${VALID_BUT_DUPLICIT_ISBN}
     Wait Until Page Contains              isbn je už použito. Použijte jíné, nebo nahlašte opravu.
 
-IT02-04 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu k již ohlášené ePublikaci
+IT02-05 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu k již ohlášené ePublikaci
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -143,7 +150,7 @@ IT02-04 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu k již ohl�
     Wait Until Page Contains              isbn je už použito. Použijte jíné, nebo nahlašte opravu.
     Pause
 
-IT02-05 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN
+IT02-06 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -157,7 +164,7 @@ IT02-05 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přiděle
     Wait Until Page Contains              Položka byla vytvořena
     Page Should Contain                   Přidělení ISBN
 
-IT02-06 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN, zobrazeni chyby
+IT02-07 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přidělením ISBN, zobrazeni chyby
     ${USER_NAME}=                    Catenate     SEPARATOR=-  test-user   ${TEST_SEED}  01
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
@@ -176,5 +183,3 @@ IT02-06 Ohlášení ePublikace - Diazo Theme - odevzdání dokumentu s přiděle
     Click Button                          form.buttons.save    
     Wait Until Page Contains              Prosím opravte vyznačené chyby.
     Page Should Contain                   Položka je povinná, zadejte hodnotu.
-
-*** Keywords ***

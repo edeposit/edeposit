@@ -16,42 +16,81 @@ Library  Collections
                 
 *** Variables ***
 
+*** Keywords ***
+
+Original File is at a state 
+    [arguments]    ${state_label}
+    Switch Browser   2
+    Go To         ${PLONE_URL}/producents/zlinsky-vydavatel/epublications/lesni-skolky-ve-zline/inzlin-01-2013-s-nasi-tabinkou.pdf
+    Page Should Contain       ${state_label}    
+    Switch Browser   1    
+
+Send Email to ISBN Agency
+    Switch Browser    2
+    Go To     ${PLONE_URL}/producents
+    Open Workflow Menu
+    Click Element          link=Send Email to ISBN Agency
+    
 *** Test Cases ***
 
-# AT02-01 Domovská stránka uživatele
-#     Registrace producenta
-#     Log in                                ${USER_NAME}   ${USER_PASSWORD}
-#     Page Should Contain                   Přehledová stránka uživatele
-#     Page Should Contain                   Ohlášení ePublikace, ePeriodika, knihy
-#     Page Should Contain                   Vyhledat
-#     Page Should Contain                   Zlínsky vydavatel    
+AT02-01 Domovská stránka uživatele
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Page Should Contain                   Přehledová stránka uživatele
+    Page Should Contain                   Ohlášení ePublikace, ePeriodika, knihy
+    Page Should Contain                   Vyhledat
+    Page Should Contain                   Zlínsky vydavatel    
 
-# AT02-02 Ohlášení bez autoru
-#     Registrace producenta
-#     Log in                                ${USER_NAME}   ${USER_PASSWORD}
-#     Click Link                            Ohlášení ePublikací
-#     Wait Until Page Contains              Přidat E-Deposit - ePublikace
-#     Page Should Not Contain               Obsah
-#     Page Should Contain                   ePublikace
-#     Page Should Contain                   Název ePublikace
-#     Page Should Contain                   RIV
-#     Fill inputs about ePublication    
-#     Fill inputs about Vydani
-#     Add Original Files for ePublication   ${VALID_ISBN}
-#     Click Button                          form.buttons.save  
-#     Page Should Contain                   Položka byla vytvořena
+AT02-02 Ohlášení bez autoru
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Page Should Not Contain               Obsah
+    Page Should Contain                   ePublikace
+    Page Should Contain                   Název ePublikace
+    Page Should Contain                   RIV
+    Fill inputs about ePublication    
+    Fill inputs about Vydani
+    Add Original Files for ePublication   ${VALID_ISBN}
+    Click Button                          form.buttons.save  
+    Page Should Contain                   Položka byla vytvořena
 
 AT02-03 Ohlášení se soubory
-    Delete All Test Queues Starting With    ${QUEUE_PREFIX}
-    Declare Queue                    aleph  ${QUEUE_NAME}
-    Declare Queue Binding            aleph  search     ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph  count      ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph  validate   ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph  export   ${QUEUE_NAME}   request
-    Declare Queue                    antivirus  ${QUEUE_NAME}
-    Declare Queue Binding            antivirus  antivirus   ${QUEUE_NAME}  request
-    #Stop Aleph Daemon
-    #Stop Antivirus Daemon
+    Prepare AMQP Test Environment
+    Stop Aleph Daemon
+    Stop Antivirus Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication    
+    Fill inputs about Vydani
+    Add authors for ePublication          Jan Stavěl
+    Add Original Files for ePublication   ${VALID_ENGLISH_ISBN}
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Položka byla vytvořena
+    Location Should Contain               lesni-skolky-ve-zline
+    Page Should Contain                   Processing
+    ePublication Contains Original File at state   isbnvalidation
+    Respond as ISBN Validation Daemon     ${VALID_ENGLISH_ISBN}  True
+    ePublication Contains Original File at state   isbnduplicitycheck
+    Respond as Aleph Count Daemon         ${VALID_ENGLISH_ISBN}  0
+    ePublication Contains Original File at state   antivirus
+    Respond as Antivirus Daemon
+    ePublication Contains Original File at state   exporttoaleph
+    Respond as Aleph Export Daemon        ${VALID_ENGLISH_ISBN}
+    ePublication Contains Original File at state   waitingforaleph
+    Submit SysNumber Search at Aleph
+    Switch Browser   1
+    ePublication Contains Original File at state   waitingforaleph
+    Respond as Aleph Search Daemon        ${VALID_ENGLISH_ISBN}
+    ePublication Contains Original File at state   acquisition
+
+AT02-04 Ohlášení se soubory - zpracování chyby z Alephu
+    Prepare AMQP Test Environment
+    Stop Aleph Daemon
+    Stop Antivirus Daemon
     Registrace producenta
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
@@ -67,21 +106,37 @@ AT02-03 Ohlášení se soubory
     Respond as ISBN Validation Daemon     ${VALID_ISBN}  True
     Respond as Aleph Count Daemon         ${VALID_ISBN}  0
     Respond as Antivirus Daemon
-    Respond as Aleph Export Daemon        ${VALID_ISBN}
-    Submit SysNumber Search at Aleph
-    Respond as Aleph Search Daemon        ${VALID_BUT_DUPLICIT_ISBN}
+    Respond as Aleph Export Daemon with Exception        ${VALID_ISBN}
     Sleep   1s
     Pause
 
-AT02-04 Ohlášení se soubory - zpracování chyby z Alephu
-    Delete All Test Queues Starting With    ${QUEUE_PREFIX}
-    Declare Queue                    aleph  ${QUEUE_NAME}
-    Declare Queue Binding            aleph  search     ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph  count      ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph  validate   ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph  export   ${QUEUE_NAME}   request
-    Declare Queue                    antivirus  ${QUEUE_NAME}
-    Declare Queue Binding            antivirus  antivirus   ${QUEUE_NAME}  request
+AT02-05 Ohlášení se soubory co potrebuji generovani nahledu
+    Prepare AMQP Test Environment
+    Stop Aleph Daemon
+    Stop Antivirus Daemon
+    Registrace producenta
+    Log in                                ${USER_NAME}   ${USER_PASSWORD}
+    Click Link                            Ohlášení ePublikací
+    Wait Until Page Contains              Přidat E-Deposit - ePublikace
+    Fill inputs about ePublication        Ta která se dívá        Český konec světa      
+    Fill inputs about Vydani
+    Add authors for ePublication          Hermanson Marie
+    Add Original Files for ePublication   ${VALID_ISBN}     cesky-konec-sveta.epub
+    Click Button                          form.buttons.save    
+    Page Should Contain                   Položka byla vytvořena
+    Location Should Contain               ta-ktera-se-diva
+    Page Should Contain                   Processing
+    Respond as ISBN Validation Daemon     ${VALID_ISBN}  True
+    Respond as Aleph Count Daemon         ${VALID_ISBN}  0
+    Respond as Antivirus Daemon
+    Respond as Calibre Daemon
+    Respond as Aleph Export Daemon        ${VALID_ISBN}
+    Submit SysNumber Search at Aleph      ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/ta-ktera-se-diva/cesky-konec-sveta.epub
+    Respond as Aleph Search Daemon        ${VALID_ISBN}
+    Sleep   1s
+
+AT02-06 Ohlášení se soubory a pridelenim ISBN
+    Prepare AMQP Test Environment
     Stop Aleph Daemon
     Stop Antivirus Daemon
     Registrace producenta
@@ -91,18 +146,19 @@ AT02-04 Ohlášení se soubory - zpracování chyby z Alephu
     Fill inputs about ePublication    
     Fill inputs about Vydani
     Add authors for ePublication          Jan Stavěl
-    Add Original Files for ePublication   ${VALID_ENGLISH_ISBN}
+    Add Original Files for ePublication with ISBN generated
     Click Button                          form.buttons.save    
     Page Should Contain                   Položka byla vytvořena
     Location Should Contain               lesni-skolky-ve-zline
     Page Should Contain                   Processing
-    Respond as ISBN Validation Daemon     ${VALID_ENGLISH_ISBN}  True
-    Respond as Aleph Count Daemon         ${VALID_ENGLISH_ISBN}  0
+    ePublication Contains Original File at state   antivirus
     Respond as Antivirus Daemon
-    Respond as Aleph Export Daemon with Exception        ${VALID_ENGLISH_ISBN}
-    Sleep   1s
+    ePublication Contains Original File at state   isbngeneration
+    Open Browser With System User
+    Vytvoření pracovníka ISBN Agentury
+    Open Browser With ISBN Agency User
     Pause
-
+    
 # AT02-04 Ohlášení s RIV kategorií
 #     Registrace producenta
 #     Log in                                ${USER_NAME}   ${USER_PASSWORD}

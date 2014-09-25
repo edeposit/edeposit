@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20140911 20:40:53.297" generator="Robot 2.8.4 (Python 2.7.4 on linux2)">
-<suite source="/opt/edeposit/docs/tests/at02.robot" id="s1" name="At02">
-<test id="s1-t1" name="AT02-04 Ohlášení se soubory - zpracování chyby z Alephu">
+<robot generated="20140925 18:19:11.095" generator="Robot 2.8.4 (Python 2.7.4 on linux2)">
+<suite source="/opt/edeposit/docs/tests/at03.robot" id="s1" name="At03">
+<test id="s1-t1" name="AT03-07 Pracovní prostředí pracovníka ISBN agentury">
 <kw type="setup" name="my-keywords.Open browser and create all folders">
 <doc></doc>
 <arguments>
@@ -12,8 +12,8 @@
 <arg>${PLONE_URL}</arg>
 <arg>firefox</arg>
 </arguments>
-<msg timestamp="20140911 20:40:53.627" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140911 20:41:03.600" starttime="20140911 20:40:53.626"></status>
+<msg timestamp="20140925 18:19:11.660" level="INFO">Opening browser 'firefox' to base url 'http://localhost:55001/plone'</msg>
+<status status="PASS" endtime="20140925 18:19:16.178" starttime="20140925 18:19:11.660"></status>
 </kw>
 <kw type="kw" name="keywords.Log in as site owner">
 <doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
@@ -30,32 +30,32 @@
 <arguments>
 <arg>${PLONE_URL}/login_form</arg>
 </arguments>
-<msg timestamp="20140911 20:41:03.604" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
-<status status="PASS" endtime="20140911 20:41:03.887" starttime="20140911 20:41:03.604"></status>
+<msg timestamp="20140925 18:19:16.182" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140925 18:19:16.701" starttime="20140925 18:19:16.182"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_name</arg>
 </arguments>
-<msg timestamp="20140911 20:41:03.951" level="INFO">Current page contains element '__ac_name'.</msg>
-<status status="PASS" endtime="20140911 20:41:03.951" starttime="20140911 20:41:03.888"></status>
+<msg timestamp="20140925 18:19:16.758" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140925 18:19:16.759" starttime="20140925 18:19:16.701"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_password</arg>
 </arguments>
-<msg timestamp="20140911 20:41:03.961" level="INFO">Current page contains element '__ac_password'.</msg>
-<status status="PASS" endtime="20140911 20:41:03.961" starttime="20140911 20:41:03.951"></status>
+<msg timestamp="20140925 18:19:16.765" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140925 18:19:16.765" starttime="20140925 18:19:16.759"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140911 20:41:03.969" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140911 20:41:03.969" starttime="20140911 20:41:03.962"></status>
+<msg timestamp="20140925 18:19:16.784" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140925 18:19:16.786" starttime="20140925 18:19:16.766"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -67,15 +67,15 @@
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:03.974" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140911 20:41:03.974" starttime="20140911 20:41:03.974"></status>
+<msg timestamp="20140925 18:19:16.792" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140925 18:19:16.791" starttime="20140925 18:19:16.791"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:03.974" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140911 20:41:03.974" starttime="20140911 20:41:03.974"></status>
+<msg timestamp="20140925 18:19:16.792" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140925 18:19:16.792" starttime="20140925 18:19:16.792"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -97,7 +97,7 @@
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140911 20:41:03.993" starttime="20140911 20:41:03.976"></status>
+<status status="PASS" endtime="20140925 18:19:16.819" starttime="20140925 18:19:16.794"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -105,16 +105,16 @@
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:03.993" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
-<status status="PASS" endtime="20140911 20:41:04.056" starttime="20140911 20:41:03.993"></status>
+<msg timestamp="20140925 18:19:16.821" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140925 18:19:16.930" starttime="20140925 18:19:16.820"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:04.076" level="INFO">${value} = admin</msg>
-<status status="PASS" endtime="20140911 20:41:04.075" starttime="20140911 20:41:04.056"></status>
+<msg timestamp="20140925 18:19:16.960" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140925 18:19:16.960" starttime="20140925 18:19:16.931"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal">
 <doc>Fails if the given objects are unequal.</doc>
@@ -122,16 +122,16 @@
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:04.078" level="INFO">Argument types are:
+<msg timestamp="20140925 18:19:16.962" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:04.078" starttime="20140911 20:41:04.077"></status>
+<status status="PASS" endtime="20140925 18:19:16.962" starttime="20140925 18:19:16.961"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.079" starttime="20140911 20:41:03.975"></status>
+<status status="PASS" endtime="20140925 18:19:16.963" starttime="20140925 18:19:16.793"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.079" starttime="20140911 20:41:03.975"></status>
+<status status="PASS" endtime="20140925 18:19:16.963" starttime="20140925 18:19:16.792"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.080" starttime="20140911 20:41:03.970"></status>
+<status status="PASS" endtime="20140925 18:19:16.963" starttime="20140925 18:19:16.789"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -143,15 +143,15 @@
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:04.082" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140911 20:41:04.081" starttime="20140911 20:41:04.081"></status>
+<msg timestamp="20140925 18:19:16.969" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140925 18:19:16.968" starttime="20140925 18:19:16.966"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:04.082" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140911 20:41:04.082" starttime="20140911 20:41:04.082"></status>
+<msg timestamp="20140925 18:19:16.975" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140925 18:19:16.975" starttime="20140925 18:19:16.972"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -173,7 +173,7 @@
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140911 20:41:04.102" starttime="20140911 20:41:04.084"></status>
+<status status="PASS" endtime="20140925 18:19:17.126" starttime="20140925 18:19:16.980"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -181,16 +181,16 @@
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:04.104" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
-<status status="PASS" endtime="20140911 20:41:04.156" starttime="20140911 20:41:04.103"></status>
+<msg timestamp="20140925 18:19:17.127" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140925 18:19:17.231" starttime="20140925 18:19:17.127"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:04.169" level="INFO">${value} = secret</msg>
-<status status="PASS" endtime="20140911 20:41:04.169" starttime="20140911 20:41:04.157"></status>
+<msg timestamp="20140925 18:19:17.264" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140925 18:19:17.264" starttime="20140925 18:19:17.232"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal">
 <doc>Fails if the given objects are unequal.</doc>
@@ -198,80 +198,69 @@
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:04.171" level="INFO">Argument types are:
+<msg timestamp="20140925 18:19:17.265" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:04.172" starttime="20140911 20:41:04.170"></status>
+<status status="PASS" endtime="20140925 18:19:17.265" starttime="20140925 18:19:17.264"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.172" starttime="20140911 20:41:04.083"></status>
+<status status="PASS" endtime="20140925 18:19:17.265" starttime="20140925 18:19:16.977"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.173" starttime="20140911 20:41:04.082"></status>
+<status status="PASS" endtime="20140925 18:19:17.265" starttime="20140925 18:19:16.976"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.173" starttime="20140911 20:41:04.080"></status>
+<status status="PASS" endtime="20140925 18:19:17.265" starttime="20140925 18:19:16.964"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140911 20:41:04.175" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140911 20:41:04.782" starttime="20140911 20:41:04.174"></status>
+<msg timestamp="20140925 18:19:17.267" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140925 18:19:17.961" starttime="20140925 18:19:17.266"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.783" starttime="20140911 20:41:03.602"></status>
+<status status="PASS" endtime="20140925 18:19:17.961" starttime="20140925 18:19:16.180"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:04.783" starttime="20140911 20:41:03.601"></status>
+<status status="PASS" endtime="20140925 18:19:17.962" starttime="20140925 18:19:16.179"></status>
 </kw>
-<kw type="kw" name="my-keywords.Create producents folder">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="my-keywords.Add Dexterity Content">
-<doc></doc>
-<arguments>
-<arg>${PLONE_URL}</arg>
-<arg>edeposit-user-producentfolder</arg>
-<arg>producents</arg>
-</arguments>
 <kw type="kw" name="Selenium2Library.Go To">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
-<arg>${url}</arg>
+<arg>${PLONE_URL}/producents</arg>
 </arguments>
-<msg timestamp="20140911 20:41:04.788" level="INFO">Opening url 'http://localhost:55001/plone'</msg>
-<status status="PASS" endtime="20140911 20:41:05.274" starttime="20140911 20:41:04.788"></status>
+<msg timestamp="20140925 18:19:17.963" level="INFO">Opening url 'http://localhost:55001/plone/producents'</msg>
+<status status="PASS" endtime="20140925 18:19:18.639" starttime="20140925 18:19:17.962"></status>
 </kw>
-<kw type="kw" name="keywords.Open Add New Menu">
+<kw type="kw" name="keywords.Open Workflow Menu">
 <doc></doc>
 <arguments>
 </arguments>
 <kw type="kw" name="keywords.Open Menu">
 <doc></doc>
 <arguments>
-<arg>plone-contentmenu-factories</arg>
+<arg>plone-contentmenu-workflow</arg>
 </arguments>
 <kw type="kw" name="Selenium2Library.Element Should Be Visible">
 <doc>Verifies that the element identified by `locator` is visible.</doc>
 <arguments>
 <arg>css=dl#${elementId} span</arg>
 </arguments>
-<msg timestamp="20140911 20:41:05.282" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories span' is visible.</msg>
-<status status="PASS" endtime="20140911 20:41:05.305" starttime="20140911 20:41:05.282"></status>
+<msg timestamp="20140925 18:19:18.655" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow span' is visible.</msg>
+<status status="PASS" endtime="20140925 18:19:18.700" starttime="20140925 18:19:18.654"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Element Should Not Be Visible">
 <doc>Verifies that the element identified by `locator` is NOT visible.</doc>
 <arguments>
 <arg>css=dl#${elementId} dd.actionMenuContent</arg>
 </arguments>
-<msg timestamp="20140911 20:41:05.306" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is not visible.</msg>
-<status status="PASS" endtime="20140911 20:41:05.317" starttime="20140911 20:41:05.305"></status>
+<msg timestamp="20140925 18:19:18.707" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is not visible.</msg>
+<status status="PASS" endtime="20140925 18:19:18.728" starttime="20140925 18:19:18.703"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
 <arg>css=dl#${elementId} dt.actionMenuHeader a</arg>
 </arguments>
-<msg timestamp="20140911 20:41:05.318" level="INFO">Clicking link 'css=dl#plone-contentmenu-factories dt.actionMenuHeader a'.</msg>
-<status status="PASS" endtime="20140911 20:41:05.394" starttime="20140911 20:41:05.317"></status>
+<msg timestamp="20140925 18:19:18.729" level="INFO">Clicking link 'css=dl#plone-contentmenu-workflow dt.actionMenuHeader a'.</msg>
+<status status="PASS" endtime="20140925 18:19:18.840" starttime="20140925 18:19:18.728"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -286,84 +275,63 @@
 <arguments>
 <arg>css=dl#${elementId} dd.actionMenuContent</arg>
 </arguments>
-<msg timestamp="20140911 20:41:05.396" level="INFO">Verifying element 'css=dl#plone-contentmenu-factories dd.actionMenuContent' is visible.</msg>
-<status status="PASS" endtime="20140911 20:41:05.417" starttime="20140911 20:41:05.395"></status>
+<msg timestamp="20140925 18:19:18.842" level="INFO">Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is visible.</msg>
+<status status="PASS" endtime="20140925 18:19:18.873" starttime="20140925 18:19:18.841"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:05.417" starttime="20140911 20:41:05.394"></status>
+<status status="PASS" endtime="20140925 18:19:18.873" starttime="20140925 18:19:18.841"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:05.417" starttime="20140911 20:41:05.279"></status>
+<status status="PASS" endtime="20140925 18:19:18.873" starttime="20140925 18:19:18.644"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:05.417" starttime="20140911 20:41:05.275"></status>
+<status status="PASS" endtime="20140925 18:19:18.874" starttime="20140925 18:19:18.640"></status>
 </kw>
-<kw type="kw" name="${status} = BuiltIn.Run Keyword And Return Status">
-<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw type="kw" name="Selenium2Library.Click Element">
+<doc>Click element identified by `locator`.</doc>
 <arguments>
-<arg>Click Link</arg>
-<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
+<arg>link=Recreate All important Collections</arg>
 </arguments>
-<kw type="kw" name="Selenium2Library.Click Link">
-<doc>Clicks a link identified by locator.</doc>
-<arguments>
-<arg>css=#plone-contentmenu-factories a.contenttype-${content_type}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:05.418" level="INFO">Clicking link 'css=#plone-contentmenu-factories a.contenttype-edeposit-user-producentfolder'.</msg>
-<status status="PASS" endtime="20140911 20:41:05.753" starttime="20140911 20:41:05.418"></status>
+<msg timestamp="20140925 18:19:18.875" level="INFO">Clicking element 'link=Recreate All important Collections'.</msg>
+<status status="PASS" endtime="20140925 18:19:19.290" starttime="20140925 18:19:18.875"></status>
 </kw>
-<msg timestamp="20140911 20:41:05.753" level="INFO">${status} = True</msg>
-<status status="PASS" endtime="20140911 20:41:05.753" starttime="20140911 20:41:05.418"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Run Keyword If">
-<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<kw type="kw" name="Selenium2Library.Wait Until Page Contains">
+<doc>Waits until `text` appears on current page.</doc>
 <arguments>
-<arg>${status} != True</arg>
-<arg>Click Link</arg>
-<arg>${content_type}</arg>
+<arg>Dokumenty čekající na přidělení ISBN</arg>
 </arguments>
-<status status="PASS" endtime="20140911 20:41:05.754" starttime="20140911 20:41:05.754"></status>
+<status status="PASS" endtime="20140925 18:19:20.152" starttime="20140925 18:19:19.291"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/@@mail-controlpanel</arg>
+</arguments>
+<msg timestamp="20140925 18:19:20.153" level="INFO">Opening url 'http://localhost:55001/plone/@@mail-controlpanel'</msg>
+<status status="PASS" endtime="20140925 18:19:20.684" starttime="20140925 18:19:20.152"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>form.widgets.IBasic.title</arg>
-<arg>${title}</arg>
+<arg>css=input[id="form.email_from_name"]</arg>
+<arg>E-Deposit</arg>
 </arguments>
-<msg timestamp="20140911 20:41:05.755" level="INFO">Typing text 'producents' into text field 'form.widgets.IBasic.title'</msg>
-<status status="PASS" endtime="20140911 20:41:05.844" starttime="20140911 20:41:05.755"></status>
+<msg timestamp="20140925 18:19:20.686" level="INFO">Typing text 'E-Deposit' into text field 'css=input[id="form.email_from_name"]'</msg>
+<status status="PASS" endtime="20140925 18:19:20.782" starttime="20140925 18:19:20.685"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Click Button">
-<doc>Clicks a button identified by `locator`.</doc>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>name=form.buttons.save</arg>
+<arg>css=input[id="form.email_from_address"]</arg>
+<arg>edeposit@nkp.cz</arg>
 </arguments>
-<msg timestamp="20140911 20:41:05.845" level="INFO">Clicking button 'name=form.buttons.save'.</msg>
-<status status="PASS" endtime="20140911 20:41:06.705" starttime="20140911 20:41:05.844"></status>
+<msg timestamp="20140925 18:19:20.784" level="INFO">Typing text 'edeposit@nkp.cz' into text field 'css=input[id="form.email_from_address"]'</msg>
+<status status="PASS" endtime="20140925 18:19:20.890" starttime="20140925 18:19:20.783"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
+<kw type="kw" name="Selenium2Library.Click Element">
+<doc>Click element identified by `locator`.</doc>
 <arguments>
-<arg>Položka byla vytvořena</arg>
+<arg>css=input[id="form.actions.save"]</arg>
 </arguments>
-<msg timestamp="20140911 20:41:06.730" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
-<status status="PASS" endtime="20140911 20:41:06.730" starttime="20140911 20:41:06.707"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>${title}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:06.746" level="INFO">Current page contains text 'producents'.</msg>
-<status status="PASS" endtime="20140911 20:41:06.746" starttime="20140911 20:41:06.731"></status>
-</kw>
-<kw type="kw" name="${location} = Selenium2Library.Get Location">
-<doc>Returns the current location.</doc>
-<arguments>
-</arguments>
-<msg timestamp="20140911 20:41:06.759" level="INFO">${location} = http://localhost:55001/plone/producents/view</msg>
-<status status="PASS" endtime="20140911 20:41:06.758" starttime="20140911 20:41:06.747"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:06.760" starttime="20140911 20:41:04.786"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:06.760" starttime="20140911 20:41:04.784"></status>
+<msg timestamp="20140925 18:19:20.891" level="INFO">Clicking element 'css=input[id="form.actions.save"]'.</msg>
+<status status="PASS" endtime="20140925 18:19:21.393" starttime="20140925 18:19:20.890"></status>
 </kw>
 <kw type="kw" name="keywords.Log out">
 <doc></doc>
@@ -374,383 +342,66 @@
 <arguments>
 <arg>${PLONE_URL}/logout</arg>
 </arguments>
-<msg timestamp="20140911 20:41:06.766" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
-<status status="PASS" endtime="20140911 20:41:07.035" starttime="20140911 20:41:06.765"></status>
+<msg timestamp="20140925 18:19:21.399" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140925 18:19:21.798" starttime="20140925 18:19:21.397"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=#login-form</arg>
 </arguments>
-<msg timestamp="20140911 20:41:07.050" level="INFO">Current page contains element 'css=#login-form'.</msg>
-<status status="PASS" endtime="20140911 20:41:07.050" starttime="20140911 20:41:07.036"></status>
+<msg timestamp="20140925 18:19:21.821" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140925 18:19:21.822" starttime="20140925 18:19:21.798"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:07.051" starttime="20140911 20:41:06.762"></status>
+<status status="PASS" endtime="20140925 18:19:21.822" starttime="20140925 18:19:21.394"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:07.051" starttime="20140911 20:40:53.624"></status>
+<status status="PASS" endtime="20140925 18:19:21.823" starttime="20140925 18:19:11.658"></status>
 </kw>
-<kw type="kw" name="amqp.RabbitMQ.Delete All Test Queues Starting With">
-<doc></doc>
-<arguments>
-<arg>${QUEUE_PREFIX}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.401" level="INFO">http://localhost:15672/api/queues/ftp
-http://localhost:15672/api/queues/aleph
-detete queue aleph/acceptation-tests-queue-741fd-01
-http://localhost:15672/api/queues/aleph/acceptation-tests-queue-741fd-01
-http://localhost:15672/api/queues/antivirus
-detete queue antivirus/acceptation-tests-queue-741fd-01
-http://localhost:15672/api/queues/antivirus/acceptation-tests-queue-741fd-01
-http://localhost:15672/api/queues/calibre</msg>
-<status status="PASS" endtime="20140911 20:41:07.401" starttime="20140911 20:41:07.053"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:07.408" starttime="20140911 20:41:07.402"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>search</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:07.410" starttime="20140911 20:41:07.408"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>count</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:07.414" starttime="20140911 20:41:07.411"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>validate</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:07.417" starttime="20140911 20:41:07.415"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>export</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:07.418" starttime="20140911 20:41:07.417"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:07.420" starttime="20140911 20:41:07.418"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:07.422" starttime="20140911 20:41:07.421"></status>
-</kw>
-<kw type="kw" name="my-keywords.Stop Aleph Daemon">
+<kw type="kw" name="my-keywords.Vytvoření pracovníka ISBN Agentury">
 <doc></doc>
 <arguments>
 </arguments>
-<kw type="kw" name="OperatingSystem.Start Process">
-<doc>It is recommended to use same keyword from Process library instead.</doc>
-<arguments>
-<arg>pkill -f alephdaemon</arg>
-<arg>shell=yes</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.429" level="INFO">Running command 'pkill -f alephdaemon 2&gt;&amp;1'</msg>
-<status status="PASS" endtime="20140911 20:41:07.430" starttime="20140911 20:41:07.423"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:07.430" starttime="20140911 20:41:07.423"></status>
-</kw>
-<kw type="kw" name="my-keywords.Stop Antivirus Daemon">
-<doc></doc>
+<kw type="kw" name="keywords.Log in as site owner">
+<doc>Log in as the SITE_OWNER provided by plone.app.testing,</doc>
 <arguments>
 </arguments>
-<kw type="kw" name="OperatingSystem.Start Process">
-<doc>It is recommended to use same keyword from Process library instead.</doc>
-<arguments>
-<arg>pkill -f amqp_antivirusd</arg>
-<arg>shell=yes</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.437" level="INFO">Running command 'pkill -f amqp_antivirusd 2&gt;&amp;1'</msg>
-<status status="PASS" endtime="20140911 20:41:07.437" starttime="20140911 20:41:07.431"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:07.437" starttime="20140911 20:41:07.430"></status>
-</kw>
-<kw type="kw" name="my-keywords.Registrace producenta">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="Selenium2Library.Click Link">
-<doc>Clicks a link identified by locator.</doc>
-<arguments>
-<arg>Registrovat</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.439" level="INFO">Clicking link 'Registrovat'.</msg>
-<status status="PASS" endtime="20140911 20:41:07.787" starttime="20140911 20:41:07.439"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Registrace producenta</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.815" level="INFO">Current page contains text 'Registrace producenta'.</msg>
-<status status="PASS" endtime="20140911 20:41:07.816" starttime="20140911 20:41:07.787"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Producent</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.829" level="INFO">Current page contains text 'Producent'.</msg>
-<status status="PASS" endtime="20140911 20:41:07.829" starttime="20140911 20:41:07.816"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Název producenta</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.841" level="INFO">Current page contains text 'Název producenta'.</msg>
-<status status="PASS" endtime="20140911 20:41:07.841" starttime="20140911 20:41:07.830"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain Button">
-<doc>Verifies button identified by `locator` is found from current page.</doc>
-<arguments>
-<arg>Registrovat</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.851" level="INFO">Current page contains input 'Registrovat'.</msg>
-<status status="PASS" endtime="20140911 20:41:07.852" starttime="20140911 20:41:07.842"></status>
-</kw>
-<kw type="kw" name="my-keywords.Fill inputs about producent">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IBasic-title</arg>
-<arg>${PRODUCENT_TITLE}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.853" level="INFO">Typing text 'Zlínsky vydavatel' into text field 'css=#form-widgets-IBasic-title'</msg>
-<status status="PASS" endtime="20140911 20:41:07.912" starttime="20140911 20:41:07.853"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IBasic-description</arg>
-<arg>Malý lokální vydavatel zajímavých publikací</arg>
-</arguments>
-<msg timestamp="20140911 20:41:07.913" level="INFO">Typing text 'Malý lokální vydavatel zajímavých publikací' into text field 'css=#form-widgets-IBasic-description'</msg>
-<status status="PASS" endtime="20140911 20:41:08.023" starttime="20140911 20:41:07.912"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-home_page</arg>
-<arg>http://www.e-deposit.cz</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.025" level="INFO">Typing text 'http://www.e-deposit.cz' into text field 'css=#form-widgets-home_page'</msg>
-<status status="PASS" endtime="20140911 20:41:08.128" starttime="20140911 20:41:08.024"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-location</arg>
-<arg>Praha</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.129" level="INFO">Typing text 'Praha' into text field 'css=#form-widgets-location'</msg>
-<status status="PASS" endtime="20140911 20:41:08.201" starttime="20140911 20:41:08.129"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:08.201" starttime="20140911 20:41:07.852"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Click Link">
-<doc>Clicks a link identified by locator.</doc>
-<arguments>
-<arg>Adresa</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.202" level="INFO">Clicking link 'Adresa'.</msg>
-<status status="PASS" endtime="20140911 20:41:08.296" starttime="20140911 20:41:08.202"></status>
-</kw>
-<kw type="kw" name="my-keywords.Fill inputs about address">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-street</arg>
-<arg>Pašovice 71</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.298" level="INFO">Typing text 'Pašovice 71' into text field 'css=#form-widgets-street'</msg>
-<status status="PASS" endtime="20140911 20:41:08.362" starttime="20140911 20:41:08.298"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-city</arg>
-<arg>Prakšice</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.363" level="INFO">Typing text 'Prakšice' into text field 'css=#form-widgets-city'</msg>
-<status status="PASS" endtime="20140911 20:41:08.439" starttime="20140911 20:41:08.363"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-country</arg>
-<arg>Česká republika</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.440" level="INFO">Typing text 'Česká republika' into text field 'css=#form-widgets-country'</msg>
-<status status="PASS" endtime="20140911 20:41:08.520" starttime="20140911 20:41:08.439"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-psc</arg>
-<arg>68756</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.521" level="INFO">Typing text '68756' into text field 'css=#form-widgets-psc'</msg>
-<status status="PASS" endtime="20140911 20:41:08.584" starttime="20140911 20:41:08.521"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:08.584" starttime="20140911 20:41:08.297"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Click Link">
-<doc>Clicks a link identified by locator.</doc>
-<arguments>
-<arg>Producent</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.585" level="INFO">Clicking link 'Producent'.</msg>
-<status status="PASS" endtime="20140911 20:41:08.682" starttime="20140911 20:41:08.585"></status>
-</kw>
-<kw type="kw" name="my-keywords.Add one administrator">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAdministrator-administrator-widgets-fullname</arg>
-<arg>Jan Stavěl</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.684" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-fullname'</msg>
-<status status="PASS" endtime="20140911 20:41:08.756" starttime="20140911 20:41:08.684"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAdministrator-administrator-widgets-email</arg>
-<arg>stavel.jan@gmail.com</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.758" level="INFO">Typing text 'stavel.jan@gmail.com' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-email'</msg>
-<status status="PASS" endtime="20140911 20:41:08.847" starttime="20140911 20:41:08.757"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAdministrator-administrator-widgets-phone</arg>
-<arg>773230772</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.849" level="INFO">Typing text '773230772' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-phone'</msg>
-<status status="PASS" endtime="20140911 20:41:08.917" starttime="20140911 20:41:08.848"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAdministrator-administrator-widgets-username</arg>
-<arg>${USER_NAME}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.919" level="INFO">Typing text 'jans' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-username'</msg>
-<status status="PASS" endtime="20140911 20:41:08.991" starttime="20140911 20:41:08.918"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAdministrator-administrator-widgets-password</arg>
-<arg>${USER_PASSWORD}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:08.992" level="INFO">Typing text 'PhiEso7' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-password'</msg>
-<status status="PASS" endtime="20140911 20:41:09.065" starttime="20140911 20:41:08.991"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAdministrator-administrator-widgets-password_ctl</arg>
-<arg>${USER_PASSWORD}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:09.067" level="INFO">Typing text 'PhiEso7' into text field 'css=#form-widgets-IAdministrator-administrator-widgets-password_ctl'</msg>
-<status status="PASS" endtime="20140911 20:41:09.140" starttime="20140911 20:41:09.066"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:09.140" starttime="20140911 20:41:08.682"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Click Button">
-<doc>Clicks a button identified by `locator`.</doc>
-<arguments>
-<arg>Registrovat</arg>
-</arguments>
-<msg timestamp="20140911 20:41:09.142" level="INFO">Clicking button 'Registrovat'.</msg>
-<status status="PASS" endtime="20140911 20:41:09.987" starttime="20140911 20:41:09.141"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:09.987" starttime="20140911 20:41:07.438"></status>
-</kw>
 <kw type="kw" name="keywords.Log in">
-<doc>Log in to the site as ${userid} using ${password}. There</doc>
+<doc>Log in to the site as ${userid} using aGah8Ing. There</doc>
 <arguments>
-<arg>${USER_NAME}</arg>
-<arg>${USER_PASSWORD}</arg>
+<arg>${SITE_OWNER_NAME}</arg>
+<arg>${SITE_OWNER_PASSWORD}</arg>
 </arguments>
 <kw type="kw" name="Selenium2Library.Go To">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
 <arg>${PLONE_URL}/login_form</arg>
 </arguments>
-<msg timestamp="20140911 20:41:09.992" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
-<status status="PASS" endtime="20140911 20:41:10.186" starttime="20140911 20:41:09.991"></status>
+<msg timestamp="20140925 18:19:21.839" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140925 18:19:22.215" starttime="20140925 18:19:21.838"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_name</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.194" level="INFO">Current page contains element '__ac_name'.</msg>
-<status status="PASS" endtime="20140911 20:41:10.194" starttime="20140911 20:41:10.187"></status>
+<msg timestamp="20140925 18:19:22.222" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140925 18:19:22.222" starttime="20140925 18:19:22.216"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_password</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.201" level="INFO">Current page contains element '__ac_password'.</msg>
-<status status="PASS" endtime="20140911 20:41:10.201" starttime="20140911 20:41:10.195"></status>
+<msg timestamp="20140925 18:19:22.228" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140925 18:19:22.228" starttime="20140925 18:19:22.223"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.208" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140911 20:41:10.209" starttime="20140911 20:41:10.202"></status>
+<msg timestamp="20140925 18:19:22.240" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140925 18:19:22.240" starttime="20140925 18:19:22.229"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -762,15 +413,15 @@ http://localhost:15672/api/queues/calibre</msg>
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:10.213" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140911 20:41:10.213" starttime="20140911 20:41:10.212"></status>
+<msg timestamp="20140925 18:19:22.243" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140925 18:19:22.243" starttime="20140925 18:19:22.243"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:10.213" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140911 20:41:10.213" starttime="20140911 20:41:10.213"></status>
+<msg timestamp="20140925 18:19:22.243" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140925 18:19:22.243" starttime="20140925 18:19:22.243"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -792,7 +443,7 @@ http://localhost:15672/api/queues/calibre</msg>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140911 20:41:10.228" starttime="20140911 20:41:10.215"></status>
+<status status="PASS" endtime="20140925 18:19:22.267" starttime="20140925 18:19:22.245"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -800,16 +451,16 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.230" level="INFO">Typing text 'jans' into text field '__ac_name'</msg>
-<status status="PASS" endtime="20140911 20:41:10.273" starttime="20140911 20:41:10.229"></status>
+<msg timestamp="20140925 18:19:22.268" level="INFO">Typing text 'admin' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140925 18:19:22.333" starttime="20140925 18:19:22.268"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.288" level="INFO">${value} = jans</msg>
-<status status="PASS" endtime="20140911 20:41:10.288" starttime="20140911 20:41:10.274"></status>
+<msg timestamp="20140925 18:19:22.352" level="INFO">${value} = admin</msg>
+<status status="PASS" endtime="20140925 18:19:22.352" starttime="20140925 18:19:22.334"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal">
 <doc>Fails if the given objects are unequal.</doc>
@@ -817,16 +468,16 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.290" level="INFO">Argument types are:
+<msg timestamp="20140925 18:19:22.353" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:10.291" starttime="20140911 20:41:10.289"></status>
+<status status="PASS" endtime="20140925 18:19:22.353" starttime="20140925 18:19:22.353"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:10.291" starttime="20140911 20:41:10.214"></status>
+<status status="PASS" endtime="20140925 18:19:22.354" starttime="20140925 18:19:22.244"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:10.291" starttime="20140911 20:41:10.213"></status>
+<status status="PASS" endtime="20140925 18:19:22.354" starttime="20140925 18:19:22.244"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:10.292" starttime="20140911 20:41:10.210"></status>
+<status status="PASS" endtime="20140925 18:19:22.354" starttime="20140925 18:19:22.241"></status>
 </kw>
 <kw type="kw" name="selenium.Input text for sure">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -838,15 +489,15 @@ http://localhost:15672/api/queues/calibre</msg>
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:10.299" level="INFO">${TIMEOUT} = 30 seconds</msg>
-<status status="PASS" endtime="20140911 20:41:10.299" starttime="20140911 20:41:10.298"></status>
+<msg timestamp="20140925 18:19:22.357" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140925 18:19:22.357" starttime="20140925 18:19:22.356"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20140911 20:41:10.301" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
-<status status="PASS" endtime="20140911 20:41:10.301" starttime="20140911 20:41:10.300"></status>
+<msg timestamp="20140925 18:19:22.360" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140925 18:19:22.360" starttime="20140925 18:19:22.358"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -868,7 +519,7 @@ http://localhost:15672/api/queues/calibre</msg>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20140911 20:41:10.476" starttime="20140911 20:41:10.308"></status>
+<status status="PASS" endtime="20140925 18:19:22.409" starttime="20140925 18:19:22.366"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -876,16 +527,16 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.477" level="INFO">Typing text 'PhiEso7' into text field '__ac_password'</msg>
-<status status="PASS" endtime="20140911 20:41:10.522" starttime="20140911 20:41:10.476"></status>
+<msg timestamp="20140925 18:19:22.412" level="INFO">Typing text 'secret' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140925 18:19:22.471" starttime="20140925 18:19:22.411"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.539" level="INFO">${value} = PhiEso7</msg>
-<status status="PASS" endtime="20140911 20:41:10.539" starttime="20140911 20:41:10.523"></status>
+<msg timestamp="20140925 18:19:22.492" level="INFO">${value} = secret</msg>
+<status status="PASS" endtime="20140925 18:19:22.492" starttime="20140925 18:19:22.471"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal">
 <doc>Fails if the given objects are unequal.</doc>
@@ -893,957 +544,375 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.541" level="INFO">Argument types are:
+<msg timestamp="20140925 18:19:22.494" level="INFO">Argument types are:
 &lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:10.542" starttime="20140911 20:41:10.540"></status>
+<status status="PASS" endtime="20140925 18:19:22.494" starttime="20140925 18:19:22.493"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:10.542" starttime="20140911 20:41:10.304"></status>
+<status status="PASS" endtime="20140925 18:19:22.494" starttime="20140925 18:19:22.362"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:10.542" starttime="20140911 20:41:10.302"></status>
+<status status="PASS" endtime="20140925 18:19:22.495" starttime="20140925 18:19:22.361"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:10.543" starttime="20140911 20:41:10.293"></status>
+<status status="PASS" endtime="20140925 18:19:22.495" starttime="20140925 18:19:22.355"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.544" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20140911 20:41:10.969" starttime="20140911 20:41:10.544"></status>
+<msg timestamp="20140925 18:19:22.496" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140925 18:19:23.112" starttime="20140925 18:19:22.495"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:10.970" starttime="20140911 20:41:09.988"></status>
+<status status="PASS" endtime="20140925 18:19:23.113" starttime="20140925 18:19:21.836"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Click Link">
-<doc>Clicks a link identified by locator.</doc>
+<status status="PASS" endtime="20140925 18:19:23.114" starttime="20140925 18:19:21.833"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
-<arg>Ohlášení ePublikací</arg>
+<arg>${PLONE_URL}/@@usergroup-userprefs</arg>
 </arguments>
-<msg timestamp="20140911 20:41:10.971" level="INFO">Clicking link 'Ohlášení ePublikací'.</msg>
-<status status="PASS" endtime="20140911 20:41:11.081" starttime="20140911 20:41:10.970"></status>
+<msg timestamp="20140925 18:19:23.115" level="INFO">Opening url 'http://localhost:55001/plone/@@usergroup-userprefs'</msg>
+<status status="PASS" endtime="20140925 18:19:23.752" starttime="20140925 18:19:23.114"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Wait Until Page Contains">
-<doc>Waits until `text` appears on current page.</doc>
-<arguments>
-<arg>Přidat E-Deposit - ePublikace</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:11.681" starttime="20140911 20:41:11.082"></status>
-</kw>
-<kw type="kw" name="my-keywords.Fill inputs about ePublication">
+<kw type="kw" name="keywords.Click Overlay Button">
 <doc></doc>
 <arguments>
+<arg>Přidat nového uživatele</arg>
 </arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
+<kw type="kw" name="Selenium2Library.Click Button">
+<doc>Clicks a button identified by `locator`.</doc>
 <arguments>
-<arg>css=#form-widgets-IBasic-title</arg>
-<arg>Lesní školky ve Zlíně</arg>
+<arg>${element}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:11.682" level="INFO">Typing text 'Lesní školky ve Zlíně' into text field 'css=#form-widgets-IBasic-title'</msg>
-<status status="PASS" endtime="20140911 20:41:11.749" starttime="20140911 20:41:11.682"></status>
+<msg timestamp="20140925 18:19:23.755" level="INFO">Clicking button 'Přidat nového uživatele'.</msg>
+<status status="PASS" endtime="20140925 18:19:23.980" starttime="20140925 18:19:23.754"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>10</arg>
+<arg>1</arg>
+<arg>Page Should Contain Element</arg>
+<arg>css=.pb-ajax &gt; div</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=.pb-ajax &gt; div</arg>
+</arguments>
+<msg timestamp="20140925 18:19:24.320" level="INFO">Current page contains element 'css=.pb-ajax &gt; div'.</msg>
+<status status="PASS" endtime="20140925 18:19:24.320" starttime="20140925 18:19:23.985"></status>
+</kw>
+<status status="PASS" endtime="20140925 18:19:24.321" starttime="20140925 18:19:23.981"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Element Should Be Visible">
+<doc>Verifies that the element identified by `locator` is visible.</doc>
+<arguments>
+<arg>css=.pb-ajax &gt; div</arg>
+</arguments>
+<msg timestamp="20140925 18:19:24.322" level="INFO">Verifying element 'css=.pb-ajax &gt; div' is visible.</msg>
+<status status="PASS" endtime="20140925 18:19:24.358" starttime="20140925 18:19:24.321"></status>
+</kw>
+<status status="PASS" endtime="20140925 18:19:24.358" starttime="20140925 18:19:23.753"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>css=#form-widgets-podnazev</arg>
-<arg>Alternativní vzdělávání</arg>
+<arg>//input[@id='form.fullname']</arg>
+<arg>Testovací pracovnik ISBN agentury</arg>
 </arguments>
-<msg timestamp="20140911 20:41:11.750" level="INFO">Typing text 'Alternativní vzdělávání' into text field 'css=#form-widgets-podnazev'</msg>
-<status status="PASS" endtime="20140911 20:41:11.865" starttime="20140911 20:41:11.750"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Not Contain">
-<doc>Verifies the current page does not contain `text`.</doc>
-<arguments>
-<arg>Obsah</arg>
-</arguments>
-<msg timestamp="20140911 20:41:12.897" level="INFO">Current page does not contain text 'Obsah'.</msg>
-<status status="PASS" endtime="20140911 20:41:12.897" starttime="20140911 20:41:11.866"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>ePublikace</arg>
-</arguments>
-<msg timestamp="20140911 20:41:12.914" level="INFO">Current page contains text 'ePublikace'.</msg>
-<status status="PASS" endtime="20140911 20:41:12.914" starttime="20140911 20:41:12.898"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Název</arg>
-</arguments>
-<msg timestamp="20140911 20:41:12.930" level="INFO">Current page contains text 'Název'.</msg>
-<status status="PASS" endtime="20140911 20:41:12.931" starttime="20140911 20:41:12.915"></status>
+<msg timestamp="20140925 18:19:24.359" level="INFO">Typing text 'Testovací pracovnik ISBN agentury' into text field '//input[@id='form.fullname']'</msg>
+<status status="PASS" endtime="20140925 18:19:24.534" starttime="20140925 18:19:24.359"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>css=#form-widgets-cena</arg>
-<arg>0</arg>
+<arg>//input[@id='form.username']</arg>
+<arg>${name}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:12.932" level="INFO">Typing text '0' into text field 'css=#form-widgets-cena'</msg>
-<status status="PASS" endtime="20140911 20:41:12.987" starttime="20140911 20:41:12.931"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:12.987" starttime="20140911 20:41:11.681"></status>
-</kw>
-<kw type="kw" name="my-keywords.Fill inputs about Vydani">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-nakladatel_vydavatel</arg>
-<arg>In Zlín</arg>
-</arguments>
-<msg timestamp="20140911 20:41:12.992" level="INFO">Typing text 'In Zlín' into text field 'css=#form-widgets-nakladatel_vydavatel'</msg>
-<status status="PASS" endtime="20140911 20:41:13.058" starttime="20140911 20:41:12.991"></status>
+<msg timestamp="20140925 18:19:24.536" level="INFO">Typing text 'isbn-agency-user' into text field '//input[@id='form.username']'</msg>
+<status status="PASS" endtime="20140925 18:19:24.690" starttime="20140925 18:19:24.535"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>css=#form-widgets-misto_vydani</arg>
-<arg>Zlín</arg>
+<arg>//input[@id='form.email']</arg>
+<arg>${name}@nkp.cz</arg>
 </arguments>
-<msg timestamp="20140911 20:41:13.059" level="INFO">Typing text 'Zlín' into text field 'css=#form-widgets-misto_vydani'</msg>
-<status status="PASS" endtime="20140911 20:41:13.119" starttime="20140911 20:41:13.059"></status>
+<msg timestamp="20140925 18:19:24.691" level="INFO">Typing text 'isbn-agency-user@nkp.cz' into text field '//input[@id='form.email']'</msg>
+<status status="PASS" endtime="20140925 18:19:24.893" starttime="20140925 18:19:24.691"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>css=#form-widgets-rok_vydani</arg>
-<arg>2013</arg>
+<arg>//input[@id='form.password']</arg>
+<arg>${password}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:13.120" level="INFO">Typing text '2013' into text field 'css=#form-widgets-rok_vydani'</msg>
-<status status="PASS" endtime="20140911 20:41:13.195" starttime="20140911 20:41:13.120"></status>
+<msg timestamp="20140925 18:19:24.900" level="INFO">Typing text 'aGah8Ing' into text field '//input[@id='form.password']'</msg>
+<status status="PASS" endtime="20140925 18:19:25.041" starttime="20140925 18:19:24.898"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>css=#form-widgets-poradi_vydani</arg>
-<arg>první</arg>
+<arg>//input[@id='form.password_ctl']</arg>
+<arg>${password}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:13.195" level="INFO">Typing text 'první' into text field 'css=#form-widgets-poradi_vydani'</msg>
-<status status="PASS" endtime="20140911 20:41:13.286" starttime="20140911 20:41:13.195"></status>
+<msg timestamp="20140925 18:19:25.043" level="INFO">Typing text 'aGah8Ing' into text field '//input[@id='form.password_ctl']'</msg>
+<status status="PASS" endtime="20140925 18:19:25.125" starttime="20140925 18:19:25.042"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
+<kw type="kw" name="Selenium2Library.Select Checkbox">
+<doc>Selects checkbox identified by `locator`.</doc>
 <arguments>
-<arg>css=#form-widgets-zpracovatel_zaznamu</arg>
-<arg>Jan Stavěl</arg>
+<arg>//input[@id='form.groups.5']</arg>
 </arguments>
-<msg timestamp="20140911 20:41:13.287" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-zpracovatel_zaznamu'</msg>
-<status status="PASS" endtime="20140911 20:41:13.495" starttime="20140911 20:41:13.286"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:13.495" starttime="20140911 20:41:12.989"></status>
-</kw>
-<kw type="kw" name="my-keywords.Add authors for ePublication">
-<doc></doc>
-<arguments>
-<arg>Jan Stavěl</arg>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAuthors-authors-0-widgets-fullname</arg>
-<arg>${AUTHOR}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:13.497" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-fullname'</msg>
-<status status="PASS" endtime="20140911 20:41:13.613" starttime="20140911 20:41:13.496"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:13.614" starttime="20140911 20:41:13.495"></status>
-</kw>
-<kw type="kw" name="my-keywords.Add Original Files for ePublication">
-<doc></doc>
-<arguments>
-<arg>${VALID_ENGLISH_ISBN}</arg>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IOriginalFile-url</arg>
-<arg>http://www.grada.cz/book/1000</arg>
-</arguments>
-<msg timestamp="20140911 20:41:13.616" level="INFO">Typing text 'http://www.grada.cz/book/1000' into text field 'css=#form-widgets-IOriginalFile-url'</msg>
-<status status="PASS" endtime="20140911 20:41:13.780" starttime="20140911 20:41:13.616"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IOriginalFile-isbn</arg>
-<arg>${ISBN}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:13.781" level="INFO">Typing text '978-0-306-40615-7' into text field 'css=#form-widgets-IOriginalFile-isbn'</msg>
-<status status="PASS" endtime="20140911 20:41:13.898" starttime="20140911 20:41:13.781"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Choose File">
-<doc>Inputs the `file_path` into file input field found by `identifier`.</doc>
-<arguments>
-<arg>css=#form-widgets-IOriginalFile-file-input</arg>
-<arg>/opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:13.943" starttime="20140911 20:41:13.898"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:13.943" starttime="20140911 20:41:13.614"></status>
+<msg timestamp="20140925 18:19:25.126" level="INFO">Selecting checkbox '//input[@id='form.groups.5']'.</msg>
+<status status="PASS" endtime="20140925 18:19:25.276" starttime="20140925 18:19:25.126"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
-<arg>form.buttons.save</arg>
+<arg>Registrovat</arg>
 </arguments>
-<msg timestamp="20140911 20:41:13.944" level="INFO">Clicking button 'form.buttons.save'.</msg>
-<status status="PASS" endtime="20140911 20:41:16.141" starttime="20140911 20:41:13.943"></status>
+<msg timestamp="20140925 18:19:25.279" level="INFO">Clicking button 'Registrovat'.</msg>
+<status status="PASS" endtime="20140925 18:19:25.498" starttime="20140925 18:19:25.277"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
-<arg>Položka byla vytvořena</arg>
+<arg>Přehled uživatelů</arg>
 </arguments>
-<msg timestamp="20140911 20:41:16.167" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
-<status status="PASS" endtime="20140911 20:41:16.167" starttime="20140911 20:41:16.141"></status>
+<msg timestamp="20140925 18:19:25.538" level="INFO">Current page contains text 'Přehled uživatelů'.</msg>
+<status status="PASS" endtime="20140925 18:19:25.538" starttime="20140925 18:19:25.502"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Location Should Contain">
-<doc>Verifies that current URL contains `expected`.</doc>
-<arguments>
-<arg>lesni-skolky-ve-zline</arg>
-</arguments>
-<msg timestamp="20140911 20:41:16.176" level="INFO">Current location contains 'lesni-skolky-ve-zline'.</msg>
-<status status="PASS" endtime="20140911 20:41:16.176" starttime="20140911 20:41:16.168"></status>
+<status status="PASS" endtime="20140925 18:19:25.538" starttime="20140925 18:19:21.828"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Processing</arg>
-</arguments>
-<msg timestamp="20140911 20:41:16.199" level="INFO">Current page contains text 'Processing'.</msg>
-<status status="PASS" endtime="20140911 20:41:16.199" starttime="20140911 20:41:16.176"></status>
-</kw>
-<kw type="kw" name="my-keywords.Respond as ISBN Validation Daemon">
+<kw type="kw" name="keywords.Log out">
 <doc></doc>
 <arguments>
-<arg>${VALID_ENGLISH_ISBN}</arg>
-<arg>True</arg>
 </arguments>
-<kw type="kw" name="BuiltIn.Log">
-<doc>Logs the given message with the given level.</doc>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
-<arg>Respond as ISBN Validation Daemon</arg>
-<arg>WARN</arg>
+<arg>${PLONE_URL}/logout</arg>
 </arguments>
-<msg timestamp="20140911 20:41:16.202" level="WARN">Respond as ISBN Validation Daemon</msg>
-<status status="PASS" endtime="20140911 20:41:16.202" starttime="20140911 20:41:16.202"></status>
+<msg timestamp="20140925 18:19:25.542" level="INFO">Opening url 'http://localhost:55001/plone/logout'</msg>
+<status status="PASS" endtime="20140925 18:19:26.047" starttime="20140925 18:19:25.541"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.054" level="INFO">Current page contains element 'css=#login-form'.</msg>
+<status status="PASS" endtime="20140925 18:19:26.054" starttime="20140925 18:19:26.048"></status>
+</kw>
+<status status="PASS" endtime="20140925 18:19:26.055" starttime="20140925 18:19:25.539"></status>
+</kw>
+<kw type="kw" name="keywords.Log in">
+<doc>Log in to the site as ${userid} using ${password}. There</doc>
+<arguments>
+<arg>${ISBN_AGENCY_USER}</arg>
+<arg>${ISBN_AGENCY_PASSWORD}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Go To">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${PLONE_URL}/login_form</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.058" level="INFO">Opening url 'http://localhost:55001/plone/login_form'</msg>
+<status status="PASS" endtime="20140925 18:19:26.516" starttime="20140925 18:19:26.057"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_name</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.537" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20140925 18:19:26.537" starttime="20140925 18:19:26.518"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>__ac_password</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.552" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20140925 18:19:26.553" starttime="20140925 18:19:26.538"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>css=#login-form .formControls input[name=submit]</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.569" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140925 18:19:26.569" starttime="20140925 18:19:26.554"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure">
+<doc>Locate input element by ${locator} and enter the given</doc>
+<arguments>
+<arg>__ac_name</arg>
+<arg>${userid}</arg>
+</arguments>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140925 18:19:26.573" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140925 18:19:26.573" starttime="20140925 18:19:26.572"></status>
+</kw>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140925 18:19:26.574" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140925 18:19:26.573" starttime="20140925 18:19:26.573"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
 <arguments>
-<arg>5s</arg>
-<arg>0.5s</arg>
-<arg>Queue is not empty</arg>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
 </arguments>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
+<kw type="kw" name="selenium.Input text and validate">
+<doc>Locate input element by __ac_name and enter the given</doc>
 <arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
 </arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
+<kw type="kw" name="Selenium2Library.Focus">
+<doc>Sets focus to element identified by `locator`.</doc>
 <arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
+<arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:16.209" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:16.209" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:16.209" starttime="20140911 20:41:16.205"></status>
+<status status="PASS" endtime="20140925 18:19:26.601" starttime="20140925 18:19:26.580"></status>
 </kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:16.210" level="INFO">Argument types are:
-&lt;type 'int'&gt;
+<msg timestamp="20140925 18:19:26.602" level="INFO">Typing text 'isbn-agency-user' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20140925 18:19:26.683" starttime="20140925 18:19:26.602"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.705" level="INFO">${value} = isbn-agency-user</msg>
+<status status="PASS" endtime="20140925 18:19:26.705" starttime="20140925 18:19:26.685"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.706" level="INFO">Argument types are:
+&lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:16.211" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:16.211" starttime="20140911 20:41:16.209"></status>
+<status status="PASS" endtime="20140925 18:19:26.706" starttime="20140925 18:19:26.706"></status>
 </kw>
-<status status="FAIL" endtime="20140911 20:41:16.211" starttime="20140911 20:41:16.203"></status>
+<status status="PASS" endtime="20140925 18:19:26.706" starttime="20140925 18:19:26.575"></status>
 </kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
+<status status="PASS" endtime="20140925 18:19:26.707" starttime="20140925 18:19:26.574"></status>
+</kw>
+<status status="PASS" endtime="20140925 18:19:26.707" starttime="20140925 18:19:26.570"></status>
+</kw>
+<kw type="kw" name="selenium.Input text for sure">
+<doc>Locate input element by ${locator} and enter the given</doc>
 <arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
+<arg>__ac_password</arg>
+<arg>${password}</arg>
 </arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
+<kw type="kw" name="${TIMEOUT} = Selenium2Library.Get Selenium Timeout">
+<doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:16.724" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:16.724" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:16.724" starttime="20140911 20:41:16.717"></status>
+<msg timestamp="20140925 18:19:26.712" level="INFO">${TIMEOUT} = 30 seconds</msg>
+<status status="PASS" endtime="20140925 18:19:26.711" starttime="20140925 18:19:26.709"></status>
 </kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
+<kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
+<doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
 </arguments>
-<msg timestamp="20140911 20:41:16.727" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:16.727" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:16.728" starttime="20140911 20:41:16.726"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:16.728" starttime="20140911 20:41:16.713"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:17.239" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:17.239" level="INFO">${num_of_messages} = 1</msg>
-<status status="PASS" endtime="20140911 20:41:17.239" starttime="20140911 20:41:17.234"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:17.241" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:17.242" starttime="20140911 20:41:17.240"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:17.242" starttime="20140911 20:41:17.229"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:17.243" starttime="20140911 20:41:16.203"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Sleep">
-<doc>Pauses the test executed for the given time.</doc>
-<arguments>
-<arg>1s</arg>
-</arguments>
-<msg timestamp="20140911 20:41:18.245" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20140911 20:41:18.246" starttime="20140911 20:41:17.244"></status>
-</kw>
-<kw type="kw" name="${MSG} = amqp.RabbitMQ.Get Message From Queue">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:18.251" level="INFO">${MSG} = {'body': {u'ISBN': u'978-0-306-40615-7', u'__nt_name': u'ISBNValidationRequest'}, 'headers': {'UUID': '{"context_UID": "4a84cf5d00c34efb94e27e77d17961a8", "session_data": {"msg": "", "isbn": "978-0-30...</msg>
-<status status="PASS" endtime="20140911 20:41:18.250" starttime="20140911 20:41:18.247"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Write Msg Into File">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-<arg>aleph-isbn-validation-request.json</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:18.253" starttime="20140911 20:41:18.252"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Simulate Isbn Validate Response">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-<arg>${isbn}</arg>
-<arg>${is_valid}</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:18.256" starttime="20140911 20:41:18.254"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:18.257" starttime="20140911 20:41:16.200"></status>
-</kw>
-<kw type="kw" name="my-keywords.Respond as Aleph Count Daemon">
-<doc></doc>
-<arguments>
-<arg>${VALID_ENGLISH_ISBN}</arg>
-<arg>0</arg>
-</arguments>
-<kw type="kw" name="BuiltIn.Log">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Respond as Aleph Count Daemon</arg>
-<arg>WARN</arg>
-</arguments>
-<msg timestamp="20140911 20:41:18.264" level="WARN">Respond as Aleph Count Daemon</msg>
-<status status="PASS" endtime="20140911 20:41:18.264" starttime="20140911 20:41:18.263"></status>
+<msg timestamp="20140925 18:19:26.715" level="INFO">${IMPLICIT_WAIT} = 500 milliseconds</msg>
+<status status="PASS" endtime="20140925 18:19:26.714" starttime="20140925 18:19:26.713"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
 <arguments>
-<arg>5s</arg>
-<arg>0.5s</arg>
-<arg>Queue is not empty</arg>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
+<arg>${TIMEOUT}</arg>
+<arg>${IMPLICIT_WAIT}</arg>
+<arg>Input text and validate</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
 </arguments>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
+<kw type="kw" name="selenium.Input text and validate">
+<doc>Locate input element by __ac_password and enter the given</doc>
 <arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
 </arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
+<kw type="kw" name="Selenium2Library.Focus">
+<doc>Sets focus to element identified by `locator`.</doc>
 <arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
+<arg>${locator}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:18.270" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:18.271" level="INFO">${num_of_messages} = 1</msg>
-<status status="PASS" endtime="20140911 20:41:18.271" starttime="20140911 20:41:18.267"></status>
+<status status="PASS" endtime="20140925 18:19:26.750" starttime="20140925 18:19:26.720"></status>
 </kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
+<arg>${locator}</arg>
+<arg>${text}</arg>
 </arguments>
-<msg timestamp="20140911 20:41:18.273" level="INFO">Argument types are:
-&lt;type 'int'&gt;
+<msg timestamp="20140925 18:19:26.751" level="INFO">Typing text 'aGah8Ing' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20140925 18:19:26.835" starttime="20140925 18:19:26.750"></status>
+</kw>
+<kw type="kw" name="${value} = Selenium2Library.Get Value">
+<doc>Returns the value attribute of element identified by `locator`.</doc>
+<arguments>
+<arg>${locator}</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.852" level="INFO">${value} = aGah8Ing</msg>
+<status status="PASS" endtime="20140925 18:19:26.852" starttime="20140925 18:19:26.836"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${text}</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20140925 18:19:26.854" level="INFO">Argument types are:
+&lt;type 'str'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:18.273" starttime="20140911 20:41:18.272"></status>
+<status status="PASS" endtime="20140925 18:19:26.854" starttime="20140925 18:19:26.853"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:18.274" starttime="20140911 20:41:18.265"></status>
+<status status="PASS" endtime="20140925 18:19:26.854" starttime="20140925 18:19:26.719"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:41:18.274" starttime="20140911 20:41:18.264"></status>
+<status status="PASS" endtime="20140925 18:19:26.855" starttime="20140925 18:19:26.716"></status>
 </kw>
-<kw type="kw" name="BuiltIn.Sleep">
-<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" endtime="20140925 18:19:26.855" starttime="20140925 18:19:26.707"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Click Button">
+<doc>Clicks a button identified by `locator`.</doc>
 <arguments>
-<arg>1s</arg>
+<arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20140911 20:41:19.276" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20140911 20:41:19.277" starttime="20140911 20:41:18.275"></status>
+<msg timestamp="20140925 18:19:26.855" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20140925 18:19:27.631" starttime="20140925 18:19:26.855"></status>
 </kw>
-<kw type="kw" name="${MSG} = amqp.RabbitMQ.Get Message From Queue">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:19.279" level="INFO">${MSG} = {'body': {u'query': {u'base': u'nkc', u'ISBN': u'978-0-306-40615-7', u'__nt_name': u'ISBNQuery'}, u'__nt_name': u'CountRequest'}, 'headers': {'UUID': '{"context_UID": "4a84cf5d00c34efb94e27e77d17961a8...</msg>
-<status status="PASS" endtime="20140911 20:41:19.279" starttime="20140911 20:41:19.277"></status>
+<status status="PASS" endtime="20140925 18:19:27.632" starttime="20140925 18:19:26.055"></status>
 </kw>
-<kw type="kw" name="amqp.RabbitMQ.Write Msg Into File">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-<arg>aleph-count-request.json</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:19.282" starttime="20140911 20:41:19.280"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Simulate Isbn Count Response">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-<arg>${isbn}</arg>
-<arg>${num_of_records}</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:19.285" starttime="20140911 20:41:19.284"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:19.285" starttime="20140911 20:41:18.258"></status>
-</kw>
-<kw type="kw" name="my-keywords.Respond as Antivirus Daemon">
+<kw type="kw" name="my-keywords.Existuje portlet Prideleni ISBN">
 <doc></doc>
 <arguments>
 </arguments>
-<kw type="kw" name="BuiltIn.Log">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Respond as Antivirus</arg>
-<arg>WARN</arg>
-</arguments>
-<msg timestamp="20140911 20:41:19.287" level="WARN">Respond as Antivirus</msg>
-<status status="PASS" endtime="20140911 20:41:19.287" starttime="20140911 20:41:19.287"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
-<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
-<arguments>
-<arg>5s</arg>
-<arg>0.5s</arg>
-<arg>Queue is not empty</arg>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:19.296" level="INFO">http://localhost:15672/api/queues/antivirus/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:19.296" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:19.296" starttime="20140911 20:41:19.290"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:19.297" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:19.297" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:19.298" starttime="20140911 20:41:19.297"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:19.298" starttime="20140911 20:41:19.289"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:19.810" level="INFO">http://localhost:15672/api/queues/antivirus/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:19.810" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:19.810" starttime="20140911 20:41:19.803"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:19.813" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:19.814" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:19.814" starttime="20140911 20:41:19.812"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:19.815" starttime="20140911 20:41:19.799"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:20.327" level="INFO">http://localhost:15672/api/queues/antivirus/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:20.328" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:20.327" starttime="20140911 20:41:20.321"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:20.330" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:20.330" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:20.331" starttime="20140911 20:41:20.329"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:20.331" starttime="20140911 20:41:20.316"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:20.842" level="INFO">http://localhost:15672/api/queues/antivirus/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:20.842" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:20.842" starttime="20140911 20:41:20.837"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:20.844" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:20.844" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:20.844" starttime="20140911 20:41:20.843"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:20.844" starttime="20140911 20:41:20.833"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:21.358" level="INFO">http://localhost:15672/api/queues/antivirus/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:21.358" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:21.358" starttime="20140911 20:41:21.350"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:21.361" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:21.362" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:21.362" starttime="20140911 20:41:21.359"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:21.362" starttime="20140911 20:41:21.346"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:21.874" level="INFO">http://localhost:15672/api/queues/antivirus/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:21.875" level="INFO">${num_of_messages} = 1</msg>
-<status status="PASS" endtime="20140911 20:41:21.874" starttime="20140911 20:41:21.868"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:21.876" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:21.877" starttime="20140911 20:41:21.876"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:21.877" starttime="20140911 20:41:21.864"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:21.878" starttime="20140911 20:41:19.288"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Sleep">
-<doc>Pauses the test executed for the given time.</doc>
-<arguments>
-<arg>1s</arg>
-</arguments>
-<msg timestamp="20140911 20:41:22.880" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20140911 20:41:22.880" starttime="20140911 20:41:21.878"></status>
-</kw>
-<kw type="kw" name="${MSG} = amqp.RabbitMQ.Get Message From Queue">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:23.254" level="INFO">${MSG} = {'body': {u'b64_data': u'JVBERi0xLjQNJeLjz9MNCjY4OSAwIG9iag08PC9MaW5lYXJpemVkIDEvTCA2ODU5NTMxL08gNjkyL0UgMjM0NDYzL04gNDAvVCA2ODQ1NzA4L0ggWyAxMTc2IDE1NDRdPj4NZW5kb2JqDSAgICAgICAgIA14cmVmDTY4OSA0NA0wMDA...</msg>
-<status status="PASS" endtime="20140911 20:41:22.953" starttime="20140911 20:41:22.882"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Write Msg Into File">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-<arg>antivirus-request.json</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:23.484" starttime="20140911 20:41:23.255"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Simulate Antivirus Response">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-<arg>${FILENAME}</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:23.697" starttime="20140911 20:41:23.485"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:23.700" starttime="20140911 20:41:19.285"></status>
-</kw>
-<kw type="kw" name="my-keywords.Respond as Aleph Export Daemon with Exception">
-<doc></doc>
-<arguments>
-<arg>${VALID_ENGLISH_ISBN}</arg>
-</arguments>
-<kw type="kw" name="BuiltIn.Log">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Respond as Aleph Export Daemon with Exception</arg>
-<arg>WARN</arg>
-</arguments>
-<msg timestamp="20140911 20:41:23.701" level="WARN">Respond as Aleph Export Daemon with Exception</msg>
-<status status="PASS" endtime="20140911 20:41:23.701" starttime="20140911 20:41:23.701"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
-<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
-<arguments>
-<arg>5s</arg>
-<arg>0.5s</arg>
-<arg>Queue is not empty</arg>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:23.706" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:23.707" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:23.707" starttime="20140911 20:41:23.703"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:23.708" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:23.708" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:23.708" starttime="20140911 20:41:23.707"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:23.709" starttime="20140911 20:41:23.702"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:24.215" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:24.215" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:24.215" starttime="20140911 20:41:24.211"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:24.216" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:24.216" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:24.216" starttime="20140911 20:41:24.215"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:24.216" starttime="20140911 20:41:24.209"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:24.726" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:24.727" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:24.726" starttime="20140911 20:41:24.720"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:24.728" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:24.728" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:24.728" starttime="20140911 20:41:24.727"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:24.728" starttime="20140911 20:41:24.717"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:25.242" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:25.242" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:25.242" starttime="20140911 20:41:25.234"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:25.245" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:25.246" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:25.246" starttime="20140911 20:41:25.244"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:25.247" starttime="20140911 20:41:25.229"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:25.766" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:25.767" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20140911 20:41:25.767" starttime="20140911 20:41:25.755"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:25.771" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20140911 20:41:25.772" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20140911 20:41:25.772" starttime="20140911 20:41:25.769"></status>
-</kw>
-<status status="FAIL" endtime="20140911 20:41:25.773" starttime="20140911 20:41:25.748"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:26.285" level="INFO">http://localhost:15672/api/queues/aleph/acceptation-tests-queue-1b776-01</msg>
-<msg timestamp="20140911 20:41:26.286" level="INFO">${num_of_messages} = 1</msg>
-<status status="PASS" endtime="20140911 20:41:26.285" starttime="20140911 20:41:26.280"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20140911 20:41:26.286" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20140911 20:41:26.286" starttime="20140911 20:41:26.286"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:26.286" starttime="20140911 20:41:26.275"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:26.287" starttime="20140911 20:41:23.702"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Sleep">
-<doc>Pauses the test executed for the given time.</doc>
-<arguments>
-<arg>1s</arg>
-</arguments>
-<msg timestamp="20140911 20:41:27.288" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20140911 20:41:27.288" starttime="20140911 20:41:26.287"></status>
-</kw>
-<kw type="kw" name="${MSG} = amqp.RabbitMQ.Get Message From Queue">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<msg timestamp="20140911 20:41:27.293" level="INFO">${MSG} = {'body': {u'epublication': {u'podnazev': u'Alternativn\xed vzd\u011bl\xe1v\xe1n\xed', u'castDil': u'', u'ISBN': u'978-0-306-40615-7', u'format': u'', u'url': u'http://www.grada.cz/book/1000', u'naklad...</msg>
-<status status="PASS" endtime="20140911 20:41:27.293" starttime="20140911 20:41:27.290"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Write Msg Into File">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-<arg>aleph-export-request.json</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:27.296" starttime="20140911 20:41:27.294"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Simulate Aleph Export Exception">
-<doc></doc>
-<arguments>
-<arg>${MSG}</arg>
-</arguments>
-<status status="PASS" endtime="20140911 20:41:27.298" starttime="20140911 20:41:27.297"></status>
-</kw>
-<status status="PASS" endtime="20140911 20:41:27.299" starttime="20140911 20:41:23.700"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Sleep">
-<doc>Pauses the test executed for the given time.</doc>
-<arguments>
-<arg>1s</arg>
-</arguments>
-<msg timestamp="20140911 20:41:28.301" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20140911 20:41:28.302" starttime="20140911 20:41:27.300"></status>
-</kw>
 <kw type="kw" name="keywords.Pause">
 <doc>Visually pause test execution with interactive dialog by</doc>
 <arguments>
@@ -1853,47 +922,533 @@ http://localhost:15672/api/queues/calibre</msg>
 <arguments>
 <arg>Dialogs</arg>
 </arguments>
-<status status="PASS" endtime="20140911 20:41:28.309" starttime="20140911 20:41:28.306"></status>
+<status status="PASS" endtime="20140925 18:19:27.637" starttime="20140925 18:19:27.636"></status>
 </kw>
 <kw type="kw" name="Dialogs.Pause Execution">
 <doc>Pauses test execution until user clicks `Ok` button.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140911 20:44:51.794" starttime="20140911 20:41:28.310"></status>
+<status status="PASS" endtime="20140925 18:24:01.378" starttime="20140925 18:19:27.637"></status>
 </kw>
-<status status="PASS" endtime="20140911 20:44:51.795" starttime="20140911 20:41:28.303"></status>
+<status status="PASS" endtime="20140925 18:24:01.381" starttime="20140925 18:19:27.635"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Page Should Contain Element">
+<doc>Verifies element identified by `locator` is found on the current page.</doc>
+<arguments>
+<arg>xpath=//dt[contains(@class,"portletHeader")]//span[contains(text(),"Přidělování ISBN")]</arg>
+</arguments>
+<msg timestamp="20140925 18:24:01.938" level="INFO">&lt;!DOCTYPE html&gt;
+&lt;html lang="cs" xmlns="http://www.w3.org/1999/xhtml" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"&gt;&lt;head&gt;
+    &lt;meta content="text/html; charset=utf-8" http-equiv="Content-Type" /&gt;
+
+    
+        &lt;base href="http://localhost:55001/plone/" /&gt;&lt;!--[if lt IE 7]&gt;&lt;/base&gt;&lt;![endif]--&gt;
+    
+
+    
+        &lt;meta name="description" content="Vítejte na stránkách E-Deposit" /&gt;
+
+  
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/reset-cachekey-1ef141dba9a690055795597d53e8bed5.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/member-cachekey-506d9bd55b76622c63641194dbe8e640.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/base-cachekey-0248175ba44c27403c1231c93cb74bde.css" type="text/css" rel="stylesheet" /&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/resourceplone.app.jquerytools.dateinput-cachekey-4e91e33cc12a7a8495f60a2696b67dc7.css" media="screen" type="text/css" rel="stylesheet" /&gt;
+    &lt;style media="screen" type="text/css"&gt;@import url(http://localhost:55001/plone/portal_css/Sunburst%20Theme/resourceplone.formwidget.autocompletejquery.autocomplete-cachekey-b29eefedd36c592ba165a86345f4c89a.css);&lt;/style&gt;
+    &lt;link href="http://localhost:55001/plone/portal_css/Sunburst%20Theme/ploneCustom-cachekey-25958878da890eda51c53deef8e164b1.css" media="all" type="text/css" rel="stylesheet" /&gt;
+
+  
+  
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceplone.app.jquery-cachekey-5d4951a96e47bf10ae8bf6b5a37854c6.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/table_sorter-cachekey-c98ef5ee9954221e3da67db8ebd4de04.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceedeposit.userregistration-cachekey-a3423e00a71fd1ef62f6408bfa851393.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceedeposit.contentjsrequest-for-original-file-contributing-cachekey-3699d6cc0b66275d65fcd40e89f211fb.js" type="text/javascript"&gt;&lt;/script&gt;
+    &lt;script src="http://localhost:55001/plone/portal_javascripts/Sunburst%20Theme/resourceedeposit.contentjstesting-mode-cachekey-ceb739a6bbafabe48a46bec58f4131b6.js" type="text/javascript"&gt;&lt;/script&gt;
+
+
+&lt;title&gt;E-Deposit - portál pro ohlašování elektronických publikací&lt;/title&gt;
+        
+    &lt;link title="Údaje o autorovi" href="http://localhost:55001/plone/author/" rel="author" /&gt;
+
+
+    &lt;link href="http://localhost:55001/plone" rel="canonical" /&gt;
+
+    &lt;link href="http://localhost:55001/plone/favicon.ico" type="image/x-icon" rel="shortcut icon" /&gt;
+    &lt;link href="http://localhost:55001/plone/touch_icon.png" rel="apple-touch-icon" /&gt;
+
+
+&lt;script type="text/javascript"&gt;
+        jQuery(function($){
+            $.datepicker.setDefaults(
+                jQuery.extend($.datepicker.regional['cs'],
+                {dateFormat: 'dd.mm.yy'}));
+        });
+        &lt;/script&gt;
+
+
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 1.0" href="http://localhost:55001/plone/RSS" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - RSS 2.0" href="http://localhost:55001/plone/rss.xml" rel="alternate" /&gt;
+
+    &lt;link type="application/rss+xml" title="E-Deposit - portál pro ohlašování elektronických publikací - Atom" href="http://localhost:55001/plone/atom.xml" rel="alternate" /&gt;
+
+
+    &lt;link title="Prohledejte portál" href="http://localhost:55001/plone/@@search" rel="search" /&gt;
+
+
+
+        
+        
+        
+        
+        
+
+        &lt;meta content="width=device-width, initial-scale=0.6666, maximum-scale=1.0, minimum-scale=0.6666" name="viewport" /&gt;
+        &lt;meta content="Plone - http://plone.org" name="generator" /&gt;
+    
+&lt;/head&gt;
+
+&lt;body dir="ltr" class="template-folder_listing portaltype-plone-site site-plone icons-on userrole-member userrole-e-deposit: isbn agency member userrole-authenticated"&gt;
+
+&lt;div id="visual-portal-wrapper"&gt;
+
+        &lt;div class="row" id="portal-top"&gt;
+&lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-header"&gt;
+    &lt;p class="hiddenStructure"&gt;
+  &lt;a href="http://localhost:55001/plone#content" accesskey="2"&gt;Přejít na obsah&lt;/a&gt; |
+
+  &lt;a href="http://localhost:55001/plone#portal-globalnav" accesskey="6"&gt;Přejít na navigaci&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;div id="portal-personaltools-wrapper"&gt;
+
+&lt;p class="hiddenStructure"&gt;Osobní nástroje&lt;/p&gt;
+
+&lt;dl id="portal-personaltools" class="actionMenu deactivated"&gt;
+  
+  &lt;dt class="actionMenuHeader"&gt;
+    &lt;a href="http://localhost:55001/plone/useractions" id="user-name"&gt;Testovací pracovnik ISBN agentury&lt;/a&gt;
+  &lt;/dt&gt;
+  &lt;dd class="actionMenuContent"&gt;
+    &lt;ul&gt;
+        &lt;li id="personaltools-dashboard"&gt;
+            &lt;a href="http://localhost:55001/plone/dashboard"&gt;Přehledová stránka&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li id="personaltools-preferences"&gt;
+            &lt;a href="http://localhost:55001/plone/@@personal-preferences"&gt;Nastavení&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li id="personaltools-logout"&gt;
+            &lt;a href="http://localhost:55001/plone/logout"&gt;Odhlásit se&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li id="personaltools-search"&gt;
+            &lt;a href="http://localhost:55001/plone/@@search"&gt;Hledat&lt;/a&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/dd&gt;
+  
+&lt;/dl&gt;
+
+
+
+&lt;/div&gt;
+
+
+
+&lt;div id="portal-searchbox"&gt;
+
+    &lt;form action="http://localhost:55001/plone/@@search" id="livesearch0"&gt;
+
+        &lt;div class="LSBox"&gt;
+        &lt;label for="searchGadget" class="hiddenStructure"&gt;Vyhledat&lt;/label&gt;
+
+        &lt;input type="text" id="searchGadget" class="searchField" accesskey="4" placeholder="Prohledat portál" title="Prohledat portál" size="18" name="SearchableText" autocomplete="off" /&gt;
+
+        &lt;input type="submit" value="Vyhledat" class="searchButton" /&gt;
+
+        &lt;div class="searchSection"&gt;
+            &lt;input type="checkbox" value="/plone" name="path" class="noborder" id="searchbox_currentfolder_only" /&gt;
+            &lt;label style="cursor: pointer" for="searchbox_currentfolder_only"&gt;pouze v aktuální sekci&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;div id="LSResult" class="LSResult"&gt;&lt;div id="LSShadow" class="LSShadow"&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;div class="hiddenStructure" id="portal-advanced-search"&gt;
+        &lt;a accesskey="5" href="http://localhost:55001/plone/@@search"&gt;Pokročilé vyhledávání...&lt;/a&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;a href="http://localhost:55001/plone" accesskey="1" title="E-Deposit - portál pro ohlašování elektronických publikací" id="portal-logo"&gt;
+    &lt;img width="215" height="56" title="E-Deposit - portál pro ohlašování elektronických publikací" alt="E-Deposit - portál pro ohlašování elektronických publikací" src="http://localhost:55001/plone/logo.png" /&gt;&lt;/a&gt;
+
+
+    &lt;p class="hiddenStructure"&gt;Navigation&lt;/p&gt;
+
+    &lt;ul id="portal-globalnav"&gt;&lt;li class="selected" id="portaltab-index_html"&gt;&lt;a title="" href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;&lt;/li&gt;&lt;li class="plain" id="portaltab-producents"&gt;&lt;a title="" href="http://localhost:55001/plone/producents"&gt;Producenti&lt;/a&gt;&lt;/li&gt;&lt;li class="plain" id="portaltab-catalogization-work-plans"&gt;&lt;a title="" href="http://localhost:55001/plone/catalogization-work-plans"&gt;Plány práce pro katalogizaci&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;div class="row" id="portal-columns"&gt;
+
+        &lt;div class="cell width-3:4 position-1:4" id="portal-column-content"&gt;
+
+            &lt;div id="viewlet-above-content"&gt;&lt;div id="portal-breadcrumbs"&gt;
+
+    &lt;span id="breadcrumbs-you-are-here"&gt;Nacházíte se zde:&lt;/span&gt;
+    &lt;span id="breadcrumbs-home"&gt;
+        &lt;a href="http://localhost:55001/plone"&gt;Úvod&lt;/a&gt;
+        
+    &lt;/span&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+            
+                &lt;div class=""&gt;
+
+                    
+
+                    
+
+    &lt;dl style="display:none" id="kssPortalMessage" class="portalMessage info"&gt;
+        &lt;dt&gt;Info&lt;/dt&gt;
+        &lt;dd&gt;&lt;/dd&gt;
+    &lt;/dl&gt;
+
+
+
+                    
+                        &lt;div id="content"&gt;
+
+                            
+
+                            
+
+                             &lt;div id="viewlet-above-content-title"&gt;&lt;/div&gt;
+                             
+                                 
+                                 
+            
+            &lt;h1 class="documentFirstHeading"&gt;E-Deposit - portál pro ohlašování elektronických publikací&lt;/h1&gt;
+        
+                             
+                             &lt;div id="viewlet-below-content-title"&gt;&lt;div id="plone-document-byline" class="documentByLine"&gt;
+  
+
+  
+
+  
+  
+
+  &lt;span class="documentModified"&gt;
+    &lt;span&gt;Poslední změna:&lt;/span&gt;
+    Čtvrtek 25.09.2014 18:07
+  &lt;/span&gt;
+  
+
+  
+
+  
+
+  
+
+  
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+                             
+                                 
+                                 
+            
+            &lt;div class="documentDescription description"&gt;Vítejte na stránkách E-Deposit&lt;/div&gt;
+        
+                             
+
+                             &lt;div id="viewlet-above-content-body"&gt;&lt;/div&gt;
+                             &lt;div id="content-core"&gt;
+                                 
+
+
+    
+
+    
+    
+    
+
+        &lt;dl&gt;
+            
+            
+                
+                &lt;dt class=""&gt;
+
+                    &lt;span class="summary"&gt;
+                        &lt;img width="16" height="16" alt="E-Deposit - Složka producentů text/texmacs" src="http://localhost:55001/plone/folder_icon.png" /&gt;
+                        &lt;a class="contenttype-edeposit-user-producentfolder state-published url" href="http://localhost:55001/plone/producents"&gt;Producenti&lt;/a&gt;
+                    &lt;/span&gt;
+
+                    &lt;span class="documentByLine"&gt;
+                        
+                        
+                        
+                         
+                        
+                            —
+
+                            
+                              &lt;span&gt;Autor: &lt;a href="http://localhost:55001/plone/author/admin"&gt;admin&lt;/a&gt;&lt;/span&gt;
+
+                            
+
+                            
+                                —
+                                Poslední změna:
+                                Čtvrtek 25.09.2014 18:19
+                            
+
+                            
+                                
+                            
+                        
+                    &lt;/span&gt;
+
+                &lt;/dt&gt;
+
+                
+            
+            
+            
+            
+            
+                
+                &lt;dt class=""&gt;
+
+                    &lt;span class="summary"&gt;
+                        &lt;img width="16" height="16" alt="Catalogization Work Plans Folder" src="http://localhost:55001/plone/folder_icon.png" /&gt;
+                        &lt;a class="contenttype-edeposit-content-catalogizationworkplansfolder state-missing-value url" href="http://localhost:55001/plone/catalogization-work-plans"&gt;Plány práce pro katalogizaci&lt;/a&gt;
+                    &lt;/span&gt;
+
+                    &lt;span class="documentByLine"&gt;
+                        
+                        
+                        
+                         
+                        
+                            —
+
+                            
+                              &lt;span&gt;Autor: &lt;a href="http://localhost:55001/plone/author/admin"&gt;admin&lt;/a&gt;&lt;/span&gt;
+
+                            
+
+                            
+                                —
+                                Poslední změna:
+                                Čtvrtek 25.09.2014 18:07
+                            
+
+                            
+                                
+                            
+                        
+                    &lt;/span&gt;
+
+                &lt;/dt&gt;
+
+                
+            
+            
+            
+        &lt;/dl&gt;
+
+        
+
+    &lt;!-- Navigation --&gt;
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+    
+    
+
+
+
+                             &lt;/div&gt;
+                             &lt;div id="viewlet-below-content-body"&gt;
+
+
+
+    &lt;div class="visualClear"&gt;&lt;!-- --&gt;&lt;/div&gt;
+
+    &lt;div class="documentActions"&gt;
+        
+
+        
+
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+                            
+                        &lt;/div&gt;
+                    
+
+                    
+                &lt;/div&gt;
+            
+
+            &lt;div id="viewlet-below-content"&gt;
+
+
+
+&lt;/div&gt;
+        &lt;/div&gt;
+
+        
+        &lt;div class="cell width-1:4 position-0" id="portal-column-one"&gt;
+            
+                
+&lt;div id="portletwrapper-706c6f6e652e6c656674636f6c756d6e0a67726f75700a4953424e204167656e6379204d656d626572730a6973626e2d67656e65726174696f6e2d6c696e6b732d706f72746c6574" data-portlethash="706c6f6e652e6c656674636f6c756d6e0a67726f75700a4953424e204167656e6379204d656d626572730a6973626e2d67656e65726174696f6e2d6c696e6b732d706f72746c6574" class="portletWrapper"&gt;
+&lt;dl class="portlet portletError"&gt;
+
+    &lt;dt class="portletHeader"&gt;
+        &lt;span class="portletTopLeft"&gt;&lt;/span&gt;
+        &lt;a class="tile" href="#"&gt;Chyba&lt;/a&gt;
+        &lt;span class="portletTopRight"&gt;&lt;/span&gt;
+    &lt;/dt&gt;
+
+    &lt;dd&gt;Při zobrazování portletu došlo k chybě.&lt;/dd&gt;
+
+    &lt;dd class="portletFooter"&gt;
+        &lt;span class="portletBottomLeft"&gt;&lt;/span&gt;
+        &lt;span class="portletBottomRight"&gt;&lt;/span&gt;
+    &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;/div&gt;
+
+&lt;div id="portletwrapper-706c6f6e652e6c656674636f6c756d6e0a67726f75700a4953424e204167656e6379204d656d626572730a6973626e2d67656e65726174696f6e2d6c696e6b732d706f72746c65742d31" data-portlethash="706c6f6e652e6c656674636f6c756d6e0a67726f75700a4953424e204167656e6379204d656d626572730a6973626e2d67656e65726174696f6e2d6c696e6b732d706f72746c65742d31" class="portletWrapper"&gt;
+&lt;dl class="portlet portletError"&gt;
+
+    &lt;dt class="portletHeader"&gt;
+        &lt;span class="portletTopLeft"&gt;&lt;/span&gt;
+        &lt;a class="tile" href="#"&gt;Chyba&lt;/a&gt;
+        &lt;span class="portletTopRight"&gt;&lt;/span&gt;
+    &lt;/dt&gt;
+
+    &lt;dd&gt;Při zobrazování portletu došlo k chybě.&lt;/dd&gt;
+
+    &lt;dd class="portletFooter"&gt;
+        &lt;span class="portletBottomLeft"&gt;&lt;/span&gt;
+        &lt;span class="portletBottomRight"&gt;&lt;/span&gt;
+    &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;/div&gt;
+
+
+
+
+            
+        &lt;/div&gt;
+
+        
+        
+    &lt;/div&gt;
+
+
+    &lt;div class="row" id="portal-footer-wrapper"&gt;
+        &lt;div class="cell width-full position-0"&gt;
+            &lt;div id="portal-footer"&gt;
+          &lt;p&gt;
+               Portál &lt;a href="http://plone.org"&gt;Plone&lt;sup&gt;®&lt;/sup&gt; - systém správy obsahu (CMS/WCM) s otevřeným zdrojovým kódem&lt;/a&gt; Copyright &lt;abbr title="Copyright"&gt;©&lt;/abbr&gt; 2000-2014 &lt;a href="http://plone.org/foundation"&gt;Plone Foundation&lt;/a&gt; a jiní.
+
+               Šířeno v rámci &lt;a href="http://creativecommons.org/licenses/GPL/2.0/"&gt;Licence GNU GPL&lt;/a&gt;.
+          &lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;div id="portal-colophon"&gt;
+&lt;div class="colophonWrapper"&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;a title="Tento portál byl vytvořen pomocí systému Plone CMS/WCM" href="http://plone.org"&gt;Využívá software Plone &amp;amp; Python&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul id="portal-siteactions"&gt;
+
+    &lt;li id="siteaction-sitemap"&gt;&lt;a title="Mapa portálu" accesskey="3" href="http://localhost:55001/plone/sitemap"&gt;Mapa portálu&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-accessibility"&gt;&lt;a title="Přístupnost" accesskey="0" href="http://localhost:55001/plone/accessibility-info"&gt;Přístupnost&lt;/a&gt;&lt;/li&gt;
+    &lt;li id="siteaction-contact"&gt;&lt;a title="Kontakt" accesskey="9" href="http://localhost:55001/plone/contact-info" rel="#pb_1" class="link-overlay" style="cursor: pointer;"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+
+
+&lt;/div&gt;
+
+
+
+&lt;div id="ajax-spinner" style="display: none;"&gt;&lt;img alt="" src="http://localhost:55001/plone/spinner.gif" /&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20140925 18:24:02.092" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20140925 18:24:02.092" starttime="20140925 18:24:01.940"></status>
+</kw>
+<msg timestamp="20140925 18:24:02.093" level="FAIL">Page should have contained element 'xpath=//dt[contains(@class,"portletHeader")]//span[contains(text(),"Přidělování ISBN")]' but did not</msg>
+<status status="FAIL" endtime="20140925 18:24:02.094" starttime="20140925 18:24:01.384"></status>
+</kw>
+<status status="FAIL" endtime="20140925 18:24:02.094" starttime="20140925 18:19:27.632"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close All Browsers">
 <doc>Closes all open browsers and resets the browser cache.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20140911 20:44:51.835" starttime="20140911 20:44:51.795"></status>
+<status status="PASS" endtime="20140925 18:24:02.159" starttime="20140925 18:24:02.095"></status>
 </kw>
 <doc></doc>
 <tags>
 </tags>
-<status status="PASS" endtime="20140911 20:44:51.835" critical="yes" starttime="20140911 20:40:53.611"></status>
+<status status="FAIL" endtime="20140925 18:24:02.159" critical="yes" starttime="20140925 18:19:11.633">Page should have contained element 'xpath=//dt[contains(@class,"portletHeader")]//span[contains(text(),"Přidělování ISBN")]' but did not</status>
 </test>
 <doc></doc>
 <metadata>
 </metadata>
-<status status="PASS" endtime="20140911 20:44:51.843" starttime="20140911 20:40:53.298"></status>
+<status status="FAIL" endtime="20140925 18:24:02.172" starttime="20140925 18:19:11.096"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="0" pass="1">Critical Tests</stat>
-<stat fail="0" pass="1">All Tests</stat>
+<stat fail="1" pass="0">Critical Tests</stat>
+<stat fail="1" pass="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat fail="0" pass="1" id="s1" name="At02">At02</stat>
+<stat fail="1" pass="0" id="s1" name="At03">At03</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20140911 20:41:16.202" level="WARN">Respond as ISBN Validation Daemon</msg>
-<msg timestamp="20140911 20:41:18.264" level="WARN">Respond as Aleph Count Daemon</msg>
-<msg timestamp="20140911 20:41:19.287" level="WARN">Respond as Antivirus</msg>
-<msg timestamp="20140911 20:41:23.701" level="WARN">Respond as Aleph Export Daemon with Exception</msg>
 </errors>
 </robot>

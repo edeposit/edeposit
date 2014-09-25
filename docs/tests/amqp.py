@@ -16,7 +16,7 @@ class RabbitMQ(object):
                 virtual_host=vhost,
             )
         )
-        self.connections = dict([(vhost, createConnection(vhost)) for vhost in ('aleph','antivirus','calibre','ftp')])
+        self.connections = dict([(vhost, createConnection(vhost)) for vhost in ('aleph','antivirus','calibre')])
         self.channels = dict([(vhost, connection.channel()) for vhost,connection in self.connections.items()])
         self.client = Client('localhost:15672', 'guest', 'guest')
 
@@ -91,6 +91,20 @@ class RabbitMQ(object):
                                                                                    headers = headers,  
                                                                                )
                                              )
+        pass
+
+    def simulate_calibre_response(self, message):
+        data = message['body']
+        headers = message['headers']
+        response = json.loads(open("resources/calibre-convert-response.json").read())
+        self.channels['calibre'].basic_publish(exchange='convert',      
+                                               routing_key='result',
+                                               body=json.dumps(response),
+                                               properties = pika.BasicProperties(content_type='application/json',
+                                                                                 delivery_mode=2,
+                                                                                 headers = headers,  
+                                                                             )
+                                           )
         pass
 
 

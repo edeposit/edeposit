@@ -253,7 +253,8 @@ AT01-08 Kontrola dostupnosti uzivatelskeho jmena u editoru
 AT01-09 Název producenta v portletech je klikací
      Registrace producenta
      Log in                              ${USER_NAME}   ${USER_PASSWORD}
-
+     Pause
+        
 AT01-10 Přidání nového administrátora k existujícímu producentovi a kontrola dostupnosti uzivatelskeho jmena
     Registrace producenta
     Log in                              ${USER_NAME}   ${USER_PASSWORD}

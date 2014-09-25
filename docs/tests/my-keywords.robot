@@ -5,7 +5,14 @@
 Open browser and create all folders
     Open browser   ${PLONE_URL}   firefox
     Log in as site owner    
-    Create producents folder
+    Go To  ${PLONE_URL}/producents    
+    Open Workflow Menu
+    Click Element             link=Recreate All important Collections
+    Wait Until Page Contains  Dokumenty čekající na přidělení ISBN
+    Go To     ${PLONE_URL}/@@mail-controlpanel
+    Input Text      css=input[id="form.email_from_name"]       E-Deposit
+    Input Text      css=input[id="form.email_from_address"]    edeposit@nkp.cz
+    Click Element   css=input[id="form.actions.save"]
     Log Out
     
 Page Should Not Contain Error
@@ -140,7 +147,7 @@ User Can Not Add Any Content
     Page Should Not Contain        Přidat novou položku
 
 Registrace producenta
-    Click link        Registrovat
+    Go To                  ${PLONE_URL}/producents/register-with-producent
     Page Should Contain   		Registrace producenta
     Page Should Contain                 Producent
     Page Should Contain                 Název producenta 
@@ -151,6 +158,7 @@ Registrace producenta
     Click Link                          Producent
     Add one administrator    
     Click Button			Registrovat
+    Wait Until Page Contains            Vítejte!
 
 Registrace producenta s editorem
     Click link        Registrovat
@@ -180,8 +188,9 @@ Local Role is Not Assigned
     Page Should Contain Element    xpath=//tr[.//input[@value='${username}']]//input[@name='entries.role_${ROLENAME}:records' and not(@checked)]
 
 Fill inputs about ePublication
-    Input Text				css=#form-widgets-IBasic-title     Lesní školky ve Zlíně
-    Input Text				css=#form-widgets-podnazev  Alternativní vzdělávání
+    [arguments]    ${title}=Lesní školky ve Zlíně   ${podnazev}=Individualni vzdělávání
+    Input Text				css=#form-widgets-IBasic-title     ${title}
+    Input Text				css=#form-widgets-podnazev     ${podnazev}
     Page Should Not Contain             Obsah
     Page Should Contain                 ePublikace
     Page Should Contain                 Název
@@ -223,14 +232,15 @@ Add authors for ePublication
     Input Text                          css=#form-widgets-IAuthors-authors-0-widgets-fullname    ${AUTHOR}
 
 Add Original Files for ePublication
-    [Arguments]                         ${ISBN}
+    [Arguments]                         ${ISBN}    ${filename}=inzlin-01-2013-s-nasi-Tabinkou.pdf
     Input Text                          css=#form-widgets-IOriginalFile-url  http://www.grada.cz/book/1000
     Input Text                          css=#form-widgets-IOriginalFile-isbn  ${ISBN}
-    Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/${filename}
 
 Add Original Files for ePublication with ISBN generated
+    [Arguments]                         ${filename}=inzlin-01-2013-s-nasi-Tabinkou.pdf
     Input Text                          css=#form-widgets-IOriginalFile-url  http://www.grada.cz/book/1000
-    Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/inzlin-01-2013-s-nasi-Tabinkou.pdf
+    Choose File                         css=#form-widgets-IOriginalFile-file-input  /opt/edeposit/docs/tests/resources/${filename}
     Select Checkbox                     css=#form-widgets-IOriginalFile-generated_isbn-0
 
 Fill inputs about RIV
@@ -242,6 +252,7 @@ RIV category should be selected
 
 Ohlášení se soubory
     [arguments]   ${isbn}=${VALID_ISBN}
+    Go To                                 ${PLONE_URL}/dashboard
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains Element      css=input[value="Ohlásit"]
     Fill inputs about ePublication    
@@ -290,6 +301,7 @@ Vytvoření RIV posuzovatele
     Click Button     Registrovat
     Log out
 
+
 Vytvoření akvizitora
     Log in as site owner
     Go To                             ${PLONE_URL}/@@usergroup-userprefs
@@ -302,6 +314,67 @@ Vytvoření akvizitora
     Select Checkbox  //input[@id='form.groups.2']
     Click Button     Registrovat
     Page Should Contain    Přehled uživatelů
+
+Vytvoření administrátora katalogizace
+    [arguments]   ${name}=${LIBRARY_ADMINISTRATOR}   ${password}=${LIBRARY_ADMINISTRATOR_PASSWORD}
+    Log in as site owner
+    Go To                             ${PLONE_URL}/@@usergroup-userprefs
+    Click Overlay Button        Přidat nového uživatele
+    Input Text       //input[@id='form.fullname']   Testovací správce knihovníků
+    Input Text       //input[@id='form.username']   ${name}
+    Input Text       //input[@id='form.email']      ${name}@nkp.cz
+    Input Text       //input[@id='form.password']   ${password}
+    Input Text       //input[@id='form.password_ctl']   ${password}
+    Select Checkbox  //input[@id='form.groups.3']
+    Click Button     Registrovat
+    Page Should Contain    Přehled uživatelů
+
+Vytvoření pracovníka katalogizace
+    [arguments]   ${name}=${LIBRARIAN_USER}   ${password}=${LIBRARIAN_PASSWORD}
+    Log in as site owner
+    Go To                             ${PLONE_URL}/@@usergroup-userprefs
+    Click Overlay Button        Přidat nového uživatele
+    Input Text       //input[@id='form.fullname']   Testovací knihovník
+    Input Text       //input[@id='form.username']   ${name}
+    Input Text       //input[@id='form.email']      ${name}@nkp.cz
+    Input Text       //input[@id='form.password']   ${password}
+    Input Text       //input[@id='form.password_ctl']   ${password}
+    Select Checkbox  //input[@id='form.groups.4']
+    Click Button     Registrovat
+    Page Should Contain    Přehled uživatelů
+
+Vytvoření pracovníka ISBN Agentury
+    [arguments]   ${name}=${ISBN_AGENCY_USER}   ${password}=${ISBN_AGENCY_PASSWORD}
+    Log in as site owner
+    Go To                             ${PLONE_URL}/@@usergroup-userprefs
+    Click Overlay Button        Přidat nového uživatele
+    Input Text       //input[@id='form.fullname']   Testovací pracovnik ISBN agentury
+    Input Text       //input[@id='form.username']   ${name}
+    Input Text       //input[@id='form.email']      ${name}@nkp.cz
+    Input Text       //input[@id='form.password']   ${password}
+    Input Text       //input[@id='form.password_ctl']   ${password}
+    Select Checkbox  //input[@id='form.groups.5']
+    Click Button     Registrovat
+    Page Should Contain    Přehled uživatelů
+
+Existuje portlet Prideleni ISBN
+    Pause
+    Page Should Contain Element   xpath=//dt[contains(@class,"portletHeader")]//span[contains(text(),"Přidělování ISBN")]
+    Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/content_status_comment?workflow_action=sendEmailToISBNAgency")]
+    Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/originalfiles-for-isbn-agency")]
+    Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/worklist-for-isbn-agency")]
+
+Existuje portlet Prehled originalu pro prideleni ISBN
+    # portlet Pridelovani isbn - prehled originalu
+    Page Should Contain Element   xpath=//dl[contains(@class,"portletCollection")]//dt[contains(@class,"portletHeader")]//span[contains(text(),"Přidělení ISBN - přehled originálů")]
+
+
+Registrace pracovníků katalogizace
+    Vytvoření administrátora katalogizace
+    Log Out
+    Vytvoření pracovníka katalogizace
+    Vytvoření pracovníka katalogizace   ${LIBRARIAN_USER_01}
+    Log Out
 
 Nastaveni portletu pro skupinu Akvizitori
     Log in as site owner
@@ -333,6 +406,14 @@ Open Browser with RabbitMQ
     Input Text        css=input[name="password"]    guest
     Click Button      Login
     Select From List by Value    css=#show-vhost    aleph
+
+Open Browser with System User
+    Open Browser      ${PLONE_URL}
+    Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
+
+Open Browser with ISBN Agency User
+    Open Browser      ${PLONE_URL}
+    Log in                                ${ISBN_AGENCY_USER}   ${ISBN_AGENCY_PASSWORD}
 
 Delete Test Queue
     Delete Queue     ${QUEUE_NAME}
@@ -381,6 +462,10 @@ System potvrdi ze
     Open Workflow Menu
     Click Element                     link=${state_label}
 
+Submit Acquisition
+    Open Workflow Menu
+    Click Element                     link=Schválit
+
 Vytvorit systemovou zpravu
     [arguments]      ${link}
     Open add new menu    
@@ -408,7 +493,7 @@ Queue is not empty
 Respond as ISBN Validation Daemon
     [arguments]       ${isbn}   ${is_valid}
     Log   Respond as ISBN Validation Daemon    WARN
-    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Wait Until Keyword Succeeds           10s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
     Sleep   1s
     ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
     Write Msg Into File         ${MSG}    aleph-isbn-validation-request.json
@@ -418,7 +503,7 @@ Respond as ISBN Validation Daemon
 Respond as Aleph Count Daemon
     [arguments]       ${isbn}   ${num_of_records}
     Log   Respond as Aleph Count Daemon    WARN
-    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Wait Until Keyword Succeeds           10s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
     Sleep   1s
     ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
     Write Msg Into File         ${MSG}    aleph-count-request.json
@@ -426,16 +511,24 @@ Respond as Aleph Count Daemon
 
 Respond as Antivirus Daemon
     Log   Respond as Antivirus    WARN
-    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     antivirus     ${QUEUE_NAME}
+    Wait Until Keyword Succeeds           10s   0.5s  Queue is not empty     antivirus     ${QUEUE_NAME}
     Sleep   1s
     ${MSG}=                               Get Message From Queue      antivirus    ${QUEUE_NAME}
     Write Msg Into File         ${MSG}    antivirus-request.json
     Simulate Antivirus Response           ${MSG}   ${FILENAME}
 
+Respond as Calibre Daemon
+    Log   Respond as Calibre Convert    WARN
+    Wait Until Keyword Succeeds           10s   0.5s  Queue is not empty     calibre     ${QUEUE_NAME}
+    Sleep   1s
+    ${MSG}=                               Get Message From Queue      calibre    ${QUEUE_NAME}
+    Write Msg Into File         ${MSG}    calibre-convert-request.json
+    Simulate Calibre Response           ${MSG}
+
 Respond as Aleph Export Daemon
     [arguments]       ${isbn}  
     Log   Respond as Aleph Export Daemon    WARN
-    Wait Until Keyword Succeeds           5s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
+    Wait Until Keyword Succeeds           10s   0.5s  Queue is not empty     aleph     ${QUEUE_NAME}
     Sleep   1s
     ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
     Write Msg Into File         ${MSG}    aleph-export-request.json
@@ -449,11 +542,27 @@ Respond as Aleph Export Daemon with Exception
     ${MSG}=                               Get Message From Queue      aleph    ${QUEUE_NAME}
     Write Msg Into File         ${MSG}    aleph-export-request.json
     Simulate Aleph Export Exception          ${MSG}
+
+Insert Comment
+    [arguments]   ${text}
+    Wait Until Page Contains Element   css=#form-widgets-comment
+    Input Text        css=#form-widgets-comment     ${text}    
+    
+Send Email to ISBN Agency
+    [arguments]    ${browser_id}=2
+    Switch Browser    ${browser_id}
+    Go to    ${PLONE_URL}/producents
+    Open Workflow Menu
+    Click Element                           link=Send Email to ISBN Agency
+    Insert Comment                          Email to isbn agency was sent
+    Click Element     css=input[name="form.buttons.save"]
+    Wait Until Page Contains    Stav položky změněn
     
 Submit SysNumber Search at Aleph
+    [arguments]    ${epublication_link}=${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline/inzlin-01-2013-s-nasi-tabinkou.pdf
     Open browser   ${PLONE_URL}   firefox
     Log in                                ${SYSTEM_USER_NAME}   ${SYSTEM_USER_PASSWORD}
-    Go to                                 ${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline/inzlin-01-2013-s-nasi-tabinkou.pdf
+    Go To                                 ${epublication_link}
     Open Workflow Menu
     Click Element                         link=Dohledat sysNumber v Alephu
     Page Should Contain                   Čekání na Aleph
@@ -467,3 +576,31 @@ Respond as Aleph Search Daemon
     Write Msg Into File         ${MSG}    aleph-sysnumber-search-request.json
     Simulate Aleph Search Response          ${MSG}   ${isbn}
 
+Prepare AMQP Test Environment
+    Delete All Test Queues Starting With    ${QUEUE_PREFIX}
+    Declare Queue                    aleph  ${QUEUE_NAME}
+    Declare Queue Binding            aleph  search     ${QUEUE_NAME}   request
+    Declare Queue Binding            aleph  count      ${QUEUE_NAME}   request
+    Declare Queue Binding            aleph  validate   ${QUEUE_NAME}   request
+    Declare Queue Binding            aleph  export   ${QUEUE_NAME}   request
+    Declare Queue                    antivirus  ${QUEUE_NAME}
+    Declare Queue Binding            antivirus  antivirus   ${QUEUE_NAME}  request
+    Declare Queue                    calibre  ${QUEUE_NAME}
+    Declare Queue Binding            calibre  convert   ${QUEUE_NAME}  request
+    Declare Queue Binding            calibre  convert   ${QUEUE_NAME}  result
+
+
+Send ePublication To Acquisition
+    [arguments]      ${isbn}=${VALID_ISBN}    ${epublication_link}=${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline/inzlin-01-2013-s-nasi-tabinkou.pdf
+    Respond as ISBN Validation Daemon     ${isbn}  True
+    Respond as Aleph Count Daemon         ${isbn}  0
+    Respond as Antivirus Daemon
+    Respond as Aleph Export Daemon        ${isbn}
+    Submit SysNumber Search at Aleph      ${epublication_link}
+    Respond as Aleph Search Daemon        ${isbn}
+
+
+ePublication contains Original File at state 
+    [arguments]   ${state}
+    Click Link    Zobrazení
+    Page Should Contain Element   xpath=//a[contains(@class,"contenttype-edeposit-content-originalfile") and contains(@class,"state-${state}")]
