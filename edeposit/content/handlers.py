@@ -134,6 +134,7 @@ def handleAlephResponse(message, event):
                               exception = headers.get('exception'),
                               headers = headers)
         getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
     else:
         result = deserialize(json.dumps(message.body),globals())
         getMultiAdapter((context,result),IAMQPHandler).handle()
@@ -205,6 +206,7 @@ def handleCalibreResponse(message, event):
                               exception = headers.get('exception'),
                               headers = headers)
         getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
     else:
         result = deserialize(json.dumps(message.body),globals())
         getMultiAdapter((context,result),IAMQPHandler).handle()

@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.content.portlets.WaitingForAleph"
+      interface=".waitingforaleph.IWaitingForAleph"
+      assignment=".waitingforaleph.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".waitingforaleph.Renderer"
+      addview=".waitingforaleph.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.content.portlets.ISBNGenerationPortlet"
       interface=".isbngenerationportlet.IISBNGenerationPortlet"
       assignment=".isbngenerationportlet.Assignment"

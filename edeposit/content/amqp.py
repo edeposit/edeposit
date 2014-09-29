@@ -402,30 +402,36 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
         wft = api.portal.get_tool('portal_workflow')
 
         with api.env.adopt_user(username="system"):
-            for record in self.result.records:
-                epublication = record.epublication
-                dataForFactory = {
-                    'title': "".join([u"Záznam v Alephu: ",
-                                      str(epublication.nazev), 
-                                      '(', 
-                                      str(record.docNumber),
-                                      ')']),
-                    'nazev':  str(epublication.nazev),
-                    'isbn': epublication.ISBN[0],
-                    'podnazev': epublication.podnazev,
-                    'cast': epublication.castDil,
-                    'nazev_casti': epublication.nazevCasti,
-                    'rok_vydani': epublication.datumVydani,
-                    'aleph_sys_number': record.docNumber,
-                    'aleph_library': record.library,
-                }
-                self.context.updateOrAddAlephRecord(dataForFactory)
+            if not len(self.result.records):
+                comment = u"v Alephu není žádný záznam.  ISBN: %s" % (self.context.isbn, )
+                wft.doActionFor(self.context,'noAlephRecordLoaded')
+                wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+            else:
+                for record in self.result.records:
+                    epublication = record.epublication
+                    dataForFactory = {
+                        'title': "".join([u"Záznam v Alephu: ",
+                                          str(epublication.nazev), 
+                                          '(', 
+                                          str(record.docNumber),
+                                          ')']),
+                        'nazev':  str(epublication.nazev),
+                        'isbn': epublication.ISBN[0],
+                        'podnazev': epublication.podnazev,
+                        'cast': epublication.castDil,
+                        'nazev_casti': epublication.nazevCasti,
+                        'rok_vydani': epublication.datumVydani,
+                        'aleph_sys_number': record.docNumber,
+                        'aleph_library': record.library,
+                    }
+                    self.context.updateOrAddAlephRecord(dataForFactory)
+                    pass
+                    
+                    comment = u"výsledek dotazu do Alephu ISBN(%s): zaznamu: %s" % (self.context.isbn, 
+                                                                                    str(len(self.result.records)))
+                    wft.doActionFor(self.context, 'alephRecordsLoaded')
+                    wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
                 pass
-
-            comment = u"výsledek dotazu do Alephu ISBN(%s): zaznamu: %s" % (self.context.isbn, 
-                                                                   str(len(self.result.records)))
-            wft.doActionFor(self.context, 'alephRecordsLoaded')
-            wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
         pass
 
 
