@@ -427,10 +427,11 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     self.context.updateOrAddAlephRecord(dataForFactory)
                     pass
                     
-                    comment = u"výsledek dotazu do Alephu ISBN(%s): zaznamu: %s" % (self.context.isbn, 
+                comment = u"výsledek dotazu do Alephu ISBN(%s): zaznamu: %s" % (self.context.isbn, 
                                                                                     str(len(self.result.records)))
-                    wft.doActionFor(self.context, 'alephRecordsLoaded')
-                    wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+                
+                wft.doActionFor(self.context, 'alephRecordsLoaded')
+                wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
                 pass
         pass
 
