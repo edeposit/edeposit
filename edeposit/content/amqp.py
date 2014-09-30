@@ -9,6 +9,8 @@ from base64 import b64encode, b64decode
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 import transaction
 
+from .next_step import INextStep
+
 from edeposit.amqp.aleph import (
     ISBNQuery, 
     GenericQuery, 
@@ -297,6 +299,22 @@ class OriginalFileSysNumberSearchRequestSender(namedtuple('SysNumberSearchReques
         pass
 
 
+class OriginalFileRenewAlephRecordsRequestSender(namedtuple('RenewAlephRecordsRequest',['context'])):
+    """ context will be original file """
+    implements(IAMQPSender)
+    def send(self):
+        print "-> Renew Aleph Records Request"
+        request = SearchRequest(ISBNQuery(self.context.isbn))
+        producer = getUtility(IProducer, name="amqp.isbn-search-request")
+        msg = ""
+        session_data =  { 'isbn': str(self.context.isbn),
+                          'msg': msg,
+        }
+        headers = make_headers(self.context, session_data)
+        producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+        pass
+
+
 class OriginalFileAntivirusResultHandler(namedtuple('AntivirusResult',['context', 'result'])):
     implements(IAMQPHandler)
     def handle(self):
@@ -355,6 +373,7 @@ class OriginalFileISBNValidateResultHandler(namedtuple('ISBNValidateResult',['co
         with api.env.adopt_user(username="system"):
             comment = u"výsledek kontroly ISBN(%s): %s" % (self.context.isbn, 
                                                            self.result.is_valid and "VALID" or "INVALID")
+            import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
             wft.doActionFor(epublication,'notifySystemAction', comment=comment)
             wft.doActionFor(self.context, self.result.is_valid and 'ISBNIsValid' or 'ISBNIsNotValid')
         pass
@@ -406,6 +425,13 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                 comment = u"v Alephu není žádný záznam.  ISBN: %s" % (self.context.isbn, )
                 wft.doActionFor(self.context,'noAlephRecordLoaded')
                 wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+                for ii in range(5):
+                    wasNextStep = INextStep(self.context).doActionFor()
+                    if not wasNextStep:
+                        break
+                    pass
+                pass
+
             else:
                 for record in self.result.records:
                     epublication = record.epublication
@@ -423,6 +449,9 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                         'rok_vydani': epublication.datumVydani,
                         'aleph_sys_number': record.docNumber,
                         'aleph_library': record.library,
+                        'hasAcquisitionFields': record.semantic_info.hasAcqisitionFields,
+                        'hasISBNAgencyFields': record.semantic_info.hasISBNAgencyFields,
+                        'hasCatalogizationFields': record.semantic_info.hasCatalogizationFields,
                     }
                     self.context.updateOrAddAlephRecord(dataForFactory)
                     pass
@@ -432,6 +461,12 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                 
                 wft.doActionFor(self.context, 'alephRecordsLoaded')
                 wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+
+                for ii in range(5):
+                    wasNextStep = INextStep(self.context).doActionFor()
+                    if not wasNextStep:
+                        break
+                    pass
                 pass
         pass
 

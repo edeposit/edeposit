@@ -76,6 +76,21 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = _(u'Library that Aleph refers to metadata of this ePublication'),
         required = True,
     )
+    hasAcquisitionFields= schema.ASCIILine (
+        title = _(u'has Acquisition Fields'),
+        description = _(u'This record has acquisition fields.'),
+        required = False,
+    )
+    hasISBNAgencyFields= schema.ASCIILine (
+        title = _(u'has ISBN Agency Fields'),
+        description = _(u'This record has ISBN Agency fields'),
+        required = False,
+    )
+    hasCatalogizationFields= schema.ASCIILine (
+        title = _(u'has Catalogization Fields'),
+        description = _(u'This record has catalogization fields'),
+        required = False,
+    )
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
@@ -84,9 +99,6 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
 
 class AlephRecord(Item):
     grok.implements(IAlephRecord)
-
-    # Add your class methods and properties here
-    pass
 
 
 # View class

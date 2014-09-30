@@ -124,6 +124,13 @@
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileRenewAlephRecordsRequestSender"
+    name="renew-aleph-records"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
     factory=".amqp.OriginalFileExportToAlephRequestSender"
     name="export-to-aleph"
     />
@@ -191,6 +198,12 @@
       factory=".amqp.OriginalFileThumbnailGeneratingResultHandler"
       />
   
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.next_step.INextStep"
+    factory=".next_step.OriginalFileNextStep"
+    />
+
   <subscriber
       for=".aleph_record.IAlephRecord
            zope.container.interfaces.IObjectAddedEvent"
