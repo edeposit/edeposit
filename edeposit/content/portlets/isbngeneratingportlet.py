@@ -114,12 +114,9 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-<<<<<<< HEAD
-        return 'ISBNGeneration' in api.content.get_state(self.context)
-=======
+        #return 'ISBNGeneration' in api.content.get_state(self.context)
         context = aq_inner(self.context)
         return not context.isbn
->>>>>>> bd1965b27573e38e76dc36602b5ab3ba4b3b0ade
 
 class Assignment(base.Assignment):
     """Portlet assignment.

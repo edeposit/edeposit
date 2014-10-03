@@ -32,10 +32,9 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
     def nextstep_for_waitingForAcquisition(self,*args,**kwargs):
         return False
 
-<<<<<<< HEAD
     def nextstep_for_state_ISBNGeneratinng(self, *args, **kwargs):
         return False
-=======
+
     def nextstep_for_waitingForAleph(self,*args,**kwargs):
         wft = api.portal.get_tool('portal_workflow')
         alephRecords = self.context.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
@@ -51,4 +50,3 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         wft.doActionFor(self.context, 'alephRecordsLoaded')
         wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
         return True
->>>>>>> bd1965b27573e38e76dc36602b5ab3ba4b3b0ade
