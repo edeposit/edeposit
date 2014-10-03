@@ -114,6 +114,7 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
+        #return 'ISBNGeneration' in api.content.get_state(self.context)
         context = aq_inner(self.context)
         return not context.isbn
 
