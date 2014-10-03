@@ -35,3 +35,6 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
 
     def nextstep_for_state_waitingForAcquisition(self,*args,**kwargs):
         return False
+
+    def nextstep_for_state_ISBNGeneratinng(self, *args, **kwargs):
+        return False

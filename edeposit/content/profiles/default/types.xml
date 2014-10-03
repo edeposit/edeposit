@@ -11,8 +11,6 @@
   <object name="edeposit.content.epublicationfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.libraryfolder" meta_type="Dexterity FTI"/>
   <!-- -*- extra stuff goes here -*- -->
-  <object name="edeposit.content.catalogizationworkplansfolder" meta_type="Dexterity FTI" />
-  <object name="edeposit.content.catalogizationworkplan" meta_type="Dexterity FTI" />
   <object name="edeposit.content.producentuserplansfolder" meta_type="Dexterity FTI" />
   <object name="edeposit.content.producentuserplan" meta_type="Dexterity FTI" />
   <object name="edeposit.content.alephrecord" meta_type="Dexterity FTI" />

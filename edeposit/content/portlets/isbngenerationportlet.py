@@ -34,6 +34,8 @@ class Assignment(base.Assignment):
         """
         return _(u"ISBN Generation Links Portlet")
 
+    def available(self, context, request):
+        return True
 
 class Renderer(base.Renderer):
     """Portlet renderer.

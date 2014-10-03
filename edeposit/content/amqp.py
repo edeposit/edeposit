@@ -288,7 +288,7 @@ class OriginalFileSysNumberSearchRequestSender(namedtuple('SysNumberSearchReques
     implements(IAMQPSender)
     def send(self):
         print "-> SysNumber search Request"
-        request = SearchRequest(ISBNQuery(self.context.isbn))
+        request = SearchRequest(ISBNQuery(self.context.isbn, 'cze-dep'))
         producer = getUtility(IProducer, name="amqp.isbn-search-request")
         msg = ""
         session_data =  { 'isbn': str(self.context.isbn),
@@ -304,7 +304,7 @@ class OriginalFileRenewAlephRecordsRequestSender(namedtuple('RenewAlephRecordsRe
     implements(IAMQPSender)
     def send(self):
         print "-> Renew Aleph Records Request"
-        request = SearchRequest(ISBNQuery(self.context.isbn))
+        request = SearchRequest(ISBNQuery(self.context.isbn,'cze-dep'))
         producer = getUtility(IProducer, name="amqp.isbn-search-request")
         msg = ""
         session_data =  { 'isbn': str(self.context.isbn),

@@ -111,6 +111,9 @@ class Renderer(base.Renderer):
         view.form_instance = form
         return view
 
+    @property
+    def available(self):
+        return 'ISBNGeneration' in api.content.get_state(self.context)
 
 class Assignment(base.Assignment):
     """Portlet assignment.

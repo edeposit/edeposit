@@ -21,8 +21,6 @@ edeposit/content/amqp.py
 edeposit/content/author.py
 edeposit/content/book.py
 edeposit/content/bookfolder.py
-edeposit/content/catalogization_work_plan.py
-edeposit/content/catalogization_work_plans_folder.py
 edeposit/content/eperiodical.py
 edeposit/content/eperiodicalfolder.py
 edeposit/content/eperiodicalpart.py

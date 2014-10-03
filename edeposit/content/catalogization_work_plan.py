@@ -26,16 +26,19 @@ from plone import api
 
 from edeposit.content.originalfile import IOriginalFile
 
-def urlCodeIsValid(value):
-    return True
-
 @grok.provider(IContextSourceBinder)
-def availableCatalogizators(context):
-    def createTerm(user_member_data):
-        username = user_member_data.getUserName()
-        return SimpleVocabulary.createTerm(username, username.encode('utf-8'), username)
-    
-    terms = map(lambda user: createTerm(user),  api.user.get_users())
+def availableDescriptiveCataloguers(context):
+    acl_users = getToolByName(context, 'acl_users')
+    group = acl_users.getGroupById('Descriptive Cataloguers')
+    terms = []
+
+    if group is not None:
+        for member_id in group.getMemberIds():
+            user = acl_users.getUserById(member_id)
+            if user is not None:
+                member_name = user.getProperty('fullname') or member_id
+                terms.append(SimpleVocabulary.createTerm(member_id, str(member_id), member_name))
+
     return SimpleVocabulary(terms)
 
 @grok.provider(IContextSourceBinder)
@@ -43,7 +46,6 @@ def availableOriginalFiles(context):
     path = '/'.join(context.getPhysicalPath())
     query = { 
         "portal_type" : "edeposit.content.originalfile",
-        'path': "/producents",
     }
     return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
 
@@ -52,20 +54,15 @@ from edeposit.content import MessageFactory as _
 
 # Interface class; used to define content-type schema.
 
-class ICatalogizationWorkPlan(form.Schema, IImageScaleTraversable):
+class IDescriptiveCatalogizationWorkPlan(form.Schema):
     """
     E-Deposit: Catalogization Work Plan
     """
 
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/catalogization_work_plan.xml to define the content type.
-
-    related_catalogizator = schema.Choice( title=u"Pracovník katalogizace",
+    related_catalogizator = schema.Choice( title=u"Pracovník jmenné katalogizace",
                                            required = True,
-                                           source = availableCatalogizators)
-
+                                           source = availableDescriptiveCataloguers )
+    
     assigned_originalfiles = RelationList(
         title=u"Dokumenty ke zpracování",
         required = False,
@@ -80,34 +77,3 @@ class ICatalogizationWorkPlan(form.Schema, IImageScaleTraversable):
 # def defaultCatalogizator(data):
 #     return "jans"
 
-# Custom content-type class; objects created for this content type will
-# be instances of this class. Use this class to add content-type specific
-# methods and properties. Put methods that are mainly useful for rendering
-# in separate view classes.
-
-class CatalogizationWorkPlan(Item):
-    grok.implements(ICatalogizationWorkPlan)
-
-    # Add your class methods and properties here
-    pass
-
-
-# View class
-# The view will automatically use a similarly named template in
-# catalogization_work_plan_templates.
-# Template filenames should be all lower case.
-# The view will render when you request a content object with this
-# interface with "/@@sampleview" appended.
-# You may make this the default view for content objects
-# of this type by uncommenting the grok.name line below or by
-# changing the view class name and template filename to View / view.pt.
-
-class SampleView(grok.View):
-    """ sample view class """
-
-    grok.context(ICatalogizationWorkPlan)
-    grok.require('zope2.View')
-
-    # grok.name('view')
-
-    # Add view methods here
