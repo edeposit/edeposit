@@ -21,20 +21,34 @@ class INextStep(Interface):
 
 
 class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
-    def doActionFor(self,*args,**kwards):
+    def doActionFor(self,*args,**kwargs):
         print "original file automatic next step"
-        wft = api.portal.get_tool('portal_workflow')
-        review_state = wft.getStatusOf("plone_workflow", object).get('review_state',None)
-        if review_state:
-            fname="nextstep_for_state_%s" % (review_state,)
-            if getattr(self,fname,None):
-                wasNextStep = fname(*args,**kwargs)
-                return wasNextStep
+        review_state = api.content.get_state(self.context)
+        fname="nextstep_for_%s" % (str(review_state),)
+        fun = getattr(self,fname,None)
+        wasNextStep = fun and fun(*args,**kwargs)
         return False
 
-
-    def nextstep_for_state_waitingForAcquisition(self,*args,**kwargs):
+    def nextstep_for_waitingForAcquisition(self,*args,**kwargs):
         return False
 
+<<<<<<< HEAD
     def nextstep_for_state_ISBNGeneratinng(self, *args, **kwargs):
         return False
+=======
+    def nextstep_for_waitingForAleph(self,*args,**kwargs):
+        wft = api.portal.get_tool('portal_workflow')
+        alephRecords = self.context.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+        if not alephRecords:
+            comment = u"v Alephu není žádný záznam.  ISBN: %s" % (self.context.isbn, )
+            wft.doActionFor(self.context,'noAlephRecordLoaded')
+            wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+            return False
+
+        comment = u"výsledek dotazu do Alephu ISBN(%s): zaznamu: %s" % (self.context.isbn, 
+                                                                        str(len(alephRecords)))
+        
+        wft.doActionFor(self.context, 'alephRecordsLoaded')
+        wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+        return True
+>>>>>>> bd1965b27573e38e76dc36602b5ab3ba4b3b0ade

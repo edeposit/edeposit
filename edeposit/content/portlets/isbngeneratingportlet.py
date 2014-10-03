@@ -20,6 +20,7 @@ from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError
 from zope.lifecycleevent import modified
 from plone import api
 import sys
+from Acquisition import aq_inner, aq_parent
 
 class IISBNGeneration(form.Schema):
     isbn = schema.ASCIILine(
@@ -101,7 +102,7 @@ class Renderer(base.Renderer):
 
         @return: z3c.form wrapped for Plone 3 view
         """
-        context = self.context.aq_inner
+        context = aq_inner(self.context)
         returnURL = self.context.absolute_url()
         form = ISBNGenerationForm(context, self.request)
 
@@ -113,7 +114,12 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
+<<<<<<< HEAD
         return 'ISBNGeneration' in api.content.get_state(self.context)
+=======
+        context = aq_inner(self.context)
+        return not context.isbn
+>>>>>>> bd1965b27573e38e76dc36602b5ab3ba4b3b0ade
 
 class Assignment(base.Assignment):
     """Portlet assignment.
