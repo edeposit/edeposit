@@ -6,4 +6,16 @@
   <column value="getPodnazev"/> 
   <column value="getCast"/> 
   <column value="getNazevCasti"/> 
+  <index name="getAssignedDescriptiveCataloguer" meta_type="FieldIndex">
+    <indexed_attr value="getAssignedDescriptiveCataloguer"/>
+  </index>
+  <index name="getAssignedDescriptiveReviewer" meta_type="FieldIndex">
+    <indexed_attr value="getAssignedDescriptiveReviewer"/>
+  </index>
+  <index name="getAssignedSubjectCataloguer"  meta_type="FieldIndex">
+    <indexed_attr value="getAssignedSubjectCataloguer"/>
+  </index>
+  <index name="getAssignedSubjectReviewer"  meta_type="FieldIndex">
+    <indexed_attr value="getAssignedSubjectReviewer"/>
+  </index>
 </object>

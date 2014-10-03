@@ -135,6 +135,20 @@ class OriginalFile(Container):
             self.related_aleph_record = RelationValue(intids.getId(alephRecords[0]))
         if len(alephRecords) > 1:
             self.related_aleph_record = None
+    
+
+def getAssignedPersonFactory(roleName):
+    def getAssignedPerson(self):
+        local_roles = self.get_local_roles()
+        pairs = filter(lambda pair: roleName in pair[1], local_roles)
+        return pairs and pairs[0][0] or None
+
+    return getAssignedPerson
+
+OriginalFile.getAssignedDescriptiveCataloguer = getAssignedPersonFactory('E-Deposit: Descriptive Cataloguer')
+OriginalFile.getAssignedDescriptiveCataloguingReviewer = getAssignedPersonFactory('E-Deposit: Descriptive Cataloguing Reviewer')
+OriginalFile.getAssignedSubjectCataloguer = getAssignedPersonFactory('E-Deposit: Subject Cataloguer')
+OriginalFile.getAssignedSubjectCataloguingReviewer = getAssignedPersonFactory('E-Deposit: Subject Cataloguing Reviewer')
 
 # View class
 # The view will automatically use a similarly named template in
