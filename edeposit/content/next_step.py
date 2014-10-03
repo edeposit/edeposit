@@ -22,7 +22,6 @@ class INextStep(Interface):
 
 class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
     def doActionFor(self,*args,**kwargs):
-        print "original file automatic next step"
         review_state = api.content.get_state(self.context)
         fname="nextstep_for_%s" % (str(review_state),)
         fun = getattr(self,fname,None)

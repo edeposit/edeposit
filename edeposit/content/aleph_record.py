@@ -25,11 +25,6 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
     """
     E-Deposit Aleph Record
     """
-
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/aleph_record.xml to define the content type.
     isbn = schema.ASCIILine(
         title=_("ISBN"),
         description=_(u"Value of ISBN"),
