@@ -28,10 +28,20 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         wasNextStep = fun and fun(*args,**kwargs)
         return False
 
-    def nextstep_for_waitingForAcquisition(self,*args,**kwargs):
+    def nextstep_for_acquisition(self,*args,**kwargs):
+        if self.context.hasAcquisitionFields:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor(self.context,'submitAcquisition')
+            wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="submit Acquisition")
+            return True
         return False
 
-    def nextstep_for_state_ISBNGeneratinng(self, *args, **kwargs):
+    def nextstep_for_state_ISBNGeneration(self, *args, **kwargs):
+        if self.context.hasISBNAgencyFields:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor(self.context,'submitISBNGeneration')
+            wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="ISBN was assigned")
+            return True
         return False
 
     def nextstep_for_waitingForAleph(self,*args,**kwargs):
@@ -49,3 +59,6 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         wft.doActionFor(self.context, 'alephRecordsLoaded')
         wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
         return True
+        
+    def nextstep_for_descriptiveCataloguing(self,*args,**kwargs):
+        wft = api.portal.get_tool('portal_workflow')
