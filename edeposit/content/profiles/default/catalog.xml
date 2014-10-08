@@ -9,13 +9,13 @@
   <index name="getAssignedDescriptiveCataloguer" meta_type="FieldIndex">
     <indexed_attr value="getAssignedDescriptiveCataloguer"/>
   </index>
-  <index name="getAssignedDescriptiveReviewer" meta_type="FieldIndex">
-    <indexed_attr value="getAssignedDescriptiveReviewer"/>
+  <index name="getAssignedDescriptiveCataloguingReviewer" meta_type="FieldIndex">
+    <indexed_attr value="getAssignedDescriptiveCataloguingReviewer"/>
   </index>
   <index name="getAssignedSubjectCataloguer"  meta_type="FieldIndex">
     <indexed_attr value="getAssignedSubjectCataloguer"/>
   </index>
-  <index name="getAssignedSubjectReviewer"  meta_type="FieldIndex">
-    <indexed_attr value="getAssignedSubjectReviewer"/>
+  <index name="getAssignedSubjectCataloguingReviewer"  meta_type="FieldIndex">
+    <indexed_attr value="getAssignedSubjectCataloguingReviewer"/>
   </index>
 </object>
