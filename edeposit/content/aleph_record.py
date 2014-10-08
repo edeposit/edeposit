@@ -81,8 +81,8 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = _(u'This record has ISBN Agency fields'),
         required = False,
     )
-    hasDescriptiveCatalogizationFields= schema.ASCIILine (
-        title = _(u'has Descriptive Catalogization Fields'),
+    hasDescriptiveCataloguingFields= schema.ASCIILine (
+        title = _(u'has Descriptive Cataloguing Fields'),
         description = u"",
         required = False,
     )
@@ -91,8 +91,8 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = u"",
         required = False,
     )
-    hasSubjectCatalogizationFields= schema.ASCIILine (
-        title = _(u'has Subject Catalogization Fields'),
+    hasSubjectCataloguingFields= schema.ASCIILine (
+        title = _(u'has Subject Cataloguing Fields'),
         description = u"",
         required = False,
     )

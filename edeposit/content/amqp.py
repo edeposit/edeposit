@@ -438,9 +438,9 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
                     'hasISBNAgencyFields': record.semantic_info.hasISBNAgencyFields,
                     'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
-                    'hasDescriptiveCatalogizationFields': record.semantic_info.hasDescriptiveCatFields,
+                    'hasDescriptiveCataloguingFields': record.semantic_info.hasDescriptiveCatFields,
                     'hasDescriptiveCataloguingReviewFields': record.semantic_info.hasDescriptiveCataReviewFields,
-                    'hasSubjectCatalogizationFields': record.semantic_info.hasSubjectCatFields,
+                    'hasSubjectCataloguingFields': record.semantic_info.hasSubjectCatFields,
                     'hasSubjectCataloguingReviewFields': record.semantic_info.hasSubjectCataReviewFields,
                     }
                 self.context.updateOrAddAlephRecord(dataForFactory)
