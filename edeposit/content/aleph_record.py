@@ -81,11 +81,27 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = _(u'This record has ISBN Agency fields'),
         required = False,
     )
-    hasCatalogizationFields= schema.ASCIILine (
-        title = _(u'has Catalogization Fields'),
-        description = _(u'This record has catalogization fields'),
+    hasDescriptiveCatalogizationFields= schema.ASCIILine (
+        title = _(u'has Descriptive Catalogization Fields'),
+        description = u"",
         required = False,
     )
+    hasDescriptiveCataloguingReviewFields= schema.ASCIILine (
+        title = _(u'has Descriptive Cataloguing Review Fields'),
+        description = u"",
+        required = False,
+    )
+    hasSubjectCatalogizationFields= schema.ASCIILine (
+        title = _(u'has Subject Catalogization Fields'),
+        description = u"",
+        required = False,
+    )
+    hasSubjectCataloguingReviewFields= schema.ASCIILine (
+        title = _(u'has Subject Cataloguing Review Fields'),
+        description = u"",
+        required = False,
+    )
+
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
