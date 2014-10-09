@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-12 06:36+0000\n"
+"POT-Creation-Date: 2014-10-09 05:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,5 +24,29 @@ msgstr "E-Deposit - Typy souborů"
 
 #: edeposit/content/profiles/default/registry.xml
 msgid "E-Deposit kategorie pro RIV"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "E-Deposit: ISBN Generating Portlet"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "ISBN Generating Portlet"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "ISBN Generation Links Portlet"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Waiting For Aleph"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Waiting for Acquisition"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "ePublication Metadata Portlet"
 msgstr ""
 

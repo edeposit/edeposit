@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2014-06-12 06:36+0000\n"
-"PO-Revision-Date: 2014-06-12 08:36+0200\n"
+"POT-Creation-Date: 2014-10-09 05:19+0000\n"
+"PO-Revision-Date: 2014-10-09 07:19+0200\n"
 "Last-Translator: Jan Stavěl <stavel.jan@gmail.com>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Accessing"
 msgstr "Zpřístupnění"
 
-#: edeposit/content/epublication.py:330
+#: edeposit/content/epublication.py:358
 msgid "Add New Item operation cancelled"
 msgstr "Ohlášení bylo přerušeno."
 
@@ -56,6 +56,10 @@ msgstr ""
 msgid "Aleph Export Result"
 msgstr ""
 
+#: edeposit/content/aleph_record.py:70
+msgid "Aleph Library"
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.alephrecord.xml
 msgid "Aleph Record"
 msgstr ""
@@ -64,8 +68,7 @@ msgstr ""
 msgid "Aleph Search SysNumber Request"
 msgstr ""
 
-#: edeposit/content/aleph_record.py:60
-#: edeposit/content/originalfile.py:53
+#: edeposit/content/aleph_record.py:64
 msgid "Aleph SysNumber"
 msgstr ""
 
@@ -90,7 +93,7 @@ msgstr "Knižní vazba"
 msgid "BookFolder"
 msgstr "Složka knihy"
 
-#: edeposit/content/epublication.py:328
+#: edeposit/content/epublication.py:356
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -150,6 +153,10 @@ msgstr "E-Deposit - Vydání pokračujícího zdroje"
 msgid "E-Deposit - ePublication Folder"
 msgstr "E-Deposit - Složka s ePublikacemi"
 
+#: edeposit/content/profiles/default/types/edeposit.content.alephrecord.xml
+msgid "E-Deposit Aleph Record"
+msgstr ""
+
 #: edeposit/content/profiles/default/types/edeposit.content.libraryfolder.xml
 msgid "E-Deposit Library Folder"
 msgstr "E-Deposit - Složka s knihovnami"
@@ -169,6 +176,14 @@ msgstr "E-Deposit - Soubor s náhledem"
 #: edeposit/content/profiles/default/types/edeposit.content.epublication.xml
 msgid "E-Deposit ePublication"
 msgstr "E-Deposit - ePublikace"
+
+#: edeposit/content/profiles/default/types/edeposit.content.producentuserplan.xml
+msgid "E-Deposit: Producent User Plan"
+msgstr ""
+
+#: edeposit/content/profiles/default/types/edeposit.content.producentuserplansfolder.xml
+msgid "E-Deposit: Producent User Plans Folder"
+msgstr ""
 
 #: edeposit/content/book.py:111
 #: edeposit/content/eperiodical.py:36
@@ -193,7 +208,7 @@ msgstr "Doplňte koedici, ve které je kniha vydána"
 msgid "Fill in a coedition of an ePublication"
 msgstr "Doplňte s jakou knihou v koedici byla tato ePublikace vydána."
 
-#: edeposit/content/previewfile.py:29
+#: edeposit/content/previewfile.py:28
 msgid "Fill in a file that contains a preview on an epublication"
 msgstr "Doplňte soubor, který obsahuje náhled."
 
@@ -244,20 +259,19 @@ msgstr ""
 msgid "Folder holds libraries"
 msgstr "Složka obsahuje záznamy o knihovnách"
 
-#: edeposit/content/originalfile.py:47
-#: edeposit/content/previewfile.py:34
+#: edeposit/content/originalfile.py:65
 #: edeposit/content/printingfile.py:34
 msgid "Format of a file."
 msgstr "Formát souboru."
 
 #: edeposit/content/book.py:145
-#: edeposit/content/originalfile.py:59
+#: edeposit/content/originalfile.py:71
 msgid "Generate ISBN"
 msgstr "Přiřadit ISBN"
 
-#: edeposit/content/aleph_record.py:30
+#: edeposit/content/aleph_record.py:29
 #: edeposit/content/isbn.py:31
-#: edeposit/content/originalfile.py:35
+#: edeposit/content/originalfile.py:53
 msgid "ISBN"
 msgstr "ISBN"
 
@@ -267,6 +281,14 @@ msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.isbncountresult.xml
 msgid "ISBN Count Result"
+msgstr ""
+
+#: edeposit/content/portlets/isbngeneratingportlet.py:138
+msgid "ISBN Generating Portlet"
+msgstr ""
+
+#: edeposit/content/portlets/isbngenerationportlet.py:35
+msgid "ISBN Generation Links Portlet"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.isbnvalidationrequest.xml
@@ -301,12 +323,11 @@ msgstr "Interní číslo, podle kterého Aleph zařadí informace o tomto pokra�
 msgid "Internal DocNumber that Aleph refers to metadata of this ePeriodical part"
 msgstr "Interní číslo podle kterého systém Aleph zařadí informace o tomto vydání pokračujícího zdroje"
 
-#: edeposit/content/aleph_record.py:61
-#: edeposit/content/originalfile.py:54
+#: edeposit/content/aleph_record.py:65
 msgid "Internal SysNumber that Aleph refers to metadata of this ePublication"
 msgstr ""
 
-#: edeposit/content/epublication.py:347
+#: edeposit/content/epublication.py:379
 msgid "Item created"
 msgstr "Položka byla vytvořena"
 
@@ -320,13 +341,17 @@ msgstr "Knihovny, které mohou ePublikaci zpřístupnit na svém terminálu."
 msgid "Libraries that can access at public"
 msgstr "Knihovny, které mohou ePublikaci zpřístupnit veřejně."
 
-#: edeposit/content/epublication.py:209
+#: edeposit/content/epublication.py:213
 msgid "Libraries that can access this ePublication"
 msgstr "Knihovny, co mají přístup k ePublikaci"
 
 #: edeposit/content/profiles/default/types/edeposit.content.library.xml
 msgid "Library"
 msgstr "Knihovna"
+
+#: edeposit/content/aleph_record.py:71
+msgid "Library that Aleph refers to metadata of this ePublication"
+msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.alephexportrequest.xml
 msgid "Message that informs export to Aleph was submitted"
@@ -340,7 +365,7 @@ msgstr "Složka se systémovými zprávami"
 msgid "Odevzdání dokumentu"
 msgstr ""
 
-#: edeposit/content/originalfile.py:42
+#: edeposit/content/originalfile.py:60
 msgid "Original File of an ePublication"
 msgstr "Originál ePublikace"
 
@@ -348,7 +373,6 @@ msgstr "Originál ePublikace"
 msgid "OriginalFile"
 msgstr "E-Deposit - Soubor s originálem"
 
-#: edeposit/content/originalfile_contributing_requests_folder.py:123
 #: edeposit/content/profiles/default/types/edeposit.content.originalfilecontributingrequest.xml
 msgid "OriginalFile Contributing Request"
 msgstr "Žádost na odevzdání dokumentu"
@@ -369,7 +393,7 @@ msgstr "Osoba, která publikaci zpracovala."
 msgid "Place of Publishing"
 msgstr "Místo vydání"
 
-#: edeposit/content/previewfile.py:28
+#: edeposit/content/previewfile.py:27
 msgid "Preview File of an ePublication"
 msgstr "Náhled souboru"
 
@@ -389,6 +413,14 @@ msgstr "E-Deposit - Tisková předloha"
 #: edeposit/content/profiles/default/types/edeposit.content.printingfile.xml
 msgid "PrintingFile"
 msgstr "E-Deposit - Tisková předloha"
+
+#: edeposit/content/profiles/default/types/edeposit.content.producentuserplan.xml
+msgid "Producent User Plan"
+msgstr ""
+
+#: edeposit/content/profiles/default/types/edeposit.content.producentuserplansfolder.xml
+msgid "Producent User Plans Folder"
+msgstr ""
 
 #: edeposit/content/book.py:71
 #: edeposit/content/eperiodical.py:68
@@ -430,13 +462,9 @@ msgstr "RIV"
 msgid "RIV category"
 msgstr "kategorie pro RIV"
 
-#: edeposit/content/profiles/default/types/edeposit.content.alephrecord.xml
-msgid "Record stored in Aleph"
-msgstr ""
-
 #: edeposit/content/eperiodical.py:133
 #: edeposit/content/eperiodicalpart.py:152
-#: edeposit/content/epublication.py:215
+#: edeposit/content/epublication.py:219
 msgid "Related libraries"
 msgstr "Vybrané knihovny"
 
@@ -461,7 +489,7 @@ msgstr ""
 msgid "Result sent by Aleph amqp daemon"
 msgstr ""
 
-#: edeposit/content/handlers.py:178
+#: edeposit/content/handlers.py:221
 msgid "Review of authors"
 msgstr "Přehled autorů"
 
@@ -477,8 +505,16 @@ msgstr "Podtitulek"
 msgid "Technical"
 msgstr "Technické údaje"
 
+#: edeposit/content/aleph_record.py:81
+msgid "This record has ISBN Agency fields"
+msgstr "Tento záznam prošel ISBN Agenturou"
+
+#: edeposit/content/aleph_record.py:76
+msgid "This record has acquisition fields."
+msgstr "Tento záznam prošel Akvizicí"
+
 #: edeposit/content/library.py:38
-#: edeposit/content/originalfile.py:29
+#: edeposit/content/originalfile.py:47
 msgid "URL"
 msgstr "URL"
 
@@ -498,9 +534,9 @@ msgstr "Web stránka, na které se pracuje s Krameriem."
 msgid "URLs"
 msgstr "Cesty URL"
 
-#: edeposit/content/aleph_record.py:31
+#: edeposit/content/aleph_record.py:30
 #: edeposit/content/isbn.py:32
-#: edeposit/content/originalfile.py:36
+#: edeposit/content/originalfile.py:54
 msgid "Value of ISBN"
 msgstr "Hodnota ISBN"
 
@@ -522,8 +558,16 @@ msgstr "Číslo svazku"
 msgid "Volume Title"
 msgstr "Titul svazku"
 
+#: edeposit/content/portlets/waitingforaleph.py:35
+msgid "Waiting For Aleph"
+msgstr "Čeká na Aleph"
+
+#: edeposit/content/portlets/waitingforacquisition.py:39
+msgid "Waiting for Acquisition"
+msgstr "Čeká na akvizici"
+
 #: edeposit/content/book.py:146
-#: edeposit/content/originalfile.py:60
+#: edeposit/content/originalfile.py:72
 msgid "Whether ISBN agency should generate ISBN number."
 msgstr "Má ISBN agentura přiřadit ISBN?"
 
@@ -551,19 +595,43 @@ msgstr "E-Deposit - ePublikace"
 msgid "ePublicationFolder"
 msgstr "E-Deposit - Složka ePublikací"
 
-#: edeposit/content/handlers.py:217
+#: edeposit/content/handlers.py:260
 msgid "ePublications in declaring"
 msgstr "ePublikace v zadání"
 
-#: edeposit/content/handlers.py:232
+#: edeposit/content/handlers.py:275
 msgid "ePublications waiting for RIV to be reviewed"
 msgstr ""
 
-#: edeposit/content/handlers.py:222
+#: edeposit/content/handlers.py:265
 msgid "ePublications waiting for preparing of acquisition"
 msgstr "ePublikace čekající na akvizici"
 
-#: edeposit/content/handlers.py:227
+#: edeposit/content/handlers.py:270
 msgid "ePublications with errors"
 msgstr "ePublikace s chybami"
+
+#: edeposit/content/aleph_record.py:75
+msgid "has Acquisition Fields"
+msgstr ""
+
+#: edeposit/content/aleph_record.py:85
+msgid "has Descriptive Cataloguing Fields"
+msgstr ""
+
+#: edeposit/content/aleph_record.py:90
+msgid "has Descriptive Cataloguing Review Fields"
+msgstr ""
+
+#: edeposit/content/aleph_record.py:80
+msgid "has ISBN Agency Fields"
+msgstr ""
+
+#: edeposit/content/aleph_record.py:95
+msgid "has Subject Cataloguing Fields"
+msgstr ""
+
+#: edeposit/content/aleph_record.py:100
+msgid "has Subject Cataloguing Review Fields"
+msgstr ""
 
