@@ -123,6 +123,20 @@ class OriginalFile(Container):
                                              alephRecords)
         if arecordWithTheSameSysNumber:
             # update this record
+            alephRecord = arecordWithTheSameSysNumber[0]
+            def isChangedFactory(alephRecord,data):
+                def isChanged(attr):
+                    return getattr(alephRecord,attr,None) != data.get(attr,None)
+                return isChanged
+            changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory,keys())
+            if changedAttrs:
+                def setAttrFactory(alephRecord,data):
+                    def setAttr(attr):
+                        newValue = data.get(newValue,None)
+                        setattr(alephRecord,attr,newValue)
+                    return setAttr
+                map(setAttrFactory(alephRecord,dataForFactory), changedAttrs)
+                alephRecord.save()
             pass
         else:
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
