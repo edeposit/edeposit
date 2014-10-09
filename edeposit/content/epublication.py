@@ -423,7 +423,6 @@ class EPublicationAddForm(DefaultAddForm):
 
 class EPublicationAddView(DefaultAddView):
     form = EPublicationAddForm
-    #index = ViewPageTemplateFile('epublication_templates/editatonce.pt')
     pass
 
 class AuthorFactory(object):
@@ -468,18 +467,3 @@ class OriginalFileFactory(object):
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
 
-# class EditAtOnce(grok.View):
-#     """ sample view class """
-#     grok.context(IePublication)
-#     grok.require('zope2.View')
-#     grok.name('edit-at-once')
-#     # Add view methods here
-
-# class ViewAtOnce(grok.View):
-#     """ sample view class """
-#     grok.context(IePublication)
-#     grok.require('zope2.View')
-#     grok.name('view-at-once')
-    # Add view methods here
-    
-    
