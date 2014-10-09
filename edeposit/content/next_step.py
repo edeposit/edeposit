@@ -61,4 +61,25 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         return True
         
     def nextstep_for_descriptiveCataloguing(self,*args,**kwargs):
-        wft = api.portal.get_tool('portal_workflow')
+        aleph_record = self.context.related_aleph_record
+        if aleph_record and aleph_record.hasDescriptiveCataloguingFields:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor('submitDescriptiveCataloguing')
+
+    def nextstep_for_descriptiveCataloguingReview(self,*args,**kwargs):
+        aleph_record = self.context.related_aleph_record
+        if aleph_record and aleph_record.hasDescriptiveCataloguingReviewFields:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor('submitDescriptiveCataloguingReview')
+
+    def nextstep_for_subjectCataloguing(self,*args,**kwargs):
+        aleph_record = self.context.related_aleph_record
+        if aleph_record and aleph_record.hasSubjectCataloguingFields:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor('submitSubjectCataloguing')
+
+    def nextstep_for_subjectCataloguingReview(self,*args,**kwargs):
+        aleph_record = self.context.related_aleph_record
+        if aleph_record and aleph_record.hasSubjectCataloguingReviewFields:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor('submitSubjectCataloguingReview')
