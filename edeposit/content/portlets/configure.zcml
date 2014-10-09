@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.content.portlets.OriginalFileExternalLinks"
+      interface=".originalfileexternallinks.IOriginalFileExternalLinks"
+      assignment=".originalfileexternallinks.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".originalfileexternallinks.Renderer"
+      addview=".originalfileexternallinks.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.content.portlets.ISBNSubjectValidation"
       interface=".isbnsubjectvalidation.IISBNSubjectValidation"
       assignment=".isbnsubjectvalidation.Assignment"

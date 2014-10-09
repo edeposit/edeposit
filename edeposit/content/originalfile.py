@@ -109,6 +109,12 @@ class OriginalFile(Container):
         isPdf = self.file and self.file.contentType == "application/pdf"
         return self.file and not isPdf
 
+    def urlToAleph(self):
+        return self.related_aleph_record and self.related_aleph_record.urlToAleph()
+        
+    def urlToKramerius(self):
+        return "some"
+
     def hasSomeAlephRecords(self):
         alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
         return len(alephRecords)
