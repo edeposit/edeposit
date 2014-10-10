@@ -9,8 +9,18 @@
 
     <dd class="portletItem odd">
       <ul>
-        <li><a tal:attributes="href here/urlToAleph" href="">do Alephu</a></li>
-        <li><a tal:attributes="href here/urlToKramerius" href="">do Krameria</a></li>
+        <li><a tal:attributes="href here/urlToAleph" href=""
+	       class="external-link"
+	       target="_new"
+	       >do Alephu</a></li>
+        <li><a tal:attributes="href here/urlToAlephMARCXML" href=""
+	       class="external-link"
+	       target="_new"
+	       >do Alephu - MARCXML</a></li>
+        <li><a tal:attributes="href here/urlToKramerius" href=""
+	       class="external-link"
+	       target="_new"
+	       >do Krameria</a></li>
       </ul>
     </dd>
 

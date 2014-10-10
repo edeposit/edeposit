@@ -102,8 +102,6 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
-    def urlToAleph(self):
-        return "http://aleph.nkp.cz/X?op=find_doc&doc_num=%s&base=nkc" % (str(self.aleph_sys_number),)
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
