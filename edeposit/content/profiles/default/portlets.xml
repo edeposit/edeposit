@@ -7,26 +7,26 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="plone">
 
-  <!-- <assignment -->
-  <!--     purge="True" -->
-  <!--     manager="plone.leftcolumn" -->
-  <!--     category="group" -->
-  <!--     key="Acquisition Administrators" -->
-  <!--     /> -->
+  <assignment
+      purge="True"
+      manager="plone.leftcolumn"
+      category="group"
+      key="Acquisition Administrators"
+      />
   
-  <!-- <assignment -->
-  <!--     purge="True" -->
-  <!--     manager="plone.leftcolumn" -->
-  <!--     category="group" -->
-  <!--     key="Acquisitors" -->
-  <!--     /> -->
+  <assignment
+      purge="True"
+      manager="plone.leftcolumn"
+      category="group"
+      key="Acquisitors"
+      />
 
-  <!-- <assignment -->
-  <!--     purge="True" -->
-  <!--     manager="plone.leftcolumn" -->
-  <!--     category="group" -->
-  <!--     key="ISBN Agency Members" -->
-  <!--     /> -->
+  <assignment
+      purge="True"
+      manager="plone.leftcolumn"
+      category="group"
+      key="ISBN Agency Members"
+      />
 
   <assignment
       purge="True"
