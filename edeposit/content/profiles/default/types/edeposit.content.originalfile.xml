@@ -15,6 +15,7 @@
     <element value="edeposit.content.isbn"/>
     <element value="edeposit.content.previewfile"/>
     <element value="edeposit.content.alephrecord"/>
+    <element value="Link"/>
   </property>
   <property name="allow_discussion">False</property>
 

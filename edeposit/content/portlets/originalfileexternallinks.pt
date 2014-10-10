@@ -1,0 +1,23 @@
+<dl class="portlet portletOriginalFileExternalLinks"
+    i18n:domain="edeposit.content">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span>Externí linky</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+      <ul>
+        <li><a tal:attributes="href here/urlToAleph" href="">do Alephu</a></li>
+        <li><a tal:attributes="href here/urlToKramerius" href="">do Krameria</a></li>
+      </ul>
+    </dd>
+
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>

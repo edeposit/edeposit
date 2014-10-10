@@ -83,3 +83,10 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         if aleph_record and aleph_record.hasSubjectCataloguingReviewFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor('submitSubjectCataloguingReview')
+
+    def nextstep_for_ISBNSubjectValidation(self,*args,**kwargs):
+        aleph_record = self.context.related_aleph_record
+        if aleph_record and aleph_record.hasISBNAgencyFields:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor('submitISBNSubjectValidation')
+        

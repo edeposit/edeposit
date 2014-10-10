@@ -27,8 +27,50 @@
   <!--     category="group" -->
   <!--     key="ISBN Agency Members" -->
   <!--     /> -->
+
+  <assignment
+      purge="True"
+      manager="plone.leftcolumn"
+      category="content_type"
+      key="edeposit.content.originalfile"
+      />
   
   <!-- -*- extra stuff goes here -*- -->
+
+   <!-- to have your portlet's title and description translated in 
+        @@manage-portlets, provide the messageids for the i18n:domain plone
+        (see http://dev.plone.org/plone/ticket/9631 or
+             http://dev.plone.org/plone/ticket/9090) for more information on 
+        internationalization with portlets or in plone in general -->
+
+   <portlet
+     addview="edeposit.content.portlets.OriginalFileExternalLinks"
+     title="Original File External Links"
+     description=""
+     i18n:attributes="title; description"
+   />
+
+   <assignment
+       category="content_type"
+       key="edeposit.content.originalfile"
+       manager="plone.rightcolumn"
+       name="originalfilexternallinks"
+       type="edeposit.content.portlets.OriginalFileExternalLinks"
+       />
+
+
+   <!-- to have your portlet's title and description translated in 
+        @@manage-portlets, provide the messageids for the i18n:domain plone
+        (see http://dev.plone.org/plone/ticket/9631 or
+             http://dev.plone.org/plone/ticket/9090) for more information on 
+        internationalization with portlets or in plone in general -->
+   <portlet
+     addview="edeposit.content.portlets.ISBNSubjectValidation"
+     title="ISBN Subject Validation"
+     description=""
+     i18n:attributes="title; description"
+   />
+
         
   <!-- to have your portlet's title and description translated in 
        @@manage-portlets, provide the messageids for the i18n:domain plone
@@ -85,6 +127,13 @@
        key="ISBN Agency Members"
        manager="plone.leftcolumn"
        type="edeposit.content.portlets.ISBNGenerationPortlet"
+       />
+
+   <assignment
+       category="group"
+       key="ISBN Agency Members"
+       manager="plone.leftcolumn"
+       type="edeposit.content.portlets.ISBNSubjectValidation"
        />
 
 
