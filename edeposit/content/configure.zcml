@@ -218,6 +218,20 @@
   <!--       permission="zope2.View" -->
   <!--       /> -->
 
+  <browser:page
+      name="download"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".originalfile.Download"
+      permission="cmf.ManagePortal"
+      />
+  
+  <browser:page
+      name="display-file"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".originalfile.DisplayFile"
+      permission="cmf.ManagePortal"
+      />
+  
   <!-- ePublication contributing -->
   <browser:page
         for="edeposit.content.epublication.IePublication"

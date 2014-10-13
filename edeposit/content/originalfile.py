@@ -110,11 +110,15 @@ class OriginalFile(Container):
         return self.file and not isPdf
 
     def urlToAleph(self):
-        record = self.related_aleph_record.to_object
+        record = self.related_aleph_record and self.related_aleph_record.to_object
+        if not record:
+            return ""
         return "http://aleph.nkp.cz/F?func=find-b&find_code=SYS&x=0&y=0&request=%s&filter_code_1=WTP&filter_request_1=&filter_code_2=WLN&adjacent=N" % (record.aleph_sys_number,)
 
     def urlToAlephMARCXML(self):
-        record = self.related_aleph_record.to_object
+        record = self.related_aleph_record and self.related_aleph_record.to_object
+        if not record:
+            return ""
         return "http://aleph.nkp.cz/X?op=find_doc&doc_num=%s&base=nkc" % (record.aleph_sys_number,)
 
         
@@ -179,3 +183,12 @@ OriginalFile.getAssignedSubjectCataloguingReviewer = getAssignedPersonFactory('E
 class SampleView(grok.View):
     grok.context(IOriginalFile)
     grok.require('zope2.View')
+
+
+import plone.namedfile
+
+class Download(plone.namedfile.browser.Download):
+    pass
+
+class DisplayFile(plone.namedfile.browser.DisplayFile):
+    pass
