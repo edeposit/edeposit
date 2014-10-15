@@ -78,6 +78,10 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     related_aleph_record = RelationChoice( title=u"Odpovídající záznam v Alephu",
                                            required = False,
                                            source = availableAlephRecords)
+    thumbnail = NamedBlobFile(
+        title=_(u"Thumbnail File of an ePublication"),
+        required = False,
+        )
                                            
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
@@ -109,6 +113,10 @@ class OriginalFile(Container):
         isPdf = self.file and self.file.contentType == "application/pdf"
         return self.file and not isPdf
 
+    def getThumbnail(self):
+        previewfiles = self.listFolderContents(contentFilter={"portal_type" : "edeposit.content.previewfile"})
+        return previewfiles and previewfiles[0]
+
     def urlToAleph(self):
         record = self.related_aleph_record and getattr(self.related_aleph_record,'to_object',None)
         if not record:
@@ -121,7 +129,6 @@ class OriginalFile(Container):
             return ""
         return "http://aleph.nkp.cz/X?op=find_doc&doc_num=%s&base=nkc" % (record.aleph_sys_number,)
 
-        
     def urlToKramerius(self):
         return "some"
 
@@ -180,9 +187,16 @@ OriginalFile.getAssignedDescriptiveCataloguingReviewer = getAssignedPersonFactor
 OriginalFile.getAssignedSubjectCataloguer = getAssignedPersonFactory('E-Deposit: Subject Cataloguer')
 OriginalFile.getAssignedSubjectCataloguingReviewer = getAssignedPersonFactory('E-Deposit: Subject Cataloguing Reviewer')
 
-class SampleView(grok.View):
+class ThumbnailView(grok.View):
     grok.context(IOriginalFile)
     grok.require('zope2.View')
+    grok.name("thumbnail")
+
+    def __call__(self):
+        thumbnail = self.context.getThumbnail()
+        url = thumbnail and "/".join(thumbnail.getPhysicalPath()) \
+            or "/".join(self.context.getPhysicalPath() + ("documentviewer",))
+        self.request.response.redirect(url)
 
 
 import plone.namedfile
