@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.content.portlets.ChooseProperAlephRecord"
+      interface=".chooseproperalephrecord.IChooseProperAlephRecord"
+      assignment=".chooseproperalephrecord.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".chooseproperalephrecord.Renderer"
+      addview=".chooseproperalephrecord.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.content.portlets.OriginalFileExternalLinks"
       interface=".originalfileexternallinks.IOriginalFileExternalLinks"
       assignment=".originalfileexternallinks.Assignment"
