@@ -25,7 +25,13 @@ from edeposit.content.aleph_record import IAlephRecord
 from Products.CMFCore.utils import getToolByName
 from zope.schema.vocabulary import SimpleVocabulary
 from plone.dexterity.utils import createContentInContainer
+from plone.dexterity.interfaces import IDexterityFTI
 from Acquisition import aq_parent, aq_inner
+from plone.rfc822.interfaces import IPrimaryFieldInfo, IPrimaryField
+from zope.interface import implements
+from zope.component import adapts
+from zope.component import getUtility
+from zope.schema import getFieldsInOrder
 
 def urlCodeIsValid(value):
     return True
@@ -113,10 +119,6 @@ class OriginalFile(Container):
         isPdf = self.file and self.file.contentType == "application/pdf"
         return self.file and not isPdf
 
-    def getThumbnail(self):
-        previewfiles = self.listFolderContents(contentFilter={"portal_type" : "edeposit.content.previewfile"})
-        return previewfiles and previewfiles[0]
-
     def urlToAleph(self):
         record = self.related_aleph_record and getattr(self.related_aleph_record,'to_object',None)
         if not record:
@@ -174,6 +176,26 @@ class OriginalFile(Container):
             self.related_aleph_record = None
     
 
+class OriginalFilePrimaryFieldInfo(object):
+    implements(IPrimaryFieldInfo)
+    adapts(IOriginalFile)
+    
+    def __init__(self, context):
+        self.context = context
+        fti = getUtility(IDexterityFTI, name=context.portal_type)
+        self.schema = fti.lookupSchema()
+        thumbnail = self.schema['thumbnail']
+        if thumbnail.get(self.context):
+            self.fieldname = 'thumbnail'
+            self.field = thumbnail
+        else:
+            self.fieldname = 'file'
+            self.field = self.schema['file']
+    
+    @property
+    def value(self):
+        return self.field.get(self.context)
+
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
         local_roles = self.get_local_roles()
@@ -193,7 +215,7 @@ class ThumbnailView(grok.View):
     grok.name("thumbnail")
 
     def __call__(self):
-        thumbnail = self.context.getThumbnail()
+        thumbnail = self.context.thumbnail
         url = thumbnail and "/".join(thumbnail.getPhysicalPath()) \
             or "/".join(self.context.getPhysicalPath() + ("documentviewer",))
         self.request.response.redirect(url)

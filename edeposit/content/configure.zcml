@@ -93,6 +93,7 @@
   <!--          zope.intid.interfaces.IIntIdAddedEvent" -->
   <!--     handler=".handlers.addedOriginalFile"/> -->
 
+  <adapter factory=".originalfile.OriginalFilePrimaryFieldInfo"/>
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.amqp.IAMQPSender"
