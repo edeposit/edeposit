@@ -352,10 +352,7 @@ class OriginalFileThumbnailGeneratingResultHandler(namedtuple('ThumbnailGenerati
         with api.env.adopt_user(username="system"):
             comment = u"hurá, máme náhled! %s" % (self.context.file.filename, )
             bfile = NamedBlobFile(data=b64decode(self.result.b64_data),  filename=u"thumbnail.pdf")
-            previewFileData = { 'file': bfile }
-            previewFile = createContentInContainer(self.context, 
-                                                   'edeposit.content.previewfile',
-                                                   **previewFileData)
+            self.context.thumbnail = bfile
             transaction.savepoint(optimistic=True)
             wft.doActionFor(epublication,'notifySystemAction', comment=comment)
             wft.doActionFor(self.context, 'thumbnailOK')
