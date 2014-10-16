@@ -445,7 +445,6 @@ def addedAlephRecord(context, event):
 #     context = getContentIfKeyExists('context_UID',uuidValue)
 #     if not context:
 #         raise HandlerError("chyba: toto uuid neexistuje: " + str(uuid))
-#     import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
 #     if uuidType == 'edeposit.originalfile-isbn-validation':
 #         pass
     

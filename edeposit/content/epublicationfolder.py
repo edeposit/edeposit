@@ -63,10 +63,6 @@ class SampleView(grok.View):
     grok.context(IePublicationFolder)
     grok.require('zope2.View')
 
-    # grok.name('view')
-
-    # Add view methods here
-
 
 @grok.provider(IContextSourceBinder)
 def selectedEPublications(context):
@@ -78,7 +74,6 @@ def selectedEPublications(context):
                path = filter(lambda path: path.index(parentPath)==0, selected_paths)
            )
     brains = pcatalog(query)
-    import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
     terms = map(lambda item: SimpleVocabulary.createTerm(item, item['id'], item['id']),  brains)
     return SimpleVocabulary(terms)
 

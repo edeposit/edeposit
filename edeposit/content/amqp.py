@@ -8,7 +8,6 @@ from plone.namedfile.file import NamedBlobFile
 from base64 import b64encode, b64decode
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 import transaction
-from itertools import takewhile
 
 from .next_step import INextStep
 
@@ -442,8 +441,7 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     }
                 self.context.updateOrAddAlephRecord(dataForFactory)
                 pass
-
-            takewhile(lambda x: INextStep(self.context).doActionFor(), range(5))
+            [ii for ii in range(5) if INextStep(self.context).doActionFor()]
         pass
 
 

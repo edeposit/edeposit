@@ -29,7 +29,8 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         return False
 
     def nextstep_for_acquisition(self,*args,**kwargs):
-        if self.context.hasAcquisitionFields:
+        aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
+        if aleph_record and aleph_record.hasAcquisitionFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context,'submitAcquisition')
             wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="submit Acquisition")
@@ -37,7 +38,8 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         return False
 
     def nextstep_for_state_ISBNGeneration(self, *args, **kwargs):
-        if self.context.hasISBNAgencyFields:
+        aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
+        if aleph_record and aleph_record.hasISBNAgencyFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context,'submitISBNGeneration')
             wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="ISBN was assigned")
@@ -61,31 +63,31 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         return True
         
     def nextstep_for_descriptiveCataloguing(self,*args,**kwargs):
-        aleph_record = self.context.related_aleph_record
+        aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasDescriptiveCataloguingFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor('submitDescriptiveCataloguing')
 
     def nextstep_for_descriptiveCataloguingReview(self,*args,**kwargs):
-        aleph_record = self.context.related_aleph_record
+        aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasDescriptiveCataloguingReviewFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor('submitDescriptiveCataloguingReview')
 
     def nextstep_for_subjectCataloguing(self,*args,**kwargs):
-        aleph_record = self.context.related_aleph_record
+        aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasSubjectCataloguingFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor('submitSubjectCataloguing')
 
     def nextstep_for_subjectCataloguingReview(self,*args,**kwargs):
-        aleph_record = self.context.related_aleph_record
+        aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasSubjectCataloguingReviewFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor('submitSubjectCataloguingReview')
 
     def nextstep_for_ISBNSubjectValidation(self,*args,**kwargs):
-        aleph_record = self.context.related_aleph_record
+        aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasISBNAgencyFields:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor('submitISBNSubjectValidation')
