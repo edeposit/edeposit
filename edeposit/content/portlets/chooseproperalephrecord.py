@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from zope.interface import Interface
 from zope.interface import implements
-from itertools import chain
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from plone import api
 from zope import schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.component import queryUtility, getUtility
 
 from edeposit.user import MessageFactory as _
 
@@ -23,6 +23,11 @@ from zope.formlib import form as formlib
 from z3c.form import group, field, button
 from z3c.relationfield.schema import RelationChoice, Relation
 from edeposit.content.originalfile import IOriginalFile
+
+from plone.formwidget.contenttree import ObjPathSourceBinder, PathSourceBinder
+from zope.lifecycleevent import modified
+from z3c.relationfield import RelationValue
+from zope.app.intid.interfaces import IIntIds
 from Acquisition import aq_inner, aq_parent
 
 class PortletFormView(FormWrapper):
@@ -57,10 +62,12 @@ class ChooseProperAlephRecordForm(form.SchemaForm):
 
         alephRecord = data.get('related_aleph_record',None)
         if alephRecord:
-            self.context.related_aleph_record = RelationValue(intids.getId(alephRecord))
-            modified(self.context)
-            wft = api.portal.get_tool('portal_workflow')
-            wft.doActionFor(self.context, 'toAcquisitionPreparing')
+             intids = getUtility(IIntIds)
+             self.context.related_aleph_record = RelationValue(intids.getId(alephRecord))
+             modified(self.context)
+             wft = api.portal.get_tool('portal_workflow')
+             wft.doActionFor(self.context, 'toAcquisitionPreparing')
+             [ ii for ii in range(5) if INextState(self.context).doActionFor() ]
         self.status = u"Hotovo!"
 
 
@@ -96,11 +103,10 @@ class Renderer(base.Renderer):
         view.form_instance = form
         return view
 
-    # @property
-    # def available(self):
-    #     # return 'ISBNGeneration' in api.content.get_state(self.context)
-    #     context = aq_inner(self.context)
-    #     return not context.isbn
+    @property
+    def available(self):
+        context = aq_inner(self.context)
+        return 'chooseProperAlephRecord' in api.content.get_state(context)
 
 class AddForm(base.AddForm):
     form_fields = formlib.Fields(IChooseProperAlephRecord)

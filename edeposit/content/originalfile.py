@@ -32,6 +32,7 @@ from zope.interface import implements
 from zope.component import adapts
 from zope.component import getUtility
 from zope.schema import getFieldsInOrder
+from zope.lifecycleevent import modified
 
 def urlCodeIsValid(value):
     return True
@@ -157,11 +158,9 @@ class OriginalFile(Container):
             if changedAttrs:
                 def setAttrFactory(alephRecord,data):
                     def setAttr(attr):
-                        newValue = data.get(newValue,None)
-                        setattr(alephRecord,attr,newValue)
+                        setattr(alephRecord, attr ,data.get(attr,None))
                     return setAttr
                 map(setAttrFactory(alephRecord,dataForFactory), changedAttrs)
-                alephRecord.save()
             pass
         else:
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
