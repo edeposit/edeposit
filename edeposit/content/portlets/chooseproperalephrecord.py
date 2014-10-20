@@ -23,10 +23,9 @@ from zope.formlib import form as formlib
 from z3c.form import group, field, button
 from z3c.relationfield.schema import RelationChoice, Relation
 from edeposit.content.originalfile import IOriginalFile
+from Acquisition import aq_inner, aq_parent
 
 class PortletFormView(FormWrapper):
-     """ Form view which renders z3c.forms embedded in a portlet.
-     Subclass FormWrapper so that we can use custom frame template. """
      index = ViewPageTemplateFile("formwrapper.pt")
 
 @grok.provider(IContextSourceBinder)
@@ -66,20 +65,9 @@ class ChooseProperAlephRecordForm(form.SchemaForm):
 
 
 class IChooseProperAlephRecord(IPortletDataProvider):
-    """A portlet
-
-    It inherits from IPortletDataProvider because for this portlet, the
-    data that is being rendered and the portlet assignment itself are the
-    same.
-    """
+     pass
 
 class Assignment(base.Assignment):
-    """Portlet assignment.
-
-    This is what is actually managed through the portlets UI and associated
-    with columns.
-    """
-
     implements(IChooseProperAlephRecord)
 
     def __init__(self):
@@ -87,9 +75,6 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        """This property is used to give the title of the portlet in the
-        "manage portlets" screen.
-        """
         return __(u"Choose proper aleph record")
 
 
@@ -117,17 +102,7 @@ class Renderer(base.Renderer):
     #     context = aq_inner(self.context)
     #     return not context.isbn
 
-
-# NOTE: If this portlet does not have any configurable parameters, you can
-# inherit from NullAddForm and remove the form_fields variable.
-
 class AddForm(base.AddForm):
-    """Portlet add form.
-
-    This is registered in configure.zcml. The form_fields variable tells
-    zope.formlib which fields to display. The create() method actually
-    constructs the assignment that is being added.
-    """
     form_fields = formlib.Fields(IChooseProperAlephRecord)
 
     def create(self, data):

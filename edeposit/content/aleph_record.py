@@ -101,6 +101,10 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = u"",
         required = False,
     )
+    xml = NamedBlobFile (
+        title=_(u"XML file with MARC21"),
+        required = False,
+    )
 
 
 # Custom content-type class; objects created for this content type will
