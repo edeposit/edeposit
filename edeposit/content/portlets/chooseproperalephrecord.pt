@@ -4,20 +4,17 @@
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
         <span>
-           Header
+           Vybrat správný záznam z Alephu
         </span>
         <span class="portletTopRight"></span>
     </dt>
 
     <dd class="portletItem odd">
-        Body text
+       <form tal:replace="structure view/form_wrapper" />
     </dd>
 
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>
-        <span>
-           Footer
-        </span>
         <span class="portletBottomRight"></span>
     </dd>
 
