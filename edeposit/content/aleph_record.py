@@ -71,35 +71,41 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = _(u'Library that Aleph refers to metadata of this ePublication'),
         required = True,
     )
-    hasAcquisitionFields= schema.ASCIILine (
+    hasAcquisitionFields= schema.Bool (
         title = _(u'has Acquisition Fields'),
         description = _(u'This record has acquisition fields.'),
         required = False,
+        default = False,
     )
-    hasISBNAgencyFields= schema.ASCIILine (
+    hasISBNAgencyFields= schema.Bool (
         title = _(u'has ISBN Agency Fields'),
         description = _(u'This record has ISBN Agency fields'),
         required = False,
+        default = False,
     )
-    hasDescriptiveCataloguingFields= schema.ASCIILine (
+    hasDescriptiveCataloguingFields= schema.Bool (
         title = _(u'has Descriptive Cataloguing Fields'),
         description = u"",
         required = False,
+        default = False,
     )
-    hasDescriptiveCataloguingReviewFields= schema.ASCIILine (
+    hasDescriptiveCataloguingReviewFields= schema.Bool (
         title = _(u'has Descriptive Cataloguing Review Fields'),
         description = u"",
         required = False,
+        default = False,
     )
-    hasSubjectCataloguingFields= schema.ASCIILine (
+    hasSubjectCataloguingFields= schema.Bool (
         title = _(u'has Subject Cataloguing Fields'),
         description = u"",
         required = False,
+        default = False,
     )
-    hasSubjectCataloguingReviewFields= schema.ASCIILine (
+    hasSubjectCataloguingReviewFields= schema.Bool (
         title = _(u'has Subject Cataloguing Review Fields'),
         description = u"",
         required = False,
+        default = False,
     )
 
 

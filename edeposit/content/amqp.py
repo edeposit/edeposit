@@ -441,7 +441,10 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     }
                 self.context.updateOrAddAlephRecord(dataForFactory)
                 pass
-            [ii for ii in range(5) if INextStep(self.context).doActionFor()]
+            for ii in range(5):
+                wasNextState=INextStep(self.context).doActionFor()
+                if not wasNextState:
+                    break
         pass
 
 
