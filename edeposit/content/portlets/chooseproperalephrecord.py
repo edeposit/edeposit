@@ -29,6 +29,7 @@ from zope.lifecycleevent import modified
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
 from Acquisition import aq_inner, aq_parent
+from zope.security import checkPermission
 
 class PortletFormView(FormWrapper):
      """ Form view which renders z3c.forms embedded in a portlet.
@@ -112,8 +113,8 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        context = aq_inner(self.context)
-        return 'chooseProperAlephRecord' in api.content.get_state(context)
+         context = aq_inner(self.context)
+         return 'chooseProperAlephRecord' in api.content.get_state(context) and checkPermission('cmf.ReviewPortalContent',context)
 
 
 # NOTE: If this portlet does not have any configurable parameters, you can
