@@ -438,6 +438,7 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     'hasDescriptiveCataloguingReviewFields': record.semantic_info.hasDescriptiveCatReviewFields,
                     'hasSubjectCataloguingFields': record.semantic_info.hasSubjectCatFields,
                     'hasSubjectCataloguingReviewFields': record.semantic_info.hasSubjectCatReviewFields,
+                    'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
                     }
                 self.context.updateOrAddAlephRecord(dataForFactory)
                 pass

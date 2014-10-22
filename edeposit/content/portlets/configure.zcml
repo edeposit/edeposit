@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.content.portlets.TechnicalMetadata"
+      interface=".technicalmetadata.ITechnicalMetadata"
+      assignment=".technicalmetadata.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".technicalmetadata.Renderer"
+      addview=".technicalmetadata.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.content.portlets.ChooseProperAlephRecord"
       interface=".chooseproperalephrecord.IChooseProperAlephRecord"
       assignment=".chooseproperalephrecord.Assignment"

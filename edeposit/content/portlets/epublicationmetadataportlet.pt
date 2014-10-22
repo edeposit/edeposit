@@ -1,23 +1,29 @@
 <dl class="portlet portletePublicationMetadataPortlet"
     i18n:domain="edeposit.content">
 
-    <dt class="portletHeader">
-        <span class="portletTopLeft"></span>
-        <span>
-          Metadata ePublikace
-        </span>
-        <span class="portletTopRight"></span>
-    </dt>
-
-    <dd class="portletItem odd">
-      <ul>
-        <li><label>Název</label><span tal:content="here/getParentTitle">nazev</span></li>
-        <li><label>Podnázev</label><span tal:content="here/getPodnazev">Podnazev</span></li>
-        <li><label>Část</label><span tal:content="here/getCast">Cast</span></li>
-        <li><label>Nakladavatel/vydavatel</label><span tal:content="here/getNakladatelVydavatel">Nakladatel/vydavatel</span></li>
-      </ul>
-    </dd>
-
-    <dd class="portletFooter">
-    </dd>
+  <dt class="portletHeader">
+    <span class="portletTopLeft"></span>
+    <span>
+      Popisná metadata
+    </span>
+    <span class="portletTopRight"></span>
+  </dt>
+  
+  <dd class="portletItem odd">
+    <table>
+      <tbody>
+        <tr><th>Název</th><td tal:content="here/getParentTitle"></td></tr>
+        <tr><th>Podnázev</th><td tal:content="here/getPodnazev">Podnazev</td></tr>
+        <tr><th>Část</th><td tal:content="here/getCast">Cast</td></tr>
+        <tr><th>Nakladavatel/vydavatel</th><td tal:content="here/getNakladatelVydavatel">Nakladatel/vydavatel</td></tr>
+      </tbody>
+    </table>
+    
+    <table>
+      <tbody>
+        <tr><th>ISBN</th><td tal:content="here/isbn"></td></tr>
+      </tbody>
+    </table>
+    
+    </dd><dd class="portletFooter"></dd>
 </dl>
