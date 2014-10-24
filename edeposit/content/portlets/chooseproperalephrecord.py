@@ -29,6 +29,7 @@ from zope.lifecycleevent import modified
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
 from Acquisition import aq_inner, aq_parent
+from zope.security import checkPermission
 
 class PortletFormView(FormWrapper):
      index = ViewPageTemplateFile("formwrapper.pt")
@@ -105,8 +106,8 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        context = aq_inner(self.context)
-        return 'chooseProperAlephRecord' in api.content.get_state(context)
+         context = aq_inner(self.context)
+         return 'chooseProperAlephRecord' in api.content.get_state(context) and checkPermission('cmf.ReviewPortalContent',context)
 
 class AddForm(base.AddForm):
     form_fields = formlib.Fields(IChooseProperAlephRecord)
