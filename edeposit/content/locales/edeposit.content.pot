@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-09 05:19+0000\n"
+"POT-Creation-Date: 2014-10-24 13:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,19 +247,19 @@ msgstr ""
 msgid "Folder holds libraries"
 msgstr ""
 
-#: edeposit/content/originalfile.py:65
+#: edeposit/content/originalfile.py:72
 #: edeposit/content/printingfile.py:34
 msgid "Format of a file."
 msgstr ""
 
 #: edeposit/content/book.py:145
-#: edeposit/content/originalfile.py:71
+#: edeposit/content/originalfile.py:78
 msgid "Generate ISBN"
 msgstr ""
 
 #: edeposit/content/aleph_record.py:29
 #: edeposit/content/isbn.py:31
-#: edeposit/content/originalfile.py:53
+#: edeposit/content/originalfile.py:60
 msgid "ISBN"
 msgstr ""
 
@@ -277,6 +277,10 @@ msgstr ""
 
 #: edeposit/content/portlets/isbngenerationportlet.py:35
 msgid "ISBN Generation Links Portlet"
+msgstr ""
+
+#: edeposit/content/portlets/isbnsubjectvalidation.py:38
+msgid "ISBN Subject Validation"
 msgstr ""
 
 #: edeposit/content/profiles/default/types/edeposit.content.isbnvalidationrequest.xml
@@ -353,7 +357,11 @@ msgstr ""
 msgid "Odevzdání dokumentu"
 msgstr ""
 
-#: edeposit/content/originalfile.py:60
+#: edeposit/content/portlets/originalfileexternallinks.py:29
+msgid "Original File External Links"
+msgstr ""
+
+#: edeposit/content/originalfile.py:67
 msgid "Original File of an ePublication"
 msgstr ""
 
@@ -493,7 +501,7 @@ msgstr ""
 msgid "Technical"
 msgstr ""
 
-#: edeposit/content/aleph_record.py:81
+#: edeposit/content/aleph_record.py:82
 msgid "This record has ISBN Agency fields"
 msgstr ""
 
@@ -501,8 +509,12 @@ msgstr ""
 msgid "This record has acquisition fields."
 msgstr ""
 
+#: edeposit/content/originalfile.py:89
+msgid "Thumbnail File of an ePublication"
+msgstr ""
+
 #: edeposit/content/library.py:38
-#: edeposit/content/originalfile.py:47
+#: edeposit/content/originalfile.py:54
 msgid "URL"
 msgstr ""
 
@@ -524,7 +536,7 @@ msgstr ""
 
 #: edeposit/content/aleph_record.py:30
 #: edeposit/content/isbn.py:32
-#: edeposit/content/originalfile.py:54
+#: edeposit/content/originalfile.py:61
 msgid "Value of ISBN"
 msgstr ""
 
@@ -555,8 +567,12 @@ msgid "Waiting for Acquisition"
 msgstr ""
 
 #: edeposit/content/book.py:146
-#: edeposit/content/originalfile.py:72
+#: edeposit/content/originalfile.py:79
 msgid "Whether ISBN agency should generate ISBN number."
+msgstr ""
+
+#: edeposit/content/aleph_record.py:111
+msgid "XML file with MARC21"
 msgstr ""
 
 #: edeposit/content/originalfile_contributing_requests_folder.py:71
@@ -603,23 +619,23 @@ msgstr ""
 msgid "has Acquisition Fields"
 msgstr ""
 
-#: edeposit/content/aleph_record.py:85
+#: edeposit/content/aleph_record.py:87
 msgid "has Descriptive Cataloguing Fields"
 msgstr ""
 
-#: edeposit/content/aleph_record.py:90
+#: edeposit/content/aleph_record.py:93
 msgid "has Descriptive Cataloguing Review Fields"
 msgstr ""
 
-#: edeposit/content/aleph_record.py:80
+#: edeposit/content/aleph_record.py:81
 msgid "has ISBN Agency Fields"
 msgstr ""
 
-#: edeposit/content/aleph_record.py:95
+#: edeposit/content/aleph_record.py:99
 msgid "has Subject Cataloguing Fields"
 msgstr ""
 
-#: edeposit/content/aleph_record.py:100
+#: edeposit/content/aleph_record.py:105
 msgid "has Subject Cataloguing Review Fields"
 msgstr ""
 

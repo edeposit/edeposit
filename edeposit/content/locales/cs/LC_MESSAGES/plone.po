@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-09 05:19+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"POT-Creation-Date: 2014-10-24 13:54+0000\n"
+"PO-Revision-Date: 2014-10-24 15:46+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Choose proper aleph record"
+msgstr "Vyberte správný záznam"
 
 #: edeposit/content/profiles/default/registry.xml
 msgid "E-Deposit Currencies"
@@ -39,12 +43,24 @@ msgid "ISBN Generation Links Portlet"
 msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
-msgid "Waiting For Aleph"
+msgid "ISBN Subject Validation"
+msgstr "Věcná kontrola ISBN"
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Original File External Links"
 msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
+msgid "Technical Metadata"
+msgstr "Technické údaje"
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Waiting For Aleph"
+msgstr "Čekáme na Aleph"
+
+#: edeposit/content/profiles/default/portlets.xml
 msgid "Waiting for Acquisition"
-msgstr ""
+msgstr "Čekáme na akvizici"
 
 #: edeposit/content/profiles/default/portlets.xml
 msgid "ePublication Metadata Portlet"
