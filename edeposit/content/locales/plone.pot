@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-09 05:19+0000\n"
+"POT-Creation-Date: 2014-10-24 13:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,10 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Choose proper aleph record"
+msgstr ""
 
 #: edeposit/content/profiles/default/registry.xml
 msgid "E-Deposit Currencies"
@@ -39,6 +43,18 @@ msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
 msgid "ISBN Generation Links Portlet"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "ISBN Subject Validation"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Original File External Links"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Technical Metadata"
 msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
