@@ -105,4 +105,28 @@ AT03-07 Pracovní prostředí pracovníka ISBN agentury
     Existuje portlet Prehled originalu pro prideleni ISBN    
     Click Element    css=#portal-logo
     Existuje portlet Prideleni ISBN
-    Pause    
+
+# (run-as-test "../../bin/pybot  -E star:+ -t AT03-08+ at03.robot")
+AT03-08 Pracovní prostředí administratora akvizice
+    Vytvoření akvizitora   #akvizitor je zaroven i spravce akvizice
+    Log Out    
+    Log In      ${AKVIZITOR_NAME}    ${AKVIZITOR_PASSWORD}
+    Page Should Contain     Přehledová stránka uživatele
+    #Existuje portlet Cekame na Aleph
+    #Existuje portlet Originaly co cekají na Aleph
+    Click Element   css=#portal-logo
+    Existuje portlet Cekame na Aleph
+    Pause
+
+# (run-as-test "../../bin/pybot  -E star:+ -t AT03-09+ at03.robot")
+AT03-09 Prace akvizitora
+    Vytvoření akvizitora   #akvizitor je zaroven i spravce akvizice
+    Log Out    
+    Log In      ${AKVIZITOR_NAME}    ${AKVIZITOR_PASSWORD}
+    Page Should Contain     Přehledová stránka uživatele
+    #Existuje portlet Cekame na Aleph
+    #Existuje portlet Originaly co cekají na Aleph
+    Click Element   css=#portal-logo
+    Existuje portlet Cekame na Aleph
+    Pause
+

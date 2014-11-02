@@ -47,10 +47,13 @@ antivirus --> thumbnailGenerating : << system >> \n Antivirus OK
 antivirus --> declarationWithError : << system >> \n Antivirus Error
 
 thumbnailGenerating ---> exportToAleph : << system >> \n Thumbnail OK
+thumbnailGenerating ---> isbnGeneration : << system >> \n Bude se přidělovat ISBN 
 thumbnailGenerating ---> thumbnailGenerating : << system >> \n Thumbnail Error
 
 exportToAleph ---> acquisitionPreparing : << system >> \n Export to Aleph OK
 exportToAleph --> declarationWithError : << system >> \n Export to Aleph Error
+
+isbnGeneration ---> exportToAleph : << isbn agentura >> \n Potvrdit
 
 acquisitionPreparing ---> acquisition : << správce akvizice >> \n Potvrdit přidělení
 acquisitionPreparing ---> withdrawn : << správce akvizice >> \n Stáhnout z oběhu

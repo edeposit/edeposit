@@ -311,6 +311,7 @@ Vytvoření akvizitora
     Input Text       //input[@id='form.email']      ${AKVIZITOR_NAME}@nkp.cz
     Input Text       //input[@id='form.password']   ${AKVIZITOR_PASSWORD}
     Input Text       //input[@id='form.password_ctl']   ${AKVIZITOR_PASSWORD}
+    #Select Checkbox  //input[@id='form.groups.1']
     Select Checkbox  //input[@id='form.groups.2']
     Click Button     Registrovat
     Page Should Contain    Přehled uživatelů
@@ -358,7 +359,6 @@ Vytvoření pracovníka ISBN Agentury
     Page Should Contain    Přehled uživatelů
 
 Existuje portlet Prideleni ISBN
-    Pause
     Page Should Contain Element   xpath=//dt[contains(@class,"portletHeader")]//span[contains(text(),"Přidělování ISBN")]
     Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/content_status_comment?workflow_action=sendEmailToISBNAgency")]
     Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/originalfiles-for-isbn-agency")]
@@ -367,6 +367,16 @@ Existuje portlet Prideleni ISBN
 Existuje portlet Prehled originalu pro prideleni ISBN
     # portlet Pridelovani isbn - prehled originalu
     Page Should Contain Element   xpath=//dl[contains(@class,"portletCollection")]//dt[contains(@class,"portletHeader")]//span[contains(text(),"Přidělení ISBN - přehled originálů")]
+
+Existuje portlet Cekame na Aleph
+    Page Should Contain Element   xpath=//dt[contains(@class,"portletHeader")]//span[contains(text(),"Čekáme na Aleph")]
+    Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/content_status_comment?workflow_action=loadSysNumbersFromAleph") and contains(text(),"načíst z Alephu")]
+    Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/originalfiles-waiting-for-aleph") and contains(text(),"přehled originálů")]
+    Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/worklist-waiting-for-aleph") and contains(text(),"CSV s přehledem")]
+    Page Should Contain Element   xpath=//dd[contains(@class,"portletItem")]//a[contains(@href,"/producents/content_status_comment?workflow_action=sendEmailWithOriginalFilesWaitingForAleph") and contains(text(),"odeslat email akvizitorům")]
+
+Existuje portlet Originaly co cekaji na Aleph
+    Page Should Contain Element   xpath=//dl[contains(@class,"portletCollection")]//dt[contains(@class,"portletHeader")]//span[contains(text(),"Originály co čekají na Aleph")]
 
 
 Registrace pracovníků katalogizace
@@ -582,13 +592,29 @@ Prepare AMQP Test Environment
     Declare Queue Binding            aleph  search     ${QUEUE_NAME}   request
     Declare Queue Binding            aleph  count      ${QUEUE_NAME}   request
     Declare Queue Binding            aleph  validate   ${QUEUE_NAME}   request
-    Declare Queue Binding            aleph  export   ${QUEUE_NAME}   request
+    Declare Queue Binding            aleph  export     ${QUEUE_NAME}   request
+
+    # Remove Queue Binding            aleph  search     daemon   request
+    # Remove Queue Binding            aleph  count      daemon   request
+    # Remove Queue Binding            aleph  validate   daemon   request
+    # Remove Queue Binding            aleph  export     daemon   request
+
     Declare Queue                    antivirus  ${QUEUE_NAME}
     Declare Queue Binding            antivirus  antivirus   ${QUEUE_NAME}  request
+#    Remove Queue Binding             antivirus  antivirus   daemon  request
+    
     Declare Queue                    calibre  ${QUEUE_NAME}
     Declare Queue Binding            calibre  convert   ${QUEUE_NAME}  request
-    Declare Queue Binding            calibre  convert   ${QUEUE_NAME}  result
+#    Remove Queue Binding             calibre  convert   daemon  request
 
+Rollback AMQP Test Environmnent
+    Delete All Test Queues Starting With    ${QUEUE_PREFIX}
+    Declare Queue Binding            aleph  search     daemon   request
+    Declare Queue Binding            aleph  count      daemon   request
+    Declare Queue Binding            aleph  validate   daemon   request
+    Declare Queue Binding            aleph  export     daemon   request
+    Declare Queue Binding            antivirus  antivirus   daemon  request
+    Declare Queue Binding            calibre  convert   daemon  request
 
 Send ePublication To Acquisition
     [arguments]      ${isbn}=${VALID_ISBN}    ${epublication_link}=${PLONE_URL}/producents/${PRODUCENT_ID}/epublications/lesni-skolky-ve-zline/inzlin-01-2013-s-nasi-tabinkou.pdf

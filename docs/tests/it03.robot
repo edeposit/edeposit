@@ -11,8 +11,8 @@ Resource        my-keywords.robot
 Resource        it-keywords.robot
 
 *** Variables ***
-#${PLONE_URL}        http://edeposit-test.nkp.cz
-${PLONE_URL}        http://localhost:8080/Plone
+${PLONE_URL}        http://edeposit-test.nkp.cz
+#${PLONE_URL}        http://localhost:8080/Plone
 
 *** Test Cases ***
 
@@ -58,15 +58,25 @@ IT03-06 Pracovni list pro akvizitora
     Page Should Contain    Producenti
     Pause
 
-# pybot  -E star:+ -t IT03-07+ it03.robot 
+# (run-as-test "pybot  -E star:+ -t IT03-07+ it03.robot")
 IT03-07 Pracovní prostředí pracovníka ISBN agentury
+    Pause
     Log In      ${ISBN_AGENCY_USER}    ${ISBN_AGENCY_PASSWORD}
     Page Should Contain     Přehledová stránka uživatele
     Existuje portlet Prideleni ISBN
     Existuje portlet Prehled originalu pro prideleni ISBN
     Click Element   css=#portal-logo
     Existuje portlet Prideleni ISBN
-    
+
+# (run-as-test "pybot  -E star:+ -t IT03-08+ it03.robot")
+IT03-08 Pracovní prostředí administratora akvizice
+    Log In      ${AKVIZITOR_NAME}    ${AKVIZITOR_PASSWORD}
+    Page Should Contain     Přehledová stránka uživatele
+    #Existuje portlet Cekame na Aleph
+    #Existuje portlet Originaly co cekají na Aleph
+    Click Element   css=#portal-logo
+    Existuje portlet Cekame na Aleph
+
 *** Keywords ***
 
 Nastaveni portletu pro skupinu Akvizitori

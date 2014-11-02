@@ -28,6 +28,7 @@ IT00 Instalace produktu
 
 IT02-01 Ohlášení se soubory
     Prepare AMQP Test Environment
+    Pause
     Log in                                ${USER_NAME}   ${USER_PASSWORD}
     Click Link                            Ohlášení ePublikací
     Wait Until Page Contains              Ohlašovací lístek ISBN - ePublikace 
@@ -39,9 +40,22 @@ IT02-01 Ohlášení se soubory
     Page Should Contain                   Položka byla vytvořena
     Location Should Contain               lesni-skolky-ve-zline
     Page Should Contain                   Processing
-    Sleep   1s
-    Pause
+    ePublication Contains Original File at state   isbnvalidation
+    Respond as ISBN Validation Daemon     ${VALID_ENGLISH_ISBN}  True
+    ePublication Contains Original File at state   isbnduplicitycheck
+    Respond as Aleph Count Daemon         ${VALID_ENGLISH_ISBN}  0
+    ePublication Contains Original File at state   antivirus
+    Respond as Antivirus Daemon
+    ePublication Contains Original File at state   exporttoaleph
+    Respond as Aleph Export Daemon        ${VALID_ENGLISH_ISBN}
+    ePublication Contains Original File at state   waitingforaleph
+    Submit SysNumber Search at Aleph
+    Switch Browser   1
+    ePublication Contains Original File at state   waitingforaleph
+    Respond as Aleph Search Daemon        ${VALID_ENGLISH_ISBN}
+    ePublication Contains Original File at state   acquisition
 
+    
 IT02-02 Ohlášení se soubory s pridelenim ISBN
     Prepare AMQP Test Environment
     Open Browser with System User
