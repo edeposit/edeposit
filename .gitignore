@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 bin/*
 eggs/*
 lib/*
@@ -18,9 +17,3 @@ docs/_build
 build/*
 my_it_variables.py
 my_variables.py
-=======
-*.pyc
-*.egg
-*.po~
-build/*
->>>>>>> 641fa14102e045e3a932c094a7ea321b684ff0c4
