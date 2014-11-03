@@ -2,26 +2,38 @@
 left to right direction
 skinparam componentStyle uml2
 title Architektura systému
-() "SCP" as SCP
-() "AMQP" as AMQP
 
 package "E-Deposit" {
 () "HTTP" as HTTP
 () "OAI-PMH" as OAIPMH
+() "SCP" as SCP
+() "AMQP" as AMQP
 
 package "AMQP Middleware" {
 [RabbitMQ] ..> AMQP : používá
 [RabbitMQ] ..> SCP : používá
+[RabbitMQ] <---> [Aleph daemon]
+[RabbitMQ] <---> [ISBN validator]
+[RabbitMQ] <---> [Aleph exporter]
+[RabbitMQ] <---> [thumbnail generator]
+[RabbitMQ] <---> [file antivirus]
+[RabbitMQ] <---> [PDF validator]
+[RabbitMQ] <---> [EPUB validator]
+[RabbitMQ] <---> [Kramerius exporter]
+[RabbitMQ] <---> [LTP exporter]
+[RabbitMQ] <---> [IMAP service]
+[RabbitMQ] <---> [FTP service]
 }
 
 [RabbitMQ] ..> REST : používá
 [Plone] ..> AMQP : používá
-[Plone] <---> [RabbitMQ] : posílá zprávy
-[Plone] <---> [RabbitMQ] : přijímá zprávy
+[Plone] <-down-> [RabbitMQ] : posílá zprávy
+[Plone] <-down-> [RabbitMQ] : přijímá zprávy
 [Plone] ..> HTTP : používá
 [Plone] ..> OAIPMH : poskytuje bránu
+[FTP service] -left-> [ftp server] : čte příchozí ohlášení
+[FTP service] -left-> [ftp server] : nastavuje přístupy k účtům
 [ftp server]
-[RabbitMQ] --> [ftp server] : čte příchozí ohlášení
 }
 
 package "NKP" {
@@ -29,15 +41,16 @@ package "NKP" {
 [smtp server] --> [imap server] : ukládá příchozí emaily
 
 [imap server]
-[RabbitMQ] --> [imap server] : čte nové emaily
-[RabbitMQ] --> [imap server] : maže zpracované emaily
+[IMAP service] --> [imap server] : čte nové emaily
+[IMAP service] --> [imap server] : maže zpracované emaily
 
-[RabbitMQ] --> [Kramerius] : posílá nové epublikace
+[Kramerius exporter] --> [Kramerius] : posílá nové epublikace
 [Kramerius] ..> REST : používá
 [Kramerius] ..> SCP : používá
 
-[RabbitMQ] --> [Aleph] : ptá se na metadata
-[RabbitMQ] --> [Aleph] : posílá nové metadata
+[Aleph daemon] --> [Aleph] : ptá se na metadata
+[Aleph exporter] --> [Aleph] : posílá nové metadata
+[ISBN validator] --> [Aleph] : kontroluje duplicitu ISBN
 [Aleph]
 }
 
@@ -49,8 +62,7 @@ package "NKP" {
 [Kramerius-02] ..> OAIPMH : používá
 
 package "NDK" {
-[RabbitMQ] -down-> [LTP] : posílá nové epublikace
-[RabbitMQ] -down-> [LTP] : stahuje soubory epublikace
+[LTP exporter] --> [LTP] : posílá nové epublikace
 [LTP]
 }
 
