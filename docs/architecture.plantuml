@@ -7,6 +7,7 @@ title Architektura systému
 
 package "E-Deposit" {
 () "HTTP" as HTTP
+() "OAI-PMH" as OAIPMH
 
 package "AMQP Middleware" {
 [RabbitMQ] ..> AMQP : používá
@@ -18,8 +19,9 @@ package "AMQP Middleware" {
 [Plone] <---> [RabbitMQ] : posílá zprávy
 [Plone] <---> [RabbitMQ] : přijímá zprávy
 [Plone] ..> HTTP : používá
+[Plone] ..> OAIPMH : poskytuje bránu
 [ftp server]
-[RabbitMQ] --> [ftp server] : čte příchozí ohlášky
+[RabbitMQ] --> [ftp server] : čte příchozí ohlášení
 }
 
 package "NKP" {
@@ -29,27 +31,27 @@ package "NKP" {
 [imap server]
 [RabbitMQ] --> [imap server] : čte nové emaily
 [RabbitMQ] --> [imap server] : maže zpracované emaily
-}
-
-package "NDK" {
-[RabbitMQ] --> [Aleph] : ptá se na metadata
-[RabbitMQ] --> [Aleph] : posílá nové metadata
-[RabbitMQ] --> [LTP] : posílá nové epublikace
-[RabbitMQ] --> [LTP] : stahuje soubory epublikace
-[Aleph]
-[LTP]
-}
 
 [RabbitMQ] --> [Kramerius] : posílá nové epublikace
 [Kramerius] ..> REST : používá
 [Kramerius] ..> SCP : používá
 
-[RabbitMQ] --> [Kramerius-01] : posílá nové epublikace
-[Kramerius-01] ..> REST : používá
-[Kramerius-01] ..> SCP : používá
+[RabbitMQ] --> [Aleph] : ptá se na metadata
+[RabbitMQ] --> [Aleph] : posílá nové metadata
+[Aleph]
+}
 
-[RabbitMQ] --> [Kramerius-02] : posílá nové epublikace
-[Kramerius-02] ..> REST : používá
-[Kramerius-02] ..> SCP : používá
+
+[Kramerius-01] <--> [Plone]: načítá nové epublikace
+[Kramerius-01] ..> OAIPMH: používá
+
+[Kramerius-02] <--> [Plone]: načítá nové epublikace
+[Kramerius-02] ..> OAIPMH : používá
+
+package "NDK" {
+[RabbitMQ] -down-> [LTP] : posílá nové epublikace
+[RabbitMQ] -down-> [LTP] : stahuje soubory epublikace
+[LTP]
+}
 
 @enduml

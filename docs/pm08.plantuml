@@ -1,0 +1,40 @@
+@startuml
+title Validace ePublikace
+
+start
+:Ohlášení ePublikace s originálem;
+if (obsahuje virus?) then (ANO)
+  :zpátky k producentovi k opravě;
+  stop
+else (NE)
+     if (je to validní EPUB2?) then (NE)
+          if (je to validní PDF/A-1b?) then (NE)
+             :generování náhledu v PDF/A-1b;
+             if (podařilo se vygenerovat náhled v PDF/A-1b?) then (NE)
+                 :dokument nejde dlouhodobě uložit v LTP;
+                 :zpátky k producentovi k opravě;
+                 stop
+             else (ANO)
+             endif
+          else (ANO)
+          endif
+     endif
+     :export metadat do Alephu;
+     :akvizice;
+     :věcná kontrola ISBN;
+     :jmenná katalogizace;
+     :věcná katalogizace;
+     :export ePublikace do Krameria v NKP;
+endif
+if (má producent podepsanou smlouvu s NKP?) then (ANO)
+   :export do LTP;
+   if (chce producent ePublikaci zpřístupnit?) then (ANO)
+      :export do vybraných knihoven;
+      stop
+   else (NE)
+          stop
+   endif
+else (NE)
+     stop
+endif
+@enduml
