@@ -21,6 +21,7 @@ from zope.lifecycleevent import modified
 from plone import api
 import sys
 from Acquisition import aq_inner, aq_parent
+from zope.security import checkPermission
 
 class IISBNGeneration(form.Schema):
     isbn = schema.ASCIILine(
@@ -114,10 +115,11 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        #return 'ISBNGeneration' in api.content.get_state(self.context)
         context = aq_inner(self.context)
-        return not context.isbn
-
+        return not context.isbn \
+            and 'ISBNGeneration' in api.content.get_state(context) \
+            and checkPermission('cmf.ReviewPortalContent',context)
+    
 class Assignment(base.Assignment):
     """Portlet assignment.
 
