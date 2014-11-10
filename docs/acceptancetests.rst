@@ -3,9 +3,50 @@
 Akceptační testy
 ................................
 
+Role v testování
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+
++-----------------------+-----------+
+|producent              |testy_at01_|
+|                       |testy_at02_|
++-----------------------+-----------+
+|akvizitor              |testy_at03_|
++-----------------------+-----------+
+|pracovník isbn agentury|testy_at03_|
+|                       |           |
+|                       |           |
++-----------------------+-----------+
+|správce jmenného popisu|testy_at04_|
+|                       |           |
+|                       |           |
++-----------------------+-----------+
+|pracovník jmenného     |testy_at04_|
+|popisu                 |           |
+|                       |           |
++-----------------------+-----------+
+|revizor jmenného popisu|testy_at04_|
+|                       |           |
+|                       |           |
++-----------------------+-----------+
+|správce věcného popisu |testy_at04_|
+|                       |           |
+|                       |           |
++-----------------------+-----------+
+|pracovník věcného      |testy_at04_|
+|popisu                 |           |
+|                       |           |
++-----------------------+-----------+
+|revizor věcného popisu |testy_at04_|
+|                       |           |
+|                       |           |
++-----------------------+-----------+
+
 
 Hlavní scénáře k testování
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+
+.. _testy_at01:
 
 - AT01 - Registrace producenta
 
@@ -17,11 +58,15 @@ Hlavní scénáře k testování
   - `AT01-08 Kontrola dostupnosti uzivatelskeho jmena u editoru <tests/at01.html#at01-08-kontrola-dostupnosti-uzivatelskeho-jmena-u-editoru>`_
   - `AT01-12 Přidání nového editora k existujícímu producentovi a kontrola dostupnosti uzivatelskeho jmena <tests/at01.html#at01-12-pridani-noveho-editora-k-existujicimu-producentovi-a-kontrola-dostupnosti-uzivatelskeho-jmena>`_
 
+.. _testy_at02:
+
 - AT02 - Ohlášení ePublikace
 
   - `AT02-03 Ohlášení se soubory <tests/at02.html#at02-03-ohlaseni-se-soubory>`_
   - `AT02-05 Ohlášení se soubory co potrebuji generovani nahledu <tests/at02.html#at02-05-ohlaseni-se-soubory-co-potrebuji-generovani-nahledu>`_
   - `AT02-06 Ohlášení se soubory a pridelenim ISBN <tests/at02.html#at02-06-ohlaseni-se-soubory-a-pridelenim-isbn>`_
+
+.. _testy_at03:
 
 - AT03 - Akvizice, kontroly
 
@@ -30,6 +75,8 @@ Hlavní scénáře k testování
   - `AT03-10 Přidělení ISBN  <tests/at03.html#at03-10-prideleni-isbn-agenturou>`_
   - `AT03-11 Věcná kontrola ISBN <tests/at03.html#at03-11-vecna-kontrola-isbn>`_
   - `AT03-12 Kontrola metadat Akvizicí <tests/at03.html#at03-12-kontrola-metadat-akvizici>`_  
+
+.. _testy_at04:
 
 - AT04 - Katalogizace jmenná, věcná
 
