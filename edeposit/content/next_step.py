@@ -27,6 +27,9 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         fname="nextstep_for_%s" % (str(review_state),)
         print "... %s" % (fname,)
         fun = getattr(self,fname,None)
+        if fun is None:
+            print "no action for: %s" % (fname, )
+
         wasNextStep = fun and fun(*args,**kwargs)
         return wasNextStep
 
@@ -61,6 +64,12 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
         return True
         
+    def nextstep_for_descriptiveCataloguingPreparing(self, *args, **kwargs):
+        return bool(self.context.getAssignedDescriptiveCataloguer())
+
+    def nextstep_for_subjectCataloguingPreparing(self, *args, **kwargs):
+        return bool(self.context.getAssignedSubjectCataloguer())
+
     def nextstep_for_descriptiveCataloguing(self,*args,**kwargs):
         aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasDescriptiveCataloguingFields:
