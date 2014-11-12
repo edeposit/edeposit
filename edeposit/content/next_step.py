@@ -65,10 +65,33 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         return True
         
     def nextstep_for_descriptiveCataloguingPreparing(self, *args, **kwargs):
-        return bool(self.context.getAssignedDescriptiveCataloguer())
+        if self.context.getAssignedDescriptiveCataloguer():
+            self.wft.doActionFor(self.context,'submitDescriptiveCataloguingPreparing')
+            return True
+
+        return False
+
+    def nextstep_for_descriptiveCataloguingReviewPreparing(self, *args, **kwargs):
+        if self.context.getAssignedDescriptiveCataloguingReviewer():
+            self.wft.doActionFor(self.context,'submitDescriptiveCataloguingReviewPreparing')
+            return True
+
+        return False
+
+    def nextstep_for_subjectCataloguingReviewPreparing(self, *args, **kwargs):
+        if self.context.getAssignedSubjectCataloguingReviewer():
+            self.wft.doActionFor(self.context,'submitSubjectCataloguingReviewPreparing')
+            return True
+
+        return False
+        
 
     def nextstep_for_subjectCataloguingPreparing(self, *args, **kwargs):
-        return bool(self.context.getAssignedSubjectCataloguer())
+        if self.context.getAssignedSubjectCataloguer():
+            self.wft.doActionFor(self.context,'submitSubjectCataloguingPreparing')
+            return True
+
+        return False
 
     def nextstep_for_descriptiveCataloguing(self,*args,**kwargs):
         aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
