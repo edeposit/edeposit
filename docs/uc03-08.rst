@@ -1,6 +1,6 @@
 .. _uc03-08:
 
-UC03-08 Odebrání přístup k e-publikaci
+UC03-08 Blokování přístupu k e-publikaci
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. raw:: html
