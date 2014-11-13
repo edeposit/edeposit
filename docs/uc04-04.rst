@@ -1,6 +1,6 @@
 .. _uc04-04:
 
-UC04-04 Odebrání přístupu k e-publikaci
+UC04-04 Blokování přístupu k e-publikaci
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. raw:: html

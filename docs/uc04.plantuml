@@ -15,7 +15,7 @@ rectangle  {
 	   :kat: -left-> (UC04-01 Zadání bibliografického popisu)
 	   :nakl: --> (UC04-02 Oprava souboru)
 	   :nakl: --> (UC04-03 Stáhnutí souboru)
-	   :kat: -left-> (UC04-04 Odebrání přístupu k e-publikaci)
+	   :kat: -left-> (UC04-04 Blokování přístupu k e-publikaci)
 	   :kat: -left-> (UC04-05 Odmítnutí e-publikace)
 }
 :kat: -left-> (Aleph: Zadání bibliografického popisu)
