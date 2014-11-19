@@ -1,0 +1,26 @@
+<dl class="portlet portletAuthorsPortlet"
+    i18n:domain="edeposit.content">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span>Autoři</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+        Body text
+    </dd>
+
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span>
+          <ul>
+            <li tal:repeat="author view/authors">
+              <span tal:content="author/fullname">fullname of author</span>
+            </li>
+          </ul>
+        </span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>
