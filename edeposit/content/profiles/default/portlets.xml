@@ -66,17 +66,18 @@
        category="content_type"
        key="edeposit.content.epublication"
        manager="plone.rightcolumn"
-       name="originalfileslinks"
-       type="edeposit.content.portlets.OriginalFilesLinks"
+       name="authorsportlet"
+       type="edeposit.content.portlets.AuthorsPortlet"
        />
 
    <assignment
        category="content_type"
        key="edeposit.content.epublication"
        manager="plone.rightcolumn"
-       name="authorsportlet"
-       type="edeposit.content.portlets.AuthorsPortlet"
+       name="originalfileslinks"
+       type="edeposit.content.portlets.OriginalFilesLinks"
        />
+
 
    <!-- to have your portlet's title and description translated in 
         @@manage-portlets, provide the messageids for the i18n:domain plone

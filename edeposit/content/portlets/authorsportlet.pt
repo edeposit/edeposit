@@ -8,19 +8,17 @@
     </dt>
 
     <dd class="portletItem odd">
-        Body text
+      <ul>
+        <li tal:repeat="author view/authors">
+          <span tal:content="author/fullname">fullname of author</span>
+        </li>
+      </ul>
     </dd>
-
+    
     <dd class="portletFooter">
-        <span class="portletBottomLeft"></span>
-        <span>
-          <ul>
-            <li tal:repeat="author view/authors">
-              <span tal:content="author/fullname">fullname of author</span>
-            </li>
-          </ul>
-        </span>
-        <span class="portletBottomRight"></span>
+      <span class="portletBottomLeft"></span>
+      <span>
+      </span>
+      <span class="portletBottomRight"></span>
     </dd>
-
 </dl>
