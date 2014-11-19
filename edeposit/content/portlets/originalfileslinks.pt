@@ -1,0 +1,27 @@
+<dl class="portlet portletOriginalFilesLinks"
+    i18n:domain="edeposit.content">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span>Detaily originálů</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+      <ul>
+        <li tal:repeat="of view/originalfiles">
+          <a target="_blank" tal:attributes="href of/absolute_url">
+            detail - <span tal:content="of/title">original file</span>
+          </a>
+        </li>
+      </ul>
+    </dd>
+
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span>
+        </span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>

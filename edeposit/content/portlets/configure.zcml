@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.content.portlets.OriginalFilesLinks"
+      interface=".originalfileslinks.IOriginalFilesLinks"
+      assignment=".originalfileslinks.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".originalfileslinks.Renderer"
+      addview=".originalfileslinks.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.content.portlets.TechnicalMetadata"
       interface=".technicalmetadata.ITechnicalMetadata"
       assignment=".technicalmetadata.Assignment"
