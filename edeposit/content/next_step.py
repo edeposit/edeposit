@@ -27,6 +27,9 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         fname="nextstep_for_%s" % (str(review_state),)
         print "... %s" % (fname,)
         fun = getattr(self,fname,None)
+        if fun is None:
+            print "no action for: %s" % (fname, )
+
         wasNextStep = fun and fun(*args,**kwargs)
         return wasNextStep
 
@@ -61,6 +64,35 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
         return True
         
+    def nextstep_for_descriptiveCataloguingPreparing(self, *args, **kwargs):
+        if self.context.getAssignedDescriptiveCataloguer():
+            self.wft.doActionFor(self.context,'submitDescriptiveCataloguingPreparing')
+            return True
+
+        return False
+
+    def nextstep_for_descriptiveCataloguingReviewPreparing(self, *args, **kwargs):
+        if self.context.getAssignedDescriptiveCataloguingReviewer():
+            self.wft.doActionFor(self.context,'submitDescriptiveCataloguingReviewPreparing')
+            return True
+
+        return False
+
+    def nextstep_for_subjectCataloguingReviewPreparing(self, *args, **kwargs):
+        if self.context.getAssignedSubjectCataloguingReviewer():
+            self.wft.doActionFor(self.context,'submitSubjectCataloguingReviewPreparing')
+            return True
+
+        return False
+        
+
+    def nextstep_for_subjectCataloguingPreparing(self, *args, **kwargs):
+        if self.context.getAssignedSubjectCataloguer():
+            self.wft.doActionFor(self.context,'submitSubjectCataloguingPreparing')
+            return True
+
+        return False
+
     def nextstep_for_descriptiveCataloguing(self,*args,**kwargs):
         aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasDescriptiveCataloguingFields:

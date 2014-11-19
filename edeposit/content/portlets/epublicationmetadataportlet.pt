@@ -15,7 +15,7 @@
         <tr><th>Název</th><td tal:content="here/getParentTitle"></td></tr>
         <tr><th>Podnázev</th><td tal:content="here/getPodnazev">Podnazev</td></tr>
         <tr><th>Část</th><td tal:content="here/getCast">Cast</td></tr>
-        <tr><th>Nakladavatel/vydavatel</th><td tal:content="here/getNakladatelVydavatel">Nakladatel/vydavatel</td></tr>
+        <tr><th>Nakl/vyd</th><td tal:content="here/getNakladatelVydavatel">Nakladatel/vydavatel</td></tr>
         <tr><th>ISBN</th><td tal:content="here/isbn"></td></tr>
       </tbody>
     </table>
