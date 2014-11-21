@@ -1,0 +1,36 @@
+<dl class="portlet portletAddEPublication"
+    i18n:domain="edeposit.content">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span>Nápověda</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+      <p><strong>Obecná pole formuláře</strong></p>
+      <p>Pokud jste na pochybách s formátem zápisu některých polí, vycházejte prosím z titulní stránky ohlašované publikace.</p>
+      <p><strong>ISBN</strong></p>
+      <p>Zadejte ISBN, ev.ISBN souboru, nebo vyberte možnost přiřazení agenturou (pokud nejste evidovaný účastním systému ISBN)</p>
+      <p><strong>Vícenásobné ohlášení téhož titulu<br /></strong></p>
+      <p>Po odeslání prvního souboru budete mít možnost formulář zduplikovat, změnit příslušné údaje (např.formát a ISBN) a odeslat jej znovu.</p>
+      <p><a class="external-link" href="http://text.nkp.cz/sluzby/sluzby-pro/isbn-ismn-issn/isbn/isbn-7" target="_blank" title="Přidělování čísel ISBN, jejich evidence a kontrola ">Vice informací</a> o přidělování ISBN.</p>
+      <p><strong>Autor</strong></p>
+      <p>Příjmení a jméno oddělené čárkou</p>
+      <p><strong>Pořadí vydání, verze<br /></strong></p>
+      <p>Podle titulní stránky publikace</p>
+      <p><strong>RIV</strong></p>
+      <p>Zvolte, zda si přejete, aby NK zpřístupnila publikaci k hodnocení pro RIV. Pokud ano, vyberte kategorii.</p>
+      <p><strong>Publikace je veřejná<br /></strong></p>
+      <p>Pokud označíte publikaci jako veřejnou, bude automaticky zpřístupněna veřejnosti.</p>
+      <p><strong>Výběr knihoven kde lze zveřejnit<br /></strong></p>
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Fusce suscipit libero eget elit. Mauris elementum mauris vitae tortor.</p>
+      <p> <span class="st"><em></em></span></p>
+    </dd>
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>

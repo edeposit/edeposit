@@ -3,15 +3,14 @@ from zope.interface import implements
 
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-from plone import api
+
 from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from string import Template
-from edeposit.content import MessageFactory as _
-from functools import partial
 
-class IOriginalFilesLinks(IPortletDataProvider):
+from edeposit.content import MessageFactory as _
+
+class IAddEPublication(IPortletDataProvider):
     """A portlet
 
     It inherits from IPortletDataProvider because for this portlet, the
@@ -27,13 +26,16 @@ class Assignment(base.Assignment):
     with columns.
     """
 
-    implements(IOriginalFilesLinks)
+    implements(IAddEPublication)
     def __init__(self):
         pass
 
     @property
     def title(self):
-        return __(u"OriginalFiles Links")
+        """This property is used to give the title of the portlet in the
+        "manage portlets" screen.
+        """
+        return __(u"Add EPublication")
 
 
 class Renderer(base.Renderer):
@@ -44,24 +46,16 @@ class Renderer(base.Renderer):
     of this class. Other methods can be added and referenced in the template.
     """
 
-    render = ViewPageTemplateFile('originalfileslinks.pt')
+    render = ViewPageTemplateFile('addepublication.pt')
 
     @property
-    def originalfileslinks(self):
-        context = self.context
-        def linkFactory(of, plone_utils=None):
-            type_class = 'contenttype-edeposit.content.originalfile'
-            state_class = 'state-' + plone_utils.normalizeString(api.content.get_state(of))
-            url = of.absolute_url()
-            cls=" ".join([type_class, state_class])
-            result = dict(content=of.title, cls=cls, href=url)
-            return result
+    def available(self):
+        return self.request.URL.endswith('/epublications/add-at-once')
 
-        originalFiles = context.listFolderContents(contentFilter={"portal_type" : "edeposit.content.originalfile"})
-        links = map(partial(linkFactory,plone_utils=api.portal.get_tool('plone_utils')), 
-                    originalFiles)
-        return links
-                                                
+
+# NOTE: If this portlet does not have any configurable parameters, you can
+# inherit from NullAddForm and remove the form_fields variable.
+
 class AddForm(base.AddForm):
     """Portlet add form.
 
@@ -69,9 +63,7 @@ class AddForm(base.AddForm):
     zope.formlib which fields to display. The create() method actually
     constructs the assignment that is being added.
     """
-    form_fields = form.Fields(IOriginalFilesLinks)
+    form_fields = form.Fields(IAddEPublication)
 
     def create(self, data):
         return Assignment(**data)
-
-
