@@ -38,7 +38,7 @@ class IOriginalFile(form.Schema):
 
     file = NamedBlobFile(
         title=_(u"Original File of an ePublication"),
-        required = True,
+        required = False,
         )
 
     generated_isbn = schema.Bool(
@@ -76,16 +76,16 @@ class AddOriginalFileForm(form.SchemaForm):
             raise ActionExecutionError(Invalid(u"Je potřeba vyplnit ISBN, nebo zvolit jeho přiřazení."))
             
         try:
-            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(data['isbn'])
+            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(data['isbn'] or "")
         except:
             print sys.exc_info()
             raise ActionExecutionError(Invalid(u"Objevila se nějaká chyby při volání Aleph služby! (%s)" % (str(sys.exc_info()),)))
 
-        if not valid:
+        if data['isbn'] and not valid:
             raise ActionExecutionError(Invalid(u"ISBN není validní!"))
 
         try:
-            appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(data['isbn'])
+            appearedAtAleph = data['isbn'] and edeposit.amqp.aleph.aleph.getISBNCount(data['isbn'])
         except:
             print sys.exc_info()
             raise ActionExecutionError(Invalid(u"Objevila se nějaká chyby při volání Aleph služby! (%s)" % (str(sys.exc_info()),)))

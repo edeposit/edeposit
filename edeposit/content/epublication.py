@@ -71,50 +71,8 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
-    # puvodni_nazev = schema.TextLine (
-    #     title = u"Originální název",
-    #     description = u"u síťových publikací obsahujících díla přeložená, nebo záznamy převzaté z jinojazyčné pulikace",
-    #     required = False,
-    # )
-    # verze_vydani_pro_preklad = schema.TextLine (
-    #     title = u"Verze vydání ze kterého překlad vychází.",
-    #     required = False,
-    # )
-
-    vazba = schema.TextLine (
-        title = u"Vazba",
-        required = False,
-    )
-    
-    cena = schema.Decimal (
-        title = u'Cena',
-        required = False,
-    )
-
-    isbn_souboru_publikaci = schema.ASCIILine (
-        title = u"ISBN souboru publikací",
-        description = u"pro vícesvazkové publikace, ISBN celého souboru publikací.",
-        required = False,
-    )
-
-    # url = schema.ASCIILine (
-    #     title = u"URL",
-    #     description = u"Adresa, kde je publikace zpřístupněna veřejnosti",
-    #     required = False,
-    # )
-    
-    # datum_pro_copyright = schema.Date (
-    #     title = u"Datum pro copyright",
-    #     description = u"Datum 1. vydání",
-    #     required = False,
-    # )
-
-    # form.fieldset('svazek',
-    #               label= u'Část, díl',
-    #               fields = ['cast','nazev_casti',]
-    # )
     cast = schema.TextLine (
-        title = u"Část, díl",
+        title = u"Část (svazek,díl)",
         required = False,
     )
     
@@ -122,17 +80,13 @@ class IePublication(form.Schema, IImageScaleTraversable):
         title = u"Název části, dílu",
         required = False,
         )
-    
-    nakladatel_vydavatel = schema.TextLine (
-        title = u"Nakladatel/vydavatel",
-        required = True,
-        )
 
-    rok_vydani = schema.Int (
-        title = u"Rok vydání",
-        required = True,
+    isbn_souboru_publikaci = schema.ASCIILine (
+        title = u"ISBN souboru publikací",
+        description = u"pro vícesvazkové publikace, ISBN celého souboru publikací.",
+        required = False,
     )
-    
+
     poradi_vydani = schema.TextLine(
         title = u'Pořadí vydání',
         required = True,
@@ -143,51 +97,55 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = True,
     )
 
+    rok_vydani = schema.Int (
+        title = u"Rok vydání",
+        required = True,
+    )
+
+    nakladatel_vydavatel = schema.TextLine (
+        title = u"Nakladatel/vydavatel",
+        required = True,
+        )
+    
     vydano_v_koedici_s = schema.TextLine(
         title = u'Vydáno v koedici s',
         required = False,
         )
 
-    # form.fieldset('Distribution',
-    #               label=u"Distribuce",
-    #               fields = [ 'distributor',
-    #                          'datum_distribuce',
-    #                          'misto_distribuce',
-    #                      ]
-    #           )
-    # distributor = schema.TextLine (
-    #     title = u"Distributor",
-    #     required = False,
-    # )
-
-    # datum_distribuce = schema.Date (
-    #     title = u"Datum distribuce",
-    #     required = False,
-    #     )
-    
-    # misto_distribuce = schema.TextLine(
-    #     title = u'Místo distribuce',
-    #     required = False,
-    #     )
-
-    # form.fieldset('technical',
-    #               label=_('Technical'),
-    #               fields = [ 'zpracovatel_zaznamu',
-    #                          'aleph_doc_number',
-    #                          ]
-    #               )
-    zpracovatel_zaznamu = schema.TextLine(
-        title = u'Zpracovatel záznamu',
-        required = True,
+    cena = schema.Decimal (
+        title = u'Cena v Kč',
+        required = False,
     )
 
+    form.fieldset('riv',
+                  label=_(u'RIV'),
+                  fields = [
+                      'offer_to_riv',
+                      'category_for_riv',
+                  ])
+    offer_to_riv = schema.Bool(
+        title = u'Zpřístupnit pro RIV',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
 
-    # form.fieldset('accessing',
-    #               label=u'Zpřístupnění',
-    #               fields = ['libraries_that_can_access_at_library_terminal',
-    #                         'libraries_that_can_access_at_public',
-    #                         ])
+    category_for_riv = schema.Choice (
+        title = u"Kategorie pro RIV",
+        description = u"Vyberte ze seznamu kategorií pro RIV.",
+        required = False,
+        readonly = False,
+        default = None,
+        missing_value = None,
+        vocabulary="edeposit.content.categoriesForRIV",
+    )
 
+    form.fieldset('accessing',
+                  label=u'Zpřístupnění',
+                  fields = ['is_public',
+                            'libraries_accessing',
+                            'libraries_that_can_access'
+                            ])
     is_public = schema.Bool(
         title = u'ePublikace je veřejná',
         required = False,
@@ -220,28 +178,84 @@ class IePublication(form.Schema, IImageScaleTraversable):
             source = ObjPathSourceBinder(object_provides=ILibrary.__identifier__),
             )
         )
-    # form.fieldset('riv',
-    #               label=_(u'RIV'),
-    #               fields = [
-    #                   'offer_to_riv',
-    #                   'category_for_riv',
-    #               ])
-    offer_to_riv = schema.Bool(
-        title = u'Zpřístupnit pro RIV',
-        required = False,
-        default = False,
-        missing_value = False,
-        )
 
-    category_for_riv = schema.Choice (
-        title = u"Kategorie pro RIV",
-        description = u"Vyberte ze seznamu kategorií pro RIV.",
+    # puvodni_nazev = schema.TextLine (
+    #     title = u"Originální název",
+    #     description = u"u síťových publikací obsahujících díla přeložená, nebo záznamy převzaté z jinojazyčné pulikace",
+    #     required = False,
+    # )
+    # verze_vydani_pro_preklad = schema.TextLine (
+    #     title = u"Verze vydání ze kterého překlad vychází.",
+    #     required = False,
+    # )
+
+    vazba = schema.TextLine (
+        title = u"Vazba",
         required = False,
-        readonly = False,
-        default = None,
-        missing_value = None,
-        vocabulary="edeposit.content.categoriesForRIV",
+        default = u"online",
     )
+    
+    # url = schema.ASCIILine (
+    #     title = u"URL",
+    #     description = u"Adresa, kde je publikace zpřístupněna veřejnosti",
+    #     required = False,
+    # )
+    
+    # datum_pro_copyright = schema.Date (
+    #     title = u"Datum pro copyright",
+    #     description = u"Datum 1. vydání",
+    #     required = False,
+    # )
+
+    # form.fieldset('svazek',
+    #               label= u'Část, díl',
+    #               fields = ['cast','nazev_casti',]
+    # )
+    
+    # form.fieldset('Distribution',
+    #               label=u"Distribuce",
+    #               fields = [ 'distributor',
+    #                          'datum_distribuce',
+    #                          'misto_distribuce',
+    #                      ]
+    #           )
+    # distributor = schema.TextLine (
+    #     title = u"Distributor",
+    #     required = False,
+    # )
+
+    # datum_distribuce = schema.Date (
+    #     title = u"Datum distribuce",
+    #     required = False,
+    #     )
+    
+    # misto_distribuce = schema.TextLine(
+    #     title = u'Místo distribuce',
+    #     required = False,
+    #     )
+
+    # form.fieldset('technical',
+    #               label=_('Technical'),
+    #               fields = [ 'zpracovatel_zaznamu',
+    #                          'aleph_doc_number',
+    #                          ]
+    #               )
+
+    zpracovatel_zaznamu = schema.TextLine(
+        title = u'Zpracovatel záznamu',
+        required = True,
+    )
+
+@form.default_value(field=IePublication['zpracovatel_zaznamu'])
+def zpracovatelDefaultValue(data):
+    member = api.user.get_current()
+    return member.fullname or member.id
+
+
+@form.default_value(field=IePublication['nakladatel_vydavatel'])
+def nakladatelDefaultValue(data):
+    producent = data.context.aq_parent
+    return producent.title or producent.id
     
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
@@ -279,6 +293,11 @@ class ePublication(Container):
         return originalFiles and not ofWithoutRelatedAlephRecord
 
 class IAuthors(model.Schema):
+    form.fieldset('authors',
+                  label=u'Autoři',
+                  fields = [
+                      'authors',
+                  ])
     authors = zope.schema.List(
         title = u"Autoři",
         required = False,
@@ -300,11 +319,13 @@ from originalfile import OriginalFile
 from epublicationfolder import IePublicationFolder
 
 class EPublicationAddForm(DefaultAddForm):
-    # label = _(u"Registration of a producent")
+    label = u"Ohlášení ePublikace"
     # description = _(u"Please fill informations about user and producent.")
     default_fieldset_label = u"ePublikace"
     portal_type="edeposit.content.epublication"
     grok.context(IePublicationFolder)
+    enable_form_tabbing = False
+    autoGroups = False
 
     @property
     def additionalSchemata(self):
@@ -379,6 +400,10 @@ class EPublicationAddForm(DefaultAddForm):
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.new_object, 'submitDeclaration', comment='handled automatically')
+
+    # @button.buttonAndHandler(u'Ohlásit a další', name='submitAgain')
+    # def handleSubmitAgain(self, action):
+    #     return self.handleAdd(action)
 
     def add(self,object):
         fti = getUtility(IDexterityFTI, name=self.portal_type)
@@ -466,4 +491,298 @@ class OriginalFileFactory(object):
 # You may make this the default view for content objects
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
+
+@grok.provider(IContextSourceBinder)
+def availableLibraries(context):
+    path = '/libraries' #.join(context.getPhysicalPath())
+    query = { "portal_type" : ("edeposit.content.library",),
+              "path": {'query' :path } 
+             }
+    libraries = api.portal.get_tool('portal_catalog')(portal_type='edeposit.content.library')
+    def getTerm(library):
+        title = library.Title.encode('utf-8')
+        return SimpleVocabulary.createTerm(library.id, library.id, title)
+
+    #return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
+    return SimpleVocabulary(map(getTerm, libraries))
+
+class IAddAtOnceForm(form.Schema):
+    nazev = schema.TextLine (
+        title = u"Název ePublikace",
+        required = True,
+        )
+
+    podnazev = schema.TextLine (
+        title = u"Podnázev",
+        required = False,
+        )
+
+    cast = schema.TextLine (
+        title = u"Část (svazek,díl)",
+        required = False,
+    )
+    
+    nazev_casti = schema.TextLine (
+        title = u"Název části, dílu",
+        required = False,
+        )
+    
+    isbn = schema.ASCIILine(
+        title=u"ISBN (pokud je)",
+        required = False,
+        )
+
+    isbn_souboru_publikaci = schema.ASCIILine (
+        title = u"ISBN souboru (pro vícesvazkové dokumenty)",
+        required = False,
+    )
+    
+    generated_isbn = schema.Bool(
+        title = u'Přidělit agenturou ISBN',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
+
+    author1 = schema.TextLine(
+        title=u"Autor (příjmení, křestní jméno)",
+        required = False,
+        )
+    
+    author2 = schema.TextLine(
+        title=u"Autor 2",
+        required = False,
+        )
+    
+    author3 = schema.TextLine(
+        title=u"Autor 3",
+        required = False,
+        )
+
+    poradi_vydani = schema.TextLine(
+        title = u'Pořadí vydání, verze',
+        required = True,
+    )
+
+    misto_vydani = schema.TextLine(
+        title = u'Místo vydání',
+        required = True,
+    )
+
+    rok_vydani = schema.Int (
+        title = u"Rok vydání",
+        required = True,
+    )
+
+    nakladatel_vydavatel = schema.TextLine (
+        title = u"Nakladatel",
+        required = True,
+        )
+    
+    vydano_v_koedici_s = schema.TextLine(
+        title = u'Vydáno v koedici s',
+        required = False,
+        )
+
+    cena = schema.Decimal (
+        title = u'Cena v Kč',
+        required = False,
+    )
+
+    # form.fieldset('riv',
+    #               label=_(u'RIV'),
+    #               fields = [
+    #                   'offer_to_riv',
+    #                   'category_for_riv',
+    #               ])
+    offer_to_riv = schema.Bool(
+        title = u'Zpřístupnit pro RIV',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
+
+    category_for_riv = schema.Choice (
+        title = u"Kategorie pro RIV",
+        description = u"Vyberte ze seznamu kategorií pro RIV.",
+        required = False,
+        readonly = False,
+        default = None,
+        missing_value = None,
+        vocabulary="edeposit.content.categoriesForRIV",
+    )
+
+    # form.fieldset('accessing',
+    #               label=u'Zpřístupnění',
+    #               fields = ['is_public',
+    #                         'libraries_accessing',
+    #                         'libraries_that_can_access'
+    #                         ])
+    is_public = schema.Bool(
+        title = u'ePublikace je veřejná',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
+
+    form.widget(libraries_accessing=z3c.form.browser.radio.RadioFieldWidget)
+    libraries_accessing = schema.Choice (
+        title = u"Oprávnění knihovnám",
+        required = False,
+        readonly = False,
+        default =  u'Vybrané knihovny mají přístup',
+        missing_value =  u'Vybrané knihovny mají přístup',
+        values = [u'Žádná knihovna nemá přístup k ePublikaci',
+                  u'Všechny knihovny mají přístup k ePublikaci',
+                  u'Vybrané knihovny mají přístup'
+              ],
+    )
+
+    libraries_that_can_access = schema.Set(
+        title = _(u'Libraries that can access this ePublication'),
+        required = False,
+        readonly = False,
+        value_type = schema.Choice(source=availableLibraries)
+        )
+    
+    # #form.widget(libraries_that_can_access=AutocompleteMultiFieldWidget)    
+    # libraries_that_can_access = RelationList(
+    #     title = _(u'Libraries that can access this ePublication'),
+    #     required = False,
+    #     readonly = False,
+    #     default = [],
+    #     value_type = RelationChoice(
+    #         title = _(u'Related libraries'),
+    #         source = availableLibraries,
+    #         )
+    #     )
+
+    zpracovatel_zaznamu = schema.TextLine(
+        title = u'Zpracovatel záznamu',
+        required = True,
+    )
+
+    url = schema.ASCIILine (
+        title = u"URL (pokud je ke stažení z internetu)",
+        required = False,
+    )
+
+    file = NamedBlobFile(
+        title=u"Připojit soubor s ePublikací",
+        required = False,
+        )
+    
+    format = schema.Choice(
+        title=_(u"Format of a file."),
+        vocabulary="edeposit.content.fileTypes",
+        required = False,
+        )
+    
+
+@form.default_value(field=IAddAtOnceForm['zpracovatel_zaznamu'])
+def zpracovatelDefaultValue(data):
+    member = api.user.get_current()
+    return member.fullname or member.id
+
+
+@form.default_value(field=IAddAtOnceForm['nakladatel_vydavatel'])
+def nakladatelDefaultValue(data):
+    producent = data.context.aq_parent
+    return producent.title or producent.id
+
+class AddAtOnceForm(form.SchemaForm):
+    grok.name('add-at-once')
+    grok.require('cmf.ModifyPortalContent')
+    grok.context(IePublicationFolder)
+    schema = IAddAtOnceForm
+    ignoreContext = True
+    label = u"Ohlásit ePublikaci"
+    enable_form_tabbing = False
+    autoGroups = False
+
+    def extractData(self):
+        def getErrorView(widget,error):
+            view = zope.component.getMultiAdapter( (error, 
+                                                    self.request, 
+                                                    widget, 
+                                                    widget.field, 
+                                                    widget.form, 
+                                                    self.context), 
+                                                   IErrorViewSnippet)
+            view.update()
+            widget.error = view
+            return view
+
+        data, errors = super(AddAtOnceForm,self).extractData()
+        isbn = data.get('isbn',None)
+        if isbn:
+            isbnWidget = self.widgets.get('isbn',None)
+            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(isbn)
+            if not valid:
+                # validity error
+                print "isbn is not valid"
+                errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'chyba v isbn')),)
+                pass
+            else:
+                try:
+                    appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
+                    if appearedAtAleph:
+                        print "isbn already appeared in Aleph"
+                        # duplicity error
+                        errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
+                except:
+                    print "some exception with edeposit.amqp.aleph.aleph.getISBNCount"
+                    pass
+            pass
+        return (data,errors)
+
+    @button.buttonAndHandler(u"Ohlásit", name='save')
+    def handleAdd(self, action):
+        container = aq_inner(self.context)
+
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        if (not data['isbn'] and not data['generated_isbn']) or \
+           (data['isbn'] and data['generated_isbn']):
+            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura"))
+
+        def someValueAppeared(interface,data):
+            theSameKeys = frozenset(interface.names()).intersection(data.keys())
+            booleans = [ bool(data[key]) for key in theSameKeys]
+            return True in booleans
+            
+        def createContentFromData(interface, portal_type, data, additionalData = {}, exceptKeys = []):
+            theSameKeys = frozenset(interface.names()).intersection(data.keys()) - frozenset(exceptKeys)
+            dataFromTheSameKeys = [(key,data[key]) for key in theSameKeys]
+            dataForFactory = dict(dataFromTheSameKeys + additionalData.items())
+            return createContent(portal_type, **dataForFactory)
+            
+        newEPublication = addContentToContainer( container,
+                                                 createContentFromData(IePublication, 'edeposit.content.epublication', data, 
+                                                                       dict(vazba='online',title=data['nazev']), 
+                                                                       ['libraries_that_can_access',])
+                                                 )
+        newOriginalFile = addContentToContainer( newEPublication,
+                                                 createContentFromData(IOriginalFile, 'edeposit.content.originalfile',data)
+                                                 )
+        wft = api.portal.get_tool('portal_workflow')
+        wft.doActionFor(newOriginalFile, 
+                        (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
+                        or (newOriginalFile.file and 'submitDeclarationToAntivirus')
+                        or 'submitDeclarationToISBNGenerating',
+                        comment='handled automatically')
+
+        authors = [data[key] for key in ['author1','author2','author3'] if data[key]]
+        for author in authors:
+            createContentInContainer(newEPublication, 'edeposit.content.author', fullname=author, title=author)
+
+        fti = getUtility(IDexterityFTI, name=newOriginalFile.portal_type)
+        messages = IStatusMessage(self.request)
+        messages.addStatusMessage(u"Díky za ohlášení!", type="info")
+        returnURL = "/".join([container.absolute_url(), newEPublication.id, newOriginalFile.id, fti.immediate_view])
+        self.request.response.redirect(returnURL)
+
 

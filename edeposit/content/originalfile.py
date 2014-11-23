@@ -49,18 +49,19 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     """
     E-Deposit Original File
     """
-
-    url = schema.ASCIILine(
-        title=_("URL"),
-        constraint=urlCodeIsValid,
-        required = False,
-        )
-
     isbn = schema.ASCIILine(
         title=_("ISBN"),
         description=_(u"Value of ISBN"),
         required = False,
         )
+
+    generated_isbn = schema.Bool(
+        title = _(u'Generate ISBN'),
+        description = _(u'Whether ISBN agency should generate ISBN number.'),
+        required = False,
+        default = False,
+        missing_value = False,
+    )
 
     form.primary('file')
     file = NamedBlobFile(
@@ -74,13 +75,12 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
-    generated_isbn = schema.Bool(
-        title = _(u'Generate ISBN'),
-        description = _(u'Whether ISBN agency should generate ISBN number.'),
+    url = schema.ASCIILine(
+        title=u"URL (pokud je publikace ke stažení z internetu)",
+        constraint=urlCodeIsValid,
         required = False,
-        default = False,
-        missing_value = False,
-    )
+        )
+
 
     related_aleph_record = RelationChoice( title=u"Odpovídající záznam v Alephu",
                                            required = False,

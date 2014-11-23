@@ -53,7 +53,7 @@ class Renderer(base.Renderer):
             type_class = 'contenttype-edeposit.content.originalfile'
             state_class = 'state-' + plone_utils.normalizeString(api.content.get_state(of))
             url = of.absolute_url()
-            cls=" ".join([type_class, state_class])
+            cls=" ".join([type_class, state_class]).replace(".","-")
             result = dict(content=of.title, cls=cls, href=url)
             return result
 
