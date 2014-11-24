@@ -784,7 +784,7 @@ class AddAtOnceForm(form.SchemaForm):
 
         fti = getUtility(IDexterityFTI, name=newOriginalFile.portal_type)
         messages = IStatusMessage(self.request)
-        messages.addStatusMessage(u"Díky za ohlášení!", type="info")
+        messages.addStatusMessage(u"ePublikace byla ohlášena.", type="info")
         returnURL = "/".join([container.absolute_url(), newEPublication.id, newOriginalFile.id, fti.immediate_view])
         self.request.response.redirect(returnURL)
 

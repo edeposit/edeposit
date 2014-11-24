@@ -51,13 +51,11 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     """
     isbn = schema.ASCIILine(
         title=_("ISBN"),
-        description=_(u"Value of ISBN"),
         required = False,
         )
 
     generated_isbn = schema.Bool(
         title = _(u'Generate ISBN'),
-        description = _(u'Whether ISBN agency should generate ISBN number.'),
         required = False,
         default = False,
         missing_value = False,
