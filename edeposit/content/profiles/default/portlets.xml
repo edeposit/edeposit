@@ -60,7 +60,6 @@
        category="content_type"
        key="edeposit.content.epublicationfolder"
        manager="plone.rightcolumn"
-       name="authorsportlet"
        type="edeposit.content.portlets.AddEPublication"
        />
 
