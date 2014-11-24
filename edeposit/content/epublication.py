@@ -765,8 +765,11 @@ class AddAtOnceForm(form.SchemaForm):
                                                                        dict(vazba='online',title=data['nazev']), 
                                                                        ['libraries_that_can_access',])
                                                  )
+        originalFileTitle = "%s (%s)" % (data['nazev'], data['file'] and data['file'].filename or "")
         newOriginalFile = addContentToContainer( newEPublication,
-                                                 createContentFromData(IOriginalFile, 'edeposit.content.originalfile',data)
+                                                 createContentFromData(IOriginalFile, 'edeposit.content.originalfile', data,
+                                                                       dict(title=originalFileTitle),
+                                                                       )
                                                  )
         wft = api.portal.get_tool('portal_workflow')
         wft.doActionFor(newOriginalFile, 
