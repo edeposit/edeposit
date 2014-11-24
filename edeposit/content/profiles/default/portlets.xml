@@ -41,6 +41,13 @@
       category="content_type"
       key="edeposit.content.epublicationfolder"
       />
+
+  <assignment
+      purge="True"
+      manager="plone.rightcolumn"
+      category="content_type"
+      key="edeposit.content.epublicationfolder"
+      />
   
   <!-- -*- extra stuff goes here -*- -->
 
