@@ -33,7 +33,7 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        return __(u"OriginalFiles Links")
+        return _(u"OriginalFiles Links")
 
 
 class Renderer(base.Renderer):

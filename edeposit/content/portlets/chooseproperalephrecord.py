@@ -83,7 +83,7 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        return __(u"Choose proper aleph record")
+        return _(u"Choose proper aleph record")
 
 
 class Renderer(base.Renderer):

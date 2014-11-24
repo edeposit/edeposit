@@ -136,7 +136,7 @@ class Assignment(base.Assignment):
         """This property is used to give the title of the portlet in the
         "manage portlets" screen.
         """
-        return __(u"Add OriginalFile")
+        return _(u"Add OriginalFile")
 
 
 class Renderer(base.Renderer):

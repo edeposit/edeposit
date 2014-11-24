@@ -35,7 +35,7 @@ class Assignment(base.Assignment):
         """This property is used to give the title of the portlet in the
         "manage portlets" screen.
         """
-        return __(u"Add EPublication")
+        return _(u"Add EPublication")
 
 
 class Renderer(base.Renderer):

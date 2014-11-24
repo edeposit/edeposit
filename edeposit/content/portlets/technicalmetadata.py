@@ -32,7 +32,7 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        return __(u"Technical Metadata")
+        return _(u"Technical Metadata")
 
 
 class Renderer(base.Renderer):
