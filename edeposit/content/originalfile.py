@@ -220,6 +220,11 @@ class ThumbnailView(grok.View):
 
 import plone.namedfile
 
+class folder_full_view_item(grok.View):
+    grok.context(IOriginalFile)
+    grok.require('zope2.View')
+    grok.name('folder_full_view_item')
+    
 class Download(plone.namedfile.browser.Download):
     pass
 
