@@ -9,6 +9,7 @@ from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from edeposit.content import MessageFactory as _
+from Acquisition import aq_inner, aq_parent
 
 class IePublicationMetadataPortlet(IPortletDataProvider):
     """A portlet
@@ -48,6 +49,9 @@ class Renderer(base.Renderer):
 
     render = ViewPageTemplateFile('epublicationmetadataportlet.pt')
 
+    @property
+    def metadata(self):
+        return aq_parent(aq_inner(self.context))
 
 # NOTE: If this portlet does not have any configurable parameters, you can
 # inherit from NullAddForm and remove the form_fields variable.

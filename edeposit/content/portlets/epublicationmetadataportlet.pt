@@ -3,9 +3,7 @@
 
   <dt class="portletHeader">
     <span class="portletTopLeft"></span>
-    <span>
-      Popisná metadata
-    </span>
+    <span>Popisná metadata</span>
     <span class="portletTopRight"></span>
   </dt>
   
@@ -19,5 +17,6 @@
         <tr><th>ISBN</th><td tal:content="here/isbn"></td></tr>
       </tbody>
     </table>
-    </dd><dd class="portletFooter"></dd>
+    </dd>
+    <dd class="portletFooter"> <a href="" tal:attributes="href view/metadata/absolute_url">více ...</a></dd>
 </dl>

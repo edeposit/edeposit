@@ -126,9 +126,25 @@
 
    <assignment
        category="content_type"
+       key="edeposit.content.originalfile"
+       manager="plone.rightcolumn"
+       name="originalfileslinksatoriginalfile"
+       type="edeposit.content.portlets.OriginalFilesLinks"
+       />
+
+   <assignment
+       category="content_type"
        key="edeposit.content.epublication"
        manager="plone.rightcolumn"
        name="add-originalfile"
+       type="edeposit.content.portlets.AddOriginalFile"
+       />
+
+   <assignment
+       category="content_type"
+       key="edeposit.content.originalfile"
+       manager="plone.rightcolumn"
+       name="add-originalfile-for-epublication"
        type="edeposit.content.portlets.AddOriginalFile"
        />
 

@@ -10,6 +10,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from string import Template
 from edeposit.content import MessageFactory as _
 from functools import partial
+from Acquisition import aq_parent, aq_inner
 
 class IOriginalFilesLinks(IPortletDataProvider):
     """A portlet
@@ -48,7 +49,7 @@ class Renderer(base.Renderer):
 
     @property
     def originalfileslinks(self):
-        context = self.context
+        context = self.context.portal_type == 'edeposit.content.originalfile' and aq_parent(aq_inner(self.context)) or self.context
         def linkFactory(of, plone_utils=None):
             type_class = 'contenttype-edeposit.content.originalfile'
             state_class = 'state-' + plone_utils.normalizeString(api.content.get_state(of))

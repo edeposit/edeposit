@@ -93,17 +93,17 @@ class AddOriginalFileForm(form.SchemaForm):
         if appearedAtAleph:
             raise ActionExecutionError(Invalid(u"ISBN už v Alephu existuje!"))
 
-        newOriginalFile = createContentInContainer(self.context,
-                                                   'edeposit.content.originalfile',
-                                                   **data)
+        context = self.context.portal_type == 'edeposit.content.originalfile' and  aq_parent(aq_inner(self.context)) or self.context
+        newOriginalFile = createContentInContainer(context, 'edeposit.content.originalfile', **data)
         wft = api.portal.get_tool('portal_workflow')
         wft.doActionFor(newOriginalFile, 
                         (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
                         or (newOriginalFile.file and 'submitDeclarationToAntivirus')
                             or 'submitDeclarationToISBNGenerating',
                         comment='handled automatically')
-        modified(self.context)
+        modified(context)
         self.status = u"Hotovo!"
+        self.request.response.redirect(newOriginalFile.absolute_url())
     pass
 
 class PortletFormView(FormWrapper):
