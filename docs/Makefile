@@ -14,7 +14,7 @@ ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 # the i18n builder cannot share the environment and doctrees with the others
 I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 
-PNGS = uc01.png uc02.png uc03.png uc04.png uc05.png uc06.png uc07.png uc08.png uc15.png pm01.png pm02.png pm03.png pm04.png pm05.png pm06.png processmodels.png pm07.png dm01.png dm02.png dm03.png architecture.png uc12.png uc13.png wf01.png wf02.png wf04.png dm04.png wf03.png middleware/dm01.png middleware/seq01.png middleware/dm00.png middleware/dm02.png middleware/component01.png uc14.png middleware/seq02.png middleware/dm03.png middleware/dm04.png
+PNGS = uc01.png uc02.png uc03.png uc04.png uc04.svg uc05.png uc06.png uc07.png uc08.png uc15.png pm01.png pm02.png pm03.png pm04.png pm05.png pm06.png processmodels.png pm07.png pm08.png dm01.png dm02.png dm03.png architecture.png uc12.png uc13.png wf01.png wf02.png wf04.png dm04.png wf03.png wf03.svg middleware/dm01.png middleware/seq01.png middleware/dm00.png middleware/dm02.png middleware/component01.png uc14.png middleware/seq02.png middleware/dm03.png middleware/dm04.png
 
 .PHONY: help clean html dirhtml singlehtml pickle json htmlhelp qthelp devhelp epub latex latexpdf text man changes linkcheck doctest gettext
 
@@ -172,6 +172,9 @@ uc03.png: uc03.plantuml
 uc04.png: uc04.plantuml
 	java -jar ~/lib/plantuml.jar $?
 
+uc04.svg: uc04.plantuml
+	java -jar ~/lib/plantuml.jar -tsvg $?
+
 uc05.png: uc05.plantuml
 	java -jar ~/lib/plantuml.jar $?
 
@@ -211,6 +214,9 @@ pm06.png: pm06.plantuml
 pm07.png: pm07.plantuml
 	java -jar ~/lib/plantuml.jar $?
 
+pm08.png: pm08.plantuml
+	java -jar ~/lib/plantuml.jar $?
+
 dm01.png: dm01.plantuml
 	java -jar ~/lib/plantuml.jar $?
 
@@ -240,6 +246,9 @@ wf02.png: wf02.plantuml
 
 wf03.png: wf03.plantuml
 	java -jar ~/lib/plantuml.jar $?
+
+wf03.svg: wf03.plantuml
+	java -jar ~/lib/plantuml.jar -tsvg $?
 
 wf04.png: wf04.plantuml
 	java -jar ~/lib/plantuml.jar $?

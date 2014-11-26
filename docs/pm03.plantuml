@@ -21,7 +21,6 @@ title Akvizice e-publikace
 "UC03-05 Kontrola ISBN v souboru" --> === ACCEPT_E ===
 "UC03-11 Oprava metadat" --> === ACCEPT_E ===
 === ACCEPT_E === --> (*)
-"UC03-09 Odmítnutí e-publikace" --> (*)
 note right
      E-publikace je pripravena na katalogizaci
 end note

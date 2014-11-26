@@ -21,13 +21,20 @@ class RabbitMQ(object):
         self.client = Client('localhost:15672', 'guest', 'guest')
 
     def declare_queue(self, vhost, queue_name, durable=False):
-        self.channels[vhost].queue_declare(queue=queue_name, durable=durable)        
+        self.channels[vhost].queue_declare(queue=queue_name, durable=durable)
 
     def delete_queue(self, vhost, queue_name):
         self.channels[vhost].queue_delete(queue=queue_name)
         
     def declare_queue_binding(self, vhost, exchange_name,  queue_name,  routing_key):
-        self.channels[vhost].queue_bind( 
+        self.channels[vhost].queue_bind(
+            exchange = str(exchange_name),
+            queue = str(queue_name),
+            routing_key = str(routing_key)
+        )
+
+    def remove_queue_binding(self, vhost, exchange_name,  queue_name,  routing_key):
+        self.channels[vhost].queue_unbind(
             exchange = str(exchange_name),
             queue = str(queue_name),
             routing_key = str(routing_key)
@@ -54,8 +61,8 @@ class RabbitMQ(object):
         for record in response['records']:
             record['epublication']['ISBN'] = [isbn,]
 
-        self.channels['aleph'].basic_publish(exchange='search',      
-                                             routing_key='result',  
+        self.channels['aleph'].basic_publish(exchange='search',
+                                             routing_key='result',
                                              body=json.dumps(response),
                                              properties = pika.BasicProperties(content_type='application/json',
                                                                                delivery_mode=2,
@@ -190,7 +197,6 @@ ExportRejectedException: Export request was rejected by import webform: Error - 
         pass
 
     def get_amqp_connections(self):
-        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
         conn=self.client.get_connections()[0]
         conn['vhost']
         self.client.get_connections()

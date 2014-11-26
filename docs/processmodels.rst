@@ -12,6 +12,7 @@ Modely procesů
    pm05
    pm06
    pm07
+   pm08
 
 .. image:: processmodels.png
 

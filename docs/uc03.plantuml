@@ -22,7 +22,7 @@ rectangle  {
 	   :isbn: -left-> (UC03-05 Kontrola ISBN v souboru)
 	   :nakl: --> (UC03-06 Oprava souboru)
 	   :nakl: --> (UC03-07 Stáhnutí souboru)
-	   :akv: --> (UC03-08 Odebrání přístupu k e-publikaci)
+	   :akv: --> (UC03-08 Blokování přístupu k e-publikaci)
 	   :akv: --> (UC03-09 Odmítnutí e-publikace)
 	   :akv: --> (UC03-10 Odstranění duplicity)
 	   :akv: --> (UC03-11 Oprava metadat)

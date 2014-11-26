@@ -31,11 +31,8 @@ exportToAleph ---> acquisitionPreparing : << system >> \n Export to Aleph OK
 exportToAleph --> declarationWithError : << system >> \n Export to Aleph Error
 
 acquisitionPreparing ---> acquisition : << správce akvizice >> \n Potvrdit přidělení
-acquisition ---> declarationWithError : << isbn agentura >> \n Vrátit k opravě
 acquisition ---> declarationWithError : << akvizice >> \n Vrátit k opravě
-acquisition ---> acquisition : << isbn agentura >> \n ISBN je správně
-acquisition ---> acquisition : << akvizice >> \n Metadata jsou správně
-acquisition ---> catalogizationPreparing : << isbn agentura >> \n << akvizice >> (akvizice i ISBN je OK) \n Potvrdit a ke katalogizaci
+acquisition ---> catalogizationPreparing : << akvizice >> \n Potvrdit a ke katalogizaci
 acquisition ---> declarationWithError : << producent >> \n Vrátit k opravě
 acquisition ---> withdrawn : << akvizice >> \n Stáhnout z oběhu
 

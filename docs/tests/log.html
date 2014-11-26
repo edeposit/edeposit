@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 2.8.4 (Python 2.7.4 on linux2)" name="Generator">
+<meta content="Robot Framework 2.8.3 (Python 2.7.5+ on linux2)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -338,7 +338,7 @@ a:link, a:visited {
 .details, .statistics {
     width: 100%;
 }
-#generated-ago, #top-right-header, #normal-selector, #search-buttons,
+#generated-ago, #top-right-header, #normal-selector,
 .folding-button, .expand, .hidden, .details-col-toggle {
     display: none;
 }
@@ -699,17 +699,6 @@ window.model = (function () {
                 tests = tests.concat(suites[i].searchTests(predicate));
             return tests.concat(util.filter(this.tests(), predicate));
         };
-        suite.searchTestsInSuite = function (pattern, matcher) {
-            if (!matcher)
-                matcher = util.Matcher(pattern);
-            if (matcher.matchesAny([suite.fullName, suite.name]))
-                return suite.allTests();
-            var tests = [];
-            var suites = this.suites();
-            for (var i in suites)
-                tests = tests.concat(suites[i].searchTestsInSuite(pattern, matcher));
-            return tests;
-        }
         suite.searchTestsByTag = function (tag) {
             return suite.searchTests(function (test) {
                 if (tag.combined)
@@ -737,27 +726,23 @@ window.model = (function () {
         return util.contains(testTags, util.normalize(tagname));
     }
     function containsTagPattern(testTags, pattern) {
-        var patterns;
         if (pattern.indexOf('NOT') != -1) {
-            patterns = pattern.split('NOT');
-            return containsTagPattern(testTags, patterns[0]) &&
-                util.all(util.map(patterns.slice(1), function (p) {
-                    return !containsTagPattern(testTags, p);
+            var tagnames = pattern.split('NOT');
+            var required = tagnames[0];
+            var notAllowed = tagnames.slice(1);
+            return containsTagPattern(testTags, required) &&
+                util.all(util.map(notAllowed, function (name) {
+                    return !containsTagPattern(testTags, name);
                 }));
         }
-        if (pattern.indexOf('OR') != -1) {
-            patterns = pattern.split('OR');
-            return util.any(util.map(patterns, function (p) {
-                return containsTagPattern(testTags, p);
-            }));
-        }
         if (pattern.indexOf('AND') != -1) {
-            patterns = pattern.split('AND');
-            return util.all(util.map(patterns, function (p) {
-                return containsTagPattern(testTags, p);
+            var tagnames = pattern.split('AND');
+            return util.all(util.map(tagnames, function (name) {
+                return containsTagPattern(testTags, name);
             }));
         }
-        return util.Matcher(pattern).matchesAny(testTags);
+        testTags = util.map(testTags, util.normalize);
+        return util.any(util.map(testTags, util.Matcher(pattern).matches));
     }
     function findSuiteByName(suite, name) {
         if (suite.fullName == name)
@@ -800,12 +785,6 @@ window.model = (function () {
         test.isCritical = data.isCritical;
         test.tags = data.tags;
         test.message = data.message;
-        test.matchesTagPattern = function (pattern) {
-            return containsTagPattern(test.tags, pattern);
-        };
-        test.matchesNamePattern = function (pattern) {
-            return util.Matcher(pattern).matchesAny([test.name, test.fullName]);
-        };
         return test;
     }
     function Keyword(data) {
@@ -995,9 +974,6 @@ window.util = function () {
     function unescape(string) {
         return string.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
     }
-    function escape(string) {
-        return string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
     function normalize(string) {
         return string.toLowerCase().replace(/ /g, '').replace(/_/g, '');
     }
@@ -1008,18 +984,9 @@ window.util = function () {
         pattern = regexpEscape(normalize(pattern));
         var rePattern = '^' + pattern.replace(/\\\?/g, ".").replace(/\\\*/g, ".*") + '$';
         var regexp = new RegExp(rePattern);
-        function matches(string) {
-            return regexp.test(normalize(string));
-        }
         return {
-            matches: matches,
-            matchesAny: function (strings) {
-                for (var i = 0, len = strings.length; i < len; i++)
-                    if (matches(strings[i]))
-                        return true;
-                return false;
-            }
-        };
+            matches: function (string) { return regexp.test(string); }
+        }
     }
     function formatParentName(item) {
         var parentName = item.fullName.slice(0, item.fullName.length - item.name.length);
@@ -1072,8 +1039,8 @@ window.util = function () {
     function createGeneratedAgoString(generatedMillis) {
         generatedMillis = timestamp(generatedMillis);
         function timeString(time, shortUnit) {
-            var unit = {y: 'year', d: 'day', h: 'hour', m: 'minute',
-                        s: 'second'}[shortUnit];
+            var unit = {'y': 'year', 'd': 'day', 'h': 'hour',
+                        'm': 'minute', 's': 'second'}[shortUnit];
             var end = time == 1 ? ' ' : 's ';
             return time + ' ' + unit + end;
         }
@@ -1084,43 +1051,29 @@ window.util = function () {
         var generated = Math.round(generatedMillis / 1000);
         var current = Math.round(new Date().getTime() / 1000);
         var elapsed = current - generated;
-        var prefix = '';
         if (elapsed < 0) {
-            prefix = '- ';
             elapsed = Math.abs(elapsed);
+            prefix = '- ';
+        } else {
+            prefix = '';
         }
         var secs  = elapsed % 60;
         var mins  = Math.floor(elapsed / 60) % 60;
         var hours = Math.floor(elapsed / (60*60)) % 24;
         var days  = Math.floor(elapsed / (60*60*24)) % 365;
         var years = Math.floor(elapsed / (60*60*24*365));
-        if (years) {
+        if (years > 0) {
             days = compensateLeapYears(days, years);
             return prefix + timeString(years, 'y') + timeString(days, 'd');
-        } else if (days) {
+        } else if (days > 0) {
             return prefix + timeString(days, 'd') + timeString(hours, 'h');
-        } else if (hours) {
+        } else if (hours > 0) {
             return prefix + timeString(hours, 'h') + timeString(mins, 'm');
-        } else if (mins) {
+        } else if (mins > 0) {
             return prefix + timeString(mins, 'm') + timeString(secs, 's');
         } else {
             return prefix + timeString(secs, 's');
         }
-    }
-    function parseQueryString(query) {
-        var result = {};
-        if (!query)
-            return result;
-        var params = query.split('&');
-        var parts;
-        function decode(item) {
-            return decodeURIComponent(item.replace('+', ' '));
-        }
-        for (var i = 0, len = params.length; i < len; i++) {
-            parts = params[i].split('=');
-            result[decode(parts.shift())] = decode(parts.join('='));
-        }
-        return result;
     }
     return {
         map: map,
@@ -1129,7 +1082,6 @@ window.util = function () {
         any: any,
         contains: contains,
         last: last,
-        escape: escape,
         unescape: unescape,
         normalize: normalize,
         Matcher: Matcher,
@@ -1139,8 +1091,7 @@ window.util = function () {
         dateTimeFromDate: dateTimeFromDate,
         formatElapsed: formatElapsed,
         timestamp: timestamp,
-        createGeneratedAgoString: createGeneratedAgoString,
-        parseQueryString: parseQueryString
+        createGeneratedAgoString: createGeneratedAgoString
     };
 }();
 </script>
@@ -1578,28 +1529,28 @@ function stopPropagation(event) {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[0,0,291076],[],[[4,0,1,0,[],[0,537,290526,5],[[1,6,0,0,0,[1,562,10165],[[0,7,0,8,9,[1,564,4518],[],[[564,2,10]]],[0,11,0,12,0,[1,5083,1783],[[0,13,0,14,15,[1,5084,1781],[[0,16,0,17,18,[1,5086,519],[],[[5086,2,19]]],[0,20,0,21,22,[1,5605,58],[],[[5662,2,23]]],[0,20,0,21,24,[1,5663,6],[],[[5669,2,25]]],[0,20,0,21,26,[1,5670,20],[],[[5688,2,27]]],[0,28,0,29,30,[1,5693,174],[[0,31,0,32,0,[1,5695,0],[],[[5696,2,33]]],[0,34,0,35,0,[1,5696,0],[],[[5696,2,36]]],[0,37,0,38,39,[1,5696,171],[[0,40,0,41,42,[1,5697,170],[[0,43,0,44,45,[1,5698,25],[],[]],[0,46,0,47,42,[1,5724,110],[],[[5725,2,48]]],[0,49,0,50,45,[1,5835,29],[],[[5864,2,51]]],[0,52,0,53,54,[1,5865,1],[],[[5866,2,55]]]],[]]],[]]],[]],[0,28,0,29,56,[1,5868,301],[[0,31,0,32,0,[1,5870,2],[],[[5873,2,33]]],[0,34,0,35,0,[1,5876,3],[],[[5879,2,36]]],[0,37,0,38,39,[1,5880,289],[[0,40,0,57,42,[1,5881,288],[[0,43,0,44,45,[1,5884,146],[],[]],[0,46,0,47,42,[1,6031,104],[],[[6031,2,58]]],[0,49,0,50,45,[1,6136,32],[],[[6168,2,59]]],[0,52,0,53,54,[1,6168,1],[],[[6169,2,55]]]],[]]],[]]],[]],[0,60,0,61,26,[1,6170,695],[],[[6171,2,62]]]],[]]],[]],[0,16,0,17,63,[1,6866,677],[],[[6867,2,64]]],[0,65,0,0,0,[1,7544,234],[[0,66,0,0,67,[1,7548,229],[[0,68,0,69,70,[1,7558,46],[],[[7559,2,71]]],[0,72,0,73,74,[1,7607,25],[],[[7611,2,75]]],[0,76,0,77,78,[1,7632,112],[],[[7633,2,79]]],[0,37,0,38,80,[1,7745,32],[[0,68,0,69,74,[1,7745,32],[],[[7746,2,81]]]],[]]],[]]],[]],[0,82,0,83,84,[1,7779,415],[],[[7779,2,85]]],[0,86,0,87,88,[1,8195,861],[],[]],[0,16,0,17,89,[1,9056,532],[],[[9057,2,90]]],[0,46,0,47,91,[1,9589,97],[],[[9590,2,92]]],[0,46,0,47,93,[1,9687,107],[],[[9688,2,94]]],[0,82,0,83,95,[1,9794,503],[],[[9795,2,96]]],[0,97,0,0,0,[1,10298,428],[[0,16,0,17,98,[1,10301,401],[],[[10303,2,99]]],[0,20,0,21,100,[1,10702,24],[],[[10725,2,101]]]],[]]],[]],[0,102,0,0,0,[1,10732,3710],[[0,11,0,12,0,[1,10737,1281],[[0,13,0,103,15,[1,10740,1277],[[0,16,0,17,18,[1,10742,377],[],[[10743,2,19]]],[0,20,0,21,22,[1,11120,6],[],[[11126,2,23]]],[0,20,0,21,24,[1,11127,5],[],[[11132,2,25]]],[0,20,0,21,26,[1,11133,11],[],[[11144,2,27]]],[0,28,0,29,30,[1,11145,113],[[0,31,0,32,0,[1,11147,0],[],[[11147,2,33]]],[0,34,0,35,0,[1,11147,0],[],[[11147,2,36]]],[0,37,0,38,39,[1,11148,110],[[0,40,0,41,42,[1,11148,110],[[0,43,0,44,45,[1,11149,22],[],[]],[0,46,0,47,42,[1,11172,65],[],[[11172,2,48]]],[0,49,0,50,45,[1,11238,18],[],[[11256,2,51]]],[0,52,0,53,54,[1,11257,0],[],[[11257,2,55]]]],[]]],[]]],[]],[0,28,0,29,56,[1,11259,140],[[0,31,0,32,0,[1,11260,1],[],[[11261,2,33]]],[0,34,0,35,0,[1,11262,2],[],[[11264,2,36]]],[0,37,0,38,39,[1,11265,134],[[0,40,0,57,42,[1,11266,132],[[0,43,0,44,45,[1,11270,43],[],[]],[0,46,0,47,42,[1,11315,60],[],[[11316,2,58]]],[0,49,0,50,45,[1,11375,21],[],[[11396,2,59]]],[0,52,0,53,54,[1,11397,1],[],[[11398,2,55]]]],[]]],[]]],[]],[0,60,0,61,26,[1,11399,617],[],[[11400,2,62]]]],[]]],[]],[0,16,0,17,104,[1,12018,638],[],[[12019,2,105]]],[0,106,0,0,107,[1,12657,605],[[0,60,0,61,108,[1,12658,226],[],[[12659,2,109]]],[0,37,0,38,110,[1,12885,340],[[0,20,0,21,111,[1,12889,335],[],[[13224,2,112]]]],[]],[0,68,0,69,111,[1,13225,37],[],[[13226,2,113]]]],[]],[0,46,0,47,114,[1,13263,175],[],[[13263,2,115]]],[0,46,0,47,116,[1,13439,155],[],[[13440,2,117]]],[0,46,0,47,118,[1,13595,202],[],[[13595,2,119]]],[0,46,0,47,120,[1,13802,143],[],[[13804,2,121]]],[0,46,0,47,122,[1,13946,83],[],[[13947,2,123]]],[0,124,0,125,126,[1,14030,150],[],[[14030,2,127]]],[0,60,0,61,128,[1,14181,221],[],[[14183,2,129]]],[0,130,0,131,132,[1,14406,36],[],[[14442,2,133]]]],[]],[0,97,0,0,0,[1,14443,516],[[0,16,0,17,98,[1,14445,506],[],[[14446,2,99]]],[0,20,0,21,100,[1,14952,6],[],[[14958,2,101]]]],[]],[0,13,0,14,134,[1,14959,1577],[[0,16,0,17,18,[1,14961,459],[],[[14962,2,19]]],[0,20,0,21,22,[1,15422,19],[],[[15441,2,23]]],[0,20,0,21,24,[1,15442,15],[],[[15456,2,25]]],[0,20,0,21,26,[1,15458,15],[],[[15473,2,27]]],[0,28,0,29,30,[1,15474,137],[[0,31,0,32,0,[1,15476,1],[],[[15477,2,33]]],[0,34,0,35,0,[1,15477,0],[],[[15478,2,36]]],[0,37,0,38,39,[1,15478,133],[[0,40,0,41,42,[1,15479,131],[[0,43,0,44,45,[1,15484,21],[],[]],[0,46,0,47,42,[1,15506,81],[],[[15506,2,135]]],[0,49,0,50,45,[1,15589,20],[],[[15609,2,136]]],[0,52,0,53,54,[1,15610,0],[],[[15610,2,55]]]],[]]],[]]],[]],[0,28,0,29,56,[1,15611,148],[[0,31,0,32,0,[1,15613,2],[],[[15616,2,33]]],[0,34,0,35,0,[1,15617,1],[],[[15619,2,36]]],[0,37,0,38,39,[1,15620,139],[[0,40,0,57,42,[1,15623,135],[[0,43,0,44,45,[1,15624,30],[],[]],[0,46,0,47,42,[1,15654,85],[],[[15655,2,137]]],[0,49,0,50,45,[1,15740,16],[],[[15756,2,138]]],[0,52,0,53,54,[1,15757,1],[],[[15758,2,55]]]],[]]],[]]],[]],[0,60,0,61,26,[1,15759,776],[],[[15759,2,62]]]],[]],[0,139,0,0,0,[0,16536,274462],[[0,140,0,141,0,[1,16539,273746],[[0,142,0,143,144,[1,16540,1],[],[]],[0,145,0,146,0,[1,16541,273741],[],[]]],[]],[0,20,0,21,147,[0,290288,710],[[0,148,0,149,0,[1,290844,152],[],[[290996,2,150]]]],[[290842,2,151],[290997,4,5]]]],[]],[2,152,0,153,0,[1,290999,64],[],[]]]]],[],[1,0,1,0]];
+window.output["suite"] = [1,2,3,0,[],[0,0,72608],[],[[4,0,1,0,[],[0,290,72317,5],[[1,6,0,7,8,[1,291,4302],[],[[291,2,9]]],[0,10,0,0,0,[1,4594,567],[[0,11,0,0,12,[1,4595,284],[],[[4879,2,13]]],[0,14,0,0,15,[1,4880,15],[],[]],[0,16,0,0,17,[1,4896,14],[],[]],[0,16,0,0,18,[1,4911,14],[],[]],[0,16,0,0,19,[1,4926,14],[],[]],[0,16,0,0,20,[1,4941,14],[],[]],[0,21,0,0,22,[1,4956,47],[],[]],[0,21,0,0,23,[1,5004,19],[],[]],[0,21,0,0,24,[1,5024,19],[],[]],[0,21,0,0,25,[1,5044,19],[],[]],[0,14,0,0,26,[1,5064,15],[],[]],[0,16,0,0,27,[1,5079,14],[],[]],[0,21,0,0,28,[1,5095,16],[],[]],[0,14,0,0,29,[1,5112,14],[],[]],[0,16,0,0,30,[1,5127,15],[],[]],[0,21,0,0,31,[1,5143,17],[],[]]],[]],[0,32,0,0,0,[1,5162,40409],[[0,33,0,34,0,[1,5164,40406],[],[]]],[]],[0,35,0,36,37,[1,45572,6583],[[0,38,0,39,40,[1,45575,2287],[],[[45575,2,41]]],[0,42,0,43,44,[1,47863,48],[],[[47910,2,45]]],[0,42,0,43,46,[1,47911,26],[],[[47936,2,47]]],[0,42,0,43,48,[1,47937,7],[],[[47944,2,49]]],[0,50,0,51,52,[1,47946,162],[[0,53,0,54,0,[1,47949,1],[],[[47950,2,55]]],[0,56,0,57,0,[1,47950,1],[],[[47951,2,58]]],[0,59,0,60,61,[1,47952,155],[[0,62,0,63,64,[1,47954,153],[[0,65,0,66,67,[1,47957,38],[],[]],[0,68,0,69,64,[1,47996,76],[],[[47997,2,70]]],[0,71,0,72,67,[1,48073,32],[],[[48105,2,73]]],[0,74,0,75,76,[1,48106,1],[],[[48107,2,77]]]],[]]],[]]],[]],[0,50,0,51,78,[1,48109,291],[[0,53,0,54,0,[1,48112,1],[],[[48113,2,55]]],[0,56,0,57,0,[1,48114,0],[],[[48114,2,58]]],[0,59,0,60,61,[1,48115,284],[[0,62,0,79,64,[1,48116,283],[[0,65,0,66,67,[1,48118,169],[],[]],[0,68,0,69,64,[1,48288,70],[],[[48288,2,80]]],[0,71,0,72,67,[1,48358,39],[],[[48397,2,81]]],[0,74,0,75,76,[1,48398,1],[],[[48399,2,77]]]],[]]],[]]],[]],[0,82,0,83,48,[1,48400,3754],[],[[48401,2,84]]]],[]],[0,85,0,86,87,[1,52156,2036],[],[[52156,2,88]]],[0,89,0,90,91,[1,54192,12],[],[]],[0,92,0,0,0,[1,54205,260],[[0,68,0,69,93,[1,54206,97],[],[[54206,2,94]]],[0,68,0,69,95,[1,54303,78],[],[[54304,2,96]]],[0,97,0,98,99,[1,54381,17],[],[[54398,2,100]]],[0,101,0,102,103,[1,54398,15],[],[[54413,2,104]]],[0,101,0,102,105,[1,54414,11],[],[[54425,2,106]]],[0,68,0,69,107,[1,54426,39],[],[[54427,2,108]]]],[]],[0,109,0,0,0,[1,54465,278],[[0,68,0,69,110,[1,54466,59],[],[[54466,2,111]]],[0,68,0,69,112,[1,54525,48],[],[[54525,2,113]]],[0,68,0,69,114,[1,54574,57],[],[[54574,2,115]]],[0,68,0,69,116,[1,54631,58],[],[[54632,2,117]]],[0,68,0,69,118,[1,54689,54],[],[[54690,2,119]]]],[]],[0,120,0,0,121,[1,54743,62],[[0,68,0,69,122,[1,54744,60],[],[[54745,2,123]]]],[]],[0,124,0,0,125,[1,54805,214],[[0,68,0,69,126,[1,54806,101],[],[[54807,2,127]]],[0,68,0,69,128,[1,54908,83],[],[[54909,2,129]]],[0,130,0,131,132,[1,54991,28],[],[]]],[]],[0,82,0,83,133,[1,55020,4144],[],[[55020,2,134]]],[0,101,0,102,135,[1,59165,86],[],[[59251,2,136]]],[0,137,0,138,139,[1,59252,11],[],[[59263,2,140]]],[0,101,0,102,141,[1,59263,72],[],[[59335,2,142]]],[0,143,0,0,144,[1,59336,2910],[[0,85,0,86,145,[1,59339,2886],[],[[59339,2,146]]],[0,42,0,43,147,[1,62226,20],[],[[62245,2,148]]]],[]],[0,149,0,0,150,[0,62246,10303],[[0,151,0,152,153,[1,62248,1],[],[[62248,3,155]]],[0,59,0,60,156,[0,62250,10299],[[0,157,0,0,15,[0,62251,13],[[0,158,0,0,159,[1,62254,9],[],[[62263,2,160],[62263,2,161]]],[0,162,0,163,164,[0,62263,1],[],[[62263,2,165],[62264,4,166]]]],[]],[0,157,0,0,15,[0,62765,9],[[0,158,0,0,159,[1,62767,5],[],[[62772,2,160],[62772,2,161]]],[0,162,0,163,164,[0,62772,1],[],[[62773,2,165],[62773,4,166]]]],[]],[0,157,0,0,15,[0,63275,6],[[0,158,0,0,159,[1,63276,4],[],[[63280,2,160],[63280,2,161]]],[0,162,0,163,164,[0,63280,0],[],[[63280,2,165],[63280,4,166]]]],[]],[0,157,0,0,15,[0,63782,15],[[0,158,0,0,159,[1,63786,7],[],[[63793,2,160],[63793,2,161]]],[0,162,0,163,164,[0,63794,3],[],[[63795,2,165],[63796,4,166]]]],[]],[0,157,0,0,15,[0,64298,6],[[0,158,0,0,159,[1,64299,4],[],[[64303,2,160],[64303,2,161]]],[0,162,0,163,164,[0,64304,0],[],[[64304,2,165],[64304,4,166]]]],[]],[0,157,0,0,15,[0,64805,14],[[0,158,0,0,159,[1,64809,7],[],[[64816,2,160],[64816,2,161]]],[0,162,0,163,164,[0,64817,2],[],[[64818,2,165],[64818,4,166]]]],[]],[0,157,0,0,15,[0,65320,15],[[0,158,0,0,159,[1,65325,7],[],[[65332,2,160],[65332,2,161]]],[0,162,0,163,164,[0,65333,2],[],[[65334,2,165],[65335,4,166]]]],[]],[0,157,0,0,15,[0,65837,13],[[0,158,0,0,159,[1,65841,6],[],[[65847,2,160],[65848,2,161]]],[0,162,0,163,164,[0,65848,2],[],[[65849,2,165],[65850,4,166]]]],[]],[0,157,0,0,15,[0,66352,14],[[0,158,0,0,159,[1,66356,6],[],[[66362,2,160],[66363,2,161]]],[0,162,0,163,164,[0,66363,3],[],[[66364,2,165],[66365,4,166]]]],[]],[0,157,0,0,15,[0,66868,15],[[0,158,0,0,159,[1,66872,8],[],[[66879,2,160],[66880,2,161]]],[0,162,0,163,164,[0,66881,1],[],[[66881,2,165],[66882,4,166]]]],[]],[0,157,0,0,15,[0,67384,13],[[0,158,0,0,159,[1,67387,7],[],[[67393,2,160],[67394,2,161]]],[0,162,0,163,164,[0,67394,2],[],[[67395,2,165],[67396,4,166]]]],[]],[0,157,0,0,15,[0,67898,14],[[0,158,0,0,159,[1,67902,7],[],[[67909,2,160],[67909,2,161]]],[0,162,0,163,164,[0,67910,2],[],[[67911,2,165],[67911,4,166]]]],[]],[0,157,0,0,15,[0,68413,14],[[0,158,0,0,159,[1,68419,6],[],[[68424,2,160],[68425,2,161]]],[0,162,0,163,164,[0,68425,1],[],[[68426,2,165],[68426,4,166]]]],[]],[0,157,0,0,15,[0,68928,9],[[0,158,0,0,159,[1,68932,4],[],[[68936,2,160],[68936,2,161]]],[0,162,0,163,164,[0,68937,0],[],[[68937,2,165],[68937,4,166]]]],[]],[0,157,0,0,15,[0,69438,18],[[0,158,0,0,159,[1,69442,10],[],[[69451,2,160],[69452,2,161]]],[0,162,0,163,164,[0,69453,3],[],[[69455,2,165],[69455,4,166]]]],[]],[0,157,0,0,15,[0,69957,14],[[0,158,0,0,159,[1,69961,7],[],[[69968,2,160],[69968,2,161]]],[0,162,0,163,164,[0,69969,1],[],[[69970,2,165],[69970,4,166]]]],[]],[0,157,0,0,15,[0,70472,14],[[0,158,0,0,159,[1,70476,7],[],[[70482,2,160],[70483,2,161]]],[0,162,0,163,164,[0,70484,1],[],[[70484,2,165],[70485,4,166]]]],[]],[0,157,0,0,15,[0,70987,15],[[0,158,0,0,159,[1,70992,6],[],[[70998,2,160],[70999,2,161]]],[0,162,0,163,164,[0,70999,2],[],[[71000,2,165],[71001,4,166]]]],[]],[0,157,0,0,15,[0,71503,14],[[0,158,0,0,159,[1,71507,7],[],[[71514,2,160],[71514,2,161]]],[0,162,0,163,164,[0,71515,2],[],[[71516,2,165],[71517,4,166]]]],[]],[0,157,0,0,15,[0,72018,14],[[0,158,0,0,159,[1,72022,7],[],[[72029,2,160],[72029,2,161]]],[0,162,0,163,164,[0,72030,2],[],[[72031,2,165],[72031,4,166]]]],[]],[0,157,0,0,15,[0,72533,15],[[0,158,0,0,159,[1,72537,8],[],[[72544,2,160],[72545,2,161]]],[0,162,0,163,164,[0,72546,1],[],[[72546,2,165],[72547,4,166]]]],[]]],[[72548,4,5]]]],[]],[2,167,0,168,0,[1,72550,56],[],[]]]]],[],[1,0,1,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*At03","*/opt/edeposit/docs/tests/at03.robot","*at03.robot","*AT03-07 Pracovní prostředí pracovníka ISBN agentury","*Page should have contained element 'xpath=//dt[contains(@class,\"portletHeader\")]//span[contains(text(),\"Přidělování ISBN\")]' but did not","*my-keywords.Open browser and create all folders","*Selenium2Library.Open Browser","*<p>Opens a new browser instance to given URL.\x3c/p>","*${PLONE_URL}, firefox","*Opening browser 'firefox' to base url '<a href=\"http://localhost:55001/plone\">http://localhost:55001/plone\x3c/a>'","*keywords.Log in as site owner","*<p>Log in as the SITE_OWNER provided by plone.app.testing,\x3c/p>","*keywords.Log in","*<p>Log in to the site as ${userid} using ${password}. There\x3c/p>","*${SITE_OWNER_NAME}, ${SITE_OWNER_PASSWORD}","*Selenium2Library.Go To","*<p>Navigates the active browser instance to the provided URL.\x3c/p>","*${PLONE_URL}/login_form","*Opening url '<a href=\"http://localhost:55001/plone/login_form\">http://localhost:55001/plone/login_form\x3c/a>'","*Selenium2Library.Page Should Contain Element","*<p>Verifies element identified by `locator` is found on the current page.\x3c/p>","*__ac_name","*Current page contains element '__ac_name'.","*__ac_password","*Current page contains element '__ac_password'.","*css=#login-form .formControls input[name=submit]","*Current page contains element 'css=#login-form .formControls input[name=submit]'.","*selenium.Input text for sure","*<p>Locate input element by ${locator} and enter the given\x3c/p>","*__ac_name, ${userid}","*${TIMEOUT} = Selenium2Library.Get Selenium Timeout","*<p>Gets the timeout in seconds that is used by various keywords.\x3c/p>","*${TIMEOUT} = 30 seconds","*${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait","*<p>Gets the wait in seconds that is waited by Selenium.\x3c/p>","*${IMPLICIT_WAIT} = 500 milliseconds","*BuiltIn.Wait Until Keyword Succeeds","*<p>Waits until the specified keyword succeeds or the given timeout expires.\x3c/p>","*${TIMEOUT}, ${IMPLICIT_WAIT}, Input text and validate, ${locator}, ${text}","*selenium.Input text and validate","*<p>Locate input element by __ac_name and enter the given\x3c/p>","*${locator}, ${text}","*Selenium2Library.Focus","*<p>Sets focus to element identified by `locator`.\x3c/p>","*${locator}","*Selenium2Library.Input Text","*<p>Types the given `text` into text field identified by `locator`.\x3c/p>","*Typing text 'admin' into text field '__ac_name'","*${value} = Selenium2Library.Get Value","*<p>Returns the value attribute of element identified by `locator`.\x3c/p>","*${value} = admin","*BuiltIn.Should Be Equal","*<p>Fails if the given objects are unequal.\x3c/p>","*${text}, ${value}","*Argument types are:\n&lt;type 'str'&gt;\n&lt;type 'unicode'&gt;","*__ac_password, ${password}","*<p>Locate input element by __ac_password and enter the given\x3c/p>","*Typing text 'secret' into text field '__ac_password'","*${value} = secret","*Selenium2Library.Click Button","*<p>Clicks a button identified by `locator`.\x3c/p>","*Clicking button 'css=#login-form .formControls input[name=submit]'.","*${PLONE_URL}/producents","*Opening url '<a href=\"http://localhost:55001/plone/producents\">http://localhost:55001/plone/producents\x3c/a>'","*keywords.Open Workflow Menu","*keywords.Open Menu","*plone-contentmenu-workflow","*Selenium2Library.Element Should Be Visible","*<p>Verifies that the element identified by `locator` is visible.\x3c/p>","*css=dl#${elementId} span","*Verifying element 'css=dl#plone-contentmenu-workflow span' is visible.","*Selenium2Library.Element Should Not Be Visible","*<p>Verifies that the element identified by `locator` is NOT visible.\x3c/p>","*css=dl#${elementId} dd.actionMenuContent","*Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is not visible.","*Selenium2Library.Click Link","*<p>Clicks a link identified by locator.\x3c/p>","*css=dl#${elementId} dt.actionMenuHeader a","*Clicking link 'css=dl#plone-contentmenu-workflow dt.actionMenuHeader a'.","*1, 5, Element Should Be Visible, css=dl#${elementId} dd.actionMenuContent","*Verifying element 'css=dl#plone-contentmenu-workflow dd.actionMenuContent' is visible.","*Selenium2Library.Click Element","*<p>Click element identified by `locator`.\x3c/p>","*link=Recreate All important Collections","*Clicking element 'link=Recreate All important Collections'.","*Selenium2Library.Wait Until Page Contains","*<p>Waits until `text` appears on current page.\x3c/p>","*Dokumenty čekající na přidělení ISBN","*${PLONE_URL}/@@mail-controlpanel","*Opening url '<a href=\"http://localhost:55001/plone/@@mail-controlpanel\">http://localhost:55001/plone/@@mail-controlpanel\x3c/a>'","*css=input[id=\"form.email_from_name\"], E-Deposit","*Typing text 'E-Deposit' into text field 'css=input[id=\"form.email_from_name\"]'","*css=input[id=\"form.email_from_address\"], edeposit@nkp.cz","*Typing text 'edeposit@nkp.cz' into text field 'css=input[id=\"form.email_from_address\"]'","*css=input[id=\"form.actions.save\"]","*Clicking element 'css=input[id=\"form.actions.save\"]'.","*keywords.Log out","*${PLONE_URL}/logout","*Opening url '<a href=\"http://localhost:55001/plone/logout\">http://localhost:55001/plone/logout\x3c/a>'","*css=#login-form","*Current page contains element 'css=#login-form'.","*my-keywords.Vytvoření pracovníka ISBN Agentury","*<p>Log in to the site as ${userid} using aGah8Ing. There\x3c/p>","*${PLONE_URL}/@@usergroup-userprefs","eNrzL0jNy8xLVygtylFQt0lUyChKTbNVyigpKbDS18/JT07MycgvLrEyNTUwMNQvyMnPS9V3cCgtTi1KL8ovLdAFsQqAWoqV7EjXY6OfaKcOAHCvLXE=","*keywords.Click Overlay Button","*Přidat nového uživatele","*${element}","*Clicking button 'Přidat nového uživatele'.","*10, 1, Page Should Contain Element, css=.pb-ajax &gt; div","*css=.pb-ajax &gt; div","*Current page contains element 'css=.pb-ajax &gt; div'.","*Verifying element 'css=.pb-ajax &gt; div' is visible.","*//input[@id='form.fullname'], Testovací pracovnik ISBN agentury","*Typing text 'Testovací pracovnik ISBN agentury' into text field '//input[@id='form.fullname']'","*//input[@id='form.username'], ${name}","*Typing text 'isbn-agency-user' into text field '//input[@id='form.username']'","*//input[@id='form.email'], ${name}@nkp.cz","*Typing text 'isbn-agency-user@nkp.cz' into text field '//input[@id='form.email']'","*//input[@id='form.password'], ${password}","*Typing text 'aGah8Ing' into text field '//input[@id='form.password']'","*//input[@id='form.password_ctl'], ${password}","*Typing text 'aGah8Ing' into text field '//input[@id='form.password_ctl']'","*Selenium2Library.Select Checkbox","*<p>Selects checkbox identified by `locator`.\x3c/p>","*//input[@id='form.groups.5']","*Selecting checkbox '//input[@id='form.groups.5']'.","*Registrovat","*Clicking button 'Registrovat'.","*Selenium2Library.Page Should Contain","*<p>Verifies that current page contains `text`.\x3c/p>","*Přehled uživatelů","*Current page contains text 'Přehled uživatelů'.","*${ISBN_AGENCY_USER}, ${ISBN_AGENCY_PASSWORD}","*Typing text 'isbn-agency-user' into text field '__ac_name'","*${value} = isbn-agency-user","*Typing text 'aGah8Ing' into text field '__ac_password'","*${value} = aGah8Ing","*my-keywords.Existuje portlet Prideleni ISBN","*keywords.Pause","*<p>Visually pause test execution with interactive dialog by\x3c/p>","*BuiltIn.Import Library","*<p>Imports a library with the given name and optional arguments.\x3c/p>","*Dialogs","*Dialogs.Pause Execution","*<p>Pauses test execution until user clicks `Ok` button.\x3c/p>","*xpath=//dt[contains(@class,\"portletHeader\")]//span[contains(text(),\"Přidělování ISBN\")]","*Selenium2Library.Capture Page Screenshot","*<p>Takes a screenshot of the current page and embeds it into the log.\x3c/p>","*\x3c/td>\x3c/tr><tr><td colspan=\"3\"><a href=\"selenium-screenshot-1.png\"><img src=\"selenium-screenshot-1.png\" width=\"800px\">\x3c/a>","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","*Selenium2Library.Close All Browsers","*<p>Closes all open browsers and resets the browser cache.\x3c/p>"]);
+window.output["strings"] = window.output["strings"].concat(["*","*It02","*/opt/edeposit/docs/tests/it02.robot","*it02.robot","*IT02-01 Ohlášení se soubory","*Timeout 10 seconds exceeded. The last error was: 0 == 0","*Selenium2Library.Open Browser","*<p>Opens a new browser instance to given URL.\x3c/p>","*${PLONE_URL}","*Opening browser 'firefox' to base url '<a href=\"http://localhost:8080/Plone\">http://localhost:8080/Plone\x3c/a>'","*my-keywords.Prepare AMQP Test Environment","*amqp.RabbitMQ.Delete All Test Queues Starting With","*${QUEUE_PREFIX}","eNqzSVTIKEpNs1XKKCkpsNLXz8lPTszJyC8usTI0NTM30k8syNQvLE0tTS3WT8xJLchQsiNSoY1+oh2XDQmm55VklmUWlRYTZQNMMam2ACUyk4pSibEDqhRkAwCIDWSS","*amqp.RabbitMQ.Declare Queue","*aleph, ${QUEUE_NAME}","*amqp.RabbitMQ.Declare Queue Binding","*aleph, search, ${QUEUE_NAME}, request","*aleph, count, ${QUEUE_NAME}, request","*aleph, validate, ${QUEUE_NAME}, request","*aleph, export, ${QUEUE_NAME}, request","*amqp.RabbitMQ.Remove Queue Binding","*aleph, search, daemon, request","*aleph, count, daemon, request","*aleph, validate, daemon, request","*aleph, export, daemon, request","*antivirus, ${QUEUE_NAME}","*antivirus, antivirus, ${QUEUE_NAME}, request","*antivirus, antivirus, daemon, request","*calibre, ${QUEUE_NAME}","*calibre, convert, ${QUEUE_NAME}, request","*calibre, convert, daemon, request","*it-keywords.Pause","*Dialogs.Pause Execution","*<p>Pauses test execution until user clicks `Ok` button.\x3c/p>","*it-keywords.Log in","*<p>Log in to the site as ${userid} using ${password}. There\x3c/p>","*${USER_NAME}, ${USER_PASSWORD}","*Selenium2Library.Go To","*<p>Navigates the active browser instance to the provided URL.\x3c/p>","*${PLONE_URL}/login_form","*Opening url '<a href=\"http://localhost:8080/Plone/login_form\">http://localhost:8080/Plone/login_form\x3c/a>'","*Selenium2Library.Page Should Contain Element","*<p>Verifies element identified by `locator` is found on the current page.\x3c/p>","*__ac_name","*Current page contains element '__ac_name'.","*__ac_password","*Current page contains element '__ac_password'.","*css=#login-form .formControls input[name=submit]","*Current page contains element 'css=#login-form .formControls input[name=submit]'.","*it-keywords.Input text for sure","*<p>Locate input element by ${locator} and enter the given\x3c/p>","*__ac_name, ${userid}","*${TIMEOUT} = Selenium2Library.Get Selenium Timeout","*<p>Gets the timeout in seconds that is used by various keywords.\x3c/p>","*${TIMEOUT} = 5 seconds","*${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait","*<p>Gets the wait in seconds that is waited by Selenium.\x3c/p>","*${IMPLICIT_WAIT} = 0 seconds","*BuiltIn.Wait Until Keyword Succeeds","*<p>Waits until the specified keyword succeeds or the given timeout expires.\x3c/p>","*${TIMEOUT}, ${IMPLICIT_WAIT}, Input text and validate, ${locator}, ${text}","*it-keywords.Input text and validate","*<p>Locate input element by __ac_name and enter the given\x3c/p>","*${locator}, ${text}","*Selenium2Library.Focus","*<p>Sets focus to element identified by `locator`.\x3c/p>","*${locator}","*Selenium2Library.Input Text","*<p>Types the given `text` into text field identified by `locator`.\x3c/p>","*Typing text 'jans' into text field '__ac_name'","*${value} = Selenium2Library.Get Value","*<p>Returns the value attribute of element identified by `locator`.\x3c/p>","*${value} = jans","*BuiltIn.Should Be Equal","*<p>Fails if the given objects are unequal.\x3c/p>","*${text}, ${value}","*Argument types are:\n&lt;type 'str'&gt;\n&lt;type 'unicode'&gt;","*__ac_password, ${password}","*<p>Locate input element by __ac_password and enter the given\x3c/p>","*Typing text 'cjsaks' into text field '__ac_password'","*${value} = cjsaks","*Selenium2Library.Click Button","*<p>Clicks a button identified by `locator`.\x3c/p>","*Clicking button 'css=#login-form .formControls input[name=submit]'.","*Selenium2Library.Click Link","*<p>Clicks a link identified by locator.\x3c/p>","*Ohlášení ePublikací","*Clicking link 'Ohlášení ePublikací'.","*Selenium2Library.Wait Until Page Contains","*<p>Waits until `text` appears on current page.\x3c/p>","*Ohlašovací lístek ISBN - ePublikace","*my-keywords.Fill inputs about ePublication","*css=#form-widgets-IBasic-title, ${title}","*Typing text 'Lesní školky ve Zlíně' into text field 'css=#form-widgets-IBasic-title'","*css=#form-widgets-podnazev, ${podnazev}","*Typing text 'Individualni vzdělávání' into text field 'css=#form-widgets-podnazev'","*Selenium2Library.Page Should Not Contain","*<p>Verifies the current page does not contain `text`.\x3c/p>","*Obsah","*Current page does not contain text 'Obsah'.","*Selenium2Library.Page Should Contain","*<p>Verifies that current page contains `text`.\x3c/p>","*ePublikace","*Current page contains text 'ePublikace'.","*Název","*Current page contains text 'Název'.","*css=#form-widgets-cena, 0","*Typing text '0' into text field 'css=#form-widgets-cena'","*my-keywords.Fill inputs about Vydani","*css=#form-widgets-nakladatel_vydavatel, In Zlín","*Typing text 'In Zlín' into text field 'css=#form-widgets-nakladatel_vydavatel'","*css=#form-widgets-misto_vydani, Zlín","*Typing text 'Zlín' into text field 'css=#form-widgets-misto_vydani'","*css=#form-widgets-rok_vydani, 2013","*Typing text '2013' into text field 'css=#form-widgets-rok_vydani'","*css=#form-widgets-poradi_vydani, první","*Typing text 'první' into text field 'css=#form-widgets-poradi_vydani'","*css=#form-widgets-zpracovatel_zaznamu, Jan Stavěl","*Typing text 'Jan Stavěl' into text field 'css=#form-widgets-zpracovatel_zaznamu'","*my-keywords.Add authors for ePublication","*Jan Stavěl","*css=#form-widgets-IAuthors-authors-0-widgets-fullname, ${AUTHOR}","*Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-fullname'","*my-keywords.Add Original Files for ePublication","*${VALID_ISBN}","*css=#form-widgets-IOriginalFile-url, <a href=\"http://www.grada.cz/book/1000\">http://www.grada.cz/book/1000\x3c/a>","*Typing text '<a href=\"http://www.grada.cz/book/1000\">http://www.grada.cz/book/1000\x3c/a>' into text field 'css=#form-widgets-IOriginalFile-url'","*css=#form-widgets-IOriginalFile-isbn, ${ISBN}","*Typing text '978-80-260-7000-9' into text field 'css=#form-widgets-IOriginalFile-isbn'","*Selenium2Library.Choose File","*<p>Inputs the `file_path` into file input field found by `identifier`.\x3c/p>","*css=#form-widgets-IOriginalFile-file-input, /opt/edeposit/docs/tests/resources/${filename}","*form.buttons.save","*Clicking button 'form.buttons.save'.","*Položka byla vytvořena","*Current page contains text 'Položka byla vytvořena'.","*Selenium2Library.Location Should Contain","*<p>Verifies that current URL contains `expected`.\x3c/p>","*lesni-skolky-ve-zline","*Current location contains 'lesni-skolky-ve-zline'.","*Processing","*Current page contains text 'Processing'.","*my-keywords.ePublication contains Original File at state","*isbnvalidation","*Zobrazení","*Clicking link 'Zobrazení'.","*xpath=//a[contains(@class,\"contenttype-edeposit-content-originalfile\") and contains(@class,\"state-${state}\")]","*Current page contains element 'xpath=//a[contains(@class,\"contenttype-edeposit-content-originalfile\") and contains(@class,\"state-isbnvalidation\")]'.","*my-keywords.Respond as ISBN Validation Daemon","*${VALID_ENGLISH_ISBN}, True","*BuiltIn.Log","*<p>Logs the given message with the given level.\x3c/p>","*Respond as ISBN Validation Daemon, WARN","*s1-t1-k16-k1","*Respond as ISBN Validation Daemon","*10s, 0.5s, Queue is not empty, aleph, ${QUEUE_NAME}","*my-keywords.Queue is not empty","*${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue","*${vhost}, ${queue}","eNqtzFsKgCAQAMCrhP+yavRAzLsssaUgarreP+gMfQ+Mwyk0ug4RmKsFSOXEFEpnq5d1M4A1wjNoUAdMVAPEzHQ35FiyZOrc5cdy3hUaqbTwf00O0L84bTaa","*${num_of_messages} = 0","*BuiltIn.Should Not Be Equal As Integers","*<p>Fails if objects are equal after converting them to integers.\x3c/p>","*${num_of_messages}, 0","*Argument types are:\n&lt;type 'int'&gt;\n&lt;type 'unicode'&gt;","*0 == 0","*Selenium2Library.Close Browser","*<p>Closes the current browser.\x3c/p>"]);
 </script>
 <script type="text/javascript">
-window.output["generatedTimestamp"] = "20140925 18:24:02 GMT +02:00";
+window.output["generatedTimestamp"] = "20141023 17:37:34 GMT +02:00";
 </script>
 <script type="text/javascript">
-window.output["errors"] = [];
+window.output["errors"] = [[62248,3,155,154]];
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:04:51","fail":1,"label":"Critical Tests","pass":0},{"elapsed":"00:04:51","fail":1,"label":"All Tests","pass":0}],[],[{"elapsed":"00:04:51","fail":1,"id":"s1","label":"At03","name":"At03","pass":0}]];
+window.output["stats"] = [[{"elapsed":"00:01:12","fail":1,"label":"Critical Tests","pass":0},{"elapsed":"00:01:12","fail":1,"label":"All Tests","pass":0}],[],[{"elapsed":"00:01:13","fail":1,"id":"s1","label":"It02","name":"It02","pass":0}]];
 </script>
 <script type="text/javascript">
-window.output["generatedMillis"] = 290904;
+window.output["generatedMillis"] = 71757;
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1411661951096;
+window.output["baseMillis"] = 1414078582243;
 </script>
 <script type="text/javascript">
 window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.html","splitLogBase":"log","title":""};

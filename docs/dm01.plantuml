@@ -20,6 +20,18 @@ class OriginalFile {
       String format
       File file
       String ISBN
+      AlephRecord  ProperAlephRecord
+}
+
+class AlephRecord {
+      File MARCXML
+      String AlephSysNumber
+      Bool  hasISBNAgencyFields
+      Bool  hasAcquisitionFields
+      Bool  hasDescriptiveCataloguingFields
+      Bool  hasDescriptiveCataloguingReviewFields
+      Bool  hasSubjectCataloguingFields
+      Bool  hasSubjectCataloguingReviewFields
 }
 
 class Author {
@@ -75,5 +87,5 @@ OriginalFile "0..*" *-- "1..*" PreviewFile
 PrintingFile "0..*" *-- "1..*" PreviewFile
 EPublicationFolder *-- "0..*" EPublication
 LibraryFolder *-- "0..*" Library
-
+OriginalFile *-- "0..*" AlephRecord
 @enduml
