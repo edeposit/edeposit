@@ -574,6 +574,7 @@ class IAddAtOnceForm(form.Schema):
         required = True,
     )
 
+    form.mode(nakladatel_vydavatel='display')
     nakladatel_vydavatel = schema.TextLine (
         title = u"Nakladatel",
         required = True,
@@ -699,6 +700,7 @@ class AddAtOnceForm(form.SchemaForm):
     label = u"Ohlásit ePublikaci"
     enable_form_tabbing = False
     autoGroups = False
+    description = u"Popiska k ohlasovani ePublikace"
 
     def extractData(self):
         def getErrorView(widget,error):
