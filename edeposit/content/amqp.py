@@ -264,7 +264,7 @@ class OriginalFileExportToAlephRequestSender(namedtuple('ExportToAlephRequest',[
             nakladatelVydavatel = epublication.nakladatel_vydavatel or "",
             datumVydani = str(epublication.rok_vydani),
             poradiVydani = epublication.poradi_vydani or "",
-            zpracovatelZaznamu = epublication.zpracovatel_zaznamu or "",
+            zpracovatelZaznamu = originalFile.zpracovatel_zaznamu or "",
             format = originalFile.format or "",
             url = originalFile.url or "",
             mistoVydani = epublication.misto_vydani,
@@ -455,7 +455,7 @@ class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 're
     result:  AMQPError
     """
     def handle(self):
-        print "<- Aleph Exception"
+        print "<- AMQP Exception"
         wft = api.portal.get_tool('portal_workflow')
         print self.result
         with api.env.adopt_user(username="system"):

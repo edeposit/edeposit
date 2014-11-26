@@ -379,7 +379,7 @@ def addedAlephExportRequest(context, event):
         nakladatelVydavatel = epublication.nakladatel_vydavatel or "",
         datumVydani = str(epublication.rok_vydani),
         poradiVydani = epublication.poradi_vydani or "",
-        zpracovatelZaznamu = epublication.zpracovatel_zaznamu or "",
+        zpracovatelZaznamu = originalFile.zpracovatel_zaznamu or "",
         format = originalFile.format or "",
         url = originalFile.url or "",
         mistoVydani = epublication.misto_vydani,
