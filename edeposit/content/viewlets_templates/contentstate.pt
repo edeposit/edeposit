@@ -1,0 +1,25 @@
+<div i18n:domain="plone"
+     class="contentActions"
+     tal:define="ploneview context/@@plone"
+     tal:condition="ploneview/showEditableBorder">
+
+    <tal:block define="wf_state viewlet/wf_state;">
+        <p class="hiddenStructure"
+            tal:condition="wf_state"
+            i18n:translate="heading_actions">Actions</p>
+        <ul id="contentActionMenus">
+            <li>
+	      <dl id="plone-contentmenu-workflow" 
+		  tal:attributes="class string:${wf_state/stateClass} actionMenu deactivated;">
+		<dt class="actionMenuHeader">
+		  <span class="noMenuAction">
+		    <span> Stav: </span>
+		    <span class="contentstate-title"  tal:content="wf_state/title">ISBN Generation</span>
+		  </span>
+		</dt>
+	      </dl>
+            </li>
+        </ul>
+    </tal:block>
+
+</div>

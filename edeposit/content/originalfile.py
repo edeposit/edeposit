@@ -33,6 +33,8 @@ from zope.component import adapts
 from zope.component import getUtility
 from zope.schema import getFieldsInOrder
 from zope.lifecycleevent import modified
+from string import Template
+from plone import api
 
 def urlCodeIsValid(value):
     return True
@@ -73,6 +75,11 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
+    zpracovatel_zaznamu = schema.TextLine(
+        title = u'Zpracovatel záznamu',
+        required = True,
+    )
+
     url = schema.ASCIILine(
         title=u"URL (pokud je publikace ke stažení z internetu)",
         constraint=urlCodeIsValid,
@@ -88,6 +95,12 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
         )
                                            
+
+@form.default_value(field=IOriginalFile['zpracovatel_zaznamu'])
+def zpracovatelDefaultValue(data):
+    member = api.user.get_current()
+    return member.fullname or member.id
+
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering
@@ -96,6 +109,36 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
 class OriginalFile(Container):
     grok.implements(IOriginalFile)
 
+    folder_full_view_item_template = Template(u"""
+ <div class="item visualIEFloatFix">
+    <h2 class="headline"> <a href="$href" class="summary url $typeClass $stateClass">$title</a> </h2>
+    <div class="documentByLine" id="plone-document-byline">
+        <span class="documentAuthor"> Ohlásil: <a href="$authorHref">$authorTitle</a></span>
+        <span class="documentModified"> <span>Poslední změna:</span>$lastModified</span> </span>
+        <span class="ObjectStatus">Stav: <span class="$stateClass">$stateTitle</span></span>
+    </div>
+</div>
+""")
+
+    def folder_full_view_item(self):
+        state = api.content.get_state(obj=self)
+        creators = self.listCreators()
+        mtool = self.portal_membership
+        author = creators and creators[0]
+        member = api.user.get(username=author)
+        plone_utils = self.plone_utils
+        data = dict(
+            href = self.absolute_url(),
+            title = self.title,
+            typeClass = 'contenttype-' + plone_utils.normalizeString(self.portal_type),
+            stateClass = 'state-' + plone_utils.normalizeString(state),
+            stateTitle = self.portal_workflow.getTitleForStateOnType(state, self.portal_type),
+            authorHref = author and mtool.getHomeUrl(author),
+            authorTitle = member and member.getProperty('fullname'),
+            lastModified = self.toLocalizedTime(self.ModificationDate(),1),
+            )
+        return OriginalFile.folder_full_view_item_template.substitute(data)
+
     def getParentTitle(self):
         return aq_parent(aq_inner(self)).title
 
@@ -103,7 +146,7 @@ class OriginalFile(Container):
         return aq_parent(aq_inner(self)).nakladatel_vydavatel
 
     def getZpracovatelZaznamu(self):
-        return aq_parent(aq_inner(self)).zpracovatel_zaznamu
+        return self.zpracovatel_zaznamu
 
     def getPodnazev(self):
         return aq_parent(aq_inner(self)).podnazev
@@ -220,13 +263,14 @@ class ThumbnailView(grok.View):
 
 import plone.namedfile
 
-class folder_full_view_item(grok.View):
-    grok.context(IOriginalFile)
-    grok.require('zope2.View')
-    grok.name('folder_full_view_item')
+# class folder_full_view_item(grok.View):
+#     grok.context(IOriginalFile)
+#     grok.require('zope2.View')
+#     grok.name('folder_full_view_item')
     
 class Download(plone.namedfile.browser.Download):
     pass
 
 class DisplayFile(plone.namedfile.browser.DisplayFile):
     pass
+

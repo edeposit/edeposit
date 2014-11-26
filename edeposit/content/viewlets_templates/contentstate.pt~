@@ -1,0 +1,22 @@
+<div i18n:domain="plone"
+     class="contentActions"
+     tal:define="ploneview context/@@plone"
+     tal:condition="ploneview/showEditableBorder">
+
+    <tal:block define="wf_state view/wf_state;">
+        <p class="hiddenStructure"
+            tal:condition="wf_state"
+            i18n:translate="heading_actions">Actions</p>
+        <ul id="contentActionMenus">
+            <li>
+	      <dl id="plone-contentmenu-workflow" class="actionMenu deactivated">
+		<dt class="actionMenuHeader">
+		  <span class="noMenuAction"><span> Stav: </span><span>ISBN Generation</span></span>
+		</dt>
+	      </dl>
+            </li>
+        </ul>
+        <div tal:replace="structure provider:plone.contentmenu" />
+    </tal:block>
+
+</div>

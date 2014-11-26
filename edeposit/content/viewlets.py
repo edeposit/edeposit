@@ -1,0 +1,54 @@
+from cgi import escape
+from datetime import date
+from urllib import unquote
+
+from plone.memoize.view import memoize
+from zope.component import getMultiAdapter
+from zope.deprecation.deprecation import deprecate
+from zope.i18n import translate
+from zope.interface import implements, alsoProvides, Interface
+from zope.viewlet.interfaces import IViewlet
+
+from AccessControl import getSecurityManager
+from Acquisition import aq_base, aq_inner
+
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFPlone import PloneMessageFactory as _
+
+from five import grok
+from plone.app.layout.globals.interfaces import IViewView
+from plone.app.layout.viewlets.interfaces import IContentViews
+from plone import api
+from originalfile import IOriginalFile
+from epublication import IePublication
+
+class ContentState(grok.Viewlet):
+    grok.name('edeposit.contentstate')
+    grok.require('zope2.View')
+    grok.viewletmanager(IContentViews)
+    grok.view(IViewView)
+    grok.context(IOriginalFile)
+
+    def update(self):
+        context = aq_inner(self.context)
+        plone_utils = api.portal.get_tool('plone_utils')
+        wft = api.portal.get_tool('portal_workflow')
+        state = api.content.get_state(obj=context)
+        stateTitle = wft.getTitleForStateOnType(state, context.portal_type)
+        self.wf_state = dict( state = state, 
+                              title = stateTitle,
+                              stateClass = 'contentstate-'+plone_utils.normalizeString(state),
+                              )
+        return
+
+
+class ContentStateForEPublication(ContentState):
+    grok.name('edeposit.contentstateforepublication')
+    grok.require('zope2.View')
+    grok.viewletmanager(IContentViews)
+    grok.view(IViewView)
+    grok.context(IePublication)
+    grok.template('viewlets_templates/contentstate.pt')

@@ -241,15 +241,15 @@ class IePublication(form.Schema, IImageScaleTraversable):
     #                          ]
     #               )
 
-    zpracovatel_zaznamu = schema.TextLine(
-        title = u'Zpracovatel záznamu',
-        required = True,
-    )
+    # zpracovatel_zaznamu = schema.TextLine(
+    #     title = u'Zpracovatel záznamu',
+    #     required = True,
+    # )
 
-@form.default_value(field=IePublication['zpracovatel_zaznamu'])
-def zpracovatelDefaultValue(data):
-    member = api.user.get_current()
-    return member.fullname or member.id
+# @form.default_value(field=IePublication['zpracovatel_zaznamu'])
+# def zpracovatelDefaultValue(data):
+#     member = api.user.get_current()
+#     return member.fullname or member.id
 
 
 @form.default_value(field=IePublication['nakladatel_vydavatel'])
