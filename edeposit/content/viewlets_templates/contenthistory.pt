@@ -1,0 +1,16 @@
+<div i18n:domain="plone"
+     class="contentActions"
+     tal:define="ploneview context/@@plone">
+
+  <div class="contentHistory"
+       id="content-history"
+       i18n:domain="plone">
+    
+    <dl id="history" class="collapsible">
+      <dt class="collapsibleHeader" i18n:translate="label_history">History</dt>
+      <dd class="collapsibleContent">
+        <div tal:replace ="structure here/@@contenthistory" />
+      </dd>
+    </dl>
+  </div>
+</div>

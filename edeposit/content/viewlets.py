@@ -20,7 +20,7 @@ from Products.CMFPlone import PloneMessageFactory as _
 
 from five import grok
 from plone.app.layout.globals.interfaces import IViewView
-from plone.app.layout.viewlets.interfaces import IContentViews
+from plone.app.layout.viewlets.interfaces import IContentViews, IBelowContent
 from plone import api
 from originalfile import IOriginalFile
 from epublication import IePublication
@@ -52,3 +52,12 @@ class ContentStateForEPublication(ContentState):
     grok.view(IViewView)
     grok.context(IePublication)
     grok.template('viewlets_templates/contentstate.pt')
+
+class ContentHistory(grok.Viewlet):
+    grok.name('edeposit.contenthistory')
+    grok.require('zope2.View')
+    grok.viewletmanager(IBelowContent)
+    grok.view(IViewView)
+    grok.context(IOriginalFile)
+
+
