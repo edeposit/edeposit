@@ -110,12 +110,12 @@ class OriginalFile(Container):
     grok.implements(IOriginalFile)
 
     folder_full_view_item_template = Template(u"""
- <div class="item visualIEFloatFix">
+ <div class="item visualIEFloatFix originalfile_folder_full_view_item">
     <h2 class="headline"> <a href="$href" class="summary url $typeClass $stateClass">$title</a> </h2>
     <div class="documentByLine" id="plone-document-byline">
-        <span class="documentAuthor"> Ohlásil: <a href="$authorHref">$authorTitle</a></span>
-        <span class="documentModified"> <span>Poslední změna:</span>$lastModified</span> </span>
         <span class="ObjectStatus">Stav: <span class="$stateClass">$stateTitle</span></span>
+        <span class="documentModified"> <span>Poslední změna:</span>$lastModified</span> </span>
+        <span class="documentAuthor"> Ohlásil: <a href="$authorHref">$authorTitle</a></span>
     </div>
 </div>
 """)
@@ -134,7 +134,7 @@ class OriginalFile(Container):
             stateClass = 'state-' + plone_utils.normalizeString(state),
             stateTitle = self.portal_workflow.getTitleForStateOnType(state, self.portal_type),
             authorHref = author and mtool.getHomeUrl(author),
-            authorTitle = member and member.getProperty('fullname'),
+            authorTitle = member and member.getProperty('fullname') or member.id,
             lastModified = self.toLocalizedTime(self.ModificationDate(),1),
             )
         return OriginalFile.folder_full_view_item_template.substitute(data)
