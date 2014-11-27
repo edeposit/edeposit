@@ -36,14 +36,8 @@ class IOriginalFile(form.Schema):
         required = False,
         )
 
-    file = NamedBlobFile(
-        title=_(u"Original File of an ePublication"),
-        required = False,
-        )
-
     generated_isbn = schema.Bool(
-        title = _(u'Generate ISBN'),
-        description = _(u'Whether ISBN agency should generate ISBN number.'),
+        title = u"Přiřadit ISBN agenturou",
         required = False,
         default = False,
         missing_value = False,
@@ -52,6 +46,11 @@ class IOriginalFile(form.Schema):
     url = schema.ASCIILine(
         title=_("URL"),
         constraint=urlCodeIsValid,
+        required = False,
+        )
+
+    file = NamedBlobFile(
+        title=_(u"Original File of an ePublication"),
         required = False,
         )
 
