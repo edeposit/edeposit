@@ -1,5 +1,4 @@
 <div i18n:domain="plone">
-
         <h2 i18n:translate="label_history">History</h2>
         <div id="content-history" tal:content="structure here/@@contenthistory">Content History</div>
   <!-- <div class="contentHistory"  id="content-history"  i18n:domain="plone"> -->
