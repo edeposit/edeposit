@@ -354,7 +354,7 @@ class OriginalFileThumbnailGeneratingResultHandler(namedtuple('ThumbnailGenerati
             self.context.thumbnail = bfile
             transaction.savepoint(optimistic=True)
             wft.doActionFor(epublication,'notifySystemAction', comment=comment)
-            wft.doActionFor(self.context, 'thumbnailOK')
+            wft.doActionFor(self.context, self.context.isbn and 'thumbnailOKAleph' or 'thumbnailOKISBNGeneration')
         pass
 
 
