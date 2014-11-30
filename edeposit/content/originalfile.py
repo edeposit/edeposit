@@ -35,6 +35,7 @@ from zope.schema import getFieldsInOrder
 from zope.lifecycleevent import modified
 from string import Template
 from plone import api
+from zope.i18n import translate
 
 def urlCodeIsValid(value):
     return True
@@ -127,12 +128,14 @@ class OriginalFile(Container):
         author = creators and creators[0]
         member = api.user.get(username=author)
         plone_utils = self.plone_utils
+        stateTitle = translate(self.portal_workflow.getTitleForStateOnType(state, self.portal_type),
+                               domain='plone',context = self.REQUEST)
         data = dict(
             href = self.absolute_url(),
             title = self.title,
             typeClass = 'contenttype-' + plone_utils.normalizeString(self.portal_type),
             stateClass = 'state-' + plone_utils.normalizeString(state),
-            stateTitle = self.portal_workflow.getTitleForStateOnType(state, self.portal_type),
+            stateTitle = stateTitle,
             authorHref = author and mtool.getHomeUrl(author),
             authorTitle = member and member.getProperty('fullname') or member.id,
             lastModified = self.toLocalizedTime(self.ModificationDate(),1),
