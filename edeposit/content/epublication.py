@@ -693,7 +693,7 @@ def nakladatelDefaultValue(data):
 
 class AddAtOnceForm(form.SchemaForm):
     grok.name('add-at-once')
-    grok.require('cmf.ModifyPortalContent')
+    grok.require('edeposit.AddEPublication')
     grok.context(IePublicationFolder)
     schema = IAddAtOnceForm
     ignoreContext = True
@@ -762,6 +762,7 @@ class AddAtOnceForm(form.SchemaForm):
             dataForFactory = dict(dataFromTheSameKeys + additionalData.items())
             return createContent(portal_type, **dataForFactory)
             
+
         newEPublication = addContentToContainer( container,
                                                  createContentFromData(IePublication, 'edeposit.content.epublication', data, 
                                                                        dict(vazba='online',title=data['nazev']), 
