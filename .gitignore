@@ -2,3 +2,6 @@
 *.egg
 *.po~
 build/*
+*.py~
+*.pt~
+*.js~
