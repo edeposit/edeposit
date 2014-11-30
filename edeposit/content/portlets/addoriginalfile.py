@@ -93,6 +93,7 @@ class AddOriginalFileForm(form.SchemaForm):
             raise ActionExecutionError(Invalid(u"ISBN už v Alephu existuje!"))
 
         context = self.context.portal_type == 'edeposit.content.originalfile' and  aq_parent(aq_inner(self.context)) or self.context
+        data['title'] = "%s (%s)" % (context.title, data['file'] and data['file'].filename or "")
         newOriginalFile = createContentInContainer(context, 'edeposit.content.originalfile', **data)
         wft = api.portal.get_tool('portal_workflow')
         wft.doActionFor(newOriginalFile, 
