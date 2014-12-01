@@ -390,7 +390,7 @@ class EPublicationAddForm(DefaultAddForm):
 
         if (not data['IOriginalFile.isbn'] and not data['IOriginalFile.generated_isbn']) or \
            (data['IOriginalFile.isbn'] and data['IOriginalFile.generated_isbn']):
-            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura"))
+            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tomto případě Vám ISBN přiřadí agentura"))
 
         obj = self.createAndAdd(data)
         if obj is not None:
@@ -640,7 +640,7 @@ class IAddAtOnceForm(form.Schema):
     )
 
     libraries_that_can_access = schema.Set(
-        title = _(u'Libraries that can access this ePublication'),
+        title = u"Knihovny s přístupem k ePublikaci", #(u'Libraries that can access this ePublication'),
         required = False,
         readonly = False,
         value_type = schema.Choice(source=availableLibraries)
@@ -678,6 +678,11 @@ class IAddAtOnceForm(form.Schema):
         vocabulary="edeposit.content.fileTypes",
         required = False,
         )
+
+    form.mode(epublication_uid='hidden')
+    epublication_uid = schema.ASCIILine(
+        required = False,
+        )
     
 
 @form.default_value(field=IAddAtOnceForm['zpracovatel_zaznamu'])
@@ -700,7 +705,6 @@ class AddAtOnceForm(form.SchemaForm):
     label = u"Ohlásit ePublikaci"
     enable_form_tabbing = False
     autoGroups = False
-    description = u"Popiska k ohlasovani ePublikace"
 
     def extractData(self):
         def getErrorView(widget,error):
@@ -738,57 +742,99 @@ class AddAtOnceForm(form.SchemaForm):
             pass
         return (data,errors)
 
-    @button.buttonAndHandler(u"Ohlásit", name='save')
-    def handleAdd(self, action):
-        container = aq_inner(self.context)
+    def checkISBN(self, data):
+        if (not data['isbn'] and not data['generated_isbn']) or \
+           (data['isbn'] and data['generated_isbn']):
+            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura"))
+        
+    def createContentFromData(self, interface, portal_type, data, additionalData = {}, exceptKeys = []):
+        theSameKeys = frozenset(interface.names()).intersection(data.keys()) - frozenset(exceptKeys)
+        dataFromTheSameKeys = [(key,data[key]) for key in theSameKeys]
+        dataForFactory = dict(dataFromTheSameKeys + additionalData.items())
+        return createContent(portal_type, **dataForFactory)
 
+    def addOriginalFile(self, newEPublication, data):
+        originalFileTitle = "%s (%s)" % (data['nazev'], data['file'] and data['file'].filename or "")
+        newOriginalFile = addContentToContainer( newEPublication,
+                                                 self.createContentFromData(IOriginalFile, 'edeposit.content.originalfile', data,
+                                                                            dict(title=originalFileTitle),
+                                                                            )
+                                                 )
+        wft = api.portal.get_tool('portal_workflow')
+        wft.doActionFor( newOriginalFile, 
+                         (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
+                         or (newOriginalFile.file and 'submitDeclarationToAntivirus')
+                         or 'submitDeclarationToISBNGenerating',
+                         comment='handled automatically')
+        return newOriginalFile
+
+    def addEPublication(self, data):
+        container = aq_inner(self.context)        
+        newEPublication = addContentToContainer( container,
+                                                 self.createContentFromData(IePublication, 'edeposit.content.epublication', data, 
+                                                                            dict(vazba='online',title=data['nazev']), 
+                                                                            ['libraries_that_can_access',])
+                                                 )
+        return newEPublication
+
+    @button.buttonAndHandler(u"Odeslat", name='save')
+    def handleAdd(self, action):
         data, errors = self.extractData()
+        import pdb; pdb.set_trace()
         if errors:
             self.status = self.formErrorsMessage
             return
 
-        if (not data['isbn'] and not data['generated_isbn']) or \
-           (data['isbn'] and data['generated_isbn']):
-            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura"))
+        self.checkISBN(data)
 
-        def someValueAppeared(interface,data):
-            theSameKeys = frozenset(interface.names()).intersection(data.keys())
-            booleans = [ bool(data[key]) for key in theSameKeys]
-            return True in booleans
-            
-        def createContentFromData(interface, portal_type, data, additionalData = {}, exceptKeys = []):
-            theSameKeys = frozenset(interface.names()).intersection(data.keys()) - frozenset(exceptKeys)
-            dataFromTheSameKeys = [(key,data[key]) for key in theSameKeys]
-            dataForFactory = dict(dataFromTheSameKeys + additionalData.items())
-            return createContent(portal_type, **dataForFactory)
-            
+        newEPublication = self.addEPublication(data)
 
-        newEPublication = addContentToContainer( container,
-                                                 createContentFromData(IePublication, 'edeposit.content.epublication', data, 
-                                                                       dict(vazba='online',title=data['nazev']), 
-                                                                       ['libraries_that_can_access',])
-                                                 )
-        originalFileTitle = "%s (%s)" % (data['nazev'], data['file'] and data['file'].filename or "")
-        newOriginalFile = addContentToContainer( newEPublication,
-                                                 createContentFromData(IOriginalFile, 'edeposit.content.originalfile', data,
-                                                                       dict(title=originalFileTitle),
-                                                                       )
-                                                 )
-        wft = api.portal.get_tool('portal_workflow')
-        wft.doActionFor(newOriginalFile, 
-                        (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
-                        or (newOriginalFile.file and 'submitDeclarationToAntivirus')
-                        or 'submitDeclarationToISBNGenerating',
-                        comment='handled automatically')
+        newOriginalFile = self.addOriginalFile(newEPublication, data)
 
         authors = [data[key] for key in ['author1','author2','author3'] if data[key]]
         for author in authors:
             createContentInContainer(newEPublication, 'edeposit.content.author', fullname=author, title=author)
 
-        fti = getUtility(IDexterityFTI, name=newOriginalFile.portal_type)
         messages = IStatusMessage(self.request)
         messages.addStatusMessage(u"ePublikace byla ohlášena.", type="info")
-        returnURL = "/".join([container.absolute_url(), newEPublication.id, newOriginalFile.id, fti.immediate_view])
-        self.request.response.redirect(returnURL)
 
+        fti = getUtility(IDexterityFTI, name=newOriginalFile.portal_type)
+        #returnURL = "/".join([container.absolute_url(), newEPublication.id, newOriginalFile.id, fti.immediate_view])
+        self.request.response.redirect(newOriginalFile.absolute_url())
 
+    @button.buttonAndHandler(u"Odeslat a ohlásit ještě jednou s jiným ISBN", name='save-and-next')
+    def handleAddAndNext(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        self.checkISBN(data)
+
+        newEPublication = data.get('epublication_uid') and api.content.get(UID=data['epublication_uid']) \
+            or self.addEPublication(data)
+
+        self.widgets['epublication_uid'].value=newEPublication.UID()
+
+        newOriginalFile = self.addOriginalFile(newEPublication, data)
+        if not data.get('epublication_uid'):
+            authors = [data[key] for key in ['author1','author2','author3'] if data[key]]
+            for author in authors:
+                createContentInContainer(newEPublication, 'edeposit.content.author', fullname=author, title=author)
+
+        # # set mode display all fields for epublication and authors
+        # readOnlyFields = list(frozenset(data.keys()).intersection(frozenset(IePublication.names()))) + \
+        #     ['author%d' % (num,) for num in (1,2,3)] + ['nazev',]
+
+        # for fieldName in readOnlyFields:
+        #     widget = self.widgets.get(fieldName)
+        #     if widget:
+        #         widget.mode = 'display'
+        #     pass
+
+        # vycistime policka pro originalfile
+        self.widgets['isbn'].value = ""
+
+        messages = IStatusMessage(self.request)
+        messages.addStatusMessage(u"ePublikace byla ohlášena.", type="info")
+        pass
