@@ -1,24 +1,42 @@
-<div i18n:domain="plone"
-     class="contentActions"
+<div class="contentActions"
+     i18n:domain="plone"
      tal:define="ploneview context/@@plone"
-     tal:condition="ploneview/showEditableBorder">
+     tal:condition="ploneview/showEditableBorder"
+     >
 
-    <tal:block define="wf_state viewlet/wf_state;">
+    <tal:block define="wf_state viewlet/wf_state; transitions viewlet/transitions">
         <p class="hiddenStructure"
             tal:condition="wf_state"
             i18n:translate="heading_actions">Actions</p>
         <ul id="contentActionMenus">
-            <li>
-	      <dl id="plone-contentmenu-workflow" 
-		  tal:attributes="class string:${wf_state/stateClass} actionMenu deactivated;">
-		<dt class="actionMenuHeader">
-		  <span class="noMenuAction">
-		    <span> Stav: </span>
-		    <span class="contentstate-title"  tal:content="wf_state/title">ISBN Generation</span>
-		  </span>
-		</dt>
-	      </dl>
-            </li>
+          <li>
+	    <dl id="plone-contentmenu-workflow" 
+		tal:attributes="class string:${wf_state/stateClass} actionMenu deactivated;"
+		>
+	      <dt class="actionMenuHeader">
+		<a href="#" 
+		   tal:omit-tag="not:transitions"
+		   tal:attributes="href wf_state/href"
+		   >
+		   <span class="noMenuAction">
+		     <span> Stav: </span>
+		     <span class="contentstate-title"  tal:content="wf_state/title" i18n:translate="">ISBN Generation</span>
+		     <span class="arrowDownAlternative" tal:condition="transitions | nothing">&#9660;</span>
+		   </span>
+		 </a>
+	       </dt>
+	       <dd class="actionMenuContent" tal:condition="transitions | nothing">
+		 <ul>
+		  <li tal:repeat="transition transitions">
+		    <a href="#" 
+		       tal:attributes="href transition/url" 
+		       tal:content="transition/title" 
+		       i18n:translate="">title of an transition</a>
+		  </li>
+		</ul>
+	      </dd>
+	    </dl>
+          </li>
         </ul>
     </tal:block>
 

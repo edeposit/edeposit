@@ -27,6 +27,9 @@ from plone import api
 from originalfile import IOriginalFile
 from epublication import IePublication
 
+from plone.app.contentmenu import menu
+from plone.app.contentmenu.interfaces import IWorkflowSubMenuItem
+
 class ContentState(grok.Viewlet):
     grok.name('edeposit.contentstate')
     grok.require('zope2.View')
@@ -38,16 +41,19 @@ class ContentState(grok.Viewlet):
         super(ContentState,self).update()
         context = aq_inner(self.context)
         plone_utils = api.portal.get_tool('plone_utils')
+
         wft = api.portal.get_tool('portal_workflow')
         state = api.content.get_state(obj=context)
-        stateTitle = translate(wft.getTitleForStateOnType(state, context.portal_type), 
-                               domain='plone', 
-                               context=self.request)
+        stateTitle = wft.getTitleForStateOnType(state,context.portal_type)
 
         self.wf_state = dict( state = state, 
                               title = stateTitle,
                               stateClass = 'contentstate-'+plone_utils.normalizeString(state),
+                              href = context.absolute_url() + "/content_status_history",
                               )
+        wf_tool = getToolByName(self.context, 'portal_workflow')
+        infos = filter(lambda info: info.get('available',None) and info.get('category',None) == 'workflow', wf_tool.listActionInfos(object=self.context))
+        self.transitions = infos
         return
 
 
