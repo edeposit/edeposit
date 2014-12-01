@@ -36,7 +36,7 @@ from plone.supermodel import model
 from plone.dexterity.utils import getAdditionalSchemata
 from Acquisition import aq_inner, aq_base
 
-from zope.component import adapts
+from zope.component import adapts, createObject
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.interface import Invalid, Interface
@@ -47,6 +47,7 @@ from plone import api
 from zope.event import notify
 from plone.dexterity.events import AddBegunEvent
 from plone.dexterity.events import AddCancelledEvent
+from plone.app.discussion.interfaces import IConversation
 
 import z3c.form.browser.radio
 
@@ -359,7 +360,7 @@ class EPublicationAddForm(DefaultAddForm):
             if not valid:
                 # validity error
                 print "isbn is not valid"
-                errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'chyba v isbn')),)
+                errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'Chyba v ISBN')),)
                 pass
             else:
                 try:
@@ -367,7 +368,7 @@ class EPublicationAddForm(DefaultAddForm):
                     if appearedAtAleph:
                         print "isbn already appeared in Aleph"
                         # duplicity error
-                        errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
+                        errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'ISBN je již použito. Použijte jiné, nebo nahlašte opravu.')),)
                 except:
                     print "some exception with edeposit.amqp.aleph.aleph.getISBNCount"
                     pass
@@ -389,8 +390,8 @@ class EPublicationAddForm(DefaultAddForm):
             return
 
         if (not data['IOriginalFile.isbn'] and not data['IOriginalFile.generated_isbn']) or \
-           (data['IOriginalFile.isbn'] and data['IOriginalFile.generated_isbn']):
-            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tomto případě Vám ISBN přiřadí agentura"))
+           (data['IOriginalFile.isbn'] and data['IOriginalFileí.geerat,d_isbn']):
+            raise ActionExecutionError(Invalid(u"Zadejte prosím ISBN, nebo vyberte \"Přidělit ISBN agenturou\"."))
 
         obj = self.createAndAdd(data)
         if obj is not None:
@@ -679,6 +680,11 @@ class IAddAtOnceForm(form.Schema):
         required = False,
         )
 
+    poznamka = schema.Text(
+        title = u"Poznámka",
+        required = False,
+        )
+
     form.mode(epublication_uid='hidden')
     epublication_uid = schema.ASCIILine(
         required = False,
@@ -727,7 +733,7 @@ class AddAtOnceForm(form.SchemaForm):
             if not valid:
                 # validity error
                 print "isbn is not valid"
-                errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'chyba v isbn')),)
+                errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'Chyba v ISBN')),)
                 pass
             else:
                 try:
@@ -735,7 +741,7 @@ class AddAtOnceForm(form.SchemaForm):
                     if appearedAtAleph:
                         print "isbn already appeared in Aleph"
                         # duplicity error
-                        errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'isbn je už použito. Použijte jíné, nebo nahlašte opravu.')),)
+                        errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'ISBN je již použito. Použijte jiné, nebo nahlašte opravu.')),)
                 except:
                     print "some exception with edeposit.amqp.aleph.aleph.getISBNCount"
                     pass
@@ -745,7 +751,7 @@ class AddAtOnceForm(form.SchemaForm):
     def checkISBN(self, data):
         if (not data['isbn'] and not data['generated_isbn']) or \
            (data['isbn'] and data['generated_isbn']):
-            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte - Přiřadit ISBN. V tom případě Vám ISBN přiřadí agentura"))
+            raise ActionExecutionError(Invalid(u"Buď zadejte ISBN, nebo vyberte \"Přiřadit ISBN agenturou\""))
         
     def createContentFromData(self, interface, portal_type, data, additionalData = {}, exceptKeys = []):
         theSameKeys = frozenset(interface.names()).intersection(data.keys()) - frozenset(exceptKeys)
@@ -757,9 +763,24 @@ class AddAtOnceForm(form.SchemaForm):
         originalFileTitle = "%s (%s)" % (data['nazev'], data['file'] and data['file'].filename or "")
         newOriginalFile = addContentToContainer( newEPublication,
                                                  self.createContentFromData(IOriginalFile, 'edeposit.content.originalfile', data,
-                                                                            dict(title=originalFileTitle),
+                                                                            dict(title=originalFileTitle,
+                                                                                 allow_discussion = True,
+                                                                                 ),
                                                                             )
                                                  )
+        comment = data.get('poznamka',"")
+        if comment:
+            commentObj = createObject('plone.Comment')
+            commentObj.text = comment
+            commentObj.user_notification = False
+
+            member = api.user.get_current()
+            commentObj.author_username = member.getUserName()
+            commentObj.author_name = member.getProperty('fullname') or member.getUserName()
+            
+            conversation=IConversation(newOriginalFile)
+            conversation.addComment(commentObj)
+
         wft = api.portal.get_tool('portal_workflow')
         wft.doActionFor( newOriginalFile, 
                          (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
@@ -780,20 +801,21 @@ class AddAtOnceForm(form.SchemaForm):
     @button.buttonAndHandler(u"Odeslat", name='save')
     def handleAdd(self, action):
         data, errors = self.extractData()
-        import pdb; pdb.set_trace()
         if errors:
             self.status = self.formErrorsMessage
             return
 
         self.checkISBN(data)
 
-        newEPublication = self.addEPublication(data)
+        newEPublication = data.get('epublication_uid') and api.content.get(UID=data['epublication_uid']) \
+            or self.addEPublication(data)
 
         newOriginalFile = self.addOriginalFile(newEPublication, data)
 
-        authors = [data[key] for key in ['author1','author2','author3'] if data[key]]
-        for author in authors:
-            createContentInContainer(newEPublication, 'edeposit.content.author', fullname=author, title=author)
+        if not data.get('epublication_uid'):
+            authors = [data[key] for key in ['author1','author2','author3'] if data[key]]
+            for author in authors:
+                createContentInContainer(newEPublication, 'edeposit.content.author', fullname=author, title=author)
 
         messages = IStatusMessage(self.request)
         messages.addStatusMessage(u"ePublikace byla ohlášena.", type="info")

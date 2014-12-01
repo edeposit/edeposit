@@ -58,7 +58,7 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         )
 
     generated_isbn = schema.Bool(
-        title = _(u'Generate ISBN'),
+        title = u"Přidělit ISBN agenturou",
         required = False,
         default = False,
         missing_value = False,
