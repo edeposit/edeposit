@@ -50,6 +50,10 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('epublicationmetadataportlet.pt')
 
     @property
+    def available(self):
+        return False
+
+    @property
     def metadata(self):
         return aq_parent(aq_inner(self.context))
 

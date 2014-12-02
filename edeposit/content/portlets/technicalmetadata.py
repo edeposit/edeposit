@@ -38,6 +38,9 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('technicalmetadata.pt')
 
+    @property
+    def available(self):
+        return False
 
 class AddForm(base.AddForm):
     form_fields = form.Fields(ITechnicalMetadata)

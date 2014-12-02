@@ -7,7 +7,6 @@ from zope.interface import invariant, Invalid
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.lifecycleevent import modified
-
 from plone.dexterity.content import Container
 from plone.directives import dexterity, form
 from plone.app.textfield import RichText
@@ -54,6 +53,27 @@ import z3c.form.browser.radio
 import edeposit.amqp.aleph
 # Interface class; used to define content-type schema.
 
+class IMainMetadata(form.Schema):
+    nazev = schema.TextLine (
+        title = u"Název",
+        required = False,
+    )
+
+    podnazev = schema.TextLine (
+        title = u"Podnázev",
+        required = False,
+    )
+
+    cast = schema.TextLine (
+        title = u"Část (svazek,díl)",
+        required = False,
+    )
+    
+    nakladatel_vydavatel = schema.TextLine (
+        title = u"Nakladatel/vydavatel",
+        required = True,
+        )
+    
 class IePublication(form.Schema, IImageScaleTraversable):
     """
     E-Deposit ePublication
@@ -680,10 +700,10 @@ class IAddAtOnceForm(form.Schema):
         required = False,
         )
 
-    poznamka = schema.Text(
-        title = u"Poznámka",
-        required = False,
-        )
+    # poznamka = schema.Text(
+    #     title = u"Poznámka",
+    #     required = False,
+    #     )
 
     form.mode(epublication_uid='hidden')
     epublication_uid = schema.ASCIILine(
@@ -761,25 +781,33 @@ class AddAtOnceForm(form.SchemaForm):
 
     def addOriginalFile(self, newEPublication, data):
         originalFileTitle = "%s (%s)" % (data['nazev'], data['file'] and data['file'].filename or "")
-        newOriginalFile = addContentToContainer( newEPublication,
-                                                 self.createContentFromData(IOriginalFile, 'edeposit.content.originalfile', data,
-                                                                            dict(title=originalFileTitle,
-                                                                                 allow_discussion = True,
-                                                                                 ),
-                                                                            )
-                                                 )
-        comment = data.get('poznamka',"")
-        if comment:
-            commentObj = createObject('plone.Comment')
-            commentObj.text = comment
-            commentObj.user_notification = False
 
-            member = api.user.get_current()
-            commentObj.author_username = member.getUserName()
-            commentObj.author_name = member.getProperty('fullname') or member.getUserName()
+        def withProperMimeType(originalfile):
+            mregistry = api.portal.get_tool('mimetypes_registry')
+            mimetype = mregistry.classify(originalfile.file.data)
+            originalfile.file.contentType = mimetype.normalized()
+            return originalfile
+
+        newOriginalFile = addContentToContainer( newEPublication, withProperMimeType(
+            self.createContentFromData(IOriginalFile,
+                                       'edeposit.content.originalfile', data,
+                                       dict(title=originalFileTitle,
+                                            allow_discussion = True,
+                                        ),
+                                   )
+        ))
+        # comment = data.get('poznamka',"")
+        # if comment:
+        #     commentObj = createObject('plone.Comment')
+        #     commentObj.text = comment
+        #     commentObj.user_notification = False
+
+        #     member = api.user.get_current()
+        #     commentObj.author_username = member.getUserName()
+        #     commentObj.author_name = member.getProperty('fullname') or member.getUserName()
             
-            conversation=IConversation(newOriginalFile)
-            conversation.addComment(commentObj)
+        #     conversation=IConversation(newOriginalFile)
+        #     conversation.addComment(commentObj)
 
         wft = api.portal.get_tool('portal_workflow')
         wft.doActionFor( newOriginalFile, 
@@ -791,9 +819,16 @@ class AddAtOnceForm(form.SchemaForm):
 
     def addEPublication(self, data):
         container = aq_inner(self.context)        
+
+        producent = container.aq_parent
+        nakladatel_vydavatel =  producent.title or producent.id
+
         newEPublication = addContentToContainer( container,
                                                  self.createContentFromData(IePublication, 'edeposit.content.epublication', data, 
-                                                                            dict(vazba='online',title=data['nazev']), 
+                                                                            dict(vazba='online',
+                                                                                 title=data['nazev'],
+                                                                                 nakladatel_vydavatel = nakladatel_vydavatel,
+                                                                                 ), 
                                                                             ['libraries_that_can_access',])
                                                  )
         return newEPublication
@@ -860,3 +895,22 @@ class AddAtOnceForm(form.SchemaForm):
         messages = IStatusMessage(self.request)
         messages.addStatusMessage(u"ePublikace byla ohlášena.", type="info")
         pass
+
+class MainMetadataFromEBook(object):
+    zope.interface.implements(IMainMetadata)
+    adapts(IePublication)
+    
+    def __init__(self,context):
+        self.context = context
+        self.nazev = context.title
+        self.podnazev = context.podnazev
+        self.cast = context.cast
+        self.nakladatel_vydavatel = context.nakladatel_vydavatel
+
+class MainMetadataForm(form.SchemaForm):
+    grok.require('zope2.View')
+    grok.name('main-metadata')
+    grok.context(IePublication)
+    schema = IMainMetadata
+    mode = 'display'
+

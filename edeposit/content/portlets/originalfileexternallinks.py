@@ -31,6 +31,10 @@ class Assignment(base.Assignment):
 
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('originalfileexternallinks.pt')
+    
+    @property
+    def available(self):
+        return False
 
 
 # NOTE: If this portlet does not have any configurable parameters, you can

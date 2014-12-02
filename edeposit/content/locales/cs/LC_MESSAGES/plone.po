@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-24 13:54+0000\n"
-"PO-Revision-Date: 2014-10-24 15:46+0200\n"
+"POT-Creation-Date: 2014-12-01 09:11+0000\n"
+"PO-Revision-Date: 2014-12-01 09:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +13,22 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Add EPublication"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Add Original File"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Add OriginalFile"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
+msgid "Authors Portlet"
+msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
 msgid "Choose proper aleph record"
@@ -46,13 +62,29 @@ msgstr ""
 msgid "ISBN Subject Validation"
 msgstr "Věcná kontrola ISBN"
 
+#: edeposit/content/profiles/default/registry.xml
+msgid "Metadata"
+msgstr ""
+
 #: edeposit/content/profiles/default/portlets.xml
 msgid "Original File External Links"
 msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
+msgid "OriginalFiles Links"
+msgstr ""
+
+#: edeposit/content/profiles/default/registry.xml
+msgid "Producent Editor"
+msgstr ""
+
+#: edeposit/content/profiles/default/portlets.xml
 msgid "Technical Metadata"
 msgstr "Technické údaje"
+
+#: edeposit/content/profiles/default/registry.xml
+msgid "The person that has role producent editor"
+msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
 msgid "Waiting For Aleph"
@@ -61,6 +93,13 @@ msgstr "Čekáme na Aleph"
 #: edeposit/content/profiles/default/portlets.xml
 msgid "Waiting for Acquisition"
 msgstr "Čekáme na akvizici"
+
+#. Default: "There are currently no items in this folder."
+#: CMFPlone/skins/plone_content/folder_listing.pt:182
+#: plone.app.collection/plone/app/collection/browser/templates/standard_view.pt:172
+#: plone.app.collection/plone/app/collection/browser/templates/tabular_view.pt:25
+msgid "description_no_items_in_folder"
+msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
 msgid "ePublication Metadata Portlet"
