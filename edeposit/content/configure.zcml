@@ -94,6 +94,8 @@
   <!--     handler=".handlers.addedOriginalFile"/> -->
 
   <adapter factory=".originalfile.OriginalFilePrimaryFieldInfo"/>
+  <adapter factory=".epublication.MainMetadataFromEBook"/>
+
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.amqp.IAMQPSender"

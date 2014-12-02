@@ -36,6 +36,9 @@ from zope.lifecycleevent import modified
 from string import Template
 from plone import api
 from zope.i18n import translate
+from StringIO import StringIO
+from subprocess import call
+import os.path
 
 def urlCodeIsValid(value):
     return True
@@ -161,7 +164,8 @@ class OriginalFile(Container):
         return aq_parent(aq_inner(self)).nazev_casti
 
     def needsThumbnailGeneration(self):
-        isPdf = self.file and self.file.contentType == "application/pdf"
+        parts = self.file and os.path.splitext(self.file.filename) or None
+        isPdf = parts and parts[-1] and 'pdf' in parts[-1].lower()
         return self.file and not isPdf
 
     def urlToAleph(self):

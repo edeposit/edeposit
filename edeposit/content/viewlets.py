@@ -10,25 +10,26 @@ from zope.interface import implements, alsoProvides, Interface
 from zope.viewlet.interfaces import IViewlet
 
 from AccessControl import getSecurityManager
-from Acquisition import aq_base, aq_inner
+from Acquisition import aq_base, aq_inner, aq_parent
 
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone import PloneMessageFactory as _
-
+from plone.directives import form
 from five import grok
 from plone.app.layout.globals.interfaces import IViewView
-from plone.app.layout.viewlets.interfaces import IContentViews, IBelowContent
+from plone.app.layout.viewlets.interfaces import IContentViews, IBelowContent, IAboveContentBody, IBelowContentBody
 from plone.app.layout.viewlets import ViewletBase
 
 from plone import api
 from originalfile import IOriginalFile
-from epublication import IePublication
+from epublication import IePublication, IMainMetadata, MainMetadataForm
 
 from plone.app.contentmenu import menu
 from plone.app.contentmenu.interfaces import IWorkflowSubMenuItem
+from plone.z3cform.layout import FormWrapper
 
 class ContentState(grok.Viewlet):
     grok.name('edeposit.contentstate')
@@ -72,4 +73,27 @@ class ContentHistory(grok.Viewlet):
     #grok.view(IViewView)
     grok.context(IOriginalFile)
 
+class MainMetadataFormWrapper(FormWrapper):
+    index = ViewPageTemplateFile("viewlets_templates/formwrapper.pt")
 
+class EBookMetadata(grok.Viewlet):
+    grok.name('edeposit.ebookmetadata')
+    grok.require('zope2.View')
+    grok.viewletmanager(IAboveContentBody)
+    grok.context(IOriginalFile)
+
+    def update(self):
+        ebook = aq_parent(aq_inner(self.context))
+        view = MainMetadataFormWrapper(ebook, self.request)
+        view.__of__(ebook)
+        view.form_instance = MainMetadataForm(ebook, self.request)
+        self.main_metadata_form = view
+        self.ebook = ebook
+
+
+
+class Contact(grok.Viewlet):
+    grok.name('edeposit.contact')
+    grok.require('zope2.View')
+    grok.viewletmanager(IBelowContentBody)
+    grok.context(IOriginalFile)
