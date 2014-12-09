@@ -796,6 +796,7 @@ class AddAtOnceForm(form.SchemaForm):
                                         ),
                                    )
         ))
+
         # comment = data.get('poznamka',"")
         # if comment:
         #     commentObj = createObject('plone.Comment')
