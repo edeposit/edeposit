@@ -25,6 +25,7 @@ Toto je pracovní verze. Tj. dokumentace není úplná a jsou v ní chyby.
    roles
    workflows
    architecture
+   development
    middleware/index
    acceptancetests
    integrationtests
