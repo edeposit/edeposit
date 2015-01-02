@@ -50,9 +50,29 @@ Výhody
 - testy zajistí, že se chování systému při novém nasazení nezmění
 - akceptační testy slouží jako dokumentace pro programátory i návrháře systému
 
+Akceptační testy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:ref:`Akceptační testy projektu <acceptancetests>`
+
+
 Pro zápis akceptačních testů i integračních testů projekt využívá `Robot Framework <http://robotframework.org>`_
 
-:ref:`acceptancetests`
+Výhody
+
+   - testy jsou čitelné i pro zadavatele
+   - testy se mohou účastnit analytické částí
+   - testy se snadno udržují
+
+
+Integrační testy
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:ref:`Integrační testy projektu <integrationtests>`
+
+Integrační testy slouží ke kontrole funkce celku.
+
+Testy mají za úkol odhalit problémy při spolupráci jednotlivých součástí aplikace.
 
 .. raw:: html
 
