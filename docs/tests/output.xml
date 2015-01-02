@@ -1,224 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20141023 17:36:22.243" generator="Robot 2.8.3 (Python 2.7.5+ on linux2)">
-<suite source="/opt/edeposit/docs/tests/it02.robot" id="s1" name="It02">
-<test id="s1-t1" name="IT02-01 Ohlášení se soubory">
+<robot generated="20141111 11:19:13.807" generator="Robot 2.8.3 (Python 2.7.5+ on linux2)">
+<suite source="/opt/edeposit/docs/tests/it-fix09.robot" id="s1" name="It-Fix09">
+<test id="s1-t1" name="IT-Fix08 - Fix for UC01-05 Registrace producenta s editorem - kontrola povinnych policek, shodnosti hesel">
 <kw type="setup" name="Selenium2Library.Open Browser">
 <doc>Opens a new browser instance to given URL.</doc>
 <arguments>
 <arg>${PLONE_URL}</arg>
 </arguments>
-<msg timestamp="20141023 17:36:22.534" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8080/Plone'</msg>
-<status status="PASS" endtime="20141023 17:36:26.836" starttime="20141023 17:36:22.534"></status>
-</kw>
-<kw type="kw" name="my-keywords.Prepare AMQP Test Environment">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="amqp.RabbitMQ.Delete All Test Queues Starting With">
-<doc></doc>
-<arguments>
-<arg>${QUEUE_PREFIX}</arg>
-</arguments>
-<msg timestamp="20141023 17:36:27.122" level="INFO">http://localhost:15672/api/queues/aleph
-http://localhost:15672/api/queues/antivirus
-http://localhost:15672/api/queues/calibre</msg>
-<status status="PASS" endtime="20141023 17:36:27.122" starttime="20141023 17:36:26.838"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.138" starttime="20141023 17:36:27.123"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>search</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.153" starttime="20141023 17:36:27.139"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>count</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.168" starttime="20141023 17:36:27.154"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>validate</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.183" starttime="20141023 17:36:27.169"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>export</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.198" starttime="20141023 17:36:27.184"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Remove Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>search</arg>
-<arg>daemon</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.246" starttime="20141023 17:36:27.199"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Remove Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>count</arg>
-<arg>daemon</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.266" starttime="20141023 17:36:27.247"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Remove Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>validate</arg>
-<arg>daemon</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.286" starttime="20141023 17:36:27.267"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Remove Queue Binding">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>export</arg>
-<arg>daemon</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.306" starttime="20141023 17:36:27.287"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.322" starttime="20141023 17:36:27.307"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>antivirus</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.336" starttime="20141023 17:36:27.322"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Remove Queue Binding">
-<doc></doc>
-<arguments>
-<arg>antivirus</arg>
-<arg>antivirus</arg>
-<arg>daemon</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.354" starttime="20141023 17:36:27.338"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue">
-<doc></doc>
-<arguments>
-<arg>calibre</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.369" starttime="20141023 17:36:27.355"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Declare Queue Binding">
-<doc></doc>
-<arguments>
-<arg>calibre</arg>
-<arg>convert</arg>
-<arg>${QUEUE_NAME}</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.385" starttime="20141023 17:36:27.370"></status>
-</kw>
-<kw type="kw" name="amqp.RabbitMQ.Remove Queue Binding">
-<doc></doc>
-<arguments>
-<arg>calibre</arg>
-<arg>convert</arg>
-<arg>daemon</arg>
-<arg>request</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:36:27.403" starttime="20141023 17:36:27.386"></status>
-</kw>
-<status status="PASS" endtime="20141023 17:36:27.404" starttime="20141023 17:36:26.837"></status>
-</kw>
-<kw type="kw" name="it-keywords.Pause">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="Dialogs.Pause Execution">
-<doc>Pauses test execution until user clicks `Ok` button.</doc>
-<arguments>
-</arguments>
-<status status="PASS" endtime="20141023 17:37:07.813" starttime="20141023 17:36:27.407"></status>
-</kw>
-<status status="PASS" endtime="20141023 17:37:07.814" starttime="20141023 17:36:27.405"></status>
+<msg timestamp="20141111 11:19:14.126" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8004/edeposit'</msg>
+<status status="PASS" endtime="20141111 11:19:18.225" starttime="20141111 11:19:14.126"></status>
 </kw>
 <kw type="kw" name="it-keywords.Log in">
 <doc>Log in to the site as ${userid} using ${password}. There</doc>
 <arguments>
-<arg>${USER_NAME}</arg>
-<arg>${USER_PASSWORD}</arg>
+<arg>sfklas</arg>
+<arg>edepositsfklas</arg>
 </arguments>
 <kw type="kw" name="Selenium2Library.Go To">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
 <arg>${PLONE_URL}/login_form</arg>
 </arguments>
-<msg timestamp="20141023 17:37:07.818" level="INFO">Opening url 'http://localhost:8080/Plone/login_form'</msg>
-<status status="PASS" endtime="20141023 17:37:10.105" starttime="20141023 17:37:07.818"></status>
+<msg timestamp="20141111 11:19:18.230" level="INFO">Opening url 'http://localhost:8004/edeposit/login_form'</msg>
+<status status="PASS" endtime="20141111 11:19:19.504" starttime="20141111 11:19:18.229"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_name</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.153" level="INFO">Current page contains element '__ac_name'.</msg>
-<status status="PASS" endtime="20141023 17:37:10.154" starttime="20141023 17:37:10.106"></status>
+<msg timestamp="20141111 11:19:19.541" level="INFO">Current page contains element '__ac_name'.</msg>
+<status status="PASS" endtime="20141111 11:19:19.541" starttime="20141111 11:19:19.505"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>__ac_password</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.179" level="INFO">Current page contains element '__ac_password'.</msg>
-<status status="PASS" endtime="20141023 17:37:10.180" starttime="20141023 17:37:10.154"></status>
+<msg timestamp="20141111 11:19:19.549" level="INFO">Current page contains element '__ac_password'.</msg>
+<status status="PASS" endtime="20141111 11:19:19.549" starttime="20141111 11:19:19.541"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Page Should Contain Element">
 <doc>Verifies element identified by `locator` is found on the current page.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.187" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20141023 17:37:10.187" starttime="20141023 17:37:10.180"></status>
+<msg timestamp="20141111 11:19:19.555" level="INFO">Current page contains element 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20141111 11:19:19.555" starttime="20141111 11:19:19.550"></status>
 </kw>
 <kw type="kw" name="it-keywords.Input text for sure">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -230,15 +58,15 @@ http://localhost:15672/api/queues/calibre</msg>
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20141023 17:37:10.193" level="INFO">${TIMEOUT} = 5 seconds</msg>
-<status status="PASS" endtime="20141023 17:37:10.193" starttime="20141023 17:37:10.192"></status>
+<msg timestamp="20141111 11:19:19.561" level="INFO">${TIMEOUT} = 5 seconds</msg>
+<status status="PASS" endtime="20141111 11:19:19.561" starttime="20141111 11:19:19.560"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20141023 17:37:10.194" level="INFO">${IMPLICIT_WAIT} = 0 seconds</msg>
-<status status="PASS" endtime="20141023 17:37:10.194" starttime="20141023 17:37:10.193"></status>
+<msg timestamp="20141111 11:19:19.562" level="INFO">${IMPLICIT_WAIT} = 0 seconds</msg>
+<status status="PASS" endtime="20141111 11:19:19.562" starttime="20141111 11:19:19.562"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -260,7 +88,7 @@ http://localhost:15672/api/queues/calibre</msg>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20141023 17:37:10.238" starttime="20141023 17:37:10.200"></status>
+<status status="PASS" endtime="20141111 11:19:19.609" starttime="20141111 11:19:19.568"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -268,16 +96,16 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.240" level="INFO">Typing text 'jans' into text field '__ac_name'</msg>
-<status status="PASS" endtime="20141023 17:37:10.315" starttime="20141023 17:37:10.239"></status>
+<msg timestamp="20141111 11:19:19.610" level="INFO">Typing text 'sfklas' into text field '__ac_name'</msg>
+<status status="PASS" endtime="20141111 11:19:19.685" starttime="20141111 11:19:19.609"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.348" level="INFO">${value} = jans</msg>
-<status status="PASS" endtime="20141023 17:37:10.348" starttime="20141023 17:37:10.316"></status>
+<msg timestamp="20141111 11:19:19.695" level="INFO">${value} = sfklas</msg>
+<status status="PASS" endtime="20141111 11:19:19.695" starttime="20141111 11:19:19.685"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal">
 <doc>Fails if the given objects are unequal.</doc>
@@ -285,16 +113,16 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.350" level="INFO">Argument types are:
-&lt;type 'str'&gt;
+<msg timestamp="20141111 11:19:19.696" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20141023 17:37:10.350" starttime="20141023 17:37:10.349"></status>
+<status status="PASS" endtime="20141111 11:19:19.696" starttime="20141111 11:19:19.696"></status>
 </kw>
-<status status="PASS" endtime="20141023 17:37:10.350" starttime="20141023 17:37:10.197"></status>
+<status status="PASS" endtime="20141111 11:19:19.697" starttime="20141111 11:19:19.565"></status>
 </kw>
-<status status="PASS" endtime="20141023 17:37:10.350" starttime="20141023 17:37:10.195"></status>
+<status status="PASS" endtime="20141111 11:19:19.697" starttime="20141111 11:19:19.563"></status>
 </kw>
-<status status="PASS" endtime="20141023 17:37:10.351" starttime="20141023 17:37:10.189"></status>
+<status status="PASS" endtime="20141111 11:19:19.697" starttime="20141111 11:19:19.557"></status>
 </kw>
 <kw type="kw" name="it-keywords.Input text for sure">
 <doc>Locate input element by ${locator} and enter the given</doc>
@@ -306,15 +134,15 @@ http://localhost:15672/api/queues/calibre</msg>
 <doc>Gets the timeout in seconds that is used by various keywords.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20141023 17:37:10.356" level="INFO">${TIMEOUT} = 5 seconds</msg>
-<status status="PASS" endtime="20141023 17:37:10.356" starttime="20141023 17:37:10.355"></status>
+<msg timestamp="20141111 11:19:19.700" level="INFO">${TIMEOUT} = 5 seconds</msg>
+<status status="PASS" endtime="20141111 11:19:19.700" starttime="20141111 11:19:19.700"></status>
 </kw>
 <kw type="kw" name="${IMPLICIT_WAIT} = Selenium2Library.Get Selenium Implicit Wait">
 <doc>Gets the wait in seconds that is waited by Selenium.</doc>
 <arguments>
 </arguments>
-<msg timestamp="20141023 17:37:10.357" level="INFO">${IMPLICIT_WAIT} = 0 seconds</msg>
-<status status="PASS" endtime="20141023 17:37:10.357" starttime="20141023 17:37:10.357"></status>
+<msg timestamp="20141111 11:19:19.701" level="INFO">${IMPLICIT_WAIT} = 0 seconds</msg>
+<status status="PASS" endtime="20141111 11:19:19.701" starttime="20141111 11:19:19.700"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
 <doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
@@ -336,7 +164,7 @@ http://localhost:15672/api/queues/calibre</msg>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<status status="PASS" endtime="20141023 17:37:10.530" starttime="20141023 17:37:10.361"></status>
+<status status="PASS" endtime="20141111 11:19:19.727" starttime="20141111 11:19:19.703"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Input Text">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -344,16 +172,16 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${locator}</arg>
 <arg>${text}</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.531" level="INFO">Typing text 'cjsaks' into text field '__ac_password'</msg>
-<status status="PASS" endtime="20141023 17:37:10.601" starttime="20141023 17:37:10.531"></status>
+<msg timestamp="20141111 11:19:19.731" level="INFO">Typing text 'edepositsfklas' into text field '__ac_password'</msg>
+<status status="PASS" endtime="20141111 11:19:19.783" starttime="20141111 11:19:19.728"></status>
 </kw>
 <kw type="kw" name="${value} = Selenium2Library.Get Value">
 <doc>Returns the value attribute of element identified by `locator`.</doc>
 <arguments>
 <arg>${locator}</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.640" level="INFO">${value} = cjsaks</msg>
-<status status="PASS" endtime="20141023 17:37:10.640" starttime="20141023 17:37:10.601"></status>
+<msg timestamp="20141111 11:19:19.795" level="INFO">${value} = edepositsfklas</msg>
+<status status="PASS" endtime="20141111 11:19:19.794" starttime="20141111 11:19:19.783"></status>
 </kw>
 <kw type="kw" name="BuiltIn.Should Be Equal">
 <doc>Fails if the given objects are unequal.</doc>
@@ -361,41 +189,102 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>${text}</arg>
 <arg>${value}</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.642" level="INFO">Argument types are:
-&lt;type 'str'&gt;
+<msg timestamp="20141111 11:19:19.795" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
 &lt;type 'unicode'&gt;</msg>
-<status status="PASS" endtime="20141023 17:37:10.642" starttime="20141023 17:37:10.641"></status>
+<status status="PASS" endtime="20141111 11:19:19.795" starttime="20141111 11:19:19.795"></status>
 </kw>
-<status status="PASS" endtime="20141023 17:37:10.642" starttime="20141023 17:37:10.359"></status>
+<status status="PASS" endtime="20141111 11:19:19.796" starttime="20141111 11:19:19.702"></status>
 </kw>
-<status status="PASS" endtime="20141023 17:37:10.642" starttime="20141023 17:37:10.358"></status>
+<status status="PASS" endtime="20141111 11:19:19.796" starttime="20141111 11:19:19.701"></status>
 </kw>
-<status status="PASS" endtime="20141023 17:37:10.643" starttime="20141023 17:37:10.352"></status>
+<status status="PASS" endtime="20141111 11:19:19.796" starttime="20141111 11:19:19.698"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Button">
 <doc>Clicks a button identified by `locator`.</doc>
 <arguments>
 <arg>css=#login-form .formControls input[name=submit]</arg>
 </arguments>
-<msg timestamp="20141023 17:37:10.644" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
-<status status="PASS" endtime="20141023 17:37:14.397" starttime="20141023 17:37:10.643"></status>
+<msg timestamp="20141111 11:19:19.796" level="INFO">Clicking button 'css=#login-form .formControls input[name=submit]'.</msg>
+<status status="PASS" endtime="20141111 11:19:21.737" starttime="20141111 11:19:19.796"></status>
 </kw>
-<status status="PASS" endtime="20141023 17:37:14.398" starttime="20141023 17:37:07.815"></status>
+<status status="PASS" endtime="20141111 11:19:21.738" starttime="20141111 11:19:18.226"></status>
 </kw>
 <kw type="kw" name="Selenium2Library.Click Link">
 <doc>Clicks a link identified by locator.</doc>
 <arguments>
-<arg>Ohlášení ePublikací</arg>
+<arg>ePublikace</arg>
 </arguments>
-<msg timestamp="20141023 17:37:14.399" level="INFO">Clicking link 'Ohlášení ePublikací'.</msg>
-<status status="PASS" endtime="20141023 17:37:16.435" starttime="20141023 17:37:14.399"></status>
+<msg timestamp="20141111 11:19:21.738" level="INFO">Clicking link 'ePublikace'.</msg>
+<status status="PASS" endtime="20141111 11:19:22.646" starttime="20141111 11:19:21.738"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Wait Until Page Contains">
-<doc>Waits until `text` appears on current page.</doc>
+<kw type="kw" name="Selenium2Library.Wait Until Page Contains Element">
+<doc>Waits until element specified with `locator` appears on current page.</doc>
 <arguments>
-<arg>Ohlašovací lístek ISBN - ePublikace</arg>
+<arg>css=input[value="Ohlásit"]</arg>
 </arguments>
-<status status="PASS" endtime="20141023 17:37:16.447" starttime="20141023 17:37:16.435"></status>
+<status status="PASS" endtime="20141111 11:19:22.657" starttime="20141111 11:19:22.647"></status>
+</kw>
+<kw type="kw" name="my-keywords.Add Original Files for ePublication">
+<doc></doc>
+<arguments>
+<arg>978=80-260-7003-0</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#form-widgets-IOriginalFile-url</arg>
+<arg>http://www.grada.cz/book/1000</arg>
+</arguments>
+<msg timestamp="20141111 11:19:22.659" level="INFO">Typing text 'http://www.grada.cz/book/1000' into text field 'css=#form-widgets-IOriginalFile-url'</msg>
+<status status="PASS" endtime="20141111 11:19:22.774" starttime="20141111 11:19:22.658"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#form-widgets-IOriginalFile-isbn</arg>
+<arg>${ISBN}</arg>
+</arguments>
+<msg timestamp="20141111 11:19:22.776" level="INFO">Typing text '978=80-260-7003-0' into text field 'css=#form-widgets-IOriginalFile-isbn'</msg>
+<status status="PASS" endtime="20141111 11:19:22.851" starttime="20141111 11:19:22.775"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Choose File">
+<doc>Inputs the `file_path` into file input field found by `identifier`.</doc>
+<arguments>
+<arg>css=#form-widgets-IOriginalFile-file-input</arg>
+<arg>/opt/edeposit/docs/tests/resources/${filename}</arg>
+</arguments>
+<status status="PASS" endtime="20141111 11:19:22.887" starttime="20141111 11:19:22.852"></status>
+</kw>
+<status status="PASS" endtime="20141111 11:19:22.887" starttime="20141111 11:19:22.657"></status>
+</kw>
+<kw type="kw" name="my-keywords.Add authors for ePublication">
+<doc></doc>
+<arguments>
+<arg>Zalejská Alena</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>css=#form-widgets-IAuthors-authors-0-widgets-fullname</arg>
+<arg>${AUTHOR}</arg>
+</arguments>
+<msg timestamp="20141111 11:19:22.889" level="INFO">Typing text 'Zalejská Alena' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-fullname'</msg>
+<status status="PASS" endtime="20141111 11:19:22.967" starttime="20141111 11:19:22.889"></status>
+</kw>
+<status status="PASS" endtime="20141111 11:19:22.968" starttime="20141111 11:19:22.888"></status>
+</kw>
+<kw type="kw" name="it-keywords.Pause">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Dialogs.Pause Execution">
+<doc>Pauses test execution until user clicks `Ok` button.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20141111 13:46:22.319" starttime="20141111 11:19:22.969"></status>
+</kw>
+<status status="PASS" endtime="20141111 13:46:22.320" starttime="20141111 11:19:22.969"></status>
 </kw>
 <kw type="kw" name="my-keywords.Fill inputs about ePublication">
 <doc></doc>
@@ -407,882 +296,25 @@ http://localhost:15672/api/queues/calibre</msg>
 <arg>css=#form-widgets-IBasic-title</arg>
 <arg>${title}</arg>
 </arguments>
-<msg timestamp="20141023 17:37:16.449" level="INFO">Typing text 'Lesní školky ve Zlíně' into text field 'css=#form-widgets-IBasic-title'</msg>
-<status status="PASS" endtime="20141023 17:37:16.546" starttime="20141023 17:37:16.449"></status>
+<status status="FAIL" endtime="20141111 13:46:22.323" starttime="20141111 13:46:22.322"></status>
 </kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-podnazev</arg>
-<arg>${podnazev}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.547" level="INFO">Typing text 'Individualni vzdělávání' into text field 'css=#form-widgets-podnazev'</msg>
-<status status="PASS" endtime="20141023 17:37:16.624" starttime="20141023 17:37:16.546"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Not Contain">
-<doc>Verifies the current page does not contain `text`.</doc>
-<arguments>
-<arg>Obsah</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.641" level="INFO">Current page does not contain text 'Obsah'.</msg>
-<status status="PASS" endtime="20141023 17:37:16.641" starttime="20141023 17:37:16.624"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>ePublikace</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.656" level="INFO">Current page contains text 'ePublikace'.</msg>
-<status status="PASS" endtime="20141023 17:37:16.656" starttime="20141023 17:37:16.641"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Název</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.668" level="INFO">Current page contains text 'Název'.</msg>
-<status status="PASS" endtime="20141023 17:37:16.668" starttime="20141023 17:37:16.657"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-cena</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.670" level="INFO">Typing text '0' into text field 'css=#form-widgets-cena'</msg>
-<status status="PASS" endtime="20141023 17:37:16.708" starttime="20141023 17:37:16.669"></status>
-</kw>
-<status status="PASS" endtime="20141023 17:37:16.708" starttime="20141023 17:37:16.448"></status>
-</kw>
-<kw type="kw" name="my-keywords.Fill inputs about Vydani">
-<doc></doc>
-<arguments>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-nakladatel_vydavatel</arg>
-<arg>In Zlín</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.709" level="INFO">Typing text 'In Zlín' into text field 'css=#form-widgets-nakladatel_vydavatel'</msg>
-<status status="PASS" endtime="20141023 17:37:16.768" starttime="20141023 17:37:16.709"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-misto_vydani</arg>
-<arg>Zlín</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.768" level="INFO">Typing text 'Zlín' into text field 'css=#form-widgets-misto_vydani'</msg>
-<status status="PASS" endtime="20141023 17:37:16.816" starttime="20141023 17:37:16.768"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-rok_vydani</arg>
-<arg>2013</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.817" level="INFO">Typing text '2013' into text field 'css=#form-widgets-rok_vydani'</msg>
-<status status="PASS" endtime="20141023 17:37:16.874" starttime="20141023 17:37:16.817"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-poradi_vydani</arg>
-<arg>první</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.875" level="INFO">Typing text 'první' into text field 'css=#form-widgets-poradi_vydani'</msg>
-<status status="PASS" endtime="20141023 17:37:16.932" starttime="20141023 17:37:16.874"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-zpracovatel_zaznamu</arg>
-<arg>Jan Stavěl</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.933" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-zpracovatel_zaznamu'</msg>
-<status status="PASS" endtime="20141023 17:37:16.986" starttime="20141023 17:37:16.932"></status>
-</kw>
-<status status="PASS" endtime="20141023 17:37:16.986" starttime="20141023 17:37:16.708"></status>
-</kw>
-<kw type="kw" name="my-keywords.Add authors for ePublication">
-<doc></doc>
-<arguments>
-<arg>Jan Stavěl</arg>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IAuthors-authors-0-widgets-fullname</arg>
-<arg>${AUTHOR}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:16.988" level="INFO">Typing text 'Jan Stavěl' into text field 'css=#form-widgets-IAuthors-authors-0-widgets-fullname'</msg>
-<status status="PASS" endtime="20141023 17:37:17.047" starttime="20141023 17:37:16.987"></status>
-</kw>
-<status status="PASS" endtime="20141023 17:37:17.048" starttime="20141023 17:37:16.986"></status>
-</kw>
-<kw type="kw" name="my-keywords.Add Original Files for ePublication">
-<doc></doc>
-<arguments>
-<arg>${VALID_ISBN}</arg>
-</arguments>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IOriginalFile-url</arg>
-<arg>http://www.grada.cz/book/1000</arg>
-</arguments>
-<msg timestamp="20141023 17:37:17.050" level="INFO">Typing text 'http://www.grada.cz/book/1000' into text field 'css=#form-widgets-IOriginalFile-url'</msg>
-<status status="PASS" endtime="20141023 17:37:17.150" starttime="20141023 17:37:17.049"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Input Text">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>css=#form-widgets-IOriginalFile-isbn</arg>
-<arg>${ISBN}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:17.152" level="INFO">Typing text '978-80-260-7000-9' into text field 'css=#form-widgets-IOriginalFile-isbn'</msg>
-<status status="PASS" endtime="20141023 17:37:17.234" starttime="20141023 17:37:17.151"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Choose File">
-<doc>Inputs the `file_path` into file input field found by `identifier`.</doc>
-<arguments>
-<arg>css=#form-widgets-IOriginalFile-file-input</arg>
-<arg>/opt/edeposit/docs/tests/resources/${filename}</arg>
-</arguments>
-<status status="PASS" endtime="20141023 17:37:17.262" starttime="20141023 17:37:17.234"></status>
-</kw>
-<status status="PASS" endtime="20141023 17:37:17.262" starttime="20141023 17:37:17.048"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Click Button">
-<doc>Clicks a button identified by `locator`.</doc>
-<arguments>
-<arg>form.buttons.save</arg>
-</arguments>
-<msg timestamp="20141023 17:37:17.263" level="INFO">Clicking button 'form.buttons.save'.</msg>
-<status status="PASS" endtime="20141023 17:37:21.407" starttime="20141023 17:37:17.263"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Položka byla vytvořena</arg>
-</arguments>
-<msg timestamp="20141023 17:37:21.494" level="INFO">Current page contains text 'Položka byla vytvořena'.</msg>
-<status status="PASS" endtime="20141023 17:37:21.494" starttime="20141023 17:37:21.408"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Location Should Contain">
-<doc>Verifies that current URL contains `expected`.</doc>
-<arguments>
-<arg>lesni-skolky-ve-zline</arg>
-</arguments>
-<msg timestamp="20141023 17:37:21.506" level="INFO">Current location contains 'lesni-skolky-ve-zline'.</msg>
-<status status="PASS" endtime="20141023 17:37:21.506" starttime="20141023 17:37:21.495"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain">
-<doc>Verifies that current page contains `text`.</doc>
-<arguments>
-<arg>Processing</arg>
-</arguments>
-<msg timestamp="20141023 17:37:21.578" level="INFO">Current page contains text 'Processing'.</msg>
-<status status="PASS" endtime="20141023 17:37:21.578" starttime="20141023 17:37:21.506"></status>
-</kw>
-<kw type="kw" name="my-keywords.ePublication contains Original File at state">
-<doc></doc>
-<arguments>
-<arg>isbnvalidation</arg>
-</arguments>
-<kw type="kw" name="Selenium2Library.Click Link">
-<doc>Clicks a link identified by locator.</doc>
-<arguments>
-<arg>Zobrazení</arg>
-</arguments>
-<msg timestamp="20141023 17:37:21.582" level="INFO">Clicking link 'Zobrazení'.</msg>
-<status status="PASS" endtime="20141023 17:37:24.468" starttime="20141023 17:37:21.582"></status>
-</kw>
-<kw type="kw" name="Selenium2Library.Page Should Contain Element">
-<doc>Verifies element identified by `locator` is found on the current page.</doc>
-<arguments>
-<arg>xpath=//a[contains(@class,"contenttype-edeposit-content-originalfile") and contains(@class,"state-${state}")]</arg>
-</arguments>
-<msg timestamp="20141023 17:37:24.488" level="INFO">Current page contains element 'xpath=//a[contains(@class,"contenttype-edeposit-content-originalfile") and contains(@class,"state-isbnvalidation")]'.</msg>
-<status status="PASS" endtime="20141023 17:37:24.489" starttime="20141023 17:37:24.469"></status>
-</kw>
-<status status="PASS" endtime="20141023 17:37:24.489" starttime="20141023 17:37:21.579"></status>
-</kw>
-<kw type="kw" name="my-keywords.Respond as ISBN Validation Daemon">
-<doc></doc>
-<arguments>
-<arg>${VALID_ENGLISH_ISBN}</arg>
-<arg>True</arg>
-</arguments>
-<kw type="kw" name="BuiltIn.Log">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Respond as ISBN Validation Daemon</arg>
-<arg>WARN</arg>
-</arguments>
-<msg timestamp="20141023 17:37:24.491" level="WARN">Respond as ISBN Validation Daemon</msg>
-<status status="PASS" endtime="20141023 17:37:24.492" starttime="20141023 17:37:24.491"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
-<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
-<arguments>
-<arg>10s</arg>
-<arg>0.5s</arg>
-<arg>Queue is not empty</arg>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:24.506" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:24.506" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:24.506" starttime="20141023 17:37:24.497"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:24.506" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:24.507" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:24.507" starttime="20141023 17:37:24.506"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:24.507" starttime="20141023 17:37:24.494"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:25.015" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:25.015" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:25.015" starttime="20141023 17:37:25.010"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:25.016" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:25.016" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:25.016" starttime="20141023 17:37:25.015"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:25.017" starttime="20141023 17:37:25.008"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:25.523" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:25.523" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:25.523" starttime="20141023 17:37:25.519"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:25.523" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:25.523" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:25.523" starttime="20141023 17:37:25.523"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:25.524" starttime="20141023 17:37:25.518"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:26.036" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:26.036" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:26.036" starttime="20141023 17:37:26.029"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:26.038" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:26.039" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:26.040" starttime="20141023 17:37:26.037"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:26.040" starttime="20141023 17:37:26.025"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:26.546" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:26.546" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:26.546" starttime="20141023 17:37:26.542"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:26.547" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:26.547" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:26.547" starttime="20141023 17:37:26.547"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:26.547" starttime="20141023 17:37:26.541"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:27.059" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:27.059" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:27.059" starttime="20141023 17:37:27.052"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:27.061" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:27.061" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:27.062" starttime="20141023 17:37:27.060"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:27.062" starttime="20141023 17:37:27.048"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:27.575" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:27.575" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:27.575" starttime="20141023 17:37:27.568"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:27.577" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:27.578" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:27.578" starttime="20141023 17:37:27.576"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:27.578" starttime="20141023 17:37:27.563"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:28.090" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:28.091" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:28.090" starttime="20141023 17:37:28.084"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:28.092" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:28.093" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:28.093" starttime="20141023 17:37:28.091"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:28.093" starttime="20141023 17:37:28.080"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:28.605" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:28.606" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:28.605" starttime="20141023 17:37:28.599"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:28.607" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:28.608" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:28.609" starttime="20141023 17:37:28.606"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:28.609" starttime="20141023 17:37:28.595"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:29.122" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:29.123" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:29.123" starttime="20141023 17:37:29.115"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:29.124" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:29.125" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:29.125" starttime="20141023 17:37:29.124"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:29.126" starttime="20141023 17:37:29.111"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:29.636" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:29.637" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:29.637" starttime="20141023 17:37:29.630"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:29.638" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:29.639" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:29.639" starttime="20141023 17:37:29.637"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:29.640" starttime="20141023 17:37:29.627"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:30.152" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:30.152" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:30.152" starttime="20141023 17:37:30.145"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:30.154" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:30.154" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:30.155" starttime="20141023 17:37:30.153"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:30.155" starttime="20141023 17:37:30.141"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:30.667" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:30.668" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:30.668" starttime="20141023 17:37:30.662"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:30.669" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:30.669" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:30.669" starttime="20141023 17:37:30.668"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:30.670" starttime="20141023 17:37:30.656"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:31.179" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:31.179" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:31.179" starttime="20141023 17:37:31.175"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:31.180" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:31.180" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:31.180" starttime="20141023 17:37:31.180"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:31.180" starttime="20141023 17:37:31.171"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:31.694" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:31.695" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:31.695" starttime="20141023 17:37:31.685"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:31.698" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:31.698" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:31.699" starttime="20141023 17:37:31.696"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:31.699" starttime="20141023 17:37:31.681"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:32.211" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:32.211" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:32.211" starttime="20141023 17:37:32.204"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:32.213" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:32.213" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:32.213" starttime="20141023 17:37:32.212"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:32.214" starttime="20141023 17:37:32.200"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:32.725" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:32.726" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:32.726" starttime="20141023 17:37:32.719"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:32.727" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:32.728" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:32.728" starttime="20141023 17:37:32.727"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:32.729" starttime="20141023 17:37:32.715"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:33.241" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:33.242" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:33.241" starttime="20141023 17:37:33.235"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:33.243" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:33.244" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:33.244" starttime="20141023 17:37:33.242"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:33.245" starttime="20141023 17:37:33.230"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:33.757" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:33.757" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:33.757" starttime="20141023 17:37:33.750"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:33.759" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:33.760" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:33.760" starttime="20141023 17:37:33.758"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:33.760" starttime="20141023 17:37:33.746"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:34.272" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:34.272" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:34.272" starttime="20141023 17:37:34.265"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:34.274" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:34.274" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:34.275" starttime="20141023 17:37:34.273"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:34.275" starttime="20141023 17:37:34.261"></status>
-</kw>
-<kw type="kw" name="my-keywords.Queue is not empty">
-<doc></doc>
-<arguments>
-<arg>aleph</arg>
-<arg>${QUEUE_NAME}</arg>
-</arguments>
-<kw type="kw" name="${num_of_messages} = amqp.RabbitMQ.Get Num Of Messages At Queue">
-<doc></doc>
-<arguments>
-<arg>${vhost}</arg>
-<arg>${queue}</arg>
-</arguments>
-<msg timestamp="20141023 17:37:34.787" level="INFO">http://localhost:15672/api/queues/aleph/integration-tests-queue-380a2-01</msg>
-<msg timestamp="20141023 17:37:34.788" level="INFO">${num_of_messages} = 0</msg>
-<status status="PASS" endtime="20141023 17:37:34.788" starttime="20141023 17:37:34.780"></status>
-</kw>
-<kw type="kw" name="BuiltIn.Should Not Be Equal As Integers">
-<doc>Fails if objects are equal after converting them to integers.</doc>
-<arguments>
-<arg>${num_of_messages}</arg>
-<arg>0</arg>
-</arguments>
-<msg timestamp="20141023 17:37:34.789" level="INFO">Argument types are:
-&lt;type 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<msg timestamp="20141023 17:37:34.790" level="FAIL">0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:34.790" starttime="20141023 17:37:34.789"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:34.791" starttime="20141023 17:37:34.776"></status>
-</kw>
-<msg timestamp="20141023 17:37:34.791" level="FAIL">Timeout 10 seconds exceeded. The last error was: 0 == 0</msg>
-<status status="FAIL" endtime="20141023 17:37:34.792" starttime="20141023 17:37:24.493"></status>
-</kw>
-<status status="FAIL" endtime="20141023 17:37:34.792" starttime="20141023 17:37:24.489"></status>
+<status status="FAIL" endtime="20141111 13:46:22.323" starttime="20141111 13:46:22.321"></status>
 </kw>
 <kw type="teardown" name="Selenium2Library.Close Browser">
 <doc>Closes the current browser.</doc>
 <arguments>
 </arguments>
-<status status="PASS" endtime="20141023 17:37:34.849" starttime="20141023 17:37:34.793"></status>
+<status status="PASS" endtime="20141111 13:46:22.338" starttime="20141111 13:46:22.323"></status>
 </kw>
 <doc></doc>
 <tags>
 </tags>
-<status status="FAIL" endtime="20141023 17:37:34.850" critical="yes" starttime="20141023 17:36:22.533">Timeout 10 seconds exceeded. The last error was: 0 == 0</status>
+<status status="FAIL" endtime="20141111 13:46:22.339" critical="yes" starttime="20141111 11:19:14.123">Execution terminated by signal</status>
 </test>
 <doc></doc>
 <metadata>
 </metadata>
-<status status="FAIL" endtime="20141023 17:37:34.851" starttime="20141023 17:36:22.243"></status>
+<status status="FAIL" endtime="20141111 13:46:22.340" starttime="20141111 11:19:13.807"></status>
 </suite>
 <statistics>
 <total>
@@ -1292,10 +324,9 @@ http://localhost:15672/api/queues/calibre</msg>
 <tag>
 </tag>
 <suite>
-<stat fail="1" pass="0" id="s1" name="It02">It02</stat>
+<stat fail="1" pass="0" id="s1" name="It-Fix09">It-Fix09</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20141023 17:37:24.491" level="WARN">Respond as ISBN Validation Daemon</msg>
 </errors>
 </robot>
