@@ -221,6 +221,15 @@
   <!--       permission="zope2.View" -->
   <!--       /> -->
 
+  <browser:viewlet
+      name="edeposit.contentactions"
+      for="*"
+      view="plone.app.content.browser.interfaces.IFolderContentsView"
+      manager="plone.app.layout.viewlets.interfaces.IContentViews"
+      class=".viewlets.CustomContentActions"
+      permission="zope2.View"
+      />
+
   <browser:page
       name="download"
       for="edeposit.content.originalfile.IOriginalFile"
@@ -276,5 +285,13 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <include package=".portlets" />
+  <include package=".browser" />
+
+  <!-- <browser:page -->
+  <!--     name="z3cform_validate_field" -->
+  <!--     for="edeposit.content.epublication.IAddAtOnceForm" -->
+  <!--     class=".inline_validation.InlineValidationView" -->
+  <!--     permission="zope.Public" -->
+  <!--     /> -->
   
 </configure>

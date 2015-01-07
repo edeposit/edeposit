@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from five import grok
 import zope
+import z3c.form
 from z3c.form import group, field, button
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -19,7 +20,7 @@ from plone.formwidget.autocomplete import AutocompleteFieldWidget, AutocompleteM
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 from Products.statusmessages.interfaces import IStatusMessage
-from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet, INPUT_MODE
 
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
@@ -27,6 +28,7 @@ from zope.app.intid.interfaces import IIntIds
 from edeposit.content.library import ILibrary
 from edeposit.content import MessageFactory as _
 
+from .widget import TextWidgetWithLoadButton
 from .author import IAuthor
 from .originalfile import IOriginalFile
 
@@ -51,7 +53,23 @@ from plone.app.discussion.interfaces import IConversation
 import z3c.form.browser.radio
 
 import edeposit.amqp.aleph
-# Interface class; used to define content-type schema.
+
+from plone.z3cform.layout import wrap_form, FormWrapper
+from originalfile import OriginalFile
+from epublicationfolder import IePublicationFolder
+
+from edeposit.content.browser import contribute
+from functools import partial
+
+from edeposit.content.browser.contribute import (
+    LoadFromSimilarForm,
+    LoadFromSimilarView,
+    LoadFromSimilarSubView,
+)
+
+from edeposit.content.mock import (
+    getAlephRecord
+)
 
 class IMainMetadata(form.Schema):
     nazev = schema.TextLine (
@@ -335,9 +353,6 @@ class IOriginalFiles(model.Schema):
         unique = False,
         min_length = 1
     )
-
-from originalfile import OriginalFile
-from epublicationfolder import IePublicationFolder
 
 class EPublicationAddForm(DefaultAddForm):
     label = u"Ohlášení ePublikace"
@@ -708,7 +723,7 @@ class IAddAtOnceForm(form.Schema):
     form.mode(epublication_uid='hidden')
     epublication_uid = schema.ASCIILine(
         required = False,
-        )
+    )
     
 
 @form.default_value(field=IAddAtOnceForm['zpracovatel_zaznamu'])
@@ -719,8 +734,15 @@ def zpracovatelDefaultValue(data):
 
 @form.default_value(field=IAddAtOnceForm['nakladatel_vydavatel'])
 def nakladatelDefaultValue(data):
-    producent = data.context.aq_parent
-    return producent.title or producent.id
+    context = (getattr(data,'view',None) and getattr(data.view,'context',None)) or getattr(data,'context',None)
+    if context:
+        producent = context.aq_parent
+        return producent.title or producent.id
+    return ""
+
+# Martin Heideger
+# soucasna doba prekonala vsechny vzdalenosti, 
+# ale neprinesla zadnou blizkost 
 
 class AddAtOnceForm(form.SchemaForm):
     grok.name('add-at-once')
@@ -731,8 +753,63 @@ class AddAtOnceForm(form.SchemaForm):
     label = u"Ohlásit ePublikaci"
     enable_form_tabbing = False
     autoGroups = False
+    template = ViewPageTemplateFile('epublication_templates/addatonce.pt')
+
+    def loadValuesFromAlephRecord(self, record):
+        epublication = record.epublication
+        if epublication:
+            widgets = self.widgets
+            theSameNames = (frozenset(widgets.keys()) & frozenset(epublication._fields)) - frozenset(['format'])
+            for name in theSameNames:
+                widgets[name].value = getattr(epublication,name)
+
+            # authors
+            for author,index in zip(epublication.autori, range(1,4)):
+                name = "author%d" % (index,)
+                getter = partial(getattr, author)
+                value = " ".join(filter(lambda value: value, map(getter,['title','firstName','lastName'])))
+                widgets[name].value = value
+                
+            get = partial(getattr,epublication)
+            widgets['cast'].value = get('castDil')
+            widgets['nazev_casti'].value = get('nazevCasti')
+            widgets['isbn_souboru_publikaci'].value = get('ISBNSouboruPublikaci') and get('ISBNSouboruPublikaci')[0] or None
+            widgets['poradi_vydani'].value = get('poradiVydani')
+            widgets['rok_vydani'].value = get('datumVydani')
+            widgets['poradi_vydani'].value = get('poradiVydani')
+            widgets['misto_vydani'].value = get('mistoVydani')
+        pass
+
+    def update(self):
+        print "AddAtOnceForm - update"
+        form = LoadFromSimilarForm(self.context, self.request)
+        view = LoadFromSimilarSubView(self.context, self.request)
+        view = view.__of__(self.context)
+        view.form_instance = form
+        self.loadsimilarform = view
+        form.parent_form = self
+        super(AddAtOnceForm,self).update()
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        proper_record = session.get('proper_record',None)
+        #proper_record = getAlephRecord()
+        if proper_record:
+            self.loadValuesFromAlephRecord(proper_record)
+            session.set('proper_record',None)
+
+    # def updateWidgets(self):
+    #     super(AddAtOnceForm,self).updateWidgets()
+    #     # if self.mode == INPUT_MODE:
+    #     #     self.widgets['load_isbn'].template = ViewPageTemplateFile('text_input_with_load_button.pt')
+    #     # pass
 
     def extractData(self):
+        print "AddAtOnceForm - extractData"
+        # if ('load-from-similar.widgets.load_isbn' in self.request.keys()):
+        #     data,errors = self.loadsimilarform.form_instance.extractData()
+        #     if errors:
+        #         return data,errors
+
         def getErrorView(widget,error):
             view = zope.component.getMultiAdapter( (error, 
                                                     self.request, 

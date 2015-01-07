@@ -49,6 +49,8 @@ edeposit/content/testing.py
 edeposit/content/tests.py
 edeposit/content/viewlets.py
 edeposit/content/vocabularies.py
+edeposit/content/browser/__init__.py
+edeposit/content/browser/contribute.py
 edeposit/content/portlets/__init__.py
 edeposit/content/portlets/addepublication.py
 edeposit/content/portlets/addoriginalfile.py

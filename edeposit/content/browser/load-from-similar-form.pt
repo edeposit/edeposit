@@ -1,0 +1,10 @@
+<div class="load-from-similar-form">
+     <script type="text/javascript">
+       $(function(){
+       console.log('ahoj');
+       // $('.z3cformInlineValidation input[type="text"]').live('blur', function () { z3cform_validate_field(this); });       
+       $('#load-from-similar-widgets-load_isbn').live('blur',function(){ return false;});
+       });
+     </script>
+  <div tal:replace="structure view/contents" />
+</div>

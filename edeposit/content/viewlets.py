@@ -26,10 +26,17 @@ from plone.app.layout.viewlets import ViewletBase
 from plone import api
 from originalfile import IOriginalFile
 from epublication import IePublication, IMainMetadata, MainMetadataForm
+from epublicationfolder import IePublicationFolder
 
 from plone.app.contentmenu import menu
 from plone.app.contentmenu.interfaces import IWorkflowSubMenuItem
 from plone.z3cform.layout import FormWrapper
+
+import plone.app.content
+import plone.app.layout
+
+class CustomContentActions(plone.app.layout.viewlets.common.ContentActionsViewlet):
+    pass
 
 class ContentState(grok.Viewlet):
     grok.name('edeposit.contentstate')
@@ -89,7 +96,6 @@ class EBookMetadata(grok.Viewlet):
         view.form_instance = MainMetadataForm(ebook, self.request)
         self.main_metadata_form = view
         self.ebook = ebook
-
 
 
 class Contact(grok.Viewlet):
