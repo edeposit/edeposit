@@ -19,14 +19,6 @@
       />
 
   <!-- <browser:page -->
-  <!--     name="ploneform-render-widget" -->
-  <!--     for=".contribute.ITextLineWidget" -->
-  <!--     layer="z3c.form.interfaces.IFormLayer" -->
-  <!--     class=".contribute.RenderWidget" -->
-  <!--     permission="zope.Public" -->
-  <!--     /> -->
-
-  <!-- <browser:page -->
   <!--     name="contribute-ebook" -->
   <!--     for="edeposit.content.epublicationfolder.IePublicationFolder" -->
   <!--     class=".contribute.ContributeFormView" -->

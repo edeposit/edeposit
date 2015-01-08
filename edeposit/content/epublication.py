@@ -794,22 +794,13 @@ class AddAtOnceForm(form.SchemaForm):
         proper_record = session.get('proper_record',None)
         #proper_record = getAlephRecord()
         if proper_record:
+            messages = IStatusMessage(self.request)
+            messages.addStatusMessage(u"Formulář je předvyplněn vybraným záznamem z Alephu.", type="info")
             self.loadValuesFromAlephRecord(proper_record)
             session.set('proper_record',None)
 
-    # def updateWidgets(self):
-    #     super(AddAtOnceForm,self).updateWidgets()
-    #     # if self.mode == INPUT_MODE:
-    #     #     self.widgets['load_isbn'].template = ViewPageTemplateFile('text_input_with_load_button.pt')
-    #     # pass
-
     def extractData(self):
         print "AddAtOnceForm - extractData"
-        # if ('load-from-similar.widgets.load_isbn' in self.request.keys()):
-        #     data,errors = self.loadsimilarform.form_instance.extractData()
-        #     if errors:
-        #         return data,errors
-
         def getErrorView(widget,error):
             view = zope.component.getMultiAdapter( (error, 
                                                     self.request, 

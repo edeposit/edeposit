@@ -19,7 +19,17 @@
                                 noform: function(el,pbo){
                                         return 'redirect';
                                 },
+                                config: {
+                                        onClose: function(el){
+                                                console.log( 'on close' );
+                                                $('input[id="load-from-similar-widgets-load_isbn"]').removeAttr('disabled');
+                                        },
+                                },
                         });
+                        $('input[id="load-from-similar-widgets-load_isbn"]')
+                                .on('click',function(){
+                                        $(this).attr('disabled','disabled');
+                                });
                 });
         }(jQuery));
     </script>

@@ -65,7 +65,7 @@ from edeposit.content.utils import is_valid_isbn
 from edeposit.content.utils import getISBNCount
 import z3c.form.browser
 
-import edeposit.content.mock
+# import edeposit.content.mock
 # loadFromAlephByISBN = partial(edeposit.content.mock.loadFromAlephByISBN, num_of_records=1)
 # is_valid_isbn = partial(edeposit.content.mock.is_valid_isbn,result=True)
 # getISBNCount = partial(edeposit.content.mock.getISBNCount,result=1)
@@ -103,7 +103,7 @@ class ILoadFromSimilar(form.Schema):
         title = u"Předvyplnit formulář podle ISBN",
         required = False,
     )
-
+    form.widget(proper_sysnumber=z3c.form.browser.radio.RadioFieldWidget)
     proper_sysnumber = schema.Choice (
         title = u'Vybraný záznam',
         source = records_to_choose_from,
@@ -221,7 +221,6 @@ class LoadFromSimilarSubView(FormWrapper):
      """ Form view which renders z3c.forms embedded in a portlet.
      Subclass FormWrapper so that we can use custom frame template. """
      index = ViewPageTemplateFile("formwrapper.pt")
-     #index = ViewPageTemplateFile("load-from-similar-form.pt")
 
 class AlephRecordLoaded(BrowserView):
     pass
@@ -233,7 +232,6 @@ class IChooseAlephRecord(form.Schema):
         required = False,
         readonly = False,
     )
-
     proper_sysnumber = schema.Choice (
         title = u'Správný záznam',
         source = records_to_choose_from
