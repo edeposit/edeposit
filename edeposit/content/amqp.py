@@ -8,6 +8,9 @@ from plone.namedfile.file import NamedBlobFile
 from base64 import b64encode, b64decode
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 import transaction
+import simplejson as json
+
+from functools import partial
 
 from .next_step import INextStep
 
@@ -312,6 +315,49 @@ class OriginalFileRenewAlephRecordsRequestSender(namedtuple('RenewAlephRecordsRe
         }
         headers = make_headers(self.context, session_data)
         producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+        pass
+
+class OriginalFileContributionPDFGenerateRequestSender(namedtuple('PDFGenerateRequest',['context'])):
+    """ context will be original file """
+    implements(IAMQPSender)
+    def send(self):
+        print "-> Contribution PDF Generate Request"
+
+        epublication = aq_parent(aq_inner(self.context))
+        dataFromEPublication = epublication.dataForContributionPDF()
+        dataFromOriginalFile = self.context.dataForContributionPDF()
+        data = dict(dataFromEPublication.items() + dataFromOriginalFile.items())
+        #open("/tmp/data-for-pdf.json","wb").write(json.dumps(data,ensure_ascii=False))
+        # request = SearchRequest(ISBNQuery(self.context.isbn,'cze-dep'))
+        # producer = getUtility(IProducer, name="amqp.isbn-search-request")
+        # msg = ""
+        # session_data =  { 'isbn': str(self.context.isbn),
+        #                   'msg': msg,
+        # }
+        # headers = make_headers(self.context, session_data)
+        # producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+        pass
+
+class OriginalFilePDFGenerationResultHandler(namedtuple('PDFGenerationResult',['context', 'result'])):
+    implements(IAMQPHandler)
+    def handle(self):
+        print "<- PDF Generation Result"
+        result = self.result
+        context = self.context
+        epublication=aq_parent(aq_inner(context))
+        with api.env.adopt_user(username="system"):
+            if result.result: # some virus found
+                comment =u"v souboru %s je virus: %s" % (context.file.filename, str(result.result))
+                wft.doActionFor(epublication,'notifySystemAction', comment=comment)
+                wft.doActionFor(context, 'antivirusError', comment=comment)
+            else:
+                comment=u"soubor %s prošel antivirovou kontrolou" % (context.file.filename,)
+                wft.doActionFor(epublication,'notifySystemAction', comment=comment)
+                transition =  context.needsThumbnailGeneration() and 'antivirusOKThumbnail' \
+                              or (context.isbn and 'antivirusOKAleph' or 'antivirusOKISBNGeneration')
+                print "transition: %s" % (transition,)
+                wft.doActionFor(context, transition)
+            pass
         pass
 
 

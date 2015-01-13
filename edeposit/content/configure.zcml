@@ -146,6 +146,13 @@
     />
 
   <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileContributionPDFGenerateRequestSender"
+    name="generate-contribution-pdf"
+    />
+
+  <adapter
     for="edeposit.content.originalfile.IOriginalFile
          edeposit.content.handlers.IAMQPError
          "
@@ -200,7 +207,7 @@
       provides="edeposit.content.amqp.IAMQPHandler"
       factory=".amqp.OriginalFileThumbnailGeneratingResultHandler"
       />
-  
+
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.next_step.INextStep"

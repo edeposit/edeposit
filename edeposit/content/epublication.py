@@ -21,14 +21,14 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet, INPUT_MODE
-
+from zope.component import queryUtility, getUtility, getAdapter
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
 
 from edeposit.content.library import ILibrary
 from edeposit.content import MessageFactory as _
+from edeposit.content.amqp import IAMQPSender, IAMQPHandler
 
-from .widget import TextWidgetWithLoadButton
 from .author import IAuthor
 from .originalfile import IOriginalFile
 
@@ -330,6 +330,38 @@ class ePublication(Container):
         originalFiles = self.listFolderContents(contentFilter={"portal_type" : "edeposit.content.originalfile"})
         ofWithoutRelatedAlephRecord = filter(lambda of: not of.related_aleph_record, originalFiles)
         return originalFiles and not ofWithoutRelatedAlephRecord
+
+    def dataForContributionPDF(self):
+        keysFromEPublication = [ii for ii in (frozenset(IAddAtOnceForm.names())  &  frozenset(IePublication.names()))]
+        def titleFactory(vocab):
+            def getter(token):
+                title = vocab.getTermByToken(token).title
+                return title
+            return getter
+
+        vocab = IAddAtOnceForm['libraries_that_can_access'].value_type.source(self)
+        getTitle = titleFactory(vocab)
+        libraries_that_can_access = [ dict(title=getTitle(ii), id=ii) for ii in self.libraries_that_can_access]
+
+        def valueFactory(self):
+            def getter(key):
+                value = getattr(self,key)
+                return value
+            return getter
+
+        items = dict(nazev = self.title).items() +\
+                zip(keysFromEPublication, map(valueFactory(self), keysFromEPublication))
+
+        # from unicode to utf-8
+        def toUTF8(value):
+            if type(value) is unicode:
+                return value.encode('utf-8')
+            return value
+
+        #itemsWithUTF8 = [ (ii[0],toUTF8(ii[1])) for ii in items ]
+        result = dict(items)
+        result['libraries_that_can_access'] = libraries_that_can_access
+        return result
 
 class IAuthors(model.Schema):
     form.fieldset('authors',
@@ -709,11 +741,11 @@ class IAddAtOnceForm(form.Schema):
         required = False,
         )
     
-    format = schema.Choice(
-        title=_(u"Format of a file."),
-        vocabulary="edeposit.content.fileTypes",
-        required = False,
-        )
+    # format = schema.Choice(
+    #     title=_(u"Format of a file."),
+    #     vocabulary="edeposit.content.fileTypes",
+    #     required = False,
+    #     )
 
     # poznamka = schema.Text(
     #     title = u"Poznámka",
@@ -864,6 +896,8 @@ class AddAtOnceForm(form.SchemaForm):
                                         ),
                                    )
         ))
+        
+        getAdapter(newOriginalFile,IAMQPSender,name="generate-contribution-pdf").send()
 
         # comment = data.get('poznamka',"")
         # if comment:
@@ -898,7 +932,7 @@ class AddAtOnceForm(form.SchemaForm):
                                                                                  title=data['nazev'],
                                                                                  nakladatel_vydavatel = nakladatel_vydavatel,
                                                                                  ), 
-                                                                            ['libraries_that_can_access',])
+                                                                            [])
                                                  )
         return newEPublication
 
@@ -915,7 +949,10 @@ class AddAtOnceForm(form.SchemaForm):
             or self.addEPublication(data)
 
         newOriginalFile = self.addOriginalFile(newEPublication, data)
-
+        
+        # poslat zadost na vygenerovani ohlasovaciho listku - je na to
+        # amqp sluzba
+        
         if not data.get('epublication_uid'):
             authors = [data[key] for key in ['author1','author2','author3'] if data[key]]
             for author in authors:

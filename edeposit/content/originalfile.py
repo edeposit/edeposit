@@ -39,6 +39,7 @@ from zope.i18n import translate
 from StringIO import StringIO
 from subprocess import call
 import os.path
+from functools import partial
 
 def urlCodeIsValid(value):
     return True
@@ -98,6 +99,11 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         title=_(u"Thumbnail File of an ePublication"),
         required = False,
         )
+
+    voucher = NamedBlobFile (
+        title = u"Data that user submitted",
+        required = False,
+    )
                                            
 
 @form.default_value(field=IOriginalFile['zpracovatel_zaznamu'])
@@ -221,7 +227,10 @@ class OriginalFile(Container):
             self.related_aleph_record = RelationValue(intids.getId(alephRecords[0]))
         if len(alephRecords) > 1:
             self.related_aleph_record = None
-    
+
+    def dataForContributionPDF(self):
+        keys = [ii for ii in IOriginalFile.names() if ii not in ('file','thumbnail')]
+        return dict(zip(keys,map(partial(getattr,self), keys)))
 
 class OriginalFilePrimaryFieldInfo(object):
     implements(IPrimaryFieldInfo)
@@ -281,3 +290,11 @@ class Download(plone.namedfile.browser.Download):
 class DisplayFile(plone.namedfile.browser.DisplayFile):
     pass
 
+class HasVoucherView(grok.View):
+    grok.context(IOriginalFile)
+    grok.require('zope2.View')
+    grok.name('has-voucher')
+    
+    def render(self):
+        import simplejson as json
+        return json.dumps(dict(hasVoucher = bool(self.context.voucher)))
