@@ -37,6 +37,7 @@ edeposit/content/issn.py
 edeposit/content/library.py
 edeposit/content/libraryfolder.py
 edeposit/content/messages_folder.py
+edeposit/content/mock.py
 edeposit/content/next_step.py
 edeposit/content/originalfile.py
 edeposit/content/originalfile_contributing_request.py
@@ -47,6 +48,7 @@ edeposit/content/producent_user_plan.py
 edeposit/content/producent_user_plans_folder.py
 edeposit/content/testing.py
 edeposit/content/tests.py
+edeposit/content/utils.py
 edeposit/content/viewlets.py
 edeposit/content/vocabularies.py
 edeposit/content/browser/__init__.py
