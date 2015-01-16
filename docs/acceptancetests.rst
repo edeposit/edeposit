@@ -57,6 +57,9 @@ Hlavní scénáře k testování
   - `AT01-07 Kontrola dostupnosti uzivatelskeho jmena pri jedne registraci <tests/at01.html#at01-07-kontrola-dostupnosti-uzivatelskeho-jmena-pri-jedne-registraci>`_
   - `AT01-08 Kontrola dostupnosti uzivatelskeho jmena u editoru <tests/at01.html#at01-08-kontrola-dostupnosti-uzivatelskeho-jmena-u-editoru>`_
   - `AT01-12 Přidání nového editora k existujícímu producentovi a kontrola dostupnosti uzivatelskeho jmena <tests/at01.html#at01-12-pridani-noveho-editora-k-existujicimu-producentovi-a-kontrola-dostupnosti-uzivatelskeho-jmena>`_
+  - `AT01-14 Kontrola, že je heslo delší jak 5 znaků <tests/at01.html#at01-14-kontrola-ze-je-heslo-delsi-jak-5-znakxsu>`_
+
+
 
 .. _testy_at02:
 

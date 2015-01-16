@@ -1,0 +1,173 @@
+project e_deposit "E-Deposit" "1.0" 2015-01-19 +280d {}
+
+resource jans "Jan Stavěl" {}
+resource azalejska "Alena Zalejska" {}
+resource mzizala "Martin Žížala" {}
+resource mbalikova "Marie Balíková" {}
+resource jpribylova "Jamila Přibylová" {}
+
+task edeposit "E-Deposit - nasazení" {
+        start 2015-01-19
+        task vyvoj "Opravy a rozšíření" {
+                allocate jans
+                task vyvoj01 "oprava rozesilani emailu" {
+                        effort 1.5d
+                }
+                task vyvoj02 "doplneni stavu - pro ohlaseni bez souboru" {
+                        effort 1.5d
+                }
+                task vyvoj03 "doplneni spravy roli správci katalogizace" {
+                        effort 3.5d
+                }
+                task vyvoj04 "oprava prideleni vecne revize" {
+                        effort 1.5d
+                }
+        }
+        task testovani "Testování" {
+                depends edeposit.vyvoj
+                task registrace "Registrace producenta" {
+                        allocate azalejska
+                        task stazeni "Stažení smlouvy v vyplnění" {
+                                effort 2.0h
+                                note "[https://e-deposit.readthedocs.org/uc01-01.html]"
+                        }
+                        task registrace01 "Registrace bez editora" { effort 2h }
+                        task registrace02 "Registrace s editorem" { effort  2h }
+                        task registrace03 "Kontrola povinnych policek" { 
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at01.html#at01-05-registrace-producenta-s-editorem-kontrola-povinnych-policek-shodnosti-hesel]"
+                        }
+                        task registrace04 "Kontrola zadaných hesel" { effort 2h }
+                        task registrace05 "Kontrola dostupnosti uživatelského jména při jedné registraci" {
+                                effort 2h 
+                        }
+                        task registrace06 "Kontrola dostupnosti uživatelského jména pro editora" {
+                                effort 2h
+                        }
+                        task registrace07 "Přidání nového editora k existujícímu producentovi" {
+                                effort 2h
+                        }
+                        task registrace08 "Kontrola, že je heslo delší jak 5 znaků" {
+                                effort 2h
+                        }
+                }
+                task vymazani_isbn "Vymazání záznamů z testovací báze" {
+                        allocate mzizala
+                        effort 4h
+                }
+                task ohlaseni "Ohlášení ePublikace" {
+                        allocate azalejska
+                        depends !registrace
+                        task ohlaseni01 "Ohlášení bez souboru" { effort 2h }
+                        task ohlaseni02 "Ohlášení se souborem" { effort 4h }
+                        task ohlaseni03 "Ohlášení se souborem epub" {
+                                effort 4h 
+                                note "[https://e-deposit.readthedocs.org/tests/at02.html#at02-05-ohlaseni-se-soubory-co-potrebuji-generovani-nahledu]"
+                        }
+                        task ohlaseni04 "Ohlášení se souborem a přidělením ISBN" { 
+                                effort 2h
+                        }
+                        task ohlaseni05 "Převyplnění ohlášení podle vybraného ISBN" {
+                                effort 2h
+                        }
+                }
+                task akvizice "Akvizice" {
+                        allocate mzizala
+                        depends !ohlaseni
+                        task akvizice00 "Pracovní prostředí akvizitora" {
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at03.html#at03-09-pracovni-prostredi-akvizitora]"
+                        }
+                        task akvizice01 "Kontrola metadat" {
+                                effort 4h
+                                note "[https://e-deposit.readthedocs.org/tests/at03.html#at03-12-kontrola-metadat-akvizici]"
+                        }
+                }
+                task isbn "ISBN Agentura" {
+                        allocate mzizala
+                        depends !registrace
+                        task isbn00 "Pracovní prostředí pracovníka ISBN agentury" {
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at03.html#at03-07-pracovni-prostredi-pracovnika-isbn-agentury]"
+                        }
+                        task isbn01 "Přidělení ISBN agenturou" {
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at03.html#at03-10-prideleni-isbn-agenturou]"
+                        }
+                        task isbn02 "Věcná kontrola ISBN" {
+                                effort 2h
+                                note ""
+                        }
+                }
+                task jp "Jmenná katalogizace" {
+                        allocate jpribylova
+                        depends !akvizice
+                        task jp01 "Pracovni prostredi administratora katalogizace" {
+                                effort 1h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-01-pracovni-prostredi-administratora-katalogizace]"
+                        }
+                        task jp02 "Příprava jmenné katalogizace" {
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-02-priprava-jmenne-katalogizace]"
+                        }
+                        task jp03 "Jmenný popis" {
+                                effort 4h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-03-jmenny-popis]"
+                        }
+                        task jp04 "Příprava revize jmenného popisu" {
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-04-priprava-revize-jmenneho-popisu]"
+                        }
+                        task jp05 "Revize jmenného popisu" {
+                                effort 4h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-05-revize-jmenneho-popisu]"
+                        }
+                }
+                task vp "Věcná katalogizace" {
+                        allocate mbalikova
+                        depends !jp
+                        task vp01 "Příprava věcné katalogizace" {
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-06-priprava-vecne-katalogizace]"
+                        }
+                        task vp02 "Věcný popis" {
+                                effort 4h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-07-vecny-popis]"
+                        }
+                        task vp03 "Příprava revize věcného popisu" {
+                                effort 2h
+                                note "[https://e-deposit.readthedocs.org/tests/at04.html#at04-08-priprava-revize-vecneho-popisu]"
+                        }
+                        task vp04 "Revize věcného popisu"{
+                                effort 4h
+                                note  "[https://e-deposit.readthedocs.org/tests/at04.html#at04-09-revize-jmenneho-popisu]"
+                        }
+                }
+        }
+}
+
+navigator menu
+
+textreport report "plan-nasazeni" {
+  header -8<-
+    == Deposit ==
+    [https://e-deposit.readthedocs.org/ Dokumentace]
+    <[navigator id='menu']>
+    ->8-
+  formats html
+
+  taskreport plan "prehled" {
+          headline "Přehled úkolů"
+          columns bsi, name, note {width 100 }, effort, duration, daily { width 650 }, chart
+          timeformat "%Y-%m-%d"
+          hideresource 1
+          sorttasks tree
+          loadunit shortauto
+  }
+  resourcereport resourceGraph "pracovnici" {
+          headline "Plán práce"
+          columns no, name, effort, daily {width 900 }
+          loadunit shortauto
+          hidetask ~isleaf()
+  }
+}

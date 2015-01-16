@@ -1,5 +1,10 @@
 .. _development:
 
+Plány práce
+-------------------------------------
+
+`Plán nasazení do poloprovozu <_static/plans/plan-nasazeni.html>`_
+
 Proces vývoje
 -------------------------------------
 
@@ -74,6 +79,7 @@ Integrační testy slouží ke kontrole funkce celku.
 
 Testy mají za úkol odhalit problémy při spolupráci jednotlivých součástí aplikace.
 
+
 .. raw:: html
 
 	<div id="disqus_thread"></div>
@@ -90,5 +96,3 @@ Testy mají za úkol odhalit problémy při spolupráci jednotlivých součást�
 	</script>
 	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    
-

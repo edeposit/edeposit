@@ -334,3 +334,9 @@ AT01-13 Přidání nového editora k existujícímu producentovi a kontrola hese
     Fill inputs about Prihlaseni   ${NEW_UNIQ_USER_NAME}     heslo   heslo
     Click Button                  Uložit
     Wait Until Page Contains      Položka byla vytvořena
+
+AT01-14 Kontrola, že je heslo delší, jak 5 znaků
+    Click link        Registrovat
+    Fill inputs about producent
+    Fill password shorter than 5 letters
+    Wait Until Page Contains      Prosím opravte vyznačené chyby.
