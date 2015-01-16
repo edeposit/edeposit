@@ -25,6 +25,12 @@ task edeposit "E-Deposit - nasazení" {
                 task vyvoj05 "doplnit pravni informace na stranku s ohlasenim" {
                         effort 0.5d
                 }
+                task vyvoj06 "doplnit generovani smlouvy" {
+                        effort 2d
+                }
+                task vyvoj07 "doplnit tisk ohlasovaciho listu" {
+                        effort 1d
+                }
         }
         task testovani "Testování" {
                 depends edeposit.vyvoj
