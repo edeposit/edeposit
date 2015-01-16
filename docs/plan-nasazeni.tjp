@@ -23,7 +23,7 @@ task edeposit "E-Deposit - nasazení" {
                         effort 1.5d
                 }
                 task vyvoj05 "doplnit pravni informace na stranku s ohlasenim" {
-                        effort 1d
+                        effort 0.5d
                 }
         }
         task testovani "Testování" {
