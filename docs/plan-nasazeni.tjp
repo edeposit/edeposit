@@ -1,39 +1,65 @@
 project e_deposit "E-Deposit" "1.0" 2015-01-19 +280d {}
 
-resource jans "Jan Stavěl" {}
-resource azalejska "Alena Zalejska" {}
-resource mzizala "Martin Žížala" {}
-resource mbalikova "Marie Balíková" {}
-resource jpribylova "Jamila Přibylová" {}
+flags jans
+flags azalejska
+flags testers
+flags developers
+
+resource jans "Jan Stavěl" { 
+        flags developers
+}
+resource azalejska "Alena Zalejska" { 
+        flags testers
+}
+resource mzizala "Martin Žížala" {
+        flags testers
+}
+resource mbalikova "Marie Balíková" {
+        flags testers
+}
+resource jpribylova "Jamila Přibylová" {
+        flags testers
+}
 
 task edeposit "E-Deposit - nasazení" {
         start 2015-01-19
-        task vyvoj "Opravy a rozšíření" {
+        task opravy "Opravy" {
                 allocate jans
+                task opravy01 "doplneni spravy roli správci katalogizace" {
+                        effort 1.5d
+                        priority 700
+                }
+                task opravy02 "doplnit generovani smlouvy" {
+                        effort 2d
+                        priority 650
+                }
+                task opravy03 "doplnit tisk ohlasovaciho listu" {
+                        effort 1d
+                        priority 600
+                }
+                task opravy04 "doplnit pravni informace na stranku s ohlasenim" {
+                        effort 0.5d
+                }
+
+        }
+        task rozsireni "Rozšíření" {
+                allocate jans
+                depends edeposit.opravy
+                task vyvoj03 "rozrireni spravy roli správci katalogizace" {
+                        effort 0.5d
+                }
                 task vyvoj01 "oprava rozesilani emailu" {
                         effort 1.5d
                 }
                 task vyvoj02 "doplneni stavu - pro ohlaseni bez souboru" {
                         effort 1.5d
                 }
-                task vyvoj03 "doplneni spravy roli správci katalogizace" {
-                        effort 3.5d
-                }
                 task vyvoj04 "oprava prideleni vecne revize" {
                         effort 1.5d
                 }
-                task vyvoj05 "doplnit pravni informace na stranku s ohlasenim" {
-                        effort 0.5d
-                }
-                task vyvoj06 "doplnit generovani smlouvy" {
-                        effort 2d
-                }
-                task vyvoj07 "doplnit tisk ohlasovaciho listu" {
-                        effort 1d
-                }
         }
         task testovani "Testování" {
-                depends edeposit.vyvoj
+                depends edeposit.opravy
                 task registrace "Registrace producenta" {
                         allocate azalejska
                         task stazeni "Stažení smlouvy v vyplnění" {
@@ -178,5 +204,19 @@ textreport report "plan-nasazeni" {
           columns no, name, effort, daily {width 900 }
           loadunit shortauto
           hidetask ~isleaf()
+  }
+  resourcereport developers "testeri" {
+          headline "testeři"
+          columns no, name, effort, daily {width 900 }
+          loadunit shortauto
+          hidetask ~isleaf()
+          hideresource ~testers
+  }
+  resourcereport testers "vyvojari" {
+          headline "vývojáři"
+          columns no, name, effort, daily {width 900 }
+          loadunit shortauto
+          hidetask ~isleaf()
+          hideresource ~developers
   }
 }
