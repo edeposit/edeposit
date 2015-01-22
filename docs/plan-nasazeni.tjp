@@ -55,7 +55,11 @@ task edeposit "E-Deposit - nasazení" {
                         effort 1.5d
                 }
                 task vyvoj04 "oprava prideleni vecne revize" {
-                        effort 1.5d
+                        effort 0.5d
+                }
+                task vyvoj05 "nasazení úprav na testovací server" {
+                        effort 1d
+                        priority 400
                 }
         }
         task testovani "Testování" {
