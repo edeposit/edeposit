@@ -111,6 +111,13 @@
     />
 
   <adapter
+    for="edeposit.user.producent.IProducent"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.AgreementGenerationRequestSender"
+    name="agreement-generate"
+    />
+
+  <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.amqp.IAMQPSender"
     factory=".amqp.OriginalFileISNBDuplicityCheckRequestSender"
@@ -213,6 +220,22 @@
     provides="edeposit.content.next_step.INextStep"
     factory=".next_step.OriginalFileNextStep"
     />
+
+  <adapter
+    for="edeposit.user.producent.IProducent
+         edeposit.content.handlers.IAMQPError
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.AgreementGenerationExceptionHandler"
+    />
+
+  <adapter
+      for="edeposit.user.producent.IProducent
+           edeposit.content.amqp.IPDFGenerationResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.AgreementGenerationResultHandler"
+      />
 
   <subscriber
       for=".aleph_record.IAlephRecord

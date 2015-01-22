@@ -24,8 +24,6 @@ from functools import partial
 from Products.Five.browser.metaconfigure import ViewMixinForTemplates
 from Products.Five.browser import BrowserView
 
-# 608748854 pan Rysavy, zamecnictvi, Zlin
-
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
 

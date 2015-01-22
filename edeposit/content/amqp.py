@@ -14,6 +14,10 @@ from functools import partial
 
 from .next_step import INextStep
 
+# (occur "class ")
+# (occur-rename-buffer)
+# (occur "def ")
+
 from edeposit.amqp.aleph import (
     ISBNQuery, 
     GenericQuery, 
@@ -57,6 +61,12 @@ from edeposit.amqp.calibre.structures import (
     ConversionRequest,
     ConversionResponse
 )
+from edeposit.amqp.pdfgen.structures import (
+    GenerateContract,
+    PDF
+)
+
+from edeposit.user.producent import IProducent
 
 from collective.zamqp.producer import Producer
 from collective.zamqp.consumer import Consumer
@@ -123,6 +133,18 @@ class CalibreConvertProducent(Producer):
     routing_key = "request"
     pass
 
+class PDFGenerationProducent(Producer):
+    grok.name('amqp.agreement-generate-request')
+
+    connection_id = "pdfgen"
+    exchange = "pdfgen"
+    serializer = "text/plain"
+    exchange_type = "topic"
+    exchange_durable = True
+    auto_delete = False
+    durable = True
+    routing_key = "request"
+    pass
 
 class IScanResult(Interface):
     result = Attribute("")
@@ -150,6 +172,10 @@ class ICalibreConversionResult(Interface):
     b64_data = Attribute("")
     protocol = Attribute("")
 classImplements(ConversionResponse, ICalibreConversionResult)
+
+class IPDFGenerationResult(Interface):
+    b64_content = Attribute("")
+classImplements(PDF, IPDFGenerationResult)
 
 class IAMQPSender(Interface):
     """
@@ -360,7 +386,6 @@ class OriginalFilePDFGenerationResultHandler(namedtuple('PDFGenerationResult',['
             pass
         pass
 
-
 class OriginalFileAntivirusResultHandler(namedtuple('AntivirusResult',['context', 'result'])):
     implements(IAMQPHandler)
     def handle(self):
@@ -509,3 +534,54 @@ class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 're
             wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=str(self.result.payload))
         pass
 
+class AgreementGenerationRequestSender(namedtuple('AgreementGeneration',['context'])):
+    implements(IAMQPSender)
+    def send(self):
+        print "-> Agreement Generation Request"
+        producent = self.context
+        get = partial(getattr,producent)
+        request = GenerateContract (
+            firma = get('title'),
+            pravni_forma = get('pravni_forma'),
+            sidlo = get('domicile'),
+            ic = get('ico'),
+            dic = get('dic'),
+            zastoupen = get('zastoupen'),
+            jednajici = get('jednajici'),
+        )
+        #open("/tmp/request-for-pdfgen.json","wb").write(json.dumps(request,ensure_ascii=False))
+        producer = getUtility(IProducer, name="amqp.agreement-generate-request")
+        session_data =  { 'id': str(self.context.id), }
+        headers = make_headers(self.context, session_data)
+        producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+        pass
+    pass
+
+class AgreementGenerationResultHandler(namedtuple('AgreementGenerationResult',['context', 'result'])):
+    """ 
+    context: IProducent
+    result:  IPDF
+    """
+    def handle(self):
+        print "<- PDFGen Agreement Generation Response "
+        wft = api.portal.get_tool('portal_workflow')
+        with api.env.adopt_user(username="system"):
+            bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=u"vyplnena-smlouva.pdf")
+            self.context.agreement = bfile
+            transaction.savepoint(optimistic=True)
+            wft.doActionFor(self.context,'pdfGenerated')
+            pass
+        pass
+
+class AgreementGenerationExceptionHandler(namedtuple('ExceptionHandler',['context', 'result'])):
+    """ 
+    context: IProducent
+    result:  AMQPError
+    """
+    def handle(self):
+        print "<- AMQP Exception at pdfgen"
+        wft = api.portal.get_tool('portal_workflow')
+        print self.result
+        with api.env.adopt_user(username="system"):
+            wft.doActionFor(self.context,'amqpError', comment=str(self.result.payload))
+        pass

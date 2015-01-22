@@ -69,6 +69,10 @@ from edeposit.amqp.calibre.structures import (
     ConversionResponse,
 )
 
+from edeposit.amqp.pdfgen.structures import (
+    PDF
+)
+
 class IAMQPError(Interface):
     payload = Attribute("")
     exception_name = Attribute("")
@@ -192,6 +196,40 @@ class CalibreResponseConsumer(Consumer):
 @grok.subscribe(ICalibreResponse, IMessageArrivedEvent)
 def handleCalibreResponse(message, event):
     print "handle calibre response"
+    wft = api.portal.get_tool('portal_workflow')
+    headers = message.header_frame.headers
+    (context, session_data) = parse_headers(headers)
+    if not context:
+        print "no context at headers"
+        message.ack()
+        return
+
+    if "exception" in headers:
+        amqpError = AMQPError(payload=message.body, 
+                              exception_name = headers.get('exception_name'),
+                              exception = headers.get('exception'),
+                              headers = headers)
+        getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
+    else:
+        result = deserialize(json.dumps(message.body),globals())
+        getMultiAdapter((context,result),IAMQPHandler).handle()
+        message.ack()
+
+class IPDFGenResponse(Interface):
+    """Message marker interface"""
+
+class PDFGenResponseConsumer(Consumer):
+    grok.name('amqp.pdfgen-response-consumer')
+    connection_id = "pdfgen"
+    queue = "plone"
+    serializer = "plain"
+    marker = IPDFGenResponse
+    pass
+
+@grok.subscribe(IPDFGenResponse, IMessageArrivedEvent)
+def handlePDFGenResponse(message, event):
+    print "handle pdfgen response"
     wft = api.portal.get_tool('portal_workflow')
     headers = message.header_frame.headers
     (context, session_data) = parse_headers(headers)
