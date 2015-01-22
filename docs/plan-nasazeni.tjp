@@ -59,7 +59,7 @@ task edeposit "E-Deposit - nasazení" {
                 }
         }
         task testovani "Testování" {
-                depends edeposit.opravy
+                depends edeposit.rozsireni
                 task registrace "Registrace producenta" {
                         allocate azalejska
                         task stazeni "Stažení smlouvy v vyplnění" {
