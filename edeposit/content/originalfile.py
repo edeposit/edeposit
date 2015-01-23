@@ -130,6 +130,9 @@ class OriginalFile(Container):
 </div>
 """)
 
+    def hasVoucher(self):
+        return bool(self.voucher)
+
     def folder_full_view_item(self):
         state = api.content.get_state(obj=self)
         creators = self.listCreators()
