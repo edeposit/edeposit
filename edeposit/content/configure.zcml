@@ -120,6 +120,13 @@
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.VoucherGenerationRequestSender"
+    name="voucher-generate"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
     factory=".amqp.OriginalFileISNBDuplicityCheckRequestSender"
     name="isbn-duplicity-check"
     />
@@ -237,6 +244,14 @@
       factory=".amqp.AgreementGenerationResultHandler"
       />
 
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.IPDFGenerationResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.VoucherGenerationResultHandler"
+      />
+
   <subscriber
       for=".aleph_record.IAlephRecord
            zope.container.interfaces.IObjectAddedEvent"
@@ -315,6 +330,7 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <include package=".portlets" />
+  <include package=".widgets" />
   <include package=".browser" />
 
   <!-- <browser:page -->

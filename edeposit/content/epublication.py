@@ -67,9 +67,19 @@ from edeposit.content.browser.contribute import (
     LoadFromSimilarSubView,
 )
 
-from edeposit.content.mock import (
-    getAlephRecord
-)
+# from edeposit.content.mock import (
+#     getAlephRecord
+# )
+
+from edeposit.content.utils import loadFromAlephByISBN
+from edeposit.content.utils import is_valid_isbn
+from edeposit.content.utils import getISBNCount
+
+# import edeposit.content.mock
+# loadFromAlephByISBN = partial(edeposit.content.mock.loadFromAlephByISBN, num_of_records=1)
+# is_valid_isbn = partial(edeposit.content.mock.is_valid_isbn,result=True)
+# getISBNCount = partial(edeposit.content.mock.getISBNCount,result=0)
+
 
 class IMainMetadata(form.Schema):
     nazev = schema.TextLine (
@@ -423,7 +433,7 @@ class EPublicationAddForm(DefaultAddForm):
         isbn = data.get('IOriginalFile.isbn',None)
         if isbn:
             isbnWidget = self.widgets.get('IOriginalFile.isbn',None)
-            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(isbn)
+            valid = is_valid_isbn(isbn)
             if not valid:
                 # validity error
                 print "isbn is not valid"
@@ -431,7 +441,7 @@ class EPublicationAddForm(DefaultAddForm):
                 pass
             else:
                 try:
-                    appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
+                    appearedAtAleph = getISBNCount(isbn)
                     if appearedAtAleph:
                         print "isbn already appeared in Aleph"
                         # duplicity error
@@ -849,7 +859,7 @@ class AddAtOnceForm(form.SchemaForm):
         isbn = data.get('isbn',None)
         if isbn:
             isbnWidget = self.widgets.get('isbn',None)
-            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(isbn)
+            valid = is_valid_isbn(isbn)
             if not valid:
                 # validity error
                 print "isbn is not valid"
@@ -857,7 +867,7 @@ class AddAtOnceForm(form.SchemaForm):
                 pass
             else:
                 try:
-                    appearedAtAleph = edeposit.amqp.aleph.aleph.getISBNCount(isbn)
+                    appearedAtAleph = getISBNCount(isbn)
                     if appearedAtAleph:
                         print "isbn already appeared in Aleph"
                         # duplicity error

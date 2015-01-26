@@ -63,6 +63,7 @@ from edeposit.amqp.calibre.structures import (
 )
 from edeposit.amqp.pdfgen.structures import (
     GenerateContract,
+    GenerateReview,
     PDF
 )
 
@@ -134,7 +135,7 @@ class CalibreConvertProducent(Producer):
     pass
 
 class PDFGenerationProducent(Producer):
-    grok.name('amqp.agreement-generate-request')
+    grok.name('amqp.pdfgen-request')
 
     connection_id = "pdfgen"
     exchange = "pdfgen"
@@ -550,7 +551,7 @@ class AgreementGenerationRequestSender(namedtuple('AgreementGeneration',['contex
             jednajici = get('jednajici'),
         )
         #open("/tmp/request-for-pdfgen.json","wb").write(json.dumps(request,ensure_ascii=False))
-        producer = getUtility(IProducer, name="amqp.agreement-generate-request")
+        producer = getUtility(IProducer, name="amqp.pdfgen-request")
         session_data =  { 'id': str(self.context.id), }
         headers = make_headers(self.context, session_data)
         producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
@@ -585,3 +586,91 @@ class AgreementGenerationExceptionHandler(namedtuple('ExceptionHandler',['contex
         with api.env.adopt_user(username="system"):
             wft.doActionFor(self.context,'amqpError', comment=str(self.result.payload))
         pass
+
+
+class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])):
+    implements(IAMQPSender)
+
+    def availableLibraries(self):
+        path = '/libraries'
+        query = { "portal_type" : ("edeposit.content.library",),
+                  "path": {'query' :path } 
+              }
+        libraries = api.portal.get_tool('portal_catalog')(portal_type='edeposit.content.library')
+        return libraries
+
+    def send(self):
+        print "-> Voucher Generation Request"
+        originalfile = self.context
+        epublication = aq_parent(aq_inner(self.context))
+        get = partial(getattr,originalfile)
+
+        autori = [aa.fullname for aa in epublication.authors.results()]
+        (autor1, autor2, autor3) = (autori + [None, None, None])[:3]
+        libraries_accessing = epublication.libraries_accessing
+        libraries_by_value = dict([(aa.id,aa.Title) for aa in self.availableLibraries()])
+        libraries_that_can_access = [ {'id': token, 'title': libraries_by_value.get(token)} for token in epublication.libraries_that_can_access ]
+        filename = originalfile.file and originalfile.file.filename or ""
+        nakladatel_vydavatel =  aq_parent(aq_inner(self.context)).nakladatel_vydavatel
+        request = GenerateReview (
+            nazev = epublication.title,
+            podnazev = epublication.podnazev,
+            cast = epublication.cast,
+            nazev_casti = epublication.nazev_casti,
+            isbn = get('isbn'),
+            isbn_souboru_publikaci = epublication.isbn_souboru_publikaci,
+            generated_isbn = get('generated_isbn'),
+            poradi_vydani = epublication.poradi_vydani,
+            misto_vydani = epublication.misto_vydani,
+            rok_vydani = epublication.rok_vydani,
+            nakladatel_vydavatel = nakladatel_vydavatel,
+            vydano_v_koedici_s = epublication.vydano_v_koedici_s,
+            cena = str(epublication.cena),
+            offer_to_riv = epublication.offer_to_riv,
+            category_for_riv  = epublication.category_for_riv,
+            is_public = epublication.is_public,
+            libraries_accessing = libraries_accessing,
+            libraries_that_can_access = libraries_that_can_access,
+            zpracovatel_zaznamu = get('zpracovatel_zaznamu'),
+            url = get('url'),
+            format = get('format'),
+            filename = filename,
+            author1 = autor1,
+            author2 = autor2,
+            author3 = autor3,
+            internal_url = originalfile.absolute_url()
+        )
+        # request = GenerateContract (
+        #     firma = 'firma',
+        #     pravni_forma = 'pravni forma',
+        #     sidlo = 'domicile',
+        #     ic = 'ico',
+        #     dic = 'dic',
+        #     zastoupen = 'zastoupen',
+        #     jednajici = 'jednajici',
+        # )
+        #open("/tmp/request-for-pdfgen.json","wb").write(json.dumps(request,ensure_ascii=False))
+        producer = getUtility(IProducer, name="amqp.pdfgen-request")
+        session_data =  { 'id': str(self.context.id), }
+        headers = make_headers(self.context, session_data)
+        producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+        pass
+    pass
+
+class VoucherGenerationResultHandler(namedtuple('VoucherGenerationResult',['context', 'result'])):
+    """ 
+    context: IProducent
+    result:  IPDF
+    """
+    def handle(self):
+        print "<- PDFGen Voucher Generation Response "
+        wft = api.portal.get_tool('portal_workflow')
+        with api.env.adopt_user(username="system"):
+            import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+            bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=u"ohlasovaci-listek.pdf")
+            self.context.voucher = bfile
+            transaction.savepoint(optimistic=True)
+            wft.doActionFor(self.context,'pdfGenerated')
+            pass
+        pass
+

@@ -57,11 +57,11 @@ from plone.z3cform.layout import wrap_form, FormWrapper
 from edeposit.content.epublicationfolder import (
     IePublicationFolder,
 )
+import z3c.form.browser
 
 from edeposit.content.utils import loadFromAlephByISBN
 from edeposit.content.utils import is_valid_isbn
 from edeposit.content.utils import getISBNCount
-import z3c.form.browser
 
 # import edeposit.content.mock
 # loadFromAlephByISBN = partial(edeposit.content.mock.loadFromAlephByISBN, num_of_records=1)

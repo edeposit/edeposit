@@ -53,6 +53,7 @@ edeposit/content/viewlets.py
 edeposit/content/vocabularies.py
 edeposit/content/browser/__init__.py
 edeposit/content/browser/contribute.py
+edeposit/content/browser/voucher.py
 edeposit/content/portlets/__init__.py
 edeposit/content/portlets/addepublication.py
 edeposit/content/portlets/addoriginalfile.py
@@ -96,3 +97,6 @@ edeposit/content/tests/test_originalfileslinks.py
 edeposit/content/tests/test_technicalmetadata.py
 edeposit/content/tests/test_waitingforacquisition.py
 edeposit/content/tests/test_waitingforaleph.py
+edeposit/content/widgets/__init__.py
+edeposit/content/widgets/interfaces.py
+edeposit/content/widgets/voucher.py

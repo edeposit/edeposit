@@ -15,7 +15,7 @@ from plone.dexterity.content import Container
 from plone.directives import dexterity, form
 from plone.app.textfield import RichText
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
-from plone.namedfile.interfaces import IImageScaleTraversable
+from plone.namedfile.interfaces import IImageScaleTraversable, INamedBlobFileField
 
 from edeposit.content import MessageFactory as _
 from z3c.relationfield.schema import RelationChoice, Relation
@@ -51,6 +51,12 @@ def availableAlephRecords(context):
               "path": {'query' :path } 
              }
     return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
+
+class IVoucherFileField(INamedBlobFileField):
+    pass
+
+class VoucherFile(NamedBlobFile):
+    implements(IVoucherFileField)
 
 class IOriginalFile(form.Schema, IImageScaleTraversable):
     """
@@ -100,8 +106,8 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
         )
 
-    voucher = NamedBlobFile (
-        title = u"Data that user submitted",
+    voucher = VoucherFile (
+        title = u"Ohlašovací lístek",
         required = False,
     )
                                            

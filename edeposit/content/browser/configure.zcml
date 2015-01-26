@@ -18,6 +18,27 @@
       permission="zope.Public"
       />
 
+  <browser:page
+      name="ohlasovaci-listek.pdf"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".voucher.VoucherDownload"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="generate-voucher"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".voucher.GenerateVoucher"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="has-voucher"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".voucher.HasVoucher"
+      permission="zope2.View"
+      />
+
   <!-- <browser:page -->
   <!--     name="contribute-ebook" -->
   <!--     for="edeposit.content.epublicationfolder.IePublicationFolder" -->
