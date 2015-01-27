@@ -21,7 +21,8 @@
                       filename view/filename;
                       filename_encoded view/filename_encoded;"
             tal:condition="python: exists and fieldname">
-        <a tal:content="filename"
+        <a class="voucher-download"
+           tal:content="filename"
            tal:omit-tag="not:exists:context/absolute_url"
            tal:attributes="href view/download_url">Filename</a>
         <span class="discreet"> &mdash; <span tal:define="sizekb view/file_size" tal:replace="sizekb">100</span> KB</span>
@@ -32,4 +33,13 @@
     <span tal:condition="not:exists" class="generating">
       <a class="generate-voucher" href="generate-voucher">vygenerovat</a>
     </span>
+    <span tal:condition="not:exists" 
+          style="display:none"
+          class="voucher-is-generating">ohlašovací lístek se generuje</span>
+    <img class="not-voucher-spinner" style="display:none" 
+         src="spinner.gif"
+         tal:condition="not:exists"/>
+    <script type="text/javascript" tal:condition="not:exists">
+      jQuery(function(){ originalFileVoucherGenerationHandler();});
+    </script>
 </span>

@@ -25,10 +25,23 @@ from edeposit.user.producent import IProducent
 from plone.app.contentmenu import menu
 from plone.app.contentmenu.interfaces import IWorkflowSubMenuItem
 from plone.z3cform.layout import FormWrapper
+from edeposit.content.originalfile import IOriginalFile
 
 from zope.publisher.interfaces import NotFound
 from plone.namedfile.utils import set_headers, stream_data
 import json
+from five import grok
+
+class OriginalFileDisplayForm(form.SchemaForm):
+    schema = IOriginalFile
+    ignoreContext = False
+    mode = 'display'
+    grok.context(IOriginalFile)
+    grok.name('sub-view')
+    grok.require('zope2.View')
+    
+class OriginalFileFormView(FormWrapper):
+    index = ViewPageTemplateFile('formwrapper.pt')
 
 class VoucherDownload(BrowserView):
     def __call__(self):
@@ -52,5 +65,18 @@ class GenerateVoucher(BrowserView):
 class HasVoucher(BrowserView):
     def __call__(self):
         file_ = self.context.voucher
+        widgetHTML = ""
+        if file_:
+            view = OriginalFileFormView(self.context, self.request)
+            view = view.__of__(self.context)
+            view.form_instance = OriginalFileDisplayForm(self.context, self.request)
+            from lxml import html
+            root = html.fromstring(view())
+            widget = root.get_element_by_id('formfield-form-widgets-voucher')
+            widgetHTML = html.tostring(widget).replace('/has-voucher/','/view/')
+
         self.request.response.setHeader('Content-Type', 'application/json')
-        return json.dumps(dict(has_voucher = bool(file_)))
+        return json.dumps(dict(has_voucher = bool(file_),
+                               voucher_widget_html = widgetHTML,
+                           ))
+        
