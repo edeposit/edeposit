@@ -67,19 +67,15 @@ from edeposit.content.browser.contribute import (
     LoadFromSimilarSubView,
 )
 
-# from edeposit.content.mock import (
-#     getAlephRecord
-# )
-
 from edeposit.content.utils import loadFromAlephByISBN
 from edeposit.content.utils import is_valid_isbn
 from edeposit.content.utils import getISBNCount
 
 # import edeposit.content.mock
+# getAlephRecord = edeposit.content.mock.getAlephRecord
 # loadFromAlephByISBN = partial(edeposit.content.mock.loadFromAlephByISBN, num_of_records=1)
 # is_valid_isbn = partial(edeposit.content.mock.is_valid_isbn,result=True)
 # getISBNCount = partial(edeposit.content.mock.getISBNCount,result=0)
-
 
 class IMainMetadata(form.Schema):
     nazev = schema.TextLine (
@@ -501,10 +497,10 @@ class EPublicationAddForm(DefaultAddForm):
             value = self.originalFile
             newOriginalFile = createContentInContainer(new_object,'edeposit.content.originalfile',**value)
             wft = api.portal.get_tool('portal_workflow')
-            wft.doActionFor(newOriginalFile, 
+            if newOriginalFile.file:
+                wft.doActionFor(newOriginalFile, 
                             (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
-                            or (newOriginalFile.file and 'submitDeclarationToAntivirus')
-                            or 'submitDeclarationToISBNGenerating',
+                            or ('submitDeclarationToAntivirus'),
                             comment='handled automatically')
 
     def create(self, data):
@@ -893,9 +889,10 @@ class AddAtOnceForm(form.SchemaForm):
         originalFileTitle = "%s (%s)" % (data['nazev'], data['file'] and data['file'].filename or "")
 
         def withProperMimeType(originalfile):
-            mregistry = api.portal.get_tool('mimetypes_registry')
-            mimetype = mregistry.classify(originalfile.file.data)
-            originalfile.file.contentType = mimetype.normalized()
+            if originalfile.file:
+                mregistry = api.portal.get_tool('mimetypes_registry')
+                mimetype = mregistry.classify(originalfile.file.data)
+                originalfile.file.contentType = mimetype.normalized()
             return originalfile
 
         newOriginalFile = addContentToContainer( newEPublication, withProperMimeType(
@@ -907,8 +904,6 @@ class AddAtOnceForm(form.SchemaForm):
                                    )
         ))
         
-        getAdapter(newOriginalFile,IAMQPSender,name="generate-contribution-pdf").send()
-
         # comment = data.get('poznamka',"")
         # if comment:
         #     commentObj = createObject('plone.Comment')
@@ -923,11 +918,11 @@ class AddAtOnceForm(form.SchemaForm):
         #     conversation.addComment(commentObj)
 
         wft = api.portal.get_tool('portal_workflow')
-        wft.doActionFor( newOriginalFile, 
-                         (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
-                         or (newOriginalFile.file and 'submitDeclarationToAntivirus')
-                         or 'submitDeclarationToISBNGenerating',
-                         comment='handled automatically')
+        if newOriginalFile.file:
+            wft.doActionFor( newOriginalFile, 
+                             (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
+                             or ('submitDeclarationToAntivirus'),
+                             comment='handled automatically')
         return newOriginalFile
 
     def addEPublication(self, data):

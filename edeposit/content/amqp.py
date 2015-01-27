@@ -612,7 +612,13 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
         libraries_that_can_access = [ {'id': token, 'title': libraries_by_value.get(token)} for token in epublication.libraries_that_can_access ]
         filename = originalfile.file and originalfile.file.filename or ""
         nakladatel_vydavatel =  aq_parent(aq_inner(self.context)).nakladatel_vydavatel
-        request = GenerateReview (
+
+        def toUTF8(value):
+            if type(value) is unicode:
+                return value.encode('utf-8')
+            return value
+
+        itemsForReview = dict(
             nazev = epublication.title or "",
             podnazev = epublication.podnazev or "",
             cast = epublication.cast or "",
@@ -640,6 +646,7 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
             author3 = autor3 or "",
             internal_url = originalfile.absolute_url()
         )
+        request = GenerateReview(**itemsForReview)
         #open("/tmp/request-for-pdfgen.json","wb").write(json.dumps(request,ensure_ascii=False))
         producer = getUtility(IProducer, name="amqp.pdfgen-request")
         session_data =  { 'id': str(self.context.id), }
@@ -657,7 +664,6 @@ class VoucherGenerationResultHandler(namedtuple('VoucherGenerationResult',['cont
         print "<- PDFGen Voucher Generation Response "
         wft = api.portal.get_tool('portal_workflow')
         with api.env.adopt_user(username="system"):
-            import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
             bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=u"ohlasovaci-listek.pdf")
             self.context.voucher = bfile
             transaction.savepoint(optimistic=True)

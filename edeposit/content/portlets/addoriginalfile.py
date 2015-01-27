@@ -96,11 +96,11 @@ class AddOriginalFileForm(form.SchemaForm):
         data['title'] = "%s (%s)" % (context.title, data['file'] and data['file'].filename or "")
         newOriginalFile = createContentInContainer(context, 'edeposit.content.originalfile', **data)
         wft = api.portal.get_tool('portal_workflow')
-        wft.doActionFor(newOriginalFile, 
-                        (newOriginalFile.isbn and 'submitDeclarationToISBNValidation')
-                        or (newOriginalFile.file and 'submitDeclarationToAntivirus')
-                            or 'submitDeclarationToISBNGenerating',
-                        comment='handled automatically')
+        if newOriginalFile.file:
+            wft.doActionFor(newOriginalFile, 
+                            ((newOriginalFile.isbn) and 'submitDeclarationToISBNValidation')
+                            or 'submitDeclarationToAntivirus',
+                            comment='handled automatically')
         modified(context)
         self.status = u"Hotovo!"
         self.request.response.redirect(newOriginalFile.absolute_url())
