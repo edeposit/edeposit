@@ -567,7 +567,7 @@ class AgreementGenerationResultHandler(namedtuple('AgreementGenerationResult',['
         print "<- PDFGen Agreement Generation Response "
         wft = api.portal.get_tool('portal_workflow')
         with api.env.adopt_user(username="system"):
-            bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=u"vyplnena-smlouva.pdf")
+            bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=u"smlouva-s-narodni-knihovnou.pdf")
             self.context.agreement = bfile
             transaction.savepoint(optimistic=True)
             wft.doActionFor(self.context,'pdfGenerated')

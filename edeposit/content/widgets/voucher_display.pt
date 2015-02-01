@@ -39,7 +39,4 @@
     <img class="not-voucher-spinner" style="display:none" 
          src="spinner.gif"
          tal:condition="not:exists"/>
-    <script type="text/javascript" tal:condition="not:exists">
-      jQuery(function(){ originalFileVoucherGenerationHandler();});
-    </script>
 </span>
