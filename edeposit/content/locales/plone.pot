@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-12-01 09:11+0000\n"
+"POT-Creation-Date: 2015-02-03 13:29+0000\n"
 "PO-Revision-Date: 2014-12-01 09:56+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,11 @@ msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
 msgid "Waiting for Acquisition"
+msgstr ""
+
+#. Default: "Zadejte své heslo znovu. Obě hesla se musejí shodovat"
+#: CMFPlone/RegistrationTool.py:168
+msgid "Your password and confirmation did not match. Please try again."
 msgstr ""
 
 #. Default: "Žádné položky."

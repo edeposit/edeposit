@@ -24,3 +24,7 @@ msgstr ""
 #: plone.app.collection/plone/app/collection/browser/templates/tabular_view.pt:25
 msgid "description_no_items_in_folder"
 msgstr "Žádné položky."
+
+#: CMFPlone/RegistrationTool.py:168
+msgid "Your password and confirmation did not match. Please try again."
+msgstr "Zadejte své heslo znovu. Obě hesla se musejí shodovat"

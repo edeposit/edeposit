@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-12-01 09:11+0000\n"
+"POT-Creation-Date: 2015-02-03 13:29+0000\n"
 "PO-Revision-Date: 2014-12-01 09:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,12 @@ msgstr "Čekáme na Aleph"
 msgid "Waiting for Acquisition"
 msgstr "Čekáme na akvizici"
 
-#. Default: "There are currently no items in this folder."
+#. Default: "Zadejte své heslo znovu. Obě hesla se musejí shodovat"
+#: CMFPlone/RegistrationTool.py:168
+msgid "Your password and confirmation did not match. Please try again."
+msgstr ""
+
+#. Default: "Žádné položky."
 #: CMFPlone/skins/plone_content/folder_listing.pt:182
 #: plone.app.collection/plone/app/collection/browser/templates/standard_view.pt:172
 #: plone.app.collection/plone/app/collection/browser/templates/tabular_view.pt:25
