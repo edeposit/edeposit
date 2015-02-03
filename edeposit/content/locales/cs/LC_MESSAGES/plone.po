@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-02-03 13:29+0000\n"
+"POT-Creation-Date: 2015-02-03 13:33+0000\n"
 "PO-Revision-Date: 2014-12-01 09:52+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,16 @@ msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
 msgid "E-Deposit: ISBN Generating Portlet"
+msgstr ""
+
+#. Default: "Zadejte nové heslo. "
+#: plone.app.users/plone/app/users/browser/personalpreferences.py:414
+msgid "Enter your new password. "
+msgstr ""
+
+#. Default: "Zadejte nové heslo. ${errors}"
+#: plone.app.users/plone/app/users/browser/register.py:252
+msgid "Enter your new password. ${errors}"
 msgstr ""
 
 #: edeposit/content/profiles/default/portlets.xml
@@ -99,7 +109,7 @@ msgstr "Čekáme na akvizici"
 msgid "Your password and confirmation did not match. Please try again."
 msgstr ""
 
-#. Default: "Žádné položky."
+#. Default: "There are currently no items in this folder."
 #: CMFPlone/skins/plone_content/folder_listing.pt:182
 #: plone.app.collection/plone/app/collection/browser/templates/standard_view.pt:172
 #: plone.app.collection/plone/app/collection/browser/templates/tabular_view.pt:25

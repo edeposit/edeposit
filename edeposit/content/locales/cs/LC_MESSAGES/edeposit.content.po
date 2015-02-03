@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2015-02-03 13:29+0000\n"
+"POT-Creation-Date: 2015-02-03 13:33+0000\n"
 "PO-Revision-Date: 2014-10-24 15:45+0200\n"
 "Last-Translator: Jan Stavěl <stavel.jan@gmail.com>\n"
 "Language-Team: Czech\n"

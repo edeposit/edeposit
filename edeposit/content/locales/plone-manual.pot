@@ -28,3 +28,11 @@ msgstr "Žádné položky."
 #: CMFPlone/RegistrationTool.py:168
 msgid "Your password and confirmation did not match. Please try again."
 msgstr "Zadejte své heslo znovu. Obě hesla se musejí shodovat"
+
+#: plone.app.users/plone/app/users/browser/personalpreferences.py:414
+msgid "Enter your new password. "
+msgstr "Zadejte nové heslo. "
+
+#: plone.app.users/plone/app/users/browser/register.py:252
+msgid "Enter your new password. ${errors}"
+msgstr "Zadejte nové heslo. ${errors}"
