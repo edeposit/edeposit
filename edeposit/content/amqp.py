@@ -548,7 +548,6 @@ class AgreementGenerationRequestSender(namedtuple('AgreementGeneration',['contex
             ic = get('ico') or "",
             dic = get('dic') or "",
             zastoupen = get('zastoupen') or "",
-            jednajici = get('jednajici') or "",
         )
         #open("/tmp/request-for-pdfgen.json","wb").write(json.dumps(request,ensure_ascii=False))
         producer = getUtility(IProducer, name="amqp.pdfgen-request")
