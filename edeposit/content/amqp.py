@@ -617,6 +617,9 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
                 return value.encode('utf-8')
             return value
 
+        internal_url = "/".join([api.portal.get().absolute_url(),
+                                 '@@redirect-to-uuid',        
+                                 originalfile.UID()])
         itemsForReview = dict(
             nazev = epublication.title or "",
             podnazev = epublication.podnazev or "",
@@ -643,7 +646,7 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
             author1 = autor1 or "",
             author2 = autor2 or "",
             author3 = autor3 or "",
-            internal_url = originalfile.absolute_url()
+            internal_url = internal_url,
         )
         request = GenerateReview(**itemsForReview)
         #open("/tmp/request-for-pdfgen.json","wb").write(json.dumps(request,ensure_ascii=False))
@@ -663,7 +666,9 @@ class VoucherGenerationResultHandler(namedtuple('VoucherGenerationResult',['cont
         print "<- PDFGen Voucher Generation Response "
         wft = api.portal.get_tool('portal_workflow')
         with api.env.adopt_user(username="system"):
-            bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=u"ohlasovaci-listek.pdf")
+            isbn = self.context.isbn or self.context.UID()
+            filename = u"ohlasovaci-listek-%s.pdf" % (isbn,)
+            bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=filename)
             self.context.voucher = bfile
             transaction.savepoint(optimistic=True)
             wft.doActionFor(self.context,'pdfGenerated')
