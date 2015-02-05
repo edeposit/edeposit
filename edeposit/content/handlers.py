@@ -462,6 +462,10 @@ def addedAlephRecord(context, event):
     originalfile = aq_parent(aq_inner(context))
     originalfile.updateAlephRelatedData()
 
+def updateFormat(context, event):
+    originalfile = aq_inner(context)
+    originalfile.updateFormat()
+    
 # class HandlerError(Exception):
 #     pass
 

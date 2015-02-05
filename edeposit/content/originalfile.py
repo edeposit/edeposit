@@ -80,11 +80,17 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
         )
     
-    format = schema.Choice(
-        title=_(u"Format of a file."),
-        vocabulary="edeposit.content.fileTypes",
-        required = False,
-    )
+    # format = schema.ASCIILine (
+    #     title=_(u"Format of a file."),
+    #     readonly = True,
+    #     required = False,
+    # )
+
+    # format = schema.Choice(
+    #     title=_(u"Format of a file."),
+    #     vocabulary="edeposit.content.fileTypes",
+    #     required = False,
+    # )
 
     zpracovatel_zaznamu = schema.TextLine(
         title = u'Zpracovatel záznamu',
@@ -159,6 +165,18 @@ class OriginalFile(Container):
             lastModified = self.toLocalizedTime(self.ModificationDate(),1),
             )
         return OriginalFile.folder_full_view_item_template.substitute(data)
+
+    # @property
+    # def format(self):
+    #     return self.file and self.file.contentType or 'text/html'
+
+    def updateFormat(self):
+        data = self.file and self.file.data
+        if data:
+            mregistry = api.portal.get_tool('mimetypes_registry')
+            mimetype = mregistry.classify(data).normalized()
+            self.file.contentType = mimetype
+        pass
 
     def getParentTitle(self):
         return aq_parent(aq_inner(self)).title
