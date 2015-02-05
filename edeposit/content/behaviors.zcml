@@ -12,4 +12,6 @@
         factory=".behaviors.Format"
         />
 
+    <adapter factory=".behaviors.CalibreFormat"/>
+
 </configure>

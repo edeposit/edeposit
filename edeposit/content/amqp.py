@@ -11,6 +11,7 @@ import transaction
 import simplejson as json
 
 from functools import partial
+from .behaviors import ICalibreFormat, IFormat
 
 from .next_step import INextStep
 
@@ -213,10 +214,11 @@ from collections import namedtuple
 class OriginalFileThumbnailRequestSender(namedtuple('ThumbnailGeneratingRequest',['context'])):
     implements(IAMQPSender)
     def send(self):
-        print "-> Thumbnail Generating Request"
+        print "-> Thumbnail Generating Request for: ", str(self.context)
         originalfile = self.context
         fileName = originalfile.file.filename
-        inputFormat = "epub"
+
+        inputFormat = ICalibreFormat(self.context).format
         request = ConversionRequest(inputFormat, "pdf", base64.b64encode(originalfile.file.data))
         producer = getUtility(IProducer, name="amqp.calibre-convert-request")
         msg = ""
@@ -231,7 +233,7 @@ class OriginalFileThumbnailRequestSender(namedtuple('ThumbnailGeneratingRequest'
 class OriginalFileAntivirusRequestSender(namedtuple('AntivirusRequest',['context'])):
     implements(IAMQPSender)
     def send(self):
-        print "-> Antivirus Request"
+        print "-> Antivirus Request for: ", str(self.context)
         originalfile = self.context
         fileName = originalfile.file.filename
         request = ScanFile(fileName, base64.b64encode(originalfile.file.data))
@@ -248,7 +250,7 @@ class OriginalFileISNBValidateRequestSender(namedtuple('ISBNValidateRequest',['c
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> ISBN Validation Request"
+        print "-> ISBN Validation Request for: ", str(self.context)
         request = ISBNValidationRequest(self.context.isbn)
         producer = getUtility(IProducer, name="amqp.isbn-validate-request")
         msg = ""
@@ -263,7 +265,7 @@ class OriginalFileISNBDuplicityCheckRequestSender(namedtuple('ISBNDuplicityCheck
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> ISBN Duplicity Check Request"
+        print "-> ISBN Duplicity Check Request for: ", str(self.context)
         request = CountRequest(ISBNQuery(self.context.isbn))
         producer = getUtility(IProducer, name="amqp.isbn-count-request")
         msg = ""
@@ -279,7 +281,7 @@ class OriginalFileExportToAlephRequestSender(namedtuple('ExportToAlephRequest',[
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> ISBN Export To Aleph Request"
+        print "-> ISBN Export To Aleph Request for: ", str(self.context)
         originalFile = self.context
         epublication = aq_parent(aq_inner(originalFile))
         authors = map(lambda aa: Author(lastName = aa.fullname, firstName="", title = ""), epublication.authors.results())
@@ -295,7 +297,7 @@ class OriginalFileExportToAlephRequestSender(namedtuple('ExportToAlephRequest',[
             datumVydani = str(epublication.rok_vydani),
             poradiVydani = epublication.poradi_vydani or "",
             zpracovatelZaznamu = originalFile.zpracovatel_zaznamu or "",
-            format = originalFile.format or "",
+            format = IFormat(originalFile).format or "",
             url = originalFile.url or "",
             mistoVydani = epublication.misto_vydani,
             ISBNSouboruPublikaci = epublication.isbn_souboru_publikaci or "",
@@ -317,7 +319,7 @@ class OriginalFileSysNumberSearchRequestSender(namedtuple('SysNumberSearchReques
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> SysNumber search Request"
+        print "-> SysNumber search Request for: ", str(self.context)
         request = SearchRequest(ISBNQuery(self.context.isbn, 'cze-dep'))
         producer = getUtility(IProducer, name="amqp.isbn-search-request")
         msg = ""
@@ -333,7 +335,7 @@ class OriginalFileRenewAlephRecordsRequestSender(namedtuple('RenewAlephRecordsRe
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> Renew Aleph Records Request"
+        print "-> Renew Aleph Records Request for: ", str(self.context)
         request = SearchRequest(ISBNQuery(self.context.isbn,'cze-dep'))
         producer = getUtility(IProducer, name="amqp.isbn-search-request")
         msg = ""
@@ -348,7 +350,7 @@ class OriginalFileContributionPDFGenerateRequestSender(namedtuple('PDFGenerateRe
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> Contribution PDF Generate Request"
+        print "-> Contribution PDF Generate Request for: ", str(self.context)
 
         epublication = aq_parent(aq_inner(self.context))
         dataFromEPublication = epublication.dataForContributionPDF()
@@ -368,7 +370,7 @@ class OriginalFileContributionPDFGenerateRequestSender(namedtuple('PDFGenerateRe
 class OriginalFilePDFGenerationResultHandler(namedtuple('PDFGenerationResult',['context', 'result'])):
     implements(IAMQPHandler)
     def handle(self):
-        print "<- PDF Generation Result"
+        print "<- PDF Generation Result for: ", str(self.context)
         result = self.result
         context = self.context
         epublication=aq_parent(aq_inner(context))
@@ -390,7 +392,7 @@ class OriginalFilePDFGenerationResultHandler(namedtuple('PDFGenerationResult',['
 class OriginalFileAntivirusResultHandler(namedtuple('AntivirusResult',['context', 'result'])):
     implements(IAMQPHandler)
     def handle(self):
-        print "<- Antivirus Result"
+        print "<- Antivirus Result for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         result = self.result
         context = self.context
@@ -417,7 +419,7 @@ class OriginalFileThumbnailGeneratingResultHandler(namedtuple('ThumbnailGenerati
     result:  ThumbnailGeneratingResult
     """
     def handle(self):
-        print "<- Calibre Thumbnail Generating Result"
+        print "<- Calibre Thumbnail Generating Result for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         epublication=aq_parent(aq_inner(self.context))
         with api.env.adopt_user(username="system"):
@@ -436,7 +438,7 @@ class OriginalFileISBNValidateResultHandler(namedtuple('ISBNValidateResult',['co
     result:  ISBNValidationResult
     """
     def handle(self):
-        print "<- ISBN Validation result"
+        print "<- ISBN Validation result for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         epublication=aq_parent(aq_inner(self.context))
         with api.env.adopt_user(username="system"):
@@ -452,7 +454,7 @@ class OriginalFileCountResultHandler(namedtuple('ISBNCountResult',['context', 'r
     result:  CountResult
     """
     def handle(self):
-        print "<- Aleph Count result"
+        print "<- Aleph Count result for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         epublication=aq_parent(aq_inner(self.context))
         is_duplicit = bool(int(self.result.num_of_records))
@@ -470,13 +472,17 @@ class OriginalFileAlephExportResultHandler(namedtuple('AlephResultResult',['cont
     result:  CountResult
     """
     def handle(self):
-        print "<- Aleph Export result"
+        print "<- Aleph Export result for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         epublication=aq_parent(aq_inner(self.context))
         with api.env.adopt_user(username="system"):
             comment = u"export do Aleph proběhl úspěšně (%s)" % (self.result.ISBN,)
+            print "\tepublication state: ", api.content.get_state(obj=epublication)
+            print "\toriginalfile state: ", api.content.get_state(obj=self.context)
             wft.doActionFor(epublication,'notifySystemAction', comment=comment)
+            print "\taction for done: ", 'notifySystemAction'
             wft.doActionFor(self.context, 'exportToAlephOK')
+            print "\taction for done: ",'exportToAlephOK'
         pass
 
 class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['context', 'result'])):
@@ -485,7 +491,7 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
     result:  SearchResult
     """
     def handle(self):
-        print "<- Aleph Search result"
+        print "<- Aleph Search result for: ", str(self.context)
         with api.env.adopt_user(username="system"):
             for record in self.result.records:
                 epublication = record.epublication
@@ -527,7 +533,7 @@ class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 're
     result:  AMQPError
     """
     def handle(self):
-        print "<- AMQP Exception"
+        print "<- AMQP Exception for: ", self.context.absolute_url()
         wft = api.portal.get_tool('portal_workflow')
         print self.result
         with api.env.adopt_user(username="system"):
@@ -538,7 +544,7 @@ class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 're
 class AgreementGenerationRequestSender(namedtuple('AgreementGeneration',['context'])):
     implements(IAMQPSender)
     def send(self):
-        print "-> Agreement Generation Request"
+        print "-> Agreement Generation Request for: ", str(self.context)
         producent = self.context
         get = partial(getattr,producent)
         request = GenerateContract (
@@ -563,7 +569,7 @@ class AgreementGenerationResultHandler(namedtuple('AgreementGenerationResult',['
     result:  IPDF
     """
     def handle(self):
-        print "<- PDFGen Agreement Generation Response "
+        print "<- PDFGen Agreement Generation Response for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         with api.env.adopt_user(username="system"):
             bfile = NamedBlobFile(data=b64decode(self.result.b64_content),  filename=u"smlouva-s-narodni-knihovnou.pdf")
@@ -579,7 +585,7 @@ class AgreementGenerationExceptionHandler(namedtuple('ExceptionHandler',['contex
     result:  AMQPError
     """
     def handle(self):
-        print "<- AMQP Exception at pdfgen"
+        print "<- AMQP Exception at pdfgen for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         print self.result
         with api.env.adopt_user(username="system"):
@@ -599,7 +605,7 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
         return libraries
 
     def send(self):
-        print "-> Voucher Generation Request"
+        print "-> Voucher Generation Request for: ", str(self.context)
         originalfile = self.context
         epublication = aq_parent(aq_inner(self.context))
         get = partial(getattr,originalfile)
@@ -641,7 +647,7 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
             libraries_that_can_access = libraries_that_can_access,
             zpracovatel_zaznamu = get('zpracovatel_zaznamu') or "",
             url = get('url') or "",
-            format = get('format') or "",
+            format = IFormat(originalfile).format or "",
             filename = filename or "",
             author1 = autor1 or "",
             author2 = autor2 or "",
@@ -663,7 +669,7 @@ class VoucherGenerationResultHandler(namedtuple('VoucherGenerationResult',['cont
     result:  IPDF
     """
     def handle(self):
-        print "<- PDFGen Voucher Generation Response "
+        print "<- PDFGen Voucher Generation Response for: ", str(self.context)
         wft = api.portal.get_tool('portal_workflow')
         with api.env.adopt_user(username="system"):
             isbn = self.context.isbn or self.context.UID()

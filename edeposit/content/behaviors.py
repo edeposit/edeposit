@@ -8,6 +8,7 @@ from edeposit.content.originalfile import IOriginalFile
 from plone import api
 from edeposit.content import MessageFactory as _
 from z3c.form.interfaces import IDisplayForm
+import magic
 
 class IFormat(model.Schema):
     """Add format to content
@@ -35,9 +36,8 @@ class Format(object):
     @property
     def format(self):
         if self.context.file:
-            mregistry = api.portal.get_tool('mimetypes_registry')
-            data = self.context.file.data
-            return mregistry.classify(data).normalized()
+            fileFormat = magic.from_buffer(self.context.file.data)
+            return fileFormat
         return 'text/html'
 
     # @property
@@ -51,3 +51,36 @@ class Format(object):
     #     self.context.setSubject(tuple(value))
 
 alsoProvides(IFormat, IFormFieldProvider)
+
+class ICalibreFormat(model.Schema):
+    """format for calibre
+    """
+    format = schema.ASCIILine (
+        title=_(u"Format of a file."),
+        readonly = True,
+        required = False,
+    )
+
+
+from zope.interface import implements
+from zope.component import adapts
+
+class CalibreFormat(object):
+    implements(ICalibreFormat)
+    adapts(IOriginalFile)
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def format(self):
+        format = IFormat(self.context).format
+        print "identified: %s for file: %s\n" %(format, str(self.context))
+        calibreFormat = 'html'
+        txt = format.lower()
+        if 'mobipocket' in txt:
+            calibreFormat = 'mobi'
+        if 'epub' in txt:
+            calibreformat = 'epub'
+        print "\tcalibre format is: ", calibreFormat
+        return calibreFormat
