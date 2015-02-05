@@ -75,12 +75,11 @@ class CalibreFormat(object):
     @property
     def format(self):
         format = IFormat(self.context).format
-        print "identified: %s for file: %s\n" %(format, str(self.context))
-        calibreFormat = 'html'
+        print "identified: %s for file: %s" %(format, str(self.context))
         txt = format.lower()
-        if 'mobipocket' in txt:
-            calibreFormat = 'mobi'
-        if 'epub' in txt:
-            calibreformat = 'epub'
+        calibreFormat = (('mobipocket' in txt) and 'mobi') or \
+            (('epub' in txt) and 'epub') or \
+            (('pdf' in txt) and 'pdf') or 'text/html'
+
         print "\tcalibre format is: ", calibreFormat
         return calibreFormat
