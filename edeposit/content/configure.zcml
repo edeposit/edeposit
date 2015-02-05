@@ -14,6 +14,7 @@
   
   <!-- Include files -->
   <include file="permissions.zcml" />
+  <include file="behaviors.zcml" />
   <include package="collective.zamqp" />
 
   <browser:resourceDirectory
@@ -38,10 +39,10 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.added"/>
 
-  <subscriber
-      for=".epublicationfolder.IePublicationFolder
-           zope.container.interfaces.IObjectModifiedEvent"
-      handler=".handlers.addedEPublicationFolder"/>
+  <!-- <subscriber -->
+  <!--     for=".originalfile.IOriginalFile -->
+  <!--          zope.lifecycleevent.IObjectModifiedEvent" -->
+  <!--     handler=".handlers.updateFormat"/> -->
 
   <subscriber
       for=".epublicationfolder.IePublicationFolder

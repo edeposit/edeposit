@@ -60,7 +60,6 @@ from epublicationfolder import IePublicationFolder
 
 from edeposit.content.browser import contribute
 from functools import partial
-
 from edeposit.content.browser.contribute import (
     LoadFromSimilarForm,
     LoadFromSimilarView,
@@ -896,13 +895,13 @@ class AddAtOnceForm(form.SchemaForm):
             return originalfile
 
         newOriginalFile = addContentToContainer( newEPublication, withProperMimeType(
-            self.createContentFromData(IOriginalFile,
-                                       'edeposit.content.originalfile', data,
-                                       dict(title=originalFileTitle,
-                                            allow_discussion = True,
-                                        ),
-                                   )
-        ))
+                self.createContentFromData(IOriginalFile,
+                                           'edeposit.content.originalfile', data,
+                                           dict(title=originalFileTitle,
+                                                allow_discussion = True,
+                                                ),
+                                           )
+                ))
         
         # comment = data.get('poznamka',"")
         # if comment:

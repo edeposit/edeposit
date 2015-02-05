@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="edeposit.content">
+
+    <include package="plone.behavior" file="meta.zcml" />
+
+    <plone:behavior
+        title="Format"
+        description="Give format of a file attribute for Original File"
+        provides=".behaviors.IFormat"
+        factory=".behaviors.Format"
+        />
+
+</configure>
