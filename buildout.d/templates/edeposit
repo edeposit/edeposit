@@ -1,0 +1,10 @@
+/opt/edeposit/var/log/*.log {
+        daily
+        missingok
+        rotate 20
+        compress
+        delaycompress
+        notifempty
+        sharedscripts
+        endscript
+}
