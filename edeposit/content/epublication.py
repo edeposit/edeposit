@@ -202,12 +202,9 @@ class IePublication(form.Schema, IImageScaleTraversable):
         title = u"Oprávnění knihovnám",
         required = False,
         readonly = False,
-        default =  u'Vybrané knihovny mají přístup',
-        missing_value =  u'Vybrané knihovny mají přístup',
-        values = [u'Žádná knihovna nemá přístup k ePublikaci',
-                  u'Všechny knihovny mají přístup k ePublikaci',
-                  u'Vybrané knihovny mají přístup'
-              ],
+        default = None,
+        missing_value = None,
+        vocabulary = 'edeposit.content.librariesAccessingChoices'
     )
 
     #form.widget(libraries_that_can_access=AutocompleteMultiFieldWidget)    
@@ -704,15 +701,12 @@ class IAddAtOnceForm(form.Schema):
         title = u"Oprávnění knihovnám",
         required = False,
         readonly = False,
-        default =  u'Vybrané knihovny mají přístup',
-        missing_value =  u'Vybrané knihovny mají přístup',
-        values = [u'Žádná knihovna nemá přístup k ePublikaci',
-                  u'Všechny knihovny mají přístup k ePublikaci',
-                  u'Vybrané knihovny mají přístup'
-              ],
+        default = None,
+        missing_value = None,
+        vocabulary = 'edeposit.content.librariesAccessingChoices'
     )
 
-    libraries_that_can_access = schema.Set(
+    libraries_that_can_access = schema.Set (
         title = u"Knihovny s přístupem k ePublikaci", #(u'Libraries that can access this ePublication'),
         required = False,
         readonly = False,
@@ -930,14 +924,30 @@ class AddAtOnceForm(form.SchemaForm):
         producent = container.aq_parent
         nakladatel_vydavatel =  producent.title or producent.id
 
+        intids = getUtility(IIntIds)
+        def getObjFactory(pcatalog):
+            def getObj(id):
+                aa = pcatalog(portal_type="edeposit.content.library",id=id)
+                if aa:
+                    return aa[0].getObject()
+                return None
+            return getObj
+
+        getLib = getObjFactory(api.portal.get_tool('portal_catalog'))
+        libraries_that_can_access = map(RelationValue,
+                                        map(intids.getId,
+                                            filter(lambda ii: bool(ii),
+                                                   map(getLib, data['libraries_that_can_access']))))
+                                         
         newEPublication = addContentToContainer( container,
                                                  self.createContentFromData(IePublication, 'edeposit.content.epublication', data, 
                                                                             dict(vazba='online',
                                                                                  title=data['nazev'],
                                                                                  nakladatel_vydavatel = nakladatel_vydavatel,
                                                                                  ), 
-                                                                            [])
+                                                                            ['libraries_that_can_access'])
                                                  )
+        newEPublication.libraries_that_can_access = libraries_that_can_access
         return newEPublication
 
     @button.buttonAndHandler(u"Odeslat", name='save')

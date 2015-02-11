@@ -428,6 +428,7 @@ class OriginalFileThumbnailGeneratingResultHandler(namedtuple('ThumbnailGenerati
             self.context.thumbnail = bfile
             transaction.savepoint(optimistic=True)
             wft.doActionFor(epublication,'notifySystemAction', comment=comment)
+            print "\nstate of originalfile: ", api.content.get_state(self.context)
             wft.doActionFor(self.context, self.context.isbn and 'thumbnailOKAleph' or 'thumbnailOKISBNGeneration')
         pass
 
@@ -613,8 +614,9 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
         autori = [aa.fullname for aa in epublication.authors.results()]
         (autor1, autor2, autor3) = (autori + [None, None, None])[:3]
         libraries_accessing = epublication.libraries_accessing
-        libraries_by_value = dict([(aa.id,aa.Title) for aa in self.availableLibraries()])
-        libraries_that_can_access = [ {'id': token, 'title': libraries_by_value.get(token)} for token in epublication.libraries_that_can_access ]
+        #libraries_by_value = dict([(aa.id,aa.Title) for aa in self.availableLibraries()])
+        libraries_that_can_access = [ dict( id = aa.to_object.id, title=aa.to_object.Title())
+                                      for aa in epublication.libraries_that_can_access]
         filename = originalfile.file and originalfile.file.filename or ""
         nakladatel_vydavatel =  aq_parent(aq_inner(self.context)).nakladatel_vydavatel
 

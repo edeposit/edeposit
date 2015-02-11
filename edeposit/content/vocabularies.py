@@ -46,3 +46,16 @@ class CategoriesForRIVVocabulary(object):
         return SimpleVocabulary(terms)
 grok.global_utility(CategoriesForRIVVocabulary, name=u"edeposit.content.categoriesForRIV")
 
+class LibrariesAccessingVocabulary(object):
+    grok.implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        registry = queryUtility(IRegistry)
+        terms = []
+        if registry is not None:
+            for item in registry.get('edeposit.content.librariesAccessingChoices', ()):
+                token = unicodedata.normalize('NFKD', item).encode('ascii', 'ignore').lower()
+                terms.append(SimpleVocabulary.createTerm(item, token, item))
+        return SimpleVocabulary(terms)
+grok.global_utility(LibrariesAccessingVocabulary, name=u"edeposit.content.librariesAccessingChoices")
+
