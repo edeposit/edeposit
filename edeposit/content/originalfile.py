@@ -166,10 +166,6 @@ class OriginalFile(Container):
             )
         return OriginalFile.folder_full_view_item_template.substitute(data)
 
-    # @property
-    # def format(self):
-    #     return self.file and self.file.contentType or 'text/html'
-
     def updateFormat(self):
         data = self.file and self.file.data
         if data:
