@@ -50,3 +50,26 @@ class Format(object):
 
 alsoProvides(IFormat, IFormFieldProvider)
 
+class ICalibreFormat(model.Schema):
+    """Add format to content
+    """
+    format = schema.ASCIILine (
+        title=_(u"Format of a file."),
+        readonly = True,
+        required = False,
+    )
+
+from zope.interfaces import implements
+from zope.component import adapts
+
+class CalibreFormat(object):
+    implements(ICalibreFormat)
+    adapts(IOriginalFile)
+
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def format(self):
+        format = IFormat(self.context).format
+        return format.lower()
