@@ -73,6 +73,8 @@ from edeposit.amqp.pdfgen.structures import (
     PDF
 )
 
+from edeposit.content.tasks import *
+
 class IAMQPError(Interface):
     payload = Attribute("")
     exception_name = Attribute("")
@@ -247,6 +249,41 @@ def handlePDFGenResponse(message, event):
         message.ack()
     else:
         result = deserialize(json.dumps(message.body),globals())
+        getMultiAdapter((context,result),IAMQPHandler).handle()
+        message.ack()
+
+class IPloneTask(Interface):
+    """Message marker interface"""
+
+class PloneTaskConsumer(Consumer):
+    grok.name('amqp.plone-task-consumer')
+    connection_id = "plone"
+    queue = "plone"
+    serializer = "plain"
+    marker = IPloneTask
+    pass
+
+@grok.subscribe(IPloneTask, IMessageArrivedEvent)
+def handlePloneTask(message, event):
+    headers = message.header_frame.headers or {}
+    (context, session_data) = parse_headers(headers)
+    if not context:
+        # we will attach default context of an amqp message:
+        # amqp folder.
+        print "... no context at headers so try AMQP Folder as default context"
+        pcatalog = api.portal.get_tool('portal_catalog') 
+        context = pcatalog(portal_type="edeposit.content.amqpfolder")[0].getObject()
+        session_data={}
+
+    if "exception" in headers:
+        amqpError = AMQPError(payload=message.body, 
+                              exception_name = headers.get('exception_name'),
+                              exception = headers.get('exception'),
+                              headers = headers)
+        getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
+    else:
+        result = deserialize(message._serialized_body,globals())
         getMultiAdapter((context,result),IAMQPHandler).handle()
         message.ack()
 

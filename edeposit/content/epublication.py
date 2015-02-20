@@ -815,7 +815,6 @@ class AddAtOnceForm(form.SchemaForm):
         pass
 
     def update(self):
-        print "AddAtOnceForm - update"
         form = LoadFromSimilarForm(self.context, self.request)
         view = LoadFromSimilarSubView(self.context, self.request)
         view = view.__of__(self.context)
@@ -834,7 +833,6 @@ class AddAtOnceForm(form.SchemaForm):
             session.set('proper_record',None)
 
     def extractData(self):
-        print "AddAtOnceForm - extractData"
         def getErrorView(widget,error):
             view = zope.component.getMultiAdapter( (error, 
                                                     self.request, 
@@ -854,14 +852,12 @@ class AddAtOnceForm(form.SchemaForm):
             valid = is_valid_isbn(isbn)
             if not valid:
                 # validity error
-                print "isbn is not valid"
                 errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'Chyba v ISBN')),)
                 pass
             else:
                 try:
                     appearedAtAleph = getISBNCount(isbn)
                     if appearedAtAleph:
-                        print "isbn already appeared in Aleph"
                         # duplicity error
                         errors += (getErrorView(isbnWidget, zope.interface.Invalid(u'ISBN je již použito. Použijte jiné, nebo nahlašte opravu.')),)
                 except:

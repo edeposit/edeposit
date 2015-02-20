@@ -31,6 +31,15 @@ from zope.publisher.interfaces import NotFound
 from plone.namedfile.utils import set_headers, stream_data
 import json
 from five import grok
+from lxml import html
+
+class OriginalFileDisplayForm(form.SchemaForm):
+    schema = IOriginalFile
+    ignoreContext = False
+    mode = 'edit'
+    grok.context(IOriginalFile)
+    grok.name('sub-edit')
+    grok.require('cmf.ModifyPortalContent')
 
 class OriginalFileDisplayForm(form.SchemaForm):
     schema = IOriginalFile
@@ -70,7 +79,6 @@ class HasVoucher(BrowserView):
             view = OriginalFileFormView(self.context, self.request)
             view = view.__of__(self.context)
             view.form_instance = OriginalFileDisplayForm(self.context, self.request)
-            from lxml import html
             root = html.fromstring(view())
             widget = root.get_element_by_id('formfield-form-widgets-voucher')
             widgetHTML = html.tostring(widget).replace('/has-voucher/','/view/')
@@ -80,3 +88,4 @@ class HasVoucher(BrowserView):
                                voucher_widget_html = widgetHTML,
                            ))
         
+

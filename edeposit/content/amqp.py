@@ -2,7 +2,7 @@
 
 from plone import api
 from zope.interface import Interface, Attribute, implements, classImplements
-from zope.component import getUtility, getAdapter, getMultiAdapter
+from zope.component import getUtility, getAdapter, getMultiAdapter, adapts, provideAdapter
 from Acquisition import aq_parent, aq_inner
 from plone.namedfile.file import NamedBlobFile
 from base64 import b64encode, b64decode
@@ -11,7 +11,7 @@ import transaction
 import simplejson as json
 
 from functools import partial
-from .behaviors import ICalibreFormat, IFormat
+from .behaviors import IFormat
 
 from .next_step import INextStep
 
@@ -83,6 +83,14 @@ import json
 import base64
 from zope.component import getUtility
 
+from edeposit.content.tasks import *
+from edeposit.content.amqp_folder import IAMQPFolder
+
+"""
+(add-hook 'after-save-hook 'restart-pdb-instance nil t)
+"""
+
+
 class AntivirusCheckRequestProducent(Producer):
     grok.name('amqp.antivirus-request')
 
@@ -148,6 +156,19 @@ class PDFGenerationProducent(Producer):
     routing_key = "request"
     pass
 
+class PloneTaskRunProducent(Producer):
+    grok.name('amqp.plone-task-request')
+
+    connection_id = "plone"
+    exchange = "task"
+    serializer = "text/plain"
+    exchange_type = "topic"
+    exchange_durable = True
+    auto_delete = False
+    durable = True
+    routing_key = "request"
+    pass
+
 class IScanResult(Interface):
     result = Attribute("")
     filename = Attribute("")
@@ -203,7 +224,11 @@ def make_headers(context, session_data):
     }
 
 def parse_headers(headers):
-    uuid = headers['UUID']
+    uuid = headers and headers.get('UUID',None)
+
+    if not uuid:
+        return (None,{})
+
     data = json.loads(uuid)
     uid = data.get('context_UID',None)
     context = uid and api.content.get(UID=uid)
@@ -218,7 +243,7 @@ class OriginalFileThumbnailRequestSender(namedtuple('ThumbnailGeneratingRequest'
         originalfile = self.context
         fileName = originalfile.file.filename
 
-        inputFormat = ICalibreFormat(self.context).format
+        inputFormat = IFormat(self.context).format
         request = ConversionRequest(inputFormat, "pdf", base64.b64encode(originalfile.file.data))
         producer = getUtility(IProducer, name="amqp.calibre-convert-request")
         msg = ""
@@ -366,6 +391,19 @@ class OriginalFileContributionPDFGenerateRequestSender(namedtuple('PDFGenerateRe
         # headers = make_headers(self.context, session_data)
         # producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
         pass
+
+class IPublishPloneTask(namedtuple("IPublishPloneTask",['context'])):
+    adapts(IPloneTask)
+    implements(IAMQPSender)
+    def send(self):
+        print "-> Generic Plone Task send"
+        payload = IJSONEncoder(self.context).encode()
+        producer = getUtility(IProducer, name="amqp.edeposit-plone-task")
+        producer.publish(payload, content_type="application/json", headers={})
+        pass
+
+provideAdapter(IPublishPloneTask)
+
 
 class OriginalFilePDFGenerationResultHandler(namedtuple('PDFGenerationResult',['context', 'result'])):
     implements(IAMQPHandler)
@@ -684,3 +722,140 @@ class VoucherGenerationResultHandler(namedtuple('VoucherGenerationResult',['cont
             pass
         pass
 
+
+class SendEmailWithWorklistToGroupTaskHandler(namedtuple('SendEmailWithWorklistToGroupTaskHandler',
+                                                         ['context', 'result'])):
+    """ 
+    context: IAMQPHandler
+    result:  ISendEmailWithWorklistToGroup
+    """
+    def handle(self):
+        print "<- Send Email with worklist: ", str(self.result)
+        with api.env.adopt_user(username="system"):
+            producentsFolder = api.portal.get_tool('portal_catalog')(portal_type='edeposit.user.producentfolder')[0].getObject()
+            view = api.content.get_view(name=self.result.worklist,
+                                        context = producentsFolder, 
+                                        request = self.context.REQUEST)
+            body = view()
+            subject = self.result.subject
+            if view.numOfRows:
+                groupname = self.result.recipientsGroup
+                recipients = self.result.additionalEmails
+                emailsFromGroup = [aa.getProperty('email') for aa in api.user.get_users(groupname=groupname)]
+                for recipient in frozenset(emailsFromGroup + recipients):
+                    print "... poslal jsem email: ", subject, recipient
+                    api.portal.send_email(recipient=recipient, subject=subject, body=body)
+            else:
+                print "... zadny email jsem neposlal. prazdno. ", subject
+
+class LoadSysNumbersFromAlephTaskHandler(namedtuple('LoadSysNumbersFromAlephTaskHandler',
+                                                    ['context', 'result'])):
+    """ 
+    context: IAMQPHandler
+    result:  ILoadSysNumbersFromAleph
+    """
+    def handle(self):
+        print "<- Plone AMQP Task: ", str(self.result)
+        with api.env.adopt_user(username="system"):
+            producentsFolder = api.portal.get_tool('portal_catalog')(portal_type='edeposit.user.producentfolder')[0].getObject()
+            collection = producentsFolder['originalfiles-waiting-for-aleph']
+            uids = map(lambda item: item.UID, collection.results(batch=False))
+            for uid in uids:
+                IPloneTaskSender(DoActionFor(transition='searchSysNumber', uid=uid)).send()
+            pass
+
+class RenewAlephRecordsTaskHandler(namedtuple('RenewAlephRecordsTaskHandler',
+                                              ['context', 'result'])):
+    """ 
+    context: IAMQPHandler
+    result:  IRenewAlephRecords
+    """
+    def handle(self):
+        print "<- Plone AMQP Task: ", str(self.result)
+        with api.env.adopt_user(username="system"):
+            producentsFolder = api.portal.get_tool('portal_catalog')(portal_type='edeposit.user.producentfolder')[0].getObject()
+            collection = producentsFolder['originalfiles-waiting-for-renew-aleph-records']
+            uids = map(lambda item: item.UID, collection.results(batch=False))
+            for uid in uids:
+                IPloneTaskSender(DoActionFor(transition='renewAlephRecords', uid=uid)).send()
+
+class DoActionForTaskHandler(namedtuple('DoActionForTaskHandler',
+                                        ['context','result'])):
+    def handle(self):
+        print "<- Plone AMQP Task: ", str(self.result)
+        with api.env.adopt_user(username="system"):
+            wft = api.portal.get_tool('portal_workflow')
+            obj = api.content.get(UID = self.result.uid)
+            wft.doActionFor(obj,self.result.transition)
+
+
+class SendEmailWithUserWorklistTaskHandler(namedtuple('SendEmailWithUserWorklistTaskHandler',
+                                                      ['context', 'result'])):
+    """ 
+    context: IAMQPHandler
+    result:  ISendEmailWithUserWorklist
+    """
+
+    """ doplnit mapovani collections, co je potreba vytvorit
+    """
+
+    collectionsMap = {
+        'Descriptive Cataloguers' :  dict(indexName="getAssignedDescriptiveCataloguer",
+                                          state="descriptiveCataloguing",
+                                          readerGroup = "Descriptive Cataloguing Administrators"),
+        'Descriptive Cataloguing Reviewers' : dict(indexName="getAssignedDescriptiveCataloguingReviewer",
+                                                   state="descriptiveCataloguingReview",
+                                                   readerGroup = "Descriptive Cataloguing Administrators"),
+        'Subject Cataloguers' : dict( indexName="getAssignedSubjectCataloguer",
+                                      state="subjectCataloguing",
+                                      readerGroup = "Subject Cataloguing Administrators"),
+        'Subject Cataloguing Reviewers': dict( indexName="getAssignedSubjectCataloguingReviewer",
+                                               state="subjectCataloguingReview",
+                                               readerGroup = "Subject Cataloguing Administrators")
+    }
+    def handle(self):
+        print "<- Send Email with user worklist: ", str(self.result)
+        with api.env.adopt_user(username="system"):
+            producentsFolder = api.portal.get_tool('portal_catalog')(portal_type='edeposit.user.producentfolder')[0].getObject()
+            (groupname,title,additionalEmails) = map(self.result.get,['groupname','title','additionalEmails'])
+            
+            item = self.collectionsMap.get(groupname)
+            if not item:
+                print "... nenasel jsem definici pro vytvoreni kolekci pro skupinu: ", groupname 
+                return
+            
+            (indexName, state, readerGroup) = map(item.get, ['indexName','state','readerGroup'])
+
+            for member in api.user.get_users(groupname=groupname):
+                username = member.id
+                producentFolder.createUserCollection(username, indexName, state, readerGroup)
+                email = member.getProperty('email')
+                view_name = 'worklist-waiting-for-user'
+                subject = title + " pro: " + username
+                request = context.REQUEST
+                request['userid']=username
+                body = view()
+                if view.numOfRows:
+                    recipients = ['stavel.jan@gmail.com',email,'alena.zalejska@pragodata.cz']
+                    for recipient in recipients:
+                        print u"odesilam email pro: " + recipient
+                        api.portal.send_email(recipient=recipient, subject=subject, body=body)
+                else:
+                    print u"nic odesilame pro: " + username
+
+
+
+            view = api.content.get_view(name=self.result.worklist,
+                                        context = producentsFolder, 
+                                        request = self.context.REQUEST)
+            body = view()
+            subject = self.result.subject
+            if view.numOfRows:
+                groupname = self.result.recipientsGroup
+                recipients = self.result.additionalEmails
+                emailsFromGroup = [aa.getProperty('email') for aa in api.user.get_users(groupname=groupname)]
+                for recipient in frozenset(emailsFromGroup + recipients):
+                    print "... poslal jsem email: ", subject, recipient
+                    api.portal.send_email(recipient=recipient, subject=subject, body=body)
+            else:
+                print "... zadny email jsem neposlal. prazdno. ", subject
