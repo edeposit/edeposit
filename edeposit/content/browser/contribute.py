@@ -211,7 +211,6 @@ class LoadFromSimilarForm(form.SchemaForm):
         #url = os.path.join(self.context.absolute_url(),"add-at-once")
         self.response.redirect(url)
         pass
-    pass
 
 LoadFromSimilarView = wrap_form(LoadFromSimilarForm)
 

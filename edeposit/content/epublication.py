@@ -69,6 +69,7 @@ from edeposit.content.browser.contribute import (
 from edeposit.content.utils import loadFromAlephByISBN
 from edeposit.content.utils import is_valid_isbn
 from edeposit.content.utils import getISBNCount
+import os.path
 
 # import edeposit.content.mock
 # getAlephRecord = edeposit.content.mock.getAlephRecord
@@ -444,11 +445,11 @@ class EPublicationAddForm(DefaultAddForm):
             pass
         return (data,errors)
 
-    @button.buttonAndHandler(_(u'Cancel'), name='cancel')
-    def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(_(u"Add New Item operation cancelled"), "info")
-        self.request.response.redirect(self.nextURL())
-        notify(AddCancelledEvent(self.context))
+    # @button.buttonAndHandler(_(u'Cancel'), name='cancel')
+    # def handleCancel(self, action):
+    #     IStatusMessage(self.request).addStatusMessage(_(u"Add New Item operation cancelled"), "info")
+    #     self.request.response.redirect(self.nextURL())
+    #     notify(AddCancelledEvent(self.context))
 
     @button.buttonAndHandler(u"Ohlásit", name='save')
     def handleAdd(self, action):
@@ -1015,6 +1016,17 @@ class AddAtOnceForm(form.SchemaForm):
         messages = IStatusMessage(self.request)
         messages.addStatusMessage(u"ePublikace byla ohlášena.", type="info")
         pass
+
+    @button.buttonAndHandler(u"Vyčistit formulář", name='clean')
+    def handleClean(self, action):
+        sdm = self.context.session_data_manager
+        session = sdm.getSessionData(create=True)
+        session.set('load_isbn',"")
+        session.set('proper_record',None)
+        session.set('aleph_records',[])
+        url = os.path.join(self.context.absolute_url(),"add-at-once")
+        self.response.redirect(url)
+
 
 class MainMetadataFromEBook(object):
     zope.interface.implements(IMainMetadata)
