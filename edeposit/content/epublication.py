@@ -60,6 +60,8 @@ from epublicationfolder import IePublicationFolder
 
 from edeposit.content.browser import contribute
 from functools import partial
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 from edeposit.content.browser.contribute import (
     LoadFromSimilarForm,
     LoadFromSimilarView,
@@ -947,7 +949,13 @@ class AddAtOnceForm(form.SchemaForm):
                                                                                  ), 
                                                                             ['libraries_that_can_access'])
                                                  )
-        newEPublication.libraries_that_can_access = libraries_that_can_access
+
+        newEPublication.libraries_that_can_access = None
+        accessing = getUtility(IVocabularyFactory,'edeposit.content.librariesAccessingChoices')(self.context)
+        term = accessing.getTerm(data['libraries_accessing'])
+        if 'vybrane knihovny maji pristup' in term.token:
+            newEPublication.libraries_that_can_access = libraries_that_can_access
+
         return newEPublication
 
     @button.buttonAndHandler(u"Odeslat", name='save')
