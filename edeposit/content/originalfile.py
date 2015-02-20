@@ -224,7 +224,9 @@ class OriginalFile(Container):
         # exist some record with the same sysNumber?
         arecordWithTheSameSysNumber = filter(lambda arecord: arecord.aleph_sys_number == sysNumber,
                                              alephRecords)
+        print dataForFactory
         if arecordWithTheSameSysNumber:
+            print "a record with the same sysnumber"
             # update this record
             alephRecord = arecordWithTheSameSysNumber[0]
             def isChangedFactory(alephRecord,data):
@@ -232,6 +234,7 @@ class OriginalFile(Container):
                     return getattr(alephRecord,attr,None) != data.get(attr,None)
                 return isChanged
             changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
+            print "changedAttrs", changedAttrs
             if changedAttrs:
                 def setAttrFactory(alephRecord,data):
                     def setAttr(attr):
@@ -240,6 +243,7 @@ class OriginalFile(Container):
                 map(setAttrFactory(alephRecord,dataForFactory), changedAttrs)
             pass
         else:
+            print "new record appeared"
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
 
     def updateAlephRelatedData(self):
@@ -278,6 +282,7 @@ class OriginalFilePrimaryFieldInfo(object):
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
         local_roles = self.get_local_roles()
+        print "... get assigned person %s, %s" % (roleName, str(local_roles))
         pairs = filter(lambda pair: roleName in pair[1], local_roles)
         return pairs and pairs[0][0] or None
 

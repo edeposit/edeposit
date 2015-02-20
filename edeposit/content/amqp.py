@@ -319,7 +319,7 @@ class OriginalFileSysNumberSearchRequestSender(namedtuple('SysNumberSearchReques
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> SysNumber search Request for: ", str(self.context)
+        print "-> SysNumber search Request for: ", str(self.context), self.context.isbn
         request = SearchRequest(ISBNQuery(self.context.isbn, 'cze-dep'))
         producer = getUtility(IProducer, name="amqp.isbn-search-request")
         msg = ""
@@ -335,7 +335,7 @@ class OriginalFileRenewAlephRecordsRequestSender(namedtuple('RenewAlephRecordsRe
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> Renew Aleph Records Request for: ", str(self.context)
+        print "-> Renew Aleph Records Request for: ", str(self.context), self.context.isbn
         request = SearchRequest(ISBNQuery(self.context.isbn,'cze-dep'))
         producer = getUtility(IProducer, name="amqp.isbn-search-request")
         msg = ""
@@ -494,6 +494,7 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
     def handle(self):
         print "<- Aleph Search result for: ", str(self.context)
         with api.env.adopt_user(username="system"):
+            print "num of records: ", len(self.result.records)
             for record in self.result.records:
                 epublication = record.epublication
                 dataForFactory = {
