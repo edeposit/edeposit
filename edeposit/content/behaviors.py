@@ -59,7 +59,7 @@ class ICalibreFormat(model.Schema):
         required = False,
     )
 
-from zope.interfaces import implements
+from zope.interface import implements
 from zope.component import adapts
 
 class CalibreFormat(object):
