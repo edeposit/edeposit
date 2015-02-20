@@ -37,30 +37,27 @@ class Format(object):
     def format(self):
         if self.context.file:
             fileFormat = magic.from_buffer(self.context.file.data)
-            return fileFormat
+            print "identified: %s for file: %s" % (fileFormat, str(self.context))
+            txt = fileFormat.lower()
+            shortFormat = (('mobipocket' in txt) and 'Mobi') or \
+                          (('epub' in txt) and 'EPub') or \
+                          (('pdf' in txt) and 'PDF') or fileFormat
+            
+            print "format format is: ", shortFormat
+            return shortFormat
+
         return 'text/html'
-
-    # @property
-    # def tags(self):
-    #     return set(self.context.Subject())
-
-    # @tags.setter
-    # def tags(self, value):
-    #     if value is None:
-    #         value = ()
-    #     self.context.setSubject(tuple(value))
 
 alsoProvides(IFormat, IFormFieldProvider)
 
 class ICalibreFormat(model.Schema):
-    """format for calibre
+    """Add format to content
     """
     format = schema.ASCIILine (
         title=_(u"Format of a file."),
         readonly = True,
         required = False,
     )
-
 
 from zope.interface import implements
 from zope.component import adapts
@@ -75,11 +72,4 @@ class CalibreFormat(object):
     @property
     def format(self):
         format = IFormat(self.context).format
-        print "identified: %s for file: %s" %(format, str(self.context))
-        txt = format.lower()
-        calibreFormat = (('mobipocket' in txt) and 'mobi') or \
-            (('epub' in txt) and 'epub') or \
-            (('pdf' in txt) and 'pdf') or 'text/html'
-
-        print "\tcalibre format is: ", calibreFormat
-        return calibreFormat
+        return format.lower()
