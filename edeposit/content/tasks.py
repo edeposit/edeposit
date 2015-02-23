@@ -83,23 +83,16 @@ class DoActionFor(namedtuple('DoActionFor',['uid','transition'])):
     pass
 
 class ISendEmailWithUserWorklist(IPloneTask):
-    worklist = schema.ASCIILine()
+    title = schema.TextLine()
     groupname = schema.ASCIILine()
     additionalEmails = schema.List(
         value_type = schema.ASCIILine()
     )
 
 class SendEmailWithUserWorklist(namedtuple('SendEmailWithUserWorklist',
-                                           ['worklist','groupname','additionalEmails'])):
+                                           ['title','groupname','additionalEmails'])):
     implements(ISendEmailWithUserWorklist)
     pass
-
-class ISendEmailWithUserWorklist(IPloneTask):
-    title = schema.TextLine()
-    groupname = schema.ASCIILine()
-    additionalEmails = schema.List(
-        value_type = schema.ASCIILine()
-    )
 
 if __name__ == '__main__':
     import unittest

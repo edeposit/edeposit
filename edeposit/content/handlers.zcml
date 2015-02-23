@@ -106,6 +106,14 @@
 
   <adapter
       for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.ISendEmailWithUserWorklist
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.SendEmailWithUserWorklistTaskHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
            edeposit.content.tasks.ILoadSysNumbersFromAleph
            "
       provides="edeposit.content.amqp.IAMQPHandler"

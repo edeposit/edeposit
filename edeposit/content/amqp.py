@@ -817,45 +817,35 @@ class SendEmailWithUserWorklistTaskHandler(namedtuple('SendEmailWithUserWorklist
         print "<- Send Email with user worklist: ", str(self.result)
         with api.env.adopt_user(username="system"):
             producentsFolder = api.portal.get_tool('portal_catalog')(portal_type='edeposit.user.producentfolder')[0].getObject()
-            (groupname,title,additionalEmails) = map(self.result.get,['groupname','title','additionalEmails'])
-            
+            get = partial(getattr,self.result)
+            (groupname,title,additionalEmails) = map(get,['groupname','title','additionalEmails'])
+
             item = self.collectionsMap.get(groupname)
             if not item:
                 print "... nenasel jsem definici pro vytvoreni kolekci pro skupinu: ", groupname 
                 return
             
             (indexName, state, readerGroup) = map(item.get, ['indexName','state','readerGroup'])
-
+            
             for member in api.user.get_users(groupname=groupname):
                 username = member.id
-                producentFolder.createUserCollection(username, indexName, state, readerGroup)
+                producentsFolder.createUserCollection(username, indexName, state, readerGroup)
                 email = member.getProperty('email')
                 view_name = 'worklist-waiting-for-user'
                 subject = title + " pro: " + username
-                request = context.REQUEST
+                request = self.context.REQUEST
                 request['userid']=username
+                view = api.content.get_view(name=view_name,
+                                            context = producentsFolder, 
+                                            request = request)
+
                 body = view()
                 if view.numOfRows:
-                    recipients = ['stavel.jan@gmail.com',email,'alena.zalejska@pragodata.cz']
+                    recipients = frozenset(self.result.additionalEmails + [email,])
                     for recipient in recipients:
-                        print u"odesilam email pro: " + recipient
+                        print u"... odesilam email pro: " + recipient
                         api.portal.send_email(recipient=recipient, subject=subject, body=body)
                 else:
-                    print u"nic odesilame pro: " + username
+                    print u"... nic neodesilame pro: " + username
 
 
-
-            view = api.content.get_view(name=self.result.worklist,
-                                        context = producentsFolder, 
-                                        request = self.context.REQUEST)
-            body = view()
-            subject = self.result.subject
-            if view.numOfRows:
-                groupname = self.result.recipientsGroup
-                recipients = self.result.additionalEmails
-                emailsFromGroup = [aa.getProperty('email') for aa in api.user.get_users(groupname=groupname)]
-                for recipient in frozenset(emailsFromGroup + recipients):
-                    print "... poslal jsem email: ", subject, recipient
-                    api.portal.send_email(recipient=recipient, subject=subject, body=body)
-            else:
-                print "... zadny email jsem neposlal. prazdno. ", subject
