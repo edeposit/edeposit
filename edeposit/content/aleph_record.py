@@ -107,6 +107,22 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         required = False,
         default = False,
     )
+    isClosed= schema.Bool (
+        title = _(u'is closed out by Catalogizators'),
+        description = u"",
+        required = False,
+        default = False,
+    )
+    summary_record_aleph_sys_number  = schema.ASCIILine (
+        title = _(u'Aleph SysNumber of Summary Record'),
+        description = _(u'Internal SysNumber of a Summary Aleph Record for this ePublication'),
+        required = False,
+    )
+    summary_record_info = schema.ASCIILine (
+        title = _(u'Info about Summary Record'),
+        description = _(u'Informations about Summary Aleph Record for this ePublication'),
+        required = False,
+    )
     xml = NamedBlobFile (
         title=_(u"XML file with MARC21"),
         required = False,
