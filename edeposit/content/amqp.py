@@ -215,6 +215,9 @@ class IAMQPHandler(Interface):
     def handle():
         return None
 
+class IEmailSender(Interface):
+    def send():
+        pass
 
 def make_headers(context, session_data):
     return {
@@ -355,6 +358,21 @@ class OriginalFileSysNumberSearchRequestSender(namedtuple('SysNumberSearchReques
         producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
         pass
 
+class OriginalFileSearchRequestSender(namedtuple('SysNumberSearchRequest',['context'])):
+    """ context will be original file """
+    implements(IAMQPSender)
+    def send(self):
+        print "-> SysNumber search Request for: ", str(self.context), self.context.isbn
+        request = SearchRequest(ISBNQuery(self.context.isbn, 'cze-dep'))
+        producer = getUtility(IProducer, name="amqp.isbn-search-request")
+        msg = ""
+        session_data =  { 'isbn': str(self.context.isbn),
+                          'msg': msg,
+        }
+        headers = make_headers(self.context, session_data)
+        producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+        pass
+
 
 class OriginalFileRenewAlephRecordsRequestSender(namedtuple('RenewAlephRecordsRequest',['context'])):
     """ context will be original file """
@@ -366,6 +384,28 @@ class OriginalFileRenewAlephRecordsRequestSender(namedtuple('RenewAlephRecordsRe
         msg = ""
         session_data =  { 'isbn': str(self.context.isbn),
                           'msg': msg,
+        }
+        headers = make_headers(self.context, session_data)
+        producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+        pass
+
+class OriginalFileRenewAlephRecordsBySysNumberRequestSender(namedtuple('RenewAlephRecordsBySysNumberRequest',['context'])):
+    """ context will be original file """
+    implements(IAMQPSender)
+    def send(self):
+        print "-> Renew Aleph Records By SysNumber Request for: ", str(self.context), self.context.related_aleph_record
+        sysnumber = self.context.related_aleph_record and self.context.related_aleph_record.aleph_sys_number
+
+        if not sysnumber:
+            print "... no related_aleph_record found, skipping"
+            return
+
+        request = SearchRequest(DocumentQuery(sysnumber,'cze-dep'))
+        producer = getUtility(IProducer, name="amqp.isbn-search-request")
+        msg = ""
+        session_data =  { 'isbn': str(self.context.isbn),
+                          'msg': msg,
+                          'renew-records-for-sysnumber': str(sysnumber)
         }
         headers = make_headers(self.context, session_data)
         producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
@@ -742,7 +782,9 @@ class SendEmailWithWorklistToGroupTaskHandler(namedtuple('SendEmailWithWorklistT
                 groupname = self.result.recipientsGroup
                 recipients = self.result.additionalEmails
                 emailsFromGroup = [aa.getProperty('email') for aa in api.user.get_users(groupname=groupname)]
-                for recipient in frozenset(emailsFromGroup + recipients):
+                recipients = frozenset(emailsFromGroup + recipients)
+                print "... zacneme rozesilat pro: ", "|".join(recipients)
+                for recipient in recipients:
                     print "... poslal jsem email: ", subject, recipient
                     api.portal.send_email(recipient=recipient, subject=subject, body=body)
             else:
@@ -849,3 +891,9 @@ class SendEmailWithUserWorklistTaskHandler(namedtuple('SendEmailWithUserWorklist
                     print u"... nic neodesilame pro: " + username
 
 
+
+class OriginalFileHasBeenChangedSendEmail(namedtuple('OriginalFileHasBeenChangedSendEmail',['context',])):
+    def send(self):
+        of = self.context
+        print "send email notification"
+        
