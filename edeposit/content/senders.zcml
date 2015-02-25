@@ -61,6 +61,13 @@
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileRenewAlephRecordsBySysNumberRequestSender"
+    name="renew-aleph-records-by-sysnumber"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
     factory=".amqp.OriginalFileExportToAlephRequestSender"
     name="export-to-aleph"
     />
@@ -77,6 +84,13 @@
     provides="edeposit.content.amqp.IAMQPSender"
     factory=".amqp.OriginalFileContributionPDFGenerateRequestSender"
     name="generate-contribution-pdf"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IEmailSender"
+    factory=".amqp.OriginalFileHasBeenChangedSendEmail"
+    name="originalfile-has-been-changed"
     />
 
 </configure>
