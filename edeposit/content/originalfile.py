@@ -103,7 +103,6 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
         )
 
-
     related_aleph_record = RelationChoice( title=u"Odpovídající záznam v Alephu",
                                            required = False,
                                            source = availableAlephRecords)
@@ -116,6 +115,10 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         title = u"Ohlašovací lístek",
         required = False,
     )
+
+    summary_aleph_record = RelationChoice( title=u"Souborný záznam v Alephu",
+                                           required = False,
+                                           source = availableAlephRecords )
                                            
 
 @form.default_value(field=IOriginalFile['zpracovatel_zaznamu'])
