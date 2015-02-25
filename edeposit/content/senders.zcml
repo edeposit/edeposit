@@ -68,6 +68,13 @@
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
     provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileLoadSummaryRecordRequestSender"
+    name="load-summary-aleph-record"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
     factory=".amqp.OriginalFileExportToAlephRequestSender"
     name="export-to-aleph"
     />

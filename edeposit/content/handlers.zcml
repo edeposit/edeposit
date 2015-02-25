@@ -60,6 +60,22 @@
 
   <adapter
       for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.IAlephSearchDocumentResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.OriginalFileAlephSearchDocumentResultHandler"
+      />
+
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.IAlephSearchSummaryRecordResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.OriginalFileAlephSearchSummaryRecordResultHandler"
+      />
+
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
            edeposit.content.amqp.ICalibreConversionResult
            "
       provides="edeposit.content.amqp.IAMQPHandler"
