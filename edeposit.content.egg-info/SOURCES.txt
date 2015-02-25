@@ -18,6 +18,7 @@ edeposit/content/aleph_export_result.py
 edeposit/content/aleph_record.py
 edeposit/content/aleph_search_sysnumber_request.py
 edeposit/content/amqp.py
+edeposit/content/amqp_folder.py
 edeposit/content/author.py
 edeposit/content/behaviors.py
 edeposit/content/book.py

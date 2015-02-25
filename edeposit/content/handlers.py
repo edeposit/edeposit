@@ -30,7 +30,14 @@ from edeposit.amqp.serializers import (
     deserialize
 )
 
-from edeposit.content.amqp import IAMQPHandler, IAMQPSender, parse_headers, make_headers
+from edeposit.content.amqp import (
+    IAMQPHandler,
+    IAMQPSender,
+    parse_headers,
+    make_headers,
+    AlephSearchDocumentResult,
+    AlephSearchSummaryRecordResult,
+)
 import json
 
 from collections import namedtuple
@@ -143,7 +150,23 @@ def handleAlephResponse(message, event):
         message.ack()
     else:
         result = deserialize(json.dumps(message.body),globals())
-        getMultiAdapter((context,result),IAMQPHandler).handle()
+        dataKeys = session_data.keys()
+        ResultFactory = None
+        if 'renew-records-for-sysnumber' in dataKeys:
+            ResultFactory = AlephSearchDocumentResult
+        elif 'load-summary-record-for-sysnumber' in dataKeys:
+            ResultFactory = AlephSearchSummaryRecordResult
+
+        if resultFactory:
+            records = result.records
+            if records:
+                newResult = ResultFactory(record = result.records[0])
+                getMultiAdapter((context,newResult),IAMQPHandler).handle()
+            else:
+                print "... there are no records at the result"
+        else:
+            getMultiAdapter((context,result),IAMQPHandler).handle()
+
         message.ack()
 
 class IAntivirusResponse(Interface):
