@@ -254,10 +254,14 @@ class OriginalFile(Container):
             self.related_aleph_record = RelationValue(intids.getId(alephRecords[0]))
         if len(alephRecords) > 1:
             self.related_aleph_record = None
-
+            
     def dataForContributionPDF(self):
         keys = [ii for ii in IOriginalFile.names() if ii not in ('file','thumbnail')]
         return dict(zip(keys,map(partial(getattr,self), keys)))
+
+    def updateFromAelphRecord(self):
+        # TODO
+        pass
 
 class OriginalFilePrimaryFieldInfo(object):
     implements(IPrimaryFieldInfo)
