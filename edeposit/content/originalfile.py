@@ -238,12 +238,39 @@ class OriginalFile(Container):
                 return isChanged
             changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
             print "changedAttrs", changedAttrs
+            for attr in changedAttrs:
+                setattr(alephRecord,attr,dataForFactory.get(attr,None))
             if changedAttrs:
-                def setAttrFactory(alephRecord,data):
-                    def setAttr(attr):
-                        setattr(alephRecord, attr ,data.get(attr,None))
-                    return setAttr
-                map(setAttrFactory(alephRecord,dataForFactory), changedAttrs)
+                self.updateFromAlephRecord()
+            pass
+        else:
+            print "new record appeared"
+            createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
+
+    # Add your class methods and properties here
+    def updateOrAddAlephSummaryRecord(self, dataForFactory):
+        sysNumber = dataForFactory.get('aleph_sys_number',None)
+        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+
+        # exist some record with the same sysNumber?
+        arecordWithTheSameSysNumber = filter(lambda arecord: arecord.aleph_sys_number == sysNumber,
+                                             alephRecords)
+        print dataForFactory
+        if arecordWithTheSameSysNumber:
+            print "a record with the same sysnumber"
+            # update this record
+            alephRecord = arecordWithTheSameSysNumber[0]
+            def isChangedFactory(alephRecord,data):
+                def isChanged(attr):
+                    return getattr(alephRecord,attr,None) != data.get(attr,None)
+                return isChanged
+
+            changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
+            print "changedAttrs", changedAttrs
+            for attr in changedAttrs:
+                setattr(alephRecord,attr,dataForFactory.get(attr,None))
+            if changedAttrs:
+                self.updateFromAlephRecord()
             pass
         else:
             print "new record appeared"
@@ -251,6 +278,7 @@ class OriginalFile(Container):
 
     def updateAlephRelatedData(self):
         # try to choose related_aleph_record
+        # TODO
         alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
         if len(alephRecords) == 1:
             intids = getUtility(IIntIds)
@@ -262,7 +290,7 @@ class OriginalFile(Container):
         keys = [ii for ii in IOriginalFile.names() if ii not in ('file','thumbnail')]
         return dict(zip(keys,map(partial(getattr,self), keys)))
 
-    def updateFromAelphRecord(self):
+    def updateFromAlephRecord(self):
         # TODO
         pass
 
