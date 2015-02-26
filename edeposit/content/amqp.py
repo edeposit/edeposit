@@ -621,7 +621,7 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                                       str(record.docNumber),
                                       ')']),
                     'nazev':  str(epublication.nazev),
-                    'isbn': epublication.ISBN[0],
+                    'isbn': epublication.ISBN and epublication.ISBN[0],
                     'podnazev': epublication.podnazev,
                     'cast': epublication.castDil,
                     'nazev_casti': epublication.nazevCasti,

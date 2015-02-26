@@ -280,18 +280,51 @@ class OriginalFile(Container):
         # try to choose related_aleph_record
         # TODO
         alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+
+        self.related_aleph_record = None
+        self.summary_aleph_record = None
+
         if len(alephRecords) == 1:
             intids = getUtility(IIntIds)
             self.related_aleph_record = RelationValue(intids.getId(alephRecords[0]))
+
         if len(alephRecords) > 1:
-            self.related_aleph_record = None
-            
+            # TODO - isClosed atribut je v brains - jestli ne, nacist object
+            isClosedRecords = filter(lambda item: item.isClosed, alephRecords)
+            if len(isClosedRecords) == 1:
+                self.related_aleph_record = RelationValue(intids.getId(isClosedRecords[0]))
+                if len(alephRecords) == 2:
+                    summaryRecords = filter(lambda item: not item.isClosed, alephRecords)
+                    if len(summaryRecords):
+                        self.summary_aleph_record = RelationValue(intids.getId(summaryRecords[0]))
+
+
+    def properAlephRecordsChoosen(self):
+        # the method says that there is no need to manualy choose
+        # related_aleph_record and summary_aleph_record
+        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+        if len(alephRecords) == 1:
+            if self.related_aleph_record:
+                return True
+        else:
+            # TODO - isClosed attribut je v brain - jestli ne, nacist objekt
+            isClosedRecords = filter(lambda item: item.isClosed, alephRecords)
+            if len(isClosedRecords) < len(alephRecords):
+                if self.related_aleph_record and self.summary_aleph_record:
+                    return True
+            else:
+                if self.related_aleph_record:
+                    return True
+
+        return False
+
     def dataForContributionPDF(self):
         keys = [ii for ii in IOriginalFile.names() if ii not in ('file','thumbnail')]
         return dict(zip(keys,map(partial(getattr,self), keys)))
 
     def updateFromAlephRecord(self):
         # TODO
+        # this method loads data from aleph records into its own space.
         pass
 
 class OriginalFilePrimaryFieldInfo(object):
