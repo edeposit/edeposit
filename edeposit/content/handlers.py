@@ -157,7 +157,7 @@ def handleAlephResponse(message, event):
         elif 'load-summary-record-for-sysnumber' in dataKeys:
             ResultFactory = AlephSearchSummaryRecordResult
 
-        if resultFactory:
+        if ResultFactory:
             records = result.records
             if records:
                 newResult = ResultFactory(record = result.records[0])
