@@ -407,23 +407,26 @@ class OriginalFileRenewAlephRecordsBySysNumberRequestSender(namedtuple('RenewAle
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
-        print "-> Renew Aleph Records By SysNumber Request for: ", str(self.context), self.context.related_aleph_record
-        sysnumber = self.context.related_aleph_record and self.context.related_aleph_record.aleph_sys_number
+        print "-> Renew Aleph Records By SysNumber Request for: ", str(self.context)
+        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+        for alephRecord in alephRecords:
+            print "... renew Aleph Record: ", str(alephRecord)
+            sysnumber = alephRecord.aleph_sys_number
 
-        if not sysnumber:
-            print "... no related_aleph_record found, skipping"
-            return
+            if not sysnumber:
+                print "... no related_aleph_record found, skipping"
+                continue
 
-        request = SearchRequest(DocumentQuery(sysnumber,'cze-dep'))
-        producer = getUtility(IProducer, name="amqp.isbn-search-request")
-        msg = ""
-        session_data =  { 'isbn': str(self.context.isbn),
-                          'msg': msg,
-                          'renew-records-for-sysnumber': str(sysnumber)
-        }
-        headers = make_headers(self.context, session_data)
-        producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
-        pass
+            request = SearchRequest(DocumentQuery(sysnumber,'cze-dep'))
+            producer = getUtility(IProducer, name="amqp.isbn-search-request")
+            msg = ""
+            session_data =  { 'isbn': str(self.context.isbn),
+                              'msg': msg,
+                              'renew-records-for-sysnumber': str(sysnumber)
+                          }
+            headers = make_headers(self.context, session_data)
+            producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+
 
 class OriginalFileLoadSummaryRecordRequestSender(namedtuple('LoadSummaryRecordRequest',['context'])):
     """ context will be original file """
