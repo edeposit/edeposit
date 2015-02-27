@@ -408,7 +408,7 @@ class OriginalFileRenewAlephRecordsBySysNumberRequestSender(namedtuple('RenewAle
     implements(IAMQPSender)
     def send(self):
         print "-> Renew Aleph Records By SysNumber Request for: ", str(self.context)
-        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+        alephRecords = self.context.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
         for alephRecord in alephRecords:
             print "... renew Aleph Record: ", str(alephRecord)
             sysnumber = alephRecord.aleph_sys_number
@@ -494,11 +494,8 @@ class OriginalFilePDFGenerationResultHandler(namedtuple('PDFGenerationResult',['
         with api.env.adopt_user(username="system"):
             if result.result: # some virus found
                 comment =u"v souboru %s je virus: %s" % (context.file.filename, str(result.result))
-                wft.doActionFor(epublication,'notifySystemAction', comment=comment)
                 wft.doActionFor(context, 'antivirusError', comment=comment)
             else:
-                comment=u"soubor %s prošel antivirovou kontrolou" % (context.file.filename,)
-                wft.doActionFor(epublication,'notifySystemAction', comment=comment)
                 transition =  context.needsThumbnailGeneration() and 'antivirusOKThumbnail' \
                               or (context.isbn and 'antivirusOKAleph' or 'antivirusOKISBNGeneration')
                 print "transition: %s" % (transition,)
@@ -517,11 +514,8 @@ class OriginalFileAntivirusResultHandler(namedtuple('AntivirusResult',['context'
         with api.env.adopt_user(username="system"):
             if result.result: # some virus found
                 comment =u"v souboru %s je virus: %s" % (context.file.filename, str(result.result))
-                wft.doActionFor(epublication,'notifySystemAction', comment=comment)
                 wft.doActionFor(context, 'antivirusError', comment=comment)
             else:
-                comment=u"soubor %s prošel antivirovou kontrolou" % (context.file.filename,)
-                wft.doActionFor(epublication,'notifySystemAction', comment=comment)
                 transition =  context.needsThumbnailGeneration() and 'antivirusOKThumbnail' \
                               or (context.isbn and 'antivirusOKAleph' or 'antivirusOKISBNGeneration')
                 print "transition: %s" % (transition,)
@@ -540,11 +534,9 @@ class OriginalFileThumbnailGeneratingResultHandler(namedtuple('ThumbnailGenerati
         wft = api.portal.get_tool('portal_workflow')
         epublication=aq_parent(aq_inner(self.context))
         with api.env.adopt_user(username="system"):
-            comment = u"hurá, máme náhled! %s" % (self.context.file.filename, )
             bfile = NamedBlobFile(data=b64decode(self.result.b64_data),  filename=u"thumbnail.pdf")
             self.context.thumbnail = bfile
             transaction.savepoint(optimistic=True)
-            wft.doActionFor(epublication,'notifySystemAction', comment=comment)
             print "\nstate of originalfile: ", api.content.get_state(self.context)
             wft.doActionFor(self.context, self.context.isbn and 'thumbnailOKAleph' or 'thumbnailOKISBNGeneration')
         pass
@@ -560,9 +552,6 @@ class OriginalFileISBNValidateResultHandler(namedtuple('ISBNValidateResult',['co
         wft = api.portal.get_tool('portal_workflow')
         epublication=aq_parent(aq_inner(self.context))
         with api.env.adopt_user(username="system"):
-            comment = u"výsledek kontroly ISBN(%s): %s" % (self.context.isbn, 
-                                                           self.result.is_valid and "VALID" or "INVALID")
-            wft.doActionFor(epublication,'notifySystemAction', comment=comment)
             wft.doActionFor(self.context, self.result.is_valid and 'ISBNIsValid' or 'ISBNIsNotValid')
         pass
 
@@ -577,9 +566,6 @@ class OriginalFileCountResultHandler(namedtuple('ISBNCountResult',['context', 'r
         epublication=aq_parent(aq_inner(self.context))
         is_duplicit = bool(int(self.result.num_of_records))
         with api.env.adopt_user(username="system"):
-            comment = u"výsledek kontroly duplicity ISBN(%s): %s" % (self.context.isbn, 
-                                                                     self.result.num_of_records)
-            wft.doActionFor(epublication,'notifySystemAction', comment=comment)
             wft.doActionFor(self.context, is_duplicit and 'ISBNIsDuplicit' or 'ISBNIsUnique')
         pass
 
@@ -594,10 +580,8 @@ class OriginalFileAlephExportResultHandler(namedtuple('AlephResultResult',['cont
         wft = api.portal.get_tool('portal_workflow')
         epublication=aq_parent(aq_inner(self.context))
         with api.env.adopt_user(username="system"):
-            comment = u"export do Aleph proběhl úspěšně (%s)" % (self.result.ISBN,)
             print "\tepublication state: ", api.content.get_state(obj=epublication)
             print "\toriginalfile state: ", api.content.get_state(obj=self.context)
-            wft.doActionFor(epublication,'notifySystemAction', comment=comment)
             print "\taction for done: ", 'notifySystemAction'
             wft.doActionFor(self.context, 'exportToAlephOK')
             print "\taction for done: ",'exportToAlephOK'
@@ -666,7 +650,7 @@ class OriginalFileAlephSearchDocumentResultHandler(namedtuple('AlephSearchDocume
                                   str(record.docNumber),
                                   ')']),
                 'nazev':  str(epublication.nazev),
-                'isbn': epublication.ISBN[0],
+                'isbn': epublication.ISBN and epublication.ISBN[0],
                 'podnazev': epublication.podnazev,
                 'cast': epublication.castDil,
                 'nazev_casti': epublication.nazevCasti,
@@ -748,7 +732,6 @@ class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 're
         print self.result
         with api.env.adopt_user(username="system"):
             wft.doActionFor(self.context,'amqpError', comment=str(self.result.payload))
-            wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=str(self.result.payload))
         pass
 
 class AgreementGenerationRequestSender(namedtuple('AgreementGeneration',['context'])):
