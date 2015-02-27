@@ -566,6 +566,20 @@ class OriginalFileFactory(object):
 # changing the view class name and template filename to View / view.pt.
 
 @grok.provider(IContextSourceBinder)
+def librariesAccessing(context):
+    choices = [
+        ['zadna knihovna nema pristup',u"Pouze archivace"],
+        ['vsechny knihovny maji pristup', u"Všechny oprávněné knihovny mohou zpřístupňovat na místě"],
+        ['vybrane knihovny maji pristup',u"Vybrané oprávněné knihovny mohou zpřístupňovat na místě"],
+    ]
+
+    def getTerm(item):
+        title = item[1].encode('utf-8')
+        return SimpleVocabulary.createTerm(item[0], item[0], title)
+
+    return SimpleVocabulary(map(getTerm, choices))
+
+@grok.provider(IContextSourceBinder)
 def availableLibraries(context):
     path = '/libraries' #.join(context.getPhysicalPath())
     query = { "portal_type" : ("edeposit.content.library",),
@@ -693,7 +707,7 @@ class IAddAtOnceForm(form.Schema):
     #                         'libraries_that_can_access'
     #                         ])
     is_public = schema.Bool(
-        title = u'ePublikace je veřejná',
+        title = u'Vystavení na volném internetu',
         required = False,
         default = False,
         missing_value = False,
@@ -706,7 +720,8 @@ class IAddAtOnceForm(form.Schema):
         readonly = False,
         default = None,
         missing_value = None,
-        vocabulary = 'edeposit.content.librariesAccessingChoices'
+        source = librariesAccessing,
+        #vocabulary = 'edeposit.content.librariesAccessingChoices'
     )
 
     libraries_that_can_access = schema.Set (
