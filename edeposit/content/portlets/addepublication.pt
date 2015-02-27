@@ -21,16 +21,17 @@
       <p>Podle titulní stránky publikace</p>
       <p><strong>RIV</strong></p>
       <p>Zvolte, zda si přejete, aby NK zpřístupnila publikaci k hodnocení pro RIV. Pokud ano, vyberte kategorii.</p>
-      <p><strong>Publikace je veřejná<br/></strong></p>
-      <p>Pokud označíte publikaci jako veřejnou, bude zpřístupněna veřejnosti v NK Praha a spolupracujících knihovnách ke čtení na terminálech.</p>
+      <p><strong>Vystavení na internetu<br/></strong></p>
+      <p>ePublikace bude zpřístupněna veřejnosti jako volně přístupná.</p>
       <p><strong>Oprávnění knihovnám</strong></p>
-      <p>Vyberte jednu z možností</p>
-      <p><strong>Vybrat knihovny s přístupem k publikaci</strong></p>
-      <p>Vybrte knihovny, které poravňujete ke zveřejnění ePublikace ke čtení na terminálech. Vícenásobný výběr se provádí pomocí klávesy CTRL.</p>
+      <p>Zda mohou oprávněné knihovny ePublikaci zpřístupnit u sebe na terminálu</p>
+      <p><strong>Knihovny s přístupem k ePublikaci</strong></p>
+      <p>Vyberte knihovny, které opravňujete ke zveřejnění ePublikace ke čtení na terminálech. Vícenásobný výběr se provádí pomocí klávesy CTRL.</p>
       <p><strong>Zpracovatel záznamu</strong></p>
       <p>Pole má informativní charakter a nelze do něj zapisovat</p>
       <p><strong>URL</strong></p>
-      <p>Pokud je ePublikace ke stažení na internetu, zadejte její adresu.</p>
+      <p>Pokud je ePublikace ke stažení na internetu, zadejte její
+      adresu. Systém ePublikaci z URL načte sám.</p>
       <p><strong>Připojit soubor s ePublikací</strong></p>
       <p>Vyberte soubor k uploadu z Vašeho počítače.</p>
     </dd>
