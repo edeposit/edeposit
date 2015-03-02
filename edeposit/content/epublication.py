@@ -963,9 +963,7 @@ class AddAtOnceForm(form.SchemaForm):
                                                  )
 
         newEPublication.libraries_that_can_access = None
-        accessing = getUtility(IVocabularyFactory,'edeposit.content.librariesAccessingChoices')(self.context)
-        term = accessing.getTerm(data['libraries_accessing'])
-        if 'vybrane knihovny maji pristup' in term.token:
+        if 'vybrane knihovny maji pristup' in data['libraries_accessing']:
             newEPublication.libraries_that_can_access = libraries_that_can_access
 
         return newEPublication
