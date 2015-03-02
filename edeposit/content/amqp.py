@@ -11,7 +11,7 @@ import transaction
 import simplejson as json
 
 from functools import partial
-from .behaviors import IFormat
+from .behaviors import IFormat, ICalibreFormat
 
 from .next_step import INextStep
 
@@ -260,7 +260,7 @@ class OriginalFileThumbnailRequestSender(namedtuple('ThumbnailGeneratingRequest'
         originalfile = self.context
         fileName = originalfile.file.filename
 
-        inputFormat = IFormat(self.context).format
+        inputFormat = ICalibreFormat(self.context).format
         request = ConversionRequest(inputFormat, "pdf", base64.b64encode(originalfile.file.data))
         producer = getUtility(IProducer, name="amqp.calibre-convert-request")
         msg = ""
