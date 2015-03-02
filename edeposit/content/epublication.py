@@ -79,6 +79,34 @@ import os.path
 # is_valid_isbn = partial(edeposit.content.mock.is_valid_isbn,result=True)
 # getISBNCount = partial(edeposit.content.mock.getISBNCount,result=0)
 
+@grok.provider(IContextSourceBinder)
+def librariesAccessing(context):
+    choices = [
+        ['zadna knihovna nema pristup',u"Pouze archivace"],
+        ['vsechny knihovny maji pristup', u"Všechny oprávněné knihovny mohou zpřístupňovat na místě"],
+        ['vybrane knihovny maji pristup',u"Vybrané oprávněné knihovny mohou zpřístupňovat na místě"],
+    ]
+
+    def getTerm(item):
+        title = item[1].encode('utf-8')
+        return SimpleVocabulary.createTerm(item[0], item[0], title)
+
+    return SimpleVocabulary(map(getTerm, choices))
+
+@grok.provider(IContextSourceBinder)
+def availableLibraries(context):
+    path = '/libraries' #.join(context.getPhysicalPath())
+    query = { "portal_type" : ("edeposit.content.library",),
+              "path": {'query' :path } 
+             }
+    libraries = api.portal.get_tool('portal_catalog')(portal_type='edeposit.content.library')
+    def getTerm(library):
+        title = library.Title.encode('utf-8')
+        return SimpleVocabulary.createTerm(library.id, library.id, title)
+
+    #return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
+    return SimpleVocabulary(map(getTerm, libraries))
+
 class IMainMetadata(form.Schema):
     nazev = schema.TextLine (
         title = u"Název",
@@ -564,34 +592,6 @@ class OriginalFileFactory(object):
 # You may make this the default view for content objects
 # of this type by uncommenting the grok.name line below or by
 # changing the view class name and template filename to View / view.pt.
-
-@grok.provider(IContextSourceBinder)
-def librariesAccessing(context):
-    choices = [
-        ['zadna knihovna nema pristup',u"Pouze archivace"],
-        ['vsechny knihovny maji pristup', u"Všechny oprávněné knihovny mohou zpřístupňovat na místě"],
-        ['vybrane knihovny maji pristup',u"Vybrané oprávněné knihovny mohou zpřístupňovat na místě"],
-    ]
-
-    def getTerm(item):
-        title = item[1].encode('utf-8')
-        return SimpleVocabulary.createTerm(item[0], item[0], title)
-
-    return SimpleVocabulary(map(getTerm, choices))
-
-@grok.provider(IContextSourceBinder)
-def availableLibraries(context):
-    path = '/libraries' #.join(context.getPhysicalPath())
-    query = { "portal_type" : ("edeposit.content.library",),
-              "path": {'query' :path } 
-             }
-    libraries = api.portal.get_tool('portal_catalog')(portal_type='edeposit.content.library')
-    def getTerm(library):
-        title = library.Title.encode('utf-8')
-        return SimpleVocabulary.createTerm(library.id, library.id, title)
-
-    #return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
-    return SimpleVocabulary(map(getTerm, libraries))
 
 class IAddAtOnceForm(form.Schema):
     nazev = schema.TextLine (
