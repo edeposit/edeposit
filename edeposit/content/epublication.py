@@ -963,7 +963,7 @@ class AddAtOnceForm(form.SchemaForm):
                                                  )
 
         newEPublication.libraries_that_can_access = None
-        if 'vybrane knihovny maji pristup' in data['libraries_accessing']:
+        if data['libraries_accessing'] and 'vybrane knihovny maji pristup' in data['libraries_accessing']:
             newEPublication.libraries_that_can_access = libraries_that_can_access
 
         return newEPublication
