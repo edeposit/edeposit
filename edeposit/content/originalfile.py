@@ -107,7 +107,7 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
                                            required = False,
                                            source = availableAlephRecords)
     thumbnail = NamedBlobFile(
-        title=_(u"Thumbnail File of an ePublication"),
+        title=_(u"PDF kopie"),
         required = False,
         )
 
