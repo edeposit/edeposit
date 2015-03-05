@@ -98,7 +98,8 @@
 
   <adapter factory=".originalfile.OriginalFilePrimaryFieldInfo"/>
   <adapter factory=".epublication.MainMetadataFromEBook"/>
-
+  
+  <adapter factory=".originalfile_changes.OriginalFileChanges"/>
 
   <subscriber
       for=".aleph_record.IAlephRecord

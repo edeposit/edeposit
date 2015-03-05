@@ -40,9 +40,15 @@ from StringIO import StringIO
 from subprocess import call
 import os.path
 from functools import partial
+from .changes import IChanges, IApplicableChange
 
 def urlCodeIsValid(value):
     return True
+
+from edeposit.content.tasks import (
+    IPloneTaskSender,
+    CheckUpdates,
+)
 
 @grok.provider(IContextSourceBinder)
 def availableAlephRecords(context):
@@ -240,12 +246,20 @@ class OriginalFile(Container):
             print "changedAttrs", changedAttrs
             for attr in changedAttrs:
                 setattr(alephRecord,attr,dataForFactory.get(attr,None))
+
             if changedAttrs:
-                self.updateFromAlephRecord()
-            pass
+                IPloneTaskSender(CheckUpdates(uid=self.UID)).send()
+
         else:
-            print "new record appeared"
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
+
+            if dataForFactory.get('isClosed',False):
+                self.related_aleph_record = None
+            else:
+                related_aleph_record = self.related_aleph_record and \
+                                       getattr(self.related_aleph_record,'to_object',None)
+                if related_aleph_record and not related_aleph_record.isClosed:
+                    self.related_aleph_record = None
 
     # Add your class methods and properties here
     def updateOrAddAlephSummaryRecord(self, dataForFactory):
@@ -269,12 +283,19 @@ class OriginalFile(Container):
             print "changedAttrs", changedAttrs
             for attr in changedAttrs:
                 setattr(alephRecord,attr,dataForFactory.get(attr,None))
+
             if changedAttrs:
-                self.updateFromAlephRecord()
-            pass
+                IPloneTaskSender(CheckUpdates(uid=self.UID)).send()
+
         else:
-            print "new record appeared"
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
+            if dataForFactory.get('isClosed',False):
+                self.related_aleph_record = None
+            else:
+                related_aleph_record = self.related_aleph_record and \
+                                       getattr(self.related_aleph_record,'to_object',None)
+                if related_aleph_record and not related_aleph_record.isClosed:
+                    self.related_aleph_record = None
 
     def updateAlephRelatedData(self):
         # try to choose related_aleph_record
@@ -325,6 +346,26 @@ class OriginalFile(Container):
     def updateFromAlephRecord(self):
         # TODO
         # this method loads data from aleph records into its own space.
+        pass
+
+    def checkUpdates(self):
+        """ it tries to decide whether some changes appeared in aleph records. 
+        The function loads the changes from a proper aleph record into its own attributes.
+        The function will plan producent notification.
+        """
+        print "check updates"
+        if self.related_aleph_record:
+            record = getattr(self.related_aleph_record,'to_object',None)
+            if record:
+                changes = IChanges(originalfile).getChanges()
+                for change in changes:
+                    IApplicableChange(change).apply()
+                if changes:
+                    self.informProducentAboutChanges = True
+            pass
+
+        if self.summary_aleph_record:
+            pass
         pass
 
 class OriginalFilePrimaryFieldInfo(object):
