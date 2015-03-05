@@ -1010,3 +1010,10 @@ class OriginalFileHasBeenChangedSendEmail(namedtuple('OriginalFileHasBeenChanged
         of = self.context
         print "send email notification"
         
+class CheckUpdatesTaskHandler(namedtuple('CheckUpdatesTaskHandler',
+                                         ['context','result'])):
+    def handle(self):
+        print "<- Plone AMQP Task: ", str(self.result)
+        with api.env.adopt_user(username="system"):
+            obj = api.content.get(UID = self.result.uid)
+            obj.checkUpdates()

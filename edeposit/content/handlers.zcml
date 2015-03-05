@@ -151,5 +151,13 @@
       provides="edeposit.content.amqp.IAMQPHandler"
       factory=".amqp.DoActionForTaskHandler"
       />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.ICheckUpdates
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.CheckUpdatesTaskHandler"
+      />
   
 </configure>

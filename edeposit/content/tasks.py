@@ -94,6 +94,13 @@ class SendEmailWithUserWorklist(namedtuple('SendEmailWithUserWorklist',
     implements(ISendEmailWithUserWorklist)
     pass
 
+class ICheckUpdates(IPloneTask):
+    uid = schema.ASCIILine()
+
+class CheckUpdates(namedtuple('CheckUpdates',['uid'])):
+    implements(ICheckUpdates)
+
+
 if __name__ == '__main__':
     import unittest
 

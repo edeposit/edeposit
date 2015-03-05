@@ -500,6 +500,7 @@ def addedAlephExportRequest(context, event):
     wft.doActionFor(epublication, 'exportToAlephSubmitted')
     return
 
+
 # def addedAlephExportResult(context, event):
 #     logger.debug('added aleph export result')
 #     wft = api.portal.get_tool('portal_workflow')
