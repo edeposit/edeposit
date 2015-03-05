@@ -13,4 +13,12 @@
         />
 
     <adapter factory=".behaviors.CalibreFormat"/>
+
+    <plone:behavior
+        title="Informing about changes"
+        description="It helps with informing of a producent about changes that appeared"
+        provides=".behaviors.IChangesInformating"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        />
+
 </configure>

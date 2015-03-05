@@ -30,6 +30,7 @@
     <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
     <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     <element value="edeposit.content.behaviors.IFormat"/>
+    <element value="edeposit.content.behaviors.IChangesInformating"/>
     <!-- <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/> -->
   </property>
 

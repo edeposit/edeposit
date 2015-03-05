@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from plone.autoform import directives as form
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
@@ -9,6 +10,7 @@ from plone import api
 from edeposit.content import MessageFactory as _
 from z3c.form.interfaces import IDisplayForm
 import magic
+import plone.directives
 
 class IFormat(model.Schema):
     """Add format to content
@@ -73,3 +75,23 @@ class CalibreFormat(object):
     def format(self):
         format = IFormat(self.context).format
         return format.lower()
+
+
+class IChangesInformating(model.Schema):
+    """ Behavior interface to help to inform producents about changes that appeared.
+    """
+
+    plone.directives.form.fieldset('technical', label=u"Technické údaje",
+                                   fields=['informProducentAboutChanges'])
+    
+    informProducentAboutChanges = schema.Bool (
+        title=u"Informovat producenta o změnách v záznamech",
+        default=False,
+        required=False,
+    )
+    lastChangesInformationSent = schema.Datetime (
+        title = u"Cas posledního odeslání upozornění",
+        required = False,
+    )
+
+alsoProvides(IChangesInformating, IFormFieldProvider)
