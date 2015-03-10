@@ -39,6 +39,20 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      name="changes-notification-email"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".changes_notification_email.ChangesEmail"
+      permission="zope2.View"
+      />
+
+  <!-- <browser:page -->
+  <!--     name="changes-notification-email-main-template" -->
+  <!--     for="edeposit.content.originalfile.IOriginalFile" -->
+  <!--     template="main_template.pt" -->
+  <!--     permission="zope2.View" -->
+  <!--     /> -->
+
   <!-- <browser:page -->
   <!--     name="contribute-ebook" -->
   <!--     for="edeposit.content.epublicationfolder.IePublicationFolder" -->

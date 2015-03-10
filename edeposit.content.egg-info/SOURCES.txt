@@ -24,6 +24,7 @@ edeposit/content/behaviors.py
 edeposit/content/book.py
 edeposit/content/bookfolder.py
 edeposit/content/catalogization_work_plan.py
+edeposit/content/changes.py
 edeposit/content/eperiodical.py
 edeposit/content/eperiodicalfolder.py
 edeposit/content/eperiodicalpart.py
@@ -43,6 +44,7 @@ edeposit/content/messages_folder.py
 edeposit/content/mock.py
 edeposit/content/next_step.py
 edeposit/content/originalfile.py
+edeposit/content/originalfile_changes.py
 edeposit/content/originalfile_contributing_request.py
 edeposit/content/originalfile_contributing_requests_folder.py
 edeposit/content/previewfile.py
@@ -56,6 +58,7 @@ edeposit/content/utils.py
 edeposit/content/viewlets.py
 edeposit/content/vocabularies.py
 edeposit/content/browser/__init__.py
+edeposit/content/browser/changes_notification_email.py
 edeposit/content/browser/contribute.py
 edeposit/content/browser/voucher.py
 edeposit/content/portlets/__init__.py

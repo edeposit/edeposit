@@ -75,6 +75,7 @@
         (see http://dev.plone.org/plone/ticket/9631 or
              http://dev.plone.org/plone/ticket/9090) for more information on 
         internationalization with portlets or in plone in general -->
+
    <portlet
      addview="edeposit.content.portlets.AddOriginalFile"
      title="Add OriginalFile"

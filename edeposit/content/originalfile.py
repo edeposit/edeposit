@@ -242,6 +242,7 @@ class OriginalFile(Container):
                 def isChanged(attr):
                     return getattr(alephRecord,attr,None) != data.get(attr,None)
                 return isChanged
+
             changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
             print "changedAttrs", changedAttrs
             for attr in changedAttrs:
