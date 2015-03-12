@@ -249,7 +249,7 @@ class OriginalFile(Container):
                 setattr(alephRecord,attr,dataForFactory.get(attr,None))
 
             if changedAttrs:
-                IPloneTaskSender(CheckUpdates(uid=self.UID)).send()
+                IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
 
         else:
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
@@ -261,6 +261,9 @@ class OriginalFile(Container):
                                        getattr(self.related_aleph_record,'to_object',None)
                 if related_aleph_record and not related_aleph_record.isClosed:
                     self.related_aleph_record = None
+                    
+            IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
+
 
     # Add your class methods and properties here
     def updateOrAddAlephSummaryRecord(self, dataForFactory):
@@ -285,8 +288,8 @@ class OriginalFile(Container):
             for attr in changedAttrs:
                 setattr(alephRecord,attr,dataForFactory.get(attr,None))
 
-            if changedAttrs:
-                IPloneTaskSender(CheckUpdates(uid=self.UID)).send()
+            if changedAttrs and changedAttrs != ['xml']:
+                IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
 
         else:
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
@@ -300,24 +303,22 @@ class OriginalFile(Container):
 
     def updateAlephRelatedData(self):
         # try to choose related_aleph_record
-        # TODO
         alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
 
         self.related_aleph_record = None
         self.summary_aleph_record = None
 
+        intids = getUtility(IIntIds)
         if len(alephRecords) == 1:
-            intids = getUtility(IIntIds)
             self.related_aleph_record = RelationValue(intids.getId(alephRecords[0]))
 
         if len(alephRecords) > 1:
-            # TODO - isClosed atribut je v brains - jestli ne, nacist object
-            isClosedRecords = filter(lambda item: item.isClosed, alephRecords)
+            isClosedRecords = filter(lambda rr: rr.isClosed, alephRecords)
             if len(isClosedRecords) == 1:
                 self.related_aleph_record = RelationValue(intids.getId(isClosedRecords[0]))
                 if len(alephRecords) == 2:
                     summaryRecords = filter(lambda item: not item.isClosed, alephRecords)
-                    if len(summaryRecords):
+                    if summaryRecords:
                         self.summary_aleph_record = RelationValue(intids.getId(summaryRecords[0]))
 
 
@@ -354,20 +355,11 @@ class OriginalFile(Container):
         The function loads the changes from a proper aleph record into its own attributes.
         The function will plan producent notification.
         """
-        print "check updates"
-        if self.related_aleph_record:
-            record = getattr(self.related_aleph_record,'to_object',None)
-            if record:
-                changes = IChanges(originalfile).getChanges()
-                for change in changes:
-                    IApplicableChange(change).apply()
-                if changes:
-                    self.informProducentAboutChanges = True
-            pass
-
-        if self.summary_aleph_record:
-            pass
-        pass
+        changes = IChanges(self).getChanges()
+        for change in changes:
+            IApplicableChange(change).apply()
+        if changes:
+            self.informProducentAboutChanges = True
 
 class OriginalFilePrimaryFieldInfo(object):
     implements(IPrimaryFieldInfo)

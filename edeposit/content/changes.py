@@ -21,9 +21,9 @@ class SetterApply(object):
         self.newValue = newValue
         
     def apply(self):
-        self.setter(newValue)
+        self.setter(self.newValue)
 
 class ObjSetterApply(SetterApply):
     def __init__(self, obj, attrName, value):
-        super(SetterApply,self).__init__(partial(setattr, self.context, attrName), value)
+        super(ObjSetterApply,self).__init__(partial(setattr, obj, attrName), value)
 

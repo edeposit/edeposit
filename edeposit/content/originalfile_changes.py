@@ -2,6 +2,7 @@ from .originalfile import IOriginalFile
 from .changes import IChanges, ObjSetterApply
 from zope.interface import implements
 from zope.component import adapts
+from Acquisition import aq_parent, aq_inner
 
 class OriginalFileChanges(object):
     implements(IChanges)

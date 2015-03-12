@@ -65,6 +65,13 @@
     name="renew-aleph-records-by-sysnumber"
     />
 
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileRenewAlephRecordsByICZSysNumberRequestSender"
+    name="renew-aleph-records-by-icz-sysnumber"
+    />
+
   <!-- <adapter -->
   <!--   for="edeposit.content.originalfile.IOriginalFile" -->
   <!--   provides="edeposit.content.amqp.IAMQPSender" -->

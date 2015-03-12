@@ -427,6 +427,30 @@ class OriginalFileRenewAlephRecordsBySysNumberRequestSender(namedtuple('RenewAle
             headers = make_headers(self.context, session_data)
             producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
 
+class OriginalFileRenewAlephRecordsByICZSysNumberRequestSender(namedtuple('RenewAlephRecordsByICZSysNumberRequest',['context'])):
+    """ context will be original file """
+    implements(IAMQPSender)
+    def send(self):
+        print "-> Renew Aleph Records By ICZ SysNumber Request for: ", str(self.context)
+        alephRecords = self.context.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+        for alephRecord in filter(lambda rr: rr.isClosed, alephRecords):
+            print "... renew Summary record for closed Aleph Record: ", str(alephRecord)
+            icznumber = alephRecord.summary_record_aleph_sys_number
+
+            if not icznumber:
+                print "... no icz sysnumber found, skipping"
+                continue
+
+            request = SearchRequest(ICZQuery(icznumber,'cze-dep'))
+            producer = getUtility(IProducer, name="amqp.isbn-search-request")
+            msg = ""
+            session_data =  { 'isbn': str(self.context.isbn),
+                              'msg': msg,
+                              'renew-records-for-icz-sysnumber': str(icznumber)
+                          }
+            headers = make_headers(self.context, session_data)
+            producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+
 
 # class OriginalFileLoadSummaryRecordRequestSender(namedtuple('LoadSummaryRecordRequest',['context'])):
 #     """ context will be original file """
