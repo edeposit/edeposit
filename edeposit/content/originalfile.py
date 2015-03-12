@@ -41,6 +41,7 @@ from subprocess import call
 import os.path
 from functools import partial
 from .changes import IChanges, IApplicableChange
+from Acquisition import aq_inner, aq_parent
 
 def urlCodeIsValid(value):
     return True
@@ -54,6 +55,15 @@ from edeposit.content.tasks import (
 def availableAlephRecords(context):
     path = '/'.join(context.getPhysicalPath())
     query = { "portal_type" : ("edeposit.content.alephrecord",),
+              "path": {'query' :path } 
+             }
+    return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
+
+@grok.provider(IContextSourceBinder)
+def availableOriginalFiles(context):
+    epublication = aq_parent(aq_inner(context))
+    path = '/'.join(epublication.getPhysicalPath())
+    query = { "portal_type" : ("edeposit.content.originalfile",),
               "path": {'query' :path } 
              }
     return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
@@ -132,6 +142,10 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     summary_aleph_record = RelationChoice( title=u"Souborný záznam v Alephu",
                                            required = False,
                                            source = availableAlephRecords )
+
+    primary_originalfile = RelationChoice( title=u"Primární originál",
+                                           required = False,
+                                           source = availableOriginalFiles)
                                            
 
 @form.default_value(field=IOriginalFile['zpracovatel_zaznamu'])
@@ -322,6 +336,7 @@ class OriginalFile(Container):
 
         self.related_aleph_record = None
         self.summary_aleph_record = None
+        self.primary_originalfile = None
 
         intids = getUtility(IIntIds)
         if len(alephRecords) == 1:
@@ -335,7 +350,8 @@ class OriginalFile(Container):
                     summaryRecords = filter(lambda item: not item.isClosed, alephRecords)
                     if summaryRecords:
                         self.summary_aleph_record = RelationValue(intids.getId(summaryRecords[0]))
-
+                        # TODO
+                        # doplnil zarazeni primary_originalfile
 
     def properAlephRecordsChoosen(self):
         # the method says that there is no need to manualy choose
@@ -396,6 +412,15 @@ class OriginalFilePrimaryFieldInfo(object):
     def value(self):
         return self.field.get(self.context)
 
+def tryPrimaryOriginalGetterFactory(self,getter):
+    def getter(self):
+        if self.primary_originalfile:
+            obj = getattr(self.primary_originalfile,'to_object',None)
+            if obj:
+                return getter(obj)
+        return getter(self)
+    return getter
+
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
         local_roles = self.get_local_roles()
@@ -405,10 +430,21 @@ def getAssignedPersonFactory(roleName):
 
     return getAssignedPerson
 
-OriginalFile.getAssignedDescriptiveCataloguer = getAssignedPersonFactory('E-Deposit: Descriptive Cataloguer')
-OriginalFile.getAssignedDescriptiveCataloguingReviewer = getAssignedPersonFactory('E-Deposit: Descriptive Cataloguing Reviewer')
-OriginalFile.getAssignedSubjectCataloguer = getAssignedPersonFactory('E-Deposit: Subject Cataloguer')
-OriginalFile.getAssignedSubjectCataloguingReviewer = getAssignedPersonFactory('E-Deposit: Subject Cataloguing Reviewer')
+OriginalFile.getAssignedDescriptiveCataloguer = tryPrimaryOriginalGetterFactory(
+    getAssignedPersonFactory('E-Deposit: Descriptive Cataloguer')
+)
+
+OriginalFile.getAssignedDescriptiveCataloguingReviewer = tryPrimaryOriginalGetterFactory(
+    getAssignedPersonFactory('E-Deposit: Descriptive Cataloguing Reviewer')
+)
+
+OriginalFile.getAssignedSubjectCataloguer = tryPrimaryOriginalGetterFactory(
+    getAssignedPersonFactory('E-Deposit: Subject Cataloguer')
+)
+
+OriginalFile.getAssignedSubjectCataloguingReviewer = tryPrimaryOriginalGetterFactory(
+    getAssignedPersonFactory('E-Deposit: Subject Cataloguing Reviewer')
+)
 
 class ThumbnailView(grok.View):
     grok.context(IOriginalFile)

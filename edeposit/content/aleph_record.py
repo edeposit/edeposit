@@ -29,8 +29,7 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         title=_("ISBN"),
         description=_(u"Value of ISBN"),
         required = True,
-        )
-
+    )
 
     def getNazev(self):
         return self.title
