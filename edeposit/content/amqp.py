@@ -15,9 +15,8 @@ from .behaviors import IFormat, ICalibreFormat
 
 from .next_step import INextStep
 
-# (occur "class ")
-# (occur-rename-buffer)
-# (occur "def ")
+# (occur-1 "class " nil (list (current-buffer)) "*amqp: class*")
+# (occur-1 "def " nil (list(current-buffer)) "*amqp: def*")
 
 from edeposit.amqp.aleph import (
     ISBNQuery, 
@@ -25,6 +24,7 @@ from edeposit.amqp.aleph import (
     CountRequest, 
     SearchRequest, 
     DocumentQuery,
+    ICZQuery,
     ISBNValidationRequest,
     ExportRequest
 )
@@ -428,27 +428,27 @@ class OriginalFileRenewAlephRecordsBySysNumberRequestSender(namedtuple('RenewAle
             producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
 
 
-class OriginalFileLoadSummaryRecordRequestSender(namedtuple('LoadSummaryRecordRequest',['context'])):
-    """ context will be original file """
-    implements(IAMQPSender)
-    def send(self):
-        print "-> Load Summary Record from Aleph for: ", str(self.context), self.context.related_aleph_record
-        sysnumber = self.context.related_aleph_record and self.context.related_aleph_record.summary_record_aleph_sys_number
+# class OriginalFileLoadSummaryRecordRequestSender(namedtuple('LoadSummaryRecordRequest',['context'])):
+#     """ context will be original file """
+#     implements(IAMQPSender)
+#     def send(self):
+#         print "-> Load Summary Record from Aleph for: ", str(self.context), self.context.related_aleph_record
+#         sysnumber = self.context.related_aleph_record and self.context.related_aleph_record.summary_record_aleph_sys_number
         
-        if not sysnumber:
-            print "... no sysnumber for summary record found at related_aleph_record, quit"
-            return
+#         if not sysnumber:
+#             print "... no sysnumber for summary record found at related_aleph_record, quit"
+#             return
 
-        request = SearchRequest(DocumentQuery(sysnumber,'cze-dep'))
-        producer = getUtility(IProducer, name="amqp.isbn-search-request")
-        msg = ""
-        session_data =  { 'isbn': str(self.context.isbn),
-                          'msg': msg,
-                          'load-summary-record-for-sysnumber': str(sysnumber)
-        }
-        headers = make_headers(self.context, session_data)
-        producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
-        pass
+#         request = SearchRequest(DocumentQuery(sysnumber,'cze-dep'))
+#         producer = getUtility(IProducer, name="amqp.isbn-search-request")
+#         msg = ""
+#         session_data =  { 'isbn': str(self.context.isbn),
+#                           'msg': msg,
+#                           'load-summary-record-for-sysnumber': str(sysnumber)
+#         }
+#         headers = make_headers(self.context, session_data)
+#         producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
+#         pass
 
 class OriginalFileContributionPDFGenerateRequestSender(namedtuple('PDFGenerateRequest',['context'])):
     """ context will be original file """
@@ -625,100 +625,114 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
                     }
                 self.context.updateOrAddAlephRecord(dataForFactory)
+
+                # submit next search, if record is closed
+                if record.semantic_info.isClosed:
+                    sysnumber = record.semantic_info.parsedSummaryRecordSysNumber
+                    request = SearchRequest(ICZQuery(sysnumber,'cze-dep'))
+                    producer = getUtility(IProducer, name="amqp.isbn-search-request")
+                    msg = ""
+                    session_data =  { 'isbn': str(self.context.isbn),
+                                      'msg': msg,
+                                      'load-record-by-parsed-sysnumber': str(sysnumber)
+                                  }
+                    headers = make_headers(self.context, session_data)
+                    producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
                 pass
+
             for ii in range(20):
                 wasNextState=INextStep(self.context).doActionFor()
                 if not wasNextState:
                     break
         pass
 
-class OriginalFileAlephSearchDocumentResultHandler(namedtuple('AlephSearchDocumentResult',
-                                                              ['context', 'result'])):
-    """ 
-    context: originalfile
-    result:  SearchDocumentResult
-    """
-    def handle(self):
-        print "<- Aleph Search Document result for: ", str(self.context)
-        with api.env.adopt_user(username="system"):
-            record = self.result.record
-            epublication = record.epublication
-            dataForFactory = {
-                'title': "".join([u"Záznam v Alephu: ",
-                                  str(epublication.nazev), 
-                                  '(', 
-                                  str(record.docNumber),
-                                  ')']),
-                'nazev':  str(epublication.nazev),
-                'isbn': epublication.ISBN and epublication.ISBN[0],
-                'podnazev': epublication.podnazev,
-                'cast': epublication.castDil,
-                'nazev_casti': epublication.nazevCasti,
-                'rok_vydani': epublication.datumVydani,
-                'aleph_sys_number': record.docNumber,
-                'aleph_library': record.library,
-                'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
-                'hasISBNAgencyFields': record.semantic_info.hasISBNAgencyFields,
-                'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
-                'hasDescriptiveCataloguingFields': record.semantic_info.hasDescriptiveCatFields,
-                'hasDescriptiveCataloguingReviewFields': record.semantic_info.hasDescriptiveCatReviewFields,
-                'hasSubjectCataloguingFields': record.semantic_info.hasSubjectCatFields,
-                'hasSubjectCataloguingReviewFields': record.semantic_info.hasSubjectCatReviewFields,
-                'isClosed': record.semantic_info.isClosed,
-                'summary_record_info' : record.semantic_info.summaryRecordSysNumber,
-                'summary_record_aleph_sys_number' : record.semantic_info.parsedSummaryRecordSysNumber,
-                'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
-            }
-            self.context.updateOrAddAlephRecord(dataForFactory)
-            for ii in range(20):
-                wasNextState=INextStep(self.context).doActionFor()
-                if not wasNextState:
-                    break
-        pass
+# class OriginalFileAlephSearchDocumentResultHandler(namedtuple('AlephSearchDocumentResult',
+#                                                               ['context', 'result'])):
+#     """ 
+#     context: originalfile
+#     result:  SearchDocumentResult
+#     """
+#     def handle(self):
+#         print "<- Aleph Search Document result for: ", str(self.context)
+#         with api.env.adopt_user(username="system"):
+#             record = self.result.record
+#             epublication = record.epublication
+#             dataForFactory = {
+#                 'title': "".join([u"Záznam v Alephu: ",
+#                                   str(epublication.nazev), 
+#                                   '(', 
+#                                   str(record.docNumber),
+#                                   ')']),
+#                 'nazev':  str(epublication.nazev),
+#                 'isbn': epublication.ISBN and epublication.ISBN[0],
+#                 'podnazev': epublication.podnazev,
+#                 'cast': epublication.castDil,
+#                 'nazev_casti': epublication.nazevCasti,
+#                 'rok_vydani': epublication.datumVydani,
+#                 'aleph_sys_number': record.docNumber,
+#                 'aleph_library': record.library,
+#                 'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
+#                 'hasISBNAgencyFields': record.semantic_info.hasISBNAgencyFields,
+#                 'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
+#                 'hasDescriptiveCataloguingFields': record.semantic_info.hasDescriptiveCatFields,
+#                 'hasDescriptiveCataloguingReviewFields': record.semantic_info.hasDescriptiveCatReviewFields,
+#                 'hasSubjectCataloguingFields': record.semantic_info.hasSubjectCatFields,
+#                 'hasSubjectCataloguingReviewFields': record.semantic_info.hasSubjectCatReviewFields,
+#                 'isClosed': record.semantic_info.isClosed,
+#                 'summary_record_info' : record.semantic_info.summaryRecordSysNumber,
+#                 'summary_record_aleph_sys_number' : record.semantic_info.parsedSummaryRecordSysNumber,
+#                 'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
+#             }
+#             self.context.updateOrAddAlephRecord(dataForFactory)
+#             for ii in range(20):
+#                 wasNextState=INextStep(self.context).doActionFor()
+#                 if not wasNextState:
+#                     break
+#         pass
 
-class OriginalFileAlephSearchSummaryRecordResultHandler(namedtuple('AlephSearchSummaryRecordResult',
-                                                                   ['context', 'result'])):
-    """ 
-    context: originalfile
-    result:  SearchSummaryRecordResult
-    """
-    def handle(self):
-        print "<- Aleph Search Summary Record result for: ", str(self.context)
-        with api.env.adopt_user(username="system"):
-            record = self.result.record
-            epublication = record.epublication
-            dataForFactory = {
-                'title': "".join([u"Záznam v Alephu: ",
-                                  str(epublication.nazev), 
-                                  '(', 
-                                  str(record.docNumber),
-                                  ')']),
-                'nazev':  str(epublication.nazev),
-                'isbn': epublication.ISBN[0],
-                'podnazev': epublication.podnazev,
-                'cast': epublication.castDil,
-                'nazev_casti': epublication.nazevCasti,
-                'rok_vydani': epublication.datumVydani,
-                'aleph_sys_number': record.docNumber,
-                'aleph_library': record.library,
-                'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
-                'hasISBNAgencyFields': record.semantic_info.hasISBNAgencyFields,
-                'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
-                'hasDescriptiveCataloguingFields': record.semantic_info.hasDescriptiveCatFields,
-                'hasDescriptiveCataloguingReviewFields': record.semantic_info.hasDescriptiveCatReviewFields,
-                'hasSubjectCataloguingFields': record.semantic_info.hasSubjectCatFields,
-                'hasSubjectCataloguingReviewFields': record.semantic_info.hasSubjectCatReviewFields,
-                'isClosed': record.semantic_info.isClosed,
-                'summary_record_info' : record.semantic_info.summaryRecordSysNumber,
-                'summary_record_aleph_sys_number' : record.semantic_info.parsedSummaryRecordSysNumber,
-                'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
-            }
-            self.context.updateOrAddAlephRecord(dataForFactory)
-            for ii in range(20):
-                wasNextState=INextStep(self.context).doActionFor()
-                if not wasNextState:
-                    break
-        pass
+# class OriginalFileAlephSearchSummaryRecordResultHandler(namedtuple('AlephSearchSummaryRecordResult',
+#                                                                    ['context', 'result'])):
+#     """ 
+#     context: originalfile
+#     result:  SearchSummaryRecordResult
+#     """
+#     def handle(self):
+#         print "<- Aleph Search Summary Record result for: ", str(self.context)
+#         with api.env.adopt_user(username="system"):
+#             record = self.result.record
+#             epublication = record.epublication
+#             dataForFactory = {
+#                 'title': "".join([u"Záznam v Alephu: ",
+#                                   str(epublication.nazev), 
+#                                   '(', 
+#                                   str(record.docNumber),
+#                                   ')']),
+#                 'nazev':  str(epublication.nazev),
+#                 'isbn': epublication.ISBN[0],
+#                 'podnazev': epublication.podnazev,
+#                 'cast': epublication.castDil,
+#                 'nazev_casti': epublication.nazevCasti,
+#                 'rok_vydani': epublication.datumVydani,
+#                 'aleph_sys_number': record.docNumber,
+#                 'aleph_library': record.library,
+#                 'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
+#                 'hasISBNAgencyFields': record.semantic_info.hasISBNAgencyFields,
+#                 'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
+#                 'hasDescriptiveCataloguingFields': record.semantic_info.hasDescriptiveCatFields,
+#                 'hasDescriptiveCataloguingReviewFields': record.semantic_info.hasDescriptiveCatReviewFields,
+#                 'hasSubjectCataloguingFields': record.semantic_info.hasSubjectCatFields,
+#                 'hasSubjectCataloguingReviewFields': record.semantic_info.hasSubjectCatReviewFields,
+#                 'isClosed': record.semantic_info.isClosed,
+#                 'summary_record_info' : record.semantic_info.summaryRecordSysNumber,
+#                 'summary_record_aleph_sys_number' : record.semantic_info.parsedSummaryRecordSysNumber,
+#                 'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
+#             }
+#             self.context.updateOrAddAlephRecord(dataForFactory)
+#             for ii in range(20):
+#                 wasNextState=INextStep(self.context).doActionFor()
+#                 if not wasNextState:
+#                     break
+#         pass
 
 
 class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 'result'])):

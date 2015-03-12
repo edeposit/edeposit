@@ -82,6 +82,9 @@ from edeposit.amqp.pdfgen.structures import (
 
 from edeposit.content.tasks import *
 
+# (occur-1 "class " nil (list (current-buffer)) "*handlers: class*")
+# (occur-1 "def " nil (list(current-buffer)) "*handlers: def*")
+
 class IAMQPError(Interface):
     payload = Attribute("")
     exception_name = Attribute("")
@@ -151,22 +154,21 @@ def handleAlephResponse(message, event):
     else:
         result = deserialize(json.dumps(message.body),globals())
         dataKeys = session_data.keys()
-        ResultFactory = None
-        if 'renew-records-for-sysnumber' in dataKeys:
-            ResultFactory = AlephSearchDocumentResult
-        elif 'load-summary-record-for-sysnumber' in dataKeys:
-            ResultFactory = AlephSearchSummaryRecordResult
+        # ResultFactory = None
+        # if 'renew-records-for-sysnumber' in dataKeys:
+        #     ResultFactory = AlephSearchDocumentResult
+        # elif 'load-summary-record-for-sysnumber' in dataKeys:
+        #     ResultFactory = AlephSearchSummaryRecordResult
 
-        if ResultFactory:
-            records = result.records
-            if records:
-                newResult = ResultFactory(record = result.records[0])
-                getMultiAdapter((context,newResult),IAMQPHandler).handle()
-            else:
-                print "... there are no records at the result"
-        else:
-            getMultiAdapter((context,result),IAMQPHandler).handle()
-
+        # if ResultFactory:
+        #     records = result.records
+        #     if records:
+        #         newResult = ResultFactory(record = result.records[0])
+        #         getMultiAdapter((context,newResult),IAMQPHandler).handle()
+        #     else:
+        #         print "... there are no records at the result"
+        # else:
+        getMultiAdapter((context,result),IAMQPHandler).handle()
         message.ack()
 
 class IAntivirusResponse(Interface):
