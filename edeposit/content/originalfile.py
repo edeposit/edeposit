@@ -412,14 +412,14 @@ class OriginalFilePrimaryFieldInfo(object):
     def value(self):
         return self.field.get(self.context)
 
-def tryPrimaryOriginalGetterFactory(self,getter):
-    def getter(self):
+def tryPrimaryOriginalGetterFactory(getter):
+    def tryGetter(self):
         if self.primary_originalfile:
             obj = getattr(self.primary_originalfile,'to_object',None)
             if obj:
                 return getter(obj)
         return getter(self)
-    return getter
+    return tryGetter
 
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
