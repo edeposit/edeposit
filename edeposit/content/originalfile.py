@@ -122,6 +122,13 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
         required = False,
     )
 
+    isClosed= schema.Bool (
+        title = _(u'is closed out by Catalogizators'),
+        description = u"",
+        required = False,
+        default = False,
+    )
+
     summary_aleph_record = RelationChoice( title=u"Souborný záznam v Alephu",
                                            required = False,
                                            source = availableAlephRecords )
@@ -300,6 +307,14 @@ class OriginalFile(Container):
                                        getattr(self.related_aleph_record,'to_object',None)
                 if related_aleph_record and not related_aleph_record.isClosed:
                     self.related_aleph_record = None
+
+    @property
+    def isClosed(self):
+        if self.related_aleph_record:
+            record = getattr(self.related_aleph_record, 'to_object',None)
+            if record:
+                return record.isClosed
+        return False
 
     def updateAlephRelatedData(self):
         # try to choose related_aleph_record
