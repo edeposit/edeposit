@@ -1,0 +1,10 @@
+{
+    "__nt_name": "SendEmailWithWorklistToGroup",
+    "additionalEmails": [
+        "stavel.jan@gmail.com",
+        "alena.zalejska@pragodata.cz"
+    ],
+    "recipientsGroup": "ISBN Agency Members",
+    "subject": "Dokumenty cekajici na prideleni ISBN",
+    "worklist": "worklist-waiting-for-isbn-generation"
+}
