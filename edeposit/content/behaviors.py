@@ -82,7 +82,7 @@ class IChangesInformating(model.Schema):
     """
 
     plone.directives.form.fieldset('technical', label=u"Technické údaje",
-                                   fields=['informProducentAboutChanges'])
+                                   fields=['lastChangesInformationSent', 'informProducentAboutChanges'])
     
     informProducentAboutChanges = schema.Bool (
         title=u"Informovat producenta o změnách v záznamech",

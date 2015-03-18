@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from five import grok
-from zope.component import queryUtility, getUtility
+from zope.component import queryUtility, getUtility, getAdapter
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
 
@@ -376,11 +376,6 @@ class OriginalFile(Container):
         keys = [ii for ii in IOriginalFile.names() if ii not in ('file','thumbnail')]
         return dict(zip(keys,map(partial(getattr,self), keys)))
 
-    def updateFromAlephRecord(self):
-        # TODO
-        # this method loads data from aleph records into its own space.
-        pass
-
     def checkUpdates(self):
         """ it tries to decide whether some changes appeared in aleph records. 
         The function loads the changes from a proper aleph record into its own attributes.
@@ -390,7 +385,8 @@ class OriginalFile(Container):
         for change in changes:
             IApplicableChange(change).apply()
         if changes:
-            self.informProducentAboutChanges = True
+            getAdapter(self, IEmailSender, name="originalfile-has-been-changed").send()
+            #self.informProducentAboutChanges = True
 
 class OriginalFilePrimaryFieldInfo(object):
     implements(IPrimaryFieldInfo)

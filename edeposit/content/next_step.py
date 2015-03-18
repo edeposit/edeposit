@@ -73,16 +73,18 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
 
     def nextstep_for_descriptiveCataloguing(self,*args,**kwargs):
         aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
+        
+        if aleph_record and aleph_record.isClosed:
+            if aleph_record.hasDescriptiveCataloguingFields:
+                self.wft.doActionFor(self.context,'submitClosedDescriptiveCataloguing')
+                return True
+            else:
+                return False
+
         if aleph_record and aleph_record.hasDescriptiveCataloguingFields:
             self.wft.doActionFor(self.context,'submitDescriptiveCataloguing')
             return True
 
-        if aleph_record and aleph_record.isClosed:
-            summary_aleph_record = self.context.summary_aleph_record and \
-                                   getattr(self.context.summary_aleph_record,'to_object',None)
-            if summary_aleph_record and summary_aleph_record.hasDescriptiveCataloguingFields:
-                self.wft.doActionFor(self.context,'submitClosedDescriptiveCataloguing')
-                return True
         return False
 
     def nextstep_for_descriptiveCataloguingReviewPreparing(self, *args, **kwargs):

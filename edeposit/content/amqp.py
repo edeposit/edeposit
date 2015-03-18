@@ -1043,15 +1043,14 @@ class SendEmailWithUserWorklistTaskHandler(namedtuple('SendEmailWithUserWorklist
 
 
 
-class OriginalFileHasBeenChangedSendEmail(namedtuple('OriginalFileHasBeenChangedSendEmail',['context',])):
-    def send(self):
-        of = self.context
-        print "send email notification"
-        
-class CheckUpdatesTaskHandler(namedtuple('CheckUpdatesTaskHandler',
-                                         ['context','result'])):
+class CheckUpdatesTaskHandler(namedtuple('CheckUpdatesTaskHandler', ['context','result'])):
     def handle(self):
         print "<- Plone AMQP Task: ", str(self.result)
         with api.env.adopt_user(username="system"):
             obj = api.content.get(UID = self.result.uid)
             obj.checkUpdates()
+
+class OriginalFileHasBeenChangedSendEmail(namedtuple('OriginalFileHasBeenChangedSendEmail',['context',])):
+    def send(self):
+        of = self.context
+        print "send email notification"

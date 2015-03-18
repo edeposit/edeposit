@@ -100,6 +100,12 @@ class ICheckUpdates(IPloneTask):
 class CheckUpdates(namedtuple('CheckUpdates',['uid'])):
     implements(ICheckUpdates)
 
+class IChangesEmailNotify(IPloneTask):
+    uid = schema.ASCIILine()
+
+class ChangesEmailNotify(namedtuple('ChangesEmailNotify',['uid'])):
+    implements(IChangesEmailNotify)
+
 
 if __name__ == '__main__':
     import unittest
