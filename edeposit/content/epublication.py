@@ -616,6 +616,7 @@ class IAddAtOnceForm(form.Schema):
     
     isbn = schema.ASCIILine(
         title=u"ISBN (pokud je)",
+        description = u"Zadejte ISBN, ev.ISBN souboru, nebo vyberte možnost přiřazení agenturou (pokud nejste evidovaným účastníkem systému ISBN)",
         required = False,
         )
 
@@ -633,37 +634,44 @@ class IAddAtOnceForm(form.Schema):
 
     author1 = schema.TextLine(
         title=u"Autor (příjmení, rodné jméno)",
+        description = u"Příjmení a jméno oddělené čárkou",
         required = False,
         )
     
     author2 = schema.TextLine(
         title=u"Autor 2",
+        description = u"Příjmení a jméno oddělené čárkou",
         required = False,
         )
     
     author3 = schema.TextLine(
         title=u"Autor 3",
+        description = u"Příjmení a jméno oddělené čárkou",
         required = False,
         )
 
     poradi_vydani = schema.TextLine(
         title = u'Pořadí vydání, verze',
+        description = u"Podle titulní stránky publikace",
         required = True,
     )
 
     misto_vydani = schema.TextLine(
         title = u'Místo vydání',
+        description = u"Podle titulní stránky publikace",
         required = True,
     )
 
     rok_vydani = schema.Int (
         title = u"Rok vydání",
+        description = u"Podle titulní stránky publikace",
         required = True,
     )
 
     form.mode(nakladatel_vydavatel='display')
     nakladatel_vydavatel = schema.TextLine (
         title = u"Nakladatel",
+        description = u"Vyplněno automaticky podle profilu uživatele.",
         required = True,
         )
     
@@ -687,6 +695,7 @@ class IAddAtOnceForm(form.Schema):
     form.widget(libraries_accessing=z3c.form.browser.radio.RadioFieldWidget)
     libraries_accessing = schema.Choice (
         title = u"Oprávnění knihovnám",
+        description = u"Stanovíte, zda lze ePublikaci zpřístupňovat v oprávněné knihovně na terminálu (viz dále).",
         required = False,
         readonly = False,
         default = None,
@@ -697,6 +706,7 @@ class IAddAtOnceForm(form.Schema):
 
     libraries_that_can_access = schema.Set (
         title = u"Knihovny s přístupem k ePublikaci", #(u'Libraries that can access this ePublication'),
+        description = u"""Vyberte knihovny, které opravňujete ke zpřístupnění ePublikace na terminálech. Vícenásobný výběr se provádí pomocí klávesy CTRL. Národní knihovna ČR je při výběru nepominutelná.""",
         required = False,
         readonly = False,
         value_type = schema.Choice(source=availableLibraries)
@@ -715,6 +725,7 @@ class IAddAtOnceForm(form.Schema):
     #     )
     is_public = schema.Bool(
         title = u'Vystavení na volném internetu',
+        description = u"ePublikace bude zpřístupněna veřejnosti jako volně přístupná.",
         required = False,
         default = False,
         missing_value = False,
@@ -728,14 +739,14 @@ class IAddAtOnceForm(form.Schema):
     #               ])
     offer_to_riv = schema.Bool(
         title = u'Zpřístupnit pro RIV',
+        description = u"Zvolte, zda si přejete, aby NK zpřístupnila publikaci k hodnocení pro RIV, včetně dálkového přístupu hodnotitelů. Pokud ano, vyberte hlavní skupinu oborů.",
         required = False,
         default = False,
         missing_value = False,
         )
 
     category_for_riv = schema.Choice (
-        title = u"Kategorie pro RIV",
-        description = u"Vyberte ze seznamu kategorií pro RIV.",
+        title = u"Seznam oborů pro RIV",
         required = False,
         readonly = False,
         default = None,
