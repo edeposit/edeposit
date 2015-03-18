@@ -846,7 +846,7 @@ class VoucherGenerationRequestSender(namedtuple('VoucherGeneration',['context'])
         libraries_accessing = epublication.libraries_accessing
         #libraries_by_value = dict([(aa.id,aa.Title) for aa in self.availableLibraries()])
         libraries_that_can_access = [ dict( id = aa.to_object.id, title=aa.to_object.Title())
-                                      for aa in epublication.libraries_that_can_access]
+                                      for aa in (epublication.libraries_that_can_access or [])]
         filename = originalfile.file and originalfile.file.filename or ""
         nakladatel_vydavatel =  aq_parent(aq_inner(self.context)).nakladatel_vydavatel
 
