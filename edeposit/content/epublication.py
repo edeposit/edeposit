@@ -172,7 +172,7 @@ class IePublication(form.Schema, IImageScaleTraversable):
         required = True,
     )
 
-    rok_vydani = schema.Int (
+    rok_vydani = schema.TextLine (
         title = u"Rok vydání",
         required = True,
     )
@@ -374,7 +374,7 @@ class ePublication(Container):
 
         vocab = IAddAtOnceForm['libraries_that_can_access'].value_type.source(self)
         getTitle = titleFactory(vocab)
-        libraries_that_can_access = [ dict(title=getTitle(ii), id=ii) for ii in self.libraries_that_can_access]
+        libraries_that_can_access = [ dict(title=getTitle(ii), id=ii) for ii in (self.libraries_that_can_access or [])]
 
         def valueFactory(self):
             def getter(key):
@@ -632,7 +632,7 @@ class IAddAtOnceForm(form.Schema):
         )
 
     author1 = schema.TextLine(
-        title=u"Autor (příjmení, křestní jméno)",
+        title=u"Autor (příjmení, rodné jméno)",
         required = False,
         )
     
@@ -677,41 +677,12 @@ class IAddAtOnceForm(form.Schema):
         required = False,
     )
 
-    # form.fieldset('riv',
-    #               label=_(u'RIV'),
-    #               fields = [
-    #                   'offer_to_riv',
-    #                   'category_for_riv',
-    #               ])
-    offer_to_riv = schema.Bool(
-        title = u'Zpřístupnit pro RIV',
-        required = False,
-        default = False,
-        missing_value = False,
-        )
-
-    category_for_riv = schema.Choice (
-        title = u"Kategorie pro RIV",
-        description = u"Vyberte ze seznamu kategorií pro RIV.",
-        required = False,
-        readonly = False,
-        default = None,
-        missing_value = None,
-        vocabulary="edeposit.content.categoriesForRIV",
-    )
-
     # form.fieldset('accessing',
     #               label=u'Zpřístupnění',
     #               fields = ['is_public',
     #                         'libraries_accessing',
     #                         'libraries_that_can_access'
     #                         ])
-    is_public = schema.Bool(
-        title = u'Vystavení na volném internetu',
-        required = False,
-        default = False,
-        missing_value = False,
-        )
 
     form.widget(libraries_accessing=z3c.form.browser.radio.RadioFieldWidget)
     libraries_accessing = schema.Choice (
@@ -742,6 +713,36 @@ class IAddAtOnceForm(form.Schema):
     #         source = availableLibraries,
     #         )
     #     )
+    is_public = schema.Bool(
+        title = u'Vystavení na volném internetu',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
+
+    # form.fieldset('riv',
+    #               label=_(u'RIV'),
+    #               fields = [
+    #                   'offer_to_riv',
+    #                   'category_for_riv',
+    #               ])
+    offer_to_riv = schema.Bool(
+        title = u'Zpřístupnit pro RIV',
+        required = False,
+        default = False,
+        missing_value = False,
+        )
+
+    category_for_riv = schema.Choice (
+        title = u"Kategorie pro RIV",
+        description = u"Vyberte ze seznamu kategorií pro RIV.",
+        required = False,
+        readonly = False,
+        default = None,
+        missing_value = None,
+        vocabulary="edeposit.content.categoriesForRIV",
+    )
+
 
     zpracovatel_zaznamu = schema.TextLine(
         title = u'Zpracovatel záznamu',
@@ -951,7 +952,7 @@ class AddAtOnceForm(form.SchemaForm):
         libraries_that_can_access = map(RelationValue,
                                         map(intids.getId,
                                             filter(lambda ii: bool(ii),
-                                                   map(getLib, data['libraries_that_can_access']))))
+                                                   map(getLib, (data['libraries_that_can_access'] or [])))))
                                          
         newEPublication = addContentToContainer( container,
                                                  self.createContentFromData(IePublication, 'edeposit.content.epublication', data, 
