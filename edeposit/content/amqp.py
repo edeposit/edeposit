@@ -521,7 +521,9 @@ class OriginalFilePDFGenerationResultHandler(namedtuple('PDFGenerationResult',['
                 wft.doActionFor(context, 'antivirusError', comment=comment)
             else:
                 transition =  context.needsThumbnailGeneration() and 'antivirusOKThumbnail' \
-                              or (context.isbn and 'antivirusOKAleph' or 'antivirusOKISBNGeneration')
+                              or (context.isbn and (context.hasSomeAlephRecords() and 
+                                                    'antivirusOKSkipExportToAleph' or 'antivirusOKAleph') 
+                                  or 'antivirusOKISBNGeneration')
                 print "transition: %s" % (transition,)
                 wft.doActionFor(context, transition)
             pass
@@ -541,7 +543,9 @@ class OriginalFileAntivirusResultHandler(namedtuple('AntivirusResult',['context'
                 wft.doActionFor(context, 'antivirusError', comment=comment)
             else:
                 transition =  context.needsThumbnailGeneration() and 'antivirusOKThumbnail' \
-                              or (context.isbn and 'antivirusOKAleph' or 'antivirusOKISBNGeneration')
+                              or (context.isbn and  ( context.hasSomeAlephRecords() and 
+                                                      'antivirusOKSkipExportToAleph' or 'antivirusOKAleph') 
+                                  or 'antivirusOKISBNGeneration')
                 print "transition: %s" % (transition,)
                 wft.doActionFor(context, transition)
             pass
@@ -562,7 +566,10 @@ class OriginalFileThumbnailGeneratingResultHandler(namedtuple('ThumbnailGenerati
             self.context.thumbnail = bfile
             transaction.savepoint(optimistic=True)
             print "\nstate of originalfile: ", api.content.get_state(self.context)
-            wft.doActionFor(self.context, self.context.isbn and 'thumbnailOKAleph' or 'thumbnailOKISBNGeneration')
+            wft.doActionFor(self.context, self.context.isbn and (self.context.hasSomeAlephRecords() 
+                                                                 and 'thumbnailOKSkipAlephExport' 
+                                                                 or  'thumbnailOKAleph')
+                        or 'thumbnailOKISBNGeneration')
         pass
 
 

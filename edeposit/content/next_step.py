@@ -41,7 +41,7 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
             return True
         return False
 
-    def nextstep_for_state_ISBNGeneration(self, *args, **kwargs):
+    def nextstep_for_ISBNGeneration(self, *args, **kwargs):
         aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasISBNAgencyFields:
             self.wft.doActionFor(self.context,'submitISBNGeneration')

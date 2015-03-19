@@ -21,7 +21,6 @@
                                 },
                                 config: {
                                         onClose: function(el){
-                                                console.log( 'on close' );
                                                 $('input[id="load-from-similar-widgets-load_isbn"]').removeAttr('disabled');
                                         },
                                 },

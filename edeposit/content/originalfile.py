@@ -3,6 +3,7 @@ from five import grok
 from zope.component import queryUtility, getUtility, getAdapter
 from z3c.relationfield import RelationValue
 from zope.app.intid.interfaces import IIntIds
+from z3c.form import group, field, button
 
 from z3c.form import group, field
 from zope import schema
@@ -20,6 +21,7 @@ from plone.namedfile.interfaces import IImageScaleTraversable, INamedBlobFileFie
 from edeposit.content import MessageFactory as _
 from z3c.relationfield.schema import RelationChoice, Relation
 from plone.formwidget.contenttree import ObjPathSourceBinder, PathSourceBinder
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from edeposit.content.aleph_record import IAlephRecord
 from Products.CMFCore.utils import getToolByName
@@ -42,6 +44,11 @@ import os.path
 from functools import partial
 from .changes import IChanges, IApplicableChange
 from Acquisition import aq_inner, aq_parent
+import simplejson as json
+from .tasks import (
+    IPloneTaskSender,
+    DoActionFor
+)
 
 def urlCodeIsValid(value):
     return True
@@ -71,8 +78,14 @@ def availableOriginalFiles(context):
 class IVoucherFileField(INamedBlobFileField):
     pass
 
+class IOriginalFileSourceField(INamedBlobFileField):
+    pass
+
 class VoucherFile(NamedBlobFile):
     implements(IVoucherFileField)
+
+class OriginalFileSource(NamedBlobFile):
+    implements(IOriginalFileSourceField)
 
 class IOriginalFile(form.Schema, IImageScaleTraversable):
     """
@@ -91,7 +104,7 @@ class IOriginalFile(form.Schema, IImageScaleTraversable):
     )
 
     form.primary('file')
-    file = NamedBlobFile(
+    file = OriginalFileSource (
         title=_(u"Original File of an ePublication"),
         required = False,
         )
@@ -361,7 +374,6 @@ class OriginalFile(Container):
             if self.related_aleph_record:
                 return True
         else:
-            # TODO - isClosed attribut je v brain - jestli ne, nacist objekt
             isClosedRecords = filter(lambda item: item.isClosed, alephRecords)
             if len(isClosedRecords) < len(alephRecords):
                 if self.related_aleph_record and self.summary_aleph_record:
@@ -473,5 +485,50 @@ class HasVoucherView(grok.View):
     grok.name('has-voucher')
     
     def render(self):
-        import simplejson as json
         return json.dumps(dict(hasVoucher = bool(self.context.voucher)))
+
+
+class IChangeSourceForm(form.Schema):
+    file = NamedBlobFile(
+        title=u"Připojit soubor s ePublikací",
+        required = False,
+        )
+    
+class ChangeSourceView(form.SchemaForm):
+    grok.context(IOriginalFile)
+    grok.require('cmf.ModifyPortalContent')
+    grok.name('change-source')
+
+    schema = IChangeSourceForm
+    ignoreContext = False
+    enable_form_tabbing = False
+    autoGroups = False
+    template = ViewPageTemplateFile('originalfile_templates/changesource.pt')
+    prefix = 'sourceform'
+
+    @button.buttonAndHandler(u"Odeslat", name="save")
+    def handleAdd(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        self.context.file = data['file']
+        wft = api.portal.get_tool('portal_workflow')
+        if self.context.file:
+            wft.doActionFor(self.context, (self.context.isbn and 'submitDeclarationToISBNValidation')
+                            or ('submitDeclarationToAntivirus'))
+        self.request.response.redirect(self.context.absolute_url())
+
+
+class OriginalFileChangeSource(object):
+    implements(IChangeSourceForm)
+    adapts(IOriginalFile)
+
+    def __init__(self, context):
+        self.context = context
+    
+    @property
+    def file(self):
+        return self.context.file
+

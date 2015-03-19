@@ -97,6 +97,7 @@
   <!--     handler=".handlers.addedOriginalFile"/> -->
 
   <adapter factory=".originalfile.OriginalFilePrimaryFieldInfo"/>
+  <adapter factory=".originalfile.OriginalFileChangeSource"/>
   <adapter factory=".epublication.MainMetadataFromEBook"/>
   
   <adapter factory=".originalfile_changes.OriginalFileChanges"/>

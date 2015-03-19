@@ -6,12 +6,20 @@
     i18n_domain="plone.formwidget.namedfile">
 
     <adapter factory=".voucher.VoucherFileFieldWidget" />
+    <adapter factory=".originalfilesource.OriginalFileSourceFieldWidget" />
 
     <z3c:widgetTemplate
         mode="display"
         widget="edeposit.content.widgets.interfaces.IVoucherFileWidget"
         layer="z3c.form.interfaces.IFormLayer"
         template="voucher_display.pt"
+        />
+
+    <z3c:widgetTemplate
+        mode="display"
+        widget="edeposit.content.widgets.interfaces.IOriginalFileSourceWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="originalfilesource_display.pt"
         />
 
 </configure>
