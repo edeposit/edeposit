@@ -1029,14 +1029,14 @@ class SendEmailWithUserWorklistTaskHandler(namedtuple('SendEmailWithUserWorklist
             
             for member in api.user.get_users(groupname=groupname):
                 username = member.id
-                producentsFolder.createUserCollection(username, indexName, state, readerGroup)
+                producentsFolder.recreateUserCollectionIfEmpty(username, indexName, state, readerGroup)
                 email = member.getProperty('email')
                 view_name = 'worklist-waiting-for-user'
                 subject = title + " pro: " + username
                 request = self.context.REQUEST
                 request['userid']=username
                 view = api.content.get_view(name=view_name,
-                                            context = producentsFolder, 
+                                            context = producentsFolder,
                                             request = request)
 
                 body = view()
