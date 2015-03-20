@@ -135,7 +135,16 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
 
 class AlephRecord(Item):
     grok.implements(IAlephRecord)
+    
+    def findAndLoadChanges(self, data):
+        def isChanged(attr):
+            return getattr(self,attr,None) != data.get(attr,None)
 
+        changedAttrs = filter(isChanged, data.keys())
+        print "changedAttrs", changedAttrs
+        for attr in changedAttrs:
+            setattr(self, attr, data.get(attr,None) )
+        return changedAttrs
 
 # View class
 # The view will automatically use a similarly named template in
