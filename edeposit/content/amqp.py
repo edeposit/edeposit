@@ -372,7 +372,7 @@ class OriginalFileSysNumberSearchRequestSender(namedtuple('SysNumberSearchReques
         producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
         pass
 
-class OriginalFileSearchRequestSender(namedtuple('SysNumberSearchRequest',['context'])):
+class OriginalFileSearchRequestSender(namedtuple('OriginalFileSearchRequest',['context'])):
     """ context will be original file """
     implements(IAMQPSender)
     def send(self):
@@ -446,8 +446,7 @@ class OriginalFileRenewAlephRecordsByICZSysNumberRequestSender(namedtuple('Renew
             msg = ""
             session_data =  { 'isbn': str(self.context.isbn),
                               'msg': msg,
-                              'renew-records-for-icz-sysnumber': str(icznumber)
-                          }
+                              'renew-records-for-icz-sysnumber': str(icznumber) }
             headers = make_headers(self.context, session_data)
             producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
 
@@ -665,8 +664,7 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     msg = ""
                     session_data =  { 'isbn': str(self.context.isbn),
                                       'msg': msg,
-                                      'load-record-by-parsed-sysnumber': str(sysnumber)
-                                  }
+                                      'load-record-by-parsed-sysnumber': str(sysnumber) }
                     headers = make_headers(self.context, session_data)
                     producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
                 pass

@@ -272,17 +272,19 @@ class OriginalFile(Container):
             print "a record with the same sysnumber"
             # update this record
             alephRecord = arecordWithTheSameSysNumber[0]
-            def isChangedFactory(alephRecord,data):
-                def isChanged(attr):
-                    return getattr(alephRecord,attr,None) != data.get(attr,None)
-                return isChanged
 
-            changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
-            print "changedAttrs", changedAttrs
-            for attr in changedAttrs:
-                setattr(alephRecord,attr,dataForFactory.get(attr,None))
+            # def isChangedFactory(alephRecord,data):
+            #     def isChanged(attr):
+            #         return getattr(alephRecord,attr,None) != data.get(attr,None)
+            #     return isChanged
 
-            if changedAttrs:
+            # changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
+            # print "changedAttrs", changedAttrs
+            # for attr in changedAttrs:
+            #     setattr(alephRecord,attr,dataForFactory.get(attr,None))
+
+            changedAttrs = alephRecord.findAndLoadChanges(dataForFactory)
+            if changedAttrs and changedAttrs != ['xml']:
                 IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
 
         else:
@@ -312,15 +314,17 @@ class OriginalFile(Container):
             print "a record with the same sysnumber"
             # update this record
             alephRecord = arecordWithTheSameSysNumber[0]
-            def isChangedFactory(alephRecord,data):
-                def isChanged(attr):
-                    return getattr(alephRecord,attr,None) != data.get(attr,None)
-                return isChanged
+            changedAttrs = alephRecord.findAndLoadChanges(dataForFactory)
 
-            changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
-            print "changedAttrs", changedAttrs
-            for attr in changedAttrs:
-                setattr(alephRecord,attr,dataForFactory.get(attr,None))
+            # def isChangedFactory(alephRecord,data):
+            #     def isChanged(attr):
+            #         return getattr(alephRecord,attr,None) != data.get(attr,None)
+            #     return isChanged
+
+            # changedAttrs = filter(isChangedFactory(alephRecord,dataForFactory), dataForFactory.keys())
+            # print "changedAttrs", changedAttrs
+            # for attr in changedAttrs:
+            #     setattr(alephRecord,attr,dataForFactory.get(attr,None))
 
             if changedAttrs and changedAttrs != ['xml']:
                 IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
