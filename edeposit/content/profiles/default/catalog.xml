@@ -6,7 +6,11 @@
   <column value="getPodnazev"/> 
   <column value="getCast"/> 
   <column value="getNazevCasti"/> 
-  <column value="hasVoucher"/> 
+  <column value="hasVoucher"/>
+  <column value="getAssignedSubjectCataloguer"/>
+  <column value="getAssignedSubjectCataloguingReviewer"/>
+  <column value="getAssignedDescriptiveCataloguer"/>
+  <column value="getAssignedDescriptiveCataloguingReviewer"/>
   <index name="getAssignedDescriptiveCataloguer" meta_type="FieldIndex">
     <indexed_attr value="getAssignedDescriptiveCataloguer"/>
   </index>
