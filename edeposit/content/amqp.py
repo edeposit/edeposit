@@ -11,9 +11,13 @@ import transaction
 import simplejson as json
 
 from functools import partial
-from .behaviors import IFormat, ICalibreFormat
+from edeposit.content.behaviors import IFormat, ICalibreFormat
 
-from .next_step import INextStep
+from edeposit.content.next_step import INextStep
+
+from edeposit.content.amqp_interfaces import (
+    IEmailSender
+)
 
 # (occur-1 "class " nil (list (current-buffer)) "*amqp: class*")
 # (occur-1 "def " nil (list(current-buffer)) "*amqp: def*")
@@ -229,10 +233,6 @@ class IAMQPHandler(Interface):
     def handle():
         return None
 
-class IEmailSender(Interface):
-    def send():
-        pass
-
 def make_headers(context, session_data):
     return {
         'UUID': json.dumps({'context_UID': str(context.UID()),
@@ -422,9 +422,10 @@ class OriginalFileRenewAlephRecordsBySysNumberRequestSender(namedtuple('RenewAle
             msg = ""
             session_data =  { 'isbn': str(self.context.isbn),
                               'msg': msg,
+                              'uuid-of-originalfile': self.context.UID(),
                               'renew-records-for-sysnumber': str(sysnumber)
                           }
-            headers = make_headers(self.context, session_data)
+            headers = make_headers(alephRecord, session_data)
             producer.publish(serialize(request),  content_type = 'application/json', headers = headers)
 
 class OriginalFileRenewAlephRecordsByICZSysNumberRequestSender(namedtuple('RenewAlephRecordsByICZSysNumberRequest',['context'])):
@@ -675,6 +676,57 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     break
         pass
 
+class AlephRecordAlephSearchResultHandler(namedtuple('AlephSearchtResult',['context', 'result'])):
+    """ 
+    context: alephRecord
+    result:  SearchResult
+    """
+    def handle(self):
+        print "<- Aleph Search result for: ", str(self.context)
+        with api.env.adopt_user(username="system"):
+            print "num of records: ", len(self.result.records)
+            for record in self.result.records:
+                epublication = record.epublication
+                dataForFactory = {
+                    'title': "".join([u"Záznam v Alephu: ",
+                                      str(epublication.nazev), 
+                                      '(', 
+                                      str(record.docNumber),
+                                      ')']),
+                    'nazev':  str(epublication.nazev),
+                    'isbn': epublication.ISBN and epublication.ISBN[0],
+                    'podnazev': epublication.podnazev,
+                    'cast': epublication.castDil,
+                    'nazev_casti': epublication.nazevCasti,
+                    'rok_vydani': epublication.datumVydani,
+                    'aleph_sys_number': record.docNumber,
+                    'aleph_library': record.library,
+                    'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
+                    'hasISBNAgencyFields': record.semantic_info.hasISBNAgencyFields,
+                    'hasAcquisitionFields': record.semantic_info.hasAcquisitionFields,
+                    'hasDescriptiveCataloguingFields': record.semantic_info.hasDescriptiveCatFields,
+                    'hasDescriptiveCataloguingReviewFields': record.semantic_info.hasDescriptiveCatReviewFields,
+                    'hasSubjectCataloguingFields': record.semantic_info.hasSubjectCatFields,
+                    'hasSubjectCataloguingReviewFields': record.semantic_info.hasSubjectCatReviewFields,
+                    'isClosed': record.semantic_info.isClosed,
+                    'summary_record_info' : record.semantic_info.summaryRecordSysNumber,
+                    'summary_record_aleph_sys_number' : record.semantic_info.parsedSummaryRecordSysNumber,
+                    'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
+                    }
+                self.context.findAndLoadChanges(dataForFactory)
+
+                if not self.result.records:
+                    # drop context
+                    api.content.delete(obj=self.context)
+                    
+            originalfile = aq_parent(aq_inner(self.context))
+            for ii in range(20):
+                wasNextState=INextStep(originalfile).doActionFor()
+                if not wasNextState:
+                    break
+
+        pass
+
 # class OriginalFileAlephSearchDocumentResultHandler(namedtuple('AlephSearchDocumentResult',
 #                                                               ['context', 'result'])):
 #     """ 
@@ -775,6 +827,19 @@ class OriginalFileExceptionHandler(namedtuple('ExceptionHandler',['context', 're
         print self.result
         with api.env.adopt_user(username="system"):
             wft.doActionFor(self.context,'amqpError', comment=str(self.result.payload))
+        pass
+
+class AlephRecordExceptionHandler(namedtuple('ExceptionHandler',['context', 'result'])):
+    """ 
+    context: alephRecord
+    result:  AMQPError
+    """
+    def handle(self):
+        print "<- AMQP Exception for: ", self.context.absolute_url()
+        wft = api.portal.get_tool('portal_workflow')
+        with api.env.adopt_user(username="system"):
+            originalfile = aq_parent(aq_inner(self.context))
+            wft.doActionFor(originalfile,'amqpError', comment=str(self.result.payload))
         pass
 
 class AgreementGenerationRequestSender(namedtuple('AgreementGeneration',['context'])):

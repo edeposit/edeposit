@@ -19,6 +19,14 @@
     />
 
   <adapter
+    for="edeposit.content.aleph_record.IAlephRecord
+         edeposit.content.handlers.IAMQPError
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.AlephRecordExceptionHandler"
+    />
+
+  <adapter
     for="edeposit.content.originalfile.IOriginalFile
          edeposit.content.amqp.IScanResult
          "
@@ -56,6 +64,14 @@
            "
       provides="edeposit.content.amqp.IAMQPHandler"
       factory=".amqp.OriginalFileAlephSearchResultHandler"
+      />
+
+  <adapter
+      for="edeposit.content.aleph_record.IAlephRecord
+           edeposit.content.amqp.IAlephSearchResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.AlephRecordAlephSearchResultHandler"
       />
 
   <!-- <adapter -->
