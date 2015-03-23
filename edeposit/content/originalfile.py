@@ -50,6 +50,10 @@ from .tasks import (
     DoActionFor
 )
 
+from edeposit.content.amqp_interfaces import (
+    IEmailSender
+)
+
 def urlCodeIsValid(value):
     return True
 

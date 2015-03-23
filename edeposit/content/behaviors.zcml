@@ -9,10 +9,10 @@
         title="Format"
         description="Give format of a file attribute for Original File"
         provides=".behaviors.IFormat"
-        factory=".behaviors.Format"
+        factory=".originalfile_behaviors.Format"
         />
 
-    <adapter factory=".behaviors.CalibreFormat"/>
+    <adapter factory=".originalfile_behaviors.CalibreFormat"/>
 
     <plone:behavior
         title="Informing about changes"

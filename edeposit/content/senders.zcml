@@ -102,7 +102,7 @@
 
   <adapter
     for="edeposit.content.originalfile.IOriginalFile"
-    provides="edeposit.content.amqp.IEmailSender"
+    provides="edeposit.content.amqp_interfaces.IEmailSender"
     factory=".amqp.OriginalFileHasBeenChangedSendEmail"
     name="originalfile-has-been-changed"
     />
