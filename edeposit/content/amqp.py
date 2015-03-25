@@ -840,6 +840,9 @@ class AlephRecordExceptionHandler(namedtuple('ExceptionHandler',['context', 'res
         with api.env.adopt_user(username="system"):
             originalfile = aq_parent(aq_inner(self.context))
             wft.doActionFor(originalfile,'amqpError', comment=str(self.result.payload))
+            if self.result.exception_name == 'DocumentNotFoundException':
+                print "... remove aleph record: ", self.context
+                api.content.delete(self.context)
         pass
 
 class AgreementGenerationRequestSender(namedtuple('AgreementGeneration',['context'])):

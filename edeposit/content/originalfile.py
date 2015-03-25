@@ -294,13 +294,13 @@ class OriginalFile(Container):
         else:
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
 
-            if dataForFactory.get('isClosed',False):
-                self.related_aleph_record = None
-            else:
-                related_aleph_record = self.related_aleph_record and \
-                                       getattr(self.related_aleph_record,'to_object',None)
-                if related_aleph_record and not related_aleph_record.isClosed:
-                    self.related_aleph_record = None
+            # if dataForFactory.get('isClosed',False):
+            #     self.related_aleph_record = None
+            # else:
+            #     related_aleph_record = self.related_aleph_record and \
+            #                            getattr(self.related_aleph_record,'to_object',None)
+            #     if related_aleph_record and not related_aleph_record.isClosed:
+            #         self.related_aleph_record = None
                     
             IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
 
@@ -335,13 +335,16 @@ class OriginalFile(Container):
 
         else:
             createContentInContainer(self, 'edeposit.content.alephrecord', **dataForFactory)
-            if dataForFactory.get('isClosed',False):
-                self.related_aleph_record = None
-            else:
-                related_aleph_record = self.related_aleph_record and \
-                                       getattr(self.related_aleph_record,'to_object',None)
-                if related_aleph_record and not related_aleph_record.isClosed:
-                    self.related_aleph_record = None
+
+            # if dataForFactory.get('isClosed',False):
+            #     self.related_aleph_record = None
+            # else:
+            #     related_aleph_record = self.related_aleph_record and \
+            #                            getattr(self.related_aleph_record,'to_object',None)
+            #     if related_aleph_record and not related_aleph_record.isClosed:
+            #         self.related_aleph_record = None
+
+            IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
 
     @property
     def isClosed(self):
@@ -354,7 +357,6 @@ class OriginalFile(Container):
     def updateAlephRelatedData(self):
         # try to choose related_aleph_record
         alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
-
         self.related_aleph_record = None
         self.summary_aleph_record = None
         self.primary_originalfile = None
@@ -396,17 +398,38 @@ class OriginalFile(Container):
         keys = [ii for ii in IOriginalFile.names() if ii not in ('file','thumbnail')]
         return dict(zip(keys,map(partial(getattr,self), keys)))
 
+    def removeInappropriateAlephRecords(self):
+        """ remove aleph records that does not refer to this original file """
+        alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
+
+        def refersToThisOriginalFile(aleph_record):
+            absolute_url = self.absolute_url()
+            internal_url = aleph_record.internal_url
+            import pdb; pdb.set_trace()
+            pass
+        
+        toBeRemoved = [rec for rec in alephRecords if not refersToThisOriginalFile(rec)]
+        import pdb; pdb.set_trace()
+        pass
+
     def checkUpdates(self):
         """ it tries to decide whether some changes appeared in aleph records. 
         The function loads the changes from a proper aleph record into its own attributes.
         The function will plan producent notification.
         """
+
+        # self.removeInappropriateAlephRecords()
+        self.updateAlephRelatedData()
+
         changes = IChanges(self).getChanges()
         for change in changes:
             IApplicableChange(change).apply()
+
         if changes:
             getAdapter(self, IEmailSender, name="originalfile-has-been-changed").send()
             #self.informProducentAboutChanges = True
+
+        # self.updateAlephRelatedData()
 
 class OriginalFilePrimaryFieldInfo(object):
     implements(IPrimaryFieldInfo)
