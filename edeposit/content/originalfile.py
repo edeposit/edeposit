@@ -62,6 +62,8 @@ from edeposit.content.tasks import (
     CheckUpdates,
 )
 
+from edeposit.content.next_step import INextStep
+
 @grok.provider(IContextSourceBinder)
 def availableAlephRecords(context):
     path = '/'.join(context.getPhysicalPath())
@@ -428,6 +430,11 @@ class OriginalFile(Container):
         if changes:
             getAdapter(self, IEmailSender, name="originalfile-has-been-changed").send()
             #self.informProducentAboutChanges = True
+
+        for ii in range(20):
+            wasNextState=INextStep(self).doActionFor()
+            if not wasNextState:
+                break
 
         # self.updateAlephRelatedData()
 

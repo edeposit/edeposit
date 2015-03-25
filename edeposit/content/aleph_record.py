@@ -122,6 +122,11 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = _(u'Informations about Summary Aleph Record for this ePublication'),
         required = False,
     )
+    internal_url = schema.ASCIILine (
+        title = _(u'Internal URL'),
+        description = _(u'link to eDeposit'),
+        required = False,
+    )
     xml = NamedBlobFile (
         title=_(u"XML file with MARC21"),
         required = False,
