@@ -37,7 +37,7 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasAcquisitionFields:
             self.wft.doActionFor(self.context,'submitAcquisition')
-            self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="submit Acquisition")
+            #self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="submit Acquisition")
             return True
         return False
 
@@ -45,7 +45,7 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         aleph_record = self.context.related_aleph_record and getattr(self.context.related_aleph_record,'to_object',None)
         if aleph_record and aleph_record.hasISBNAgencyFields:
             self.wft.doActionFor(self.context,'submitISBNGeneration')
-            self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="ISBN was assigned")
+            #self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment="ISBN was assigned")
             return True
         return False
 
@@ -54,14 +54,14 @@ class OriginalFileNextStep(namedtuple("OriginalFileNextStep",['context',])):
         if not alephRecords:
             comment = u"v Alephu není žádný záznam.  ISBN: %s" % (self.context.isbn, )
             self.wft.doActionFor(self.context,'noAlephRecordLoaded')
-            self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+            #self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
             return False
 
         comment = u"výsledek dotazu do Alephu ISBN(%s): zaznamu: %s" % (self.context.isbn, 
                                                                         str(len(alephRecords)))
         
         self.wft.doActionFor(self.context, 'alephRecordsLoaded')
-        self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
+        #self.wft.doActionFor(aq_parent(aq_inner(self.context)),'notifySystemAction', comment=comment)
         return True
         
     def nextstep_for_descriptiveCataloguingPreparing(self, *args, **kwargs):

@@ -102,10 +102,10 @@
   
   <adapter factory=".originalfile_changes.OriginalFileChanges"/>
 
-  <subscriber
-      for=".aleph_record.IAlephRecord
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedAlephRecord"/>
+  <!-- <subscriber -->
+  <!--     for=".aleph_record.IAlephRecord -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedAlephRecord"/> -->
 
   <!-- <browser:viewlet -->
   <!--       name="plone.contentactions" -->

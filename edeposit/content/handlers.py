@@ -521,9 +521,9 @@ def addedOriginalFile(context, event):
     context.relatedItems = [RelationValue(intids.getId(epublication))]
     pass
 
-def addedAlephRecord(context, event):
-    originalfile = aq_parent(aq_inner(context))
-    originalfile.updateAlephRelatedData()
+# def addedAlephRecord(context, event):
+#     originalfile = aq_parent(aq_inner(context))
+#     originalfile.updateAlephRelatedData()
 
 def updateFormat(context, event):
     originalfile = aq_inner(context)
