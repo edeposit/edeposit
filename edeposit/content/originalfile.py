@@ -406,7 +406,7 @@ class OriginalFile(Container):
 
         def refersToThisOriginalFile(aleph_record):
             absolute_url = self.absolute_url()
-            internal_url = aleph_record.internal_url
+            internal_urls = aleph_record.internal_urls
             import pdb; pdb.set_trace()
             pass
         

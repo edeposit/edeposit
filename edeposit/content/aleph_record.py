@@ -112,6 +112,12 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         required = False,
         default = False,
     )
+    isSummaryRecord= schema.Bool (
+        title = _(u'is summary record'),
+        description = u"summaries other aleph records into one",
+        required = False,
+        default = False,
+    )
     summary_record_aleph_sys_number  = schema.ASCIILine (
         title = _(u'Aleph SysNumber of Summary Record'),
         description = _(u'Internal SysNumber of a Summary Aleph Record for this ePublication'),
@@ -125,6 +131,12 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
     internal_url = schema.ASCIILine (
         title = _(u'Internal URL'),
         description = _(u'link to eDeposit'),
+        required = False,
+    )
+    internal_urls = schema.List (
+        title = _(u'Internal URLs'),
+        description = _(u'links to eDeposit'),
+        value_type = schema.ASCIILine(),
         required = False,
     )
     xml = NamedBlobFile (

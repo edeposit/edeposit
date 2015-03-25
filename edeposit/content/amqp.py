@@ -629,6 +629,9 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
             print "num of records: ", len(self.result.records)
             for record in self.result.records:
                 epublication = record.epublication
+                internal_url = getattr(epublication,'internal_url',None)
+                internal_urls = getattr(epublication,'internal_urls', None) \
+                                or (internal_url and [internal_url]) or []
                 dataForFactory = {
                     'title': "".join([u"Záznam v Alephu: ",
                                       str(epublication.nazev), 
@@ -653,7 +656,9 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                     'isClosed': record.semantic_info.isClosed,
                     'summary_record_info' : record.semantic_info.summaryRecordSysNumber,
                     'summary_record_aleph_sys_number' : record.semantic_info.parsedSummaryRecordSysNumber,
-                    'internal_url': record.epublication.internal_url,
+                    #'internal_url': record.epublication.internal_url,
+                    'internal_urls': internal_urls,
+                    'isSummaryRecord': record.semantic_info.isSummaryRecord or False,
                     'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
                     }
                 self.context.updateOrAddAlephRecord(dataForFactory)
@@ -684,6 +689,11 @@ class AlephRecordAlephSearchResultHandler(namedtuple('AlephSearchtResult',['cont
             print "num of records: ", len(self.result.records)
             for record in self.result.records:
                 epublication = record.epublication
+
+                internal_url = getattr(epublication,'internal_url',None)
+                internal_urls = getattr(epublication,'internal_urls', None) \
+                                or (internal_url and [internal_url]) or []
+
                 dataForFactory = {
                     'title': "".join([u"Záznam v Alephu: ",
                                       str(epublication.nazev), 
@@ -708,7 +718,9 @@ class AlephRecordAlephSearchResultHandler(namedtuple('AlephSearchtResult',['cont
                     'isClosed': record.semantic_info.isClosed,
                     'summary_record_info' : record.semantic_info.summaryRecordSysNumber,
                     'summary_record_aleph_sys_number' : record.semantic_info.parsedSummaryRecordSysNumber,
-                    'internal_url': record.epublication.internal_url,
+                    #'internal_url': record.epublication.internal_url,
+                    'internal_urls': internal_urls,
+                    'isSummaryRecord': record.semantic_info.isSummaryRecord or False,
                     'xml': NamedBlobFile(record.xml, filename=u"marc21.xml"),
                     }
                 self.context.findAndLoadChanges(dataForFactory)
