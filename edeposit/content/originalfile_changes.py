@@ -34,7 +34,6 @@ class OriginalFileChanges(object):
 
     def getChanges(self):
         of = self.context
-
         related_aleph_record = of.related_aleph_record and getattr(of.related_aleph_record,'to_object',None)
         summary_aleph_record = of.summary_aleph_record and getattr(of.summary_aleph_record,'to_object',None)
         
@@ -42,10 +41,13 @@ class OriginalFileChanges(object):
         hasRelatedAlephRecord = bool(related_aleph_record)
         hasSummary = bool(summary_aleph_record)
 
-        if hasRelatedAlephRecord and not isClosed:
-            return self.changesFromAlephRecord(related_aleph_record)
+        # if hasRelatedAlephRecord and not isClosed:
+        #     return self.changesFromAlephRecord(related_aleph_record)
             
-        if isClosed and hasSummary:
-            return self.changesFromAlephRecord(summary_aleph_record)
+        # if isClosed and hasSummary:
+        #     return self.changesFromAlephRecord(summary_aleph_record)
+
+        if hasRelatedAlephRecord:
+            return self.changesFromAlephRecord(related_aleph_record)
 
         return []
