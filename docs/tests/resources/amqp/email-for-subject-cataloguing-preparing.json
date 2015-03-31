@@ -1,0 +1,5 @@
+{ "__nt_name": "SendEmailWithWorklistToGroup",
+  "recipientsGroup": "Subject Cataloguing Administrators",
+  "worklist": "worklist-waiting-for-subject-cataloguing-preparing",
+  "additionalEmails": ["stavel.jan@gmail.com", "alena.zalejska@pragodata.cz"],
+  "subject": "Dokumenty cekajici na pripravu vecneho popisu" }
