@@ -1,0 +1,31 @@
+30 04,11 * * *      ~/bin/renew-all-aleph-records.sh  | logger -t edeposit
+50 04,11 * * *      ~/bin/load-sysnumbers-from-aleph.sh | logger -t edeposit
+
+00 05,12 * * *      ~/bin/send-emails-waiting-for-acquisition.sh | logger -t edeposit
+00 05,12 * * *      ~/bin/send-emails-waiting-for-proper-aleph-record-choosing.sh | logger -t edeposit
+00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-generation.sh | logger -t edeposit
+00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-subject-validation.sh | logger -t edeposit
+
+00 05,12 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-preparing.sh | logger -t edeposit
+02 05,12 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-review-preparing.sh | logger -t edeposit
+
+04 05,12 * * *      ~/bin/send-email-to-group-descriptive-cataloguers.sh | logger -t edeposit
+06 05,12 * * *      ~/bin/send-email-to-group-descriptive-cataloguing-reviewers.sh | logger -t edeposit
+
+08 05,12 * * *      ~/bin/send-emails-waiting-for-subject-cataloguing-preparing.sh | logger -t edeposit
+10 05,12 * * *      ~/bin/send-emails-waiting-for-subject-cataloguing-review-preparing.sh | logger -t edeposit
+
+12 05,12 * * *      ~/bin/send-email-to-group-subject-cataloguers.sh | logger -t edeposit
+14 05,12 * * *      ~/bin/send-email-to-group-subject-cataloguing-reviewers.sh | logger -t edeposit
+
+#50 11 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-preparing.sh | logger -t edeposit
+#52 11 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-review-preparing.sh | logger -t edeposit
+#
+#54 11 * * *      ~/bin/send-email-to-group-descriptive-cataloguers.sh | logger -t edeposit
+#56 11 * * *      ~/bin/send-email-to-group-descriptive-cataloguing-reviewers.sh | logger -t edeposit
+#
+#58 11 * * *      ~/bin/send-emails-waiting-for-subject-cataloguing-preparing.sh | logger -t edeposit
+#50 11 * * *      ~/bin/send-emails-waiting-for-subject-cataloguing-review-preparing.sh | logger -t edeposit
+#
+#52 11 * * *      ~/bin/send-email-to-group-subject-cataloguers.sh | logger -t edeposit
+#54 11 * * *      ~/bin/send-email-to-group-subject-cataloguing-reviewers.sh | logger -t edeposit
