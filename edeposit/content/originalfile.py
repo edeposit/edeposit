@@ -371,30 +371,30 @@ class OriginalFile(Container):
             isClosedRecords = filter(lambda rr: rr.isClosed, alephRecords)
             if len(isClosedRecords) == 1:
                 self.related_aleph_record = RelationValue(intids.getId(isClosedRecords[0]))
-                if len(alephRecords) == 2:
-                    summaryRecords = filter(lambda item: not item.isClosed, alephRecords)
-                    if summaryRecords:
-                        self.summary_aleph_record = RelationValue(intids.getId(summaryRecords[0]))
-                        # TODO
-                        # doplnil zarazeni primary_originalfile
+
+            summaryRecords = filter(lambda item: item.isSummaryRecord, alephRecords)
+            if summaryRecords:
+                self.summary_aleph_record = RelationValue(intids.getId(summaryRecords[0]))
+                # TODO
+                # doplnil zarazeni primary_originalfile
 
     def properAlephRecordsChoosen(self):
         # the method says that there is no need to manualy choose
         # related_aleph_record and summary_aleph_record
         alephRecords = self.listFolderContents(contentFilter={'portal_type':'edeposit.content.alephrecord'})
         if len(alephRecords) == 1:
-            if self.related_aleph_record:
-                return True
+            return bool(self.related_aleph_record)
         else:
             isClosedRecords = filter(lambda item: item.isClosed, alephRecords)
-            if len(isClosedRecords) < len(alephRecords):
-                if self.related_aleph_record and self.summary_aleph_record:
-                    return True
-            else:
-                if self.related_aleph_record:
-                    return True
+            summaryRecords = filter(lambda item: item.isSummaryRecord, alephRecords)
+            if isClosedRecords:
+                if summaryRecords:
+                    return bool(self.related_aleph_record) and bool(self.summary_aleph_record)
+                else:
+                    return bool(self.related_aleph_record)
 
-        return False
+        return bool(self.related_aleph_record)
+
 
     def dataForContributionPDF(self):
         keys = [ii for ii in IOriginalFile.names() if ii not in ('file','thumbnail')]
@@ -407,11 +407,11 @@ class OriginalFile(Container):
         def refersToThisOriginalFile(aleph_record):
             absolute_url = self.absolute_url()
             internal_urls = aleph_record.internal_urls
-            import pdb; pdb.set_trace()
-            pass
-        
+            return (absolute_url in internal_urls)
+
         toBeRemoved = [rec for rec in alephRecords if not refersToThisOriginalFile(rec)]
-        import pdb; pdb.set_trace()
+        for record in toBeRemoved:
+            api.content.delete(obj=record)
         pass
 
     def checkUpdates(self):
@@ -435,8 +435,6 @@ class OriginalFile(Container):
             wasNextState=INextStep(self).doActionFor()
             if not wasNextState:
                 break
-
-        # self.updateAlephRelatedData()
 
 class OriginalFilePrimaryFieldInfo(object):
     implements(IPrimaryFieldInfo)
@@ -470,7 +468,7 @@ def tryPrimaryOriginalGetterFactory(getter):
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
         local_roles = self.get_local_roles()
-        print "... get assigned person %s, %s" % (roleName, str(local_roles))
+        # print "... get assigned person %s, %s" % (roleName, str(local_roles))
         pairs = filter(lambda pair: roleName in pair[1], local_roles)
         return pairs and pairs[0][0] or None
 

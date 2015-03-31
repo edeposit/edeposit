@@ -3,6 +3,7 @@ from .changes import IChanges, ObjSetterApply
 from zope.interface import implements
 from zope.component import adapts
 from Acquisition import aq_parent, aq_inner
+import isbn_validator
 
 class OriginalFileChanges(object):
     implements(IChanges)
@@ -15,7 +16,7 @@ class OriginalFileChanges(object):
     def changesFromAlephRecord(self,record):
         changes = []
 
-        if record.isbn != self.context.isbn:
+        if record.isbn != self.context.isbn and isbn_validator.is_valid_isbn(record.isbn):
             changes.append(ObjSetterApply(self.context, 'isbn', record.isbn))
 
         if record.nazev != self.epublication.title:

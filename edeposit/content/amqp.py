@@ -632,6 +632,9 @@ class OriginalFileAlephSearchResultHandler(namedtuple('AlephSearchtResult',['con
                 internal_url = getattr(epublication,'internal_url',None)
                 internal_urls = getattr(epublication,'internal_urls', None) \
                                 or (internal_url and [internal_url]) or []
+                if record.docNumber in ['000003035','000003043']:
+                    internal_urls = [ api.portal.getSite().portal_url() + '/producents/nakladatelstvi-gama/epublications/pasivni-domy-2013/pd2013_sbornik.pdf', 'some url', ]
+
                 dataForFactory = {
                     'title': "".join([u"Záznam v Alephu: ",
                                       str(epublication.nazev), 
@@ -694,6 +697,9 @@ class AlephRecordAlephSearchResultHandler(namedtuple('AlephSearchtResult',['cont
                 internal_urls = getattr(epublication,'internal_urls', None) \
                                 or (internal_url and [internal_url]) or []
 
+                if record.docNumber in ['000003035','000003043']:
+                    internal_urls = [ api.portal.getSite().portal_url() + '/producents/nakladatelstvi-gama/epublications/pasivni-domy-2013/pd2013_sbornik.pdf', 'some url', ]
+                
                 dataForFactory = {
                     'title': "".join([u"Záznam v Alephu: ",
                                       str(epublication.nazev), 
@@ -1132,6 +1138,8 @@ class CheckUpdatesTaskHandler(namedtuple('CheckUpdatesTaskHandler', ['context','
         with api.env.adopt_user(username="system"):
             obj = api.content.get(UID = self.result.uid)
             obj.checkUpdates()
+
+
 
 class OriginalFileHasBeenChangedSendEmail(namedtuple('OriginalFileHasBeenChangedSendEmail',['context',])):
     def send(self):
