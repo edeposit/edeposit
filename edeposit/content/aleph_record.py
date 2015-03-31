@@ -158,7 +158,7 @@ class AlephRecord(Item):
             return getattr(self,attr,None) != data.get(attr,None)
 
         changedAttrs = filter(isChanged, data.keys())
-        print "changedAttrs", changedAttrs
+        # print "changedAttrs", changedAttrs
         for attr in changedAttrs:
             setattr(self, attr, data.get(attr,None) )
         return changedAttrs
