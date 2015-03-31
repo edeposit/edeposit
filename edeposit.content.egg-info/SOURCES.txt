@@ -19,6 +19,7 @@ edeposit/content/aleph_record.py
 edeposit/content/aleph_search_sysnumber_request.py
 edeposit/content/amqp.py
 edeposit/content/amqp_folder.py
+edeposit/content/amqp_interfaces.py
 edeposit/content/author.py
 edeposit/content/behaviors.py
 edeposit/content/book.py
@@ -44,6 +45,7 @@ edeposit/content/messages_folder.py
 edeposit/content/mock.py
 edeposit/content/next_step.py
 edeposit/content/originalfile.py
+edeposit/content/originalfile_behaviors.py
 edeposit/content/originalfile_changes.py
 edeposit/content/originalfile_contributing_request.py
 edeposit/content/originalfile_contributing_requests_folder.py
@@ -106,4 +108,5 @@ edeposit/content/tests/test_waitingforacquisition.py
 edeposit/content/tests/test_waitingforaleph.py
 edeposit/content/widgets/__init__.py
 edeposit/content/widgets/interfaces.py
+edeposit/content/widgets/originalfilesource.py
 edeposit/content/widgets/voucher.py
