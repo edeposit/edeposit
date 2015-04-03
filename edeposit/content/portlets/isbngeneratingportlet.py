@@ -15,13 +15,13 @@ from edeposit.content.originalfile import IOriginalFile
 from five import grok
 from plone.z3cform.layout import FormWrapper
 from zope.formlib import form as formlib
-import edeposit.amqp.aleph
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 from zope.lifecycleevent import modified
 from plone import api
 import sys
 from Acquisition import aq_inner, aq_parent
 from zope.security import checkPermission
+from edeposit.content.utils import is_valid_isbn
 
 class IISBNGeneration(form.Schema):
     isbn = schema.ASCIILine(
@@ -46,7 +46,7 @@ class ISBNGenerationForm(form.SchemaForm):
             self.status = self.formErrorsMessage
             return
         try:
-            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(data['isbn'])
+            valid = is_valid_isbn(data['isbn'])
         except:
             print sys.exc_info()
             raise ActionExecutionError(Invalid(u"Objevila se nějaká chyby při volání Aleph služby! (%s)" % (str(sys.exc_info()),)))

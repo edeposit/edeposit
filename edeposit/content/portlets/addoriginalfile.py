@@ -24,7 +24,7 @@ import sys
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 from zope.lifecycleevent import modified
 from zope.interface import invariant, Invalid
-import edeposit.amqp.aleph
+from edeposit.content.utils import is_valid_isbn
 
 def urlCodeIsValid(value):
     return True
@@ -75,7 +75,7 @@ class AddOriginalFileForm(form.SchemaForm):
             raise ActionExecutionError(Invalid(u"Je potřeba vyplnit ISBN, nebo zvolit jeho přiřazení."))
             
         try:
-            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(data['isbn'] or "")
+            valid = is_valid_isbn(data['isbn'] or "")
         except:
             print sys.exc_info()
             raise ActionExecutionError(Invalid(u"Objevila se nějaká chyby při volání Aleph služby! (%s)" % (str(sys.exc_info()),)))
