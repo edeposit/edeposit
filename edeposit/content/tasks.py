@@ -106,6 +106,11 @@ class IChangesEmailNotify(IPloneTask):
 class ChangesEmailNotify(namedtuple('ChangesEmailNotify',['uid'])):
     implements(IChangesEmailNotify)
 
+class IEnsureProducentsRolesConsistency(IPloneTask):
+    pass
+
+class EnsureProducentsRolesConsistency(namedtuple('EnsureProducentsRolesConsistency',[])):
+    implements(IEnsureProducentsRolesConsistency)
 
 if __name__ == '__main__':
     import unittest

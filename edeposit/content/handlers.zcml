@@ -175,5 +175,13 @@
       provides="edeposit.content.amqp.IAMQPHandler"
       factory=".amqp.CheckUpdatesTaskHandler"
       />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.IEnsureProducentsRolesConsistency
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.EnsureProducentsRolesConsistencyTaskHandler"
+      />
   
 </configure>

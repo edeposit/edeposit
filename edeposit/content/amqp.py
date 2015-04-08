@@ -1145,3 +1145,18 @@ class OriginalFileHasBeenChangedSendEmail(namedtuple('OriginalFileHasBeenChanged
     def send(self):
         of = self.context
         print "send email notification"
+
+class EnsureProducentsRolesConsistencyTaskHandler(namedtuple('EnsureProducentsRolesConsistencyTaskHandler',
+                                                             ['context', 'result'])):
+    """ 
+    context: IAMQPHandler
+    result:  IEnsureProducentsRolesConsistency
+    """
+    def handle(self):
+        print "<- Plone AMQP Task: ", str(self.result)
+        with api.env.adopt_user(username="system"):
+            producents = api.portal.get_tool('portal_catalog')(portal_type='edeposit.user.producent')
+            uids = map(lambda item: item.UID, producents)
+            for uid in uids:
+                IPloneTaskSender(DoActionFor(transition='ensureRolesConsistency', uid=uid)).send()
+
