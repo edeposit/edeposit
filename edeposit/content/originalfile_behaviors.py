@@ -2,6 +2,7 @@
 
 from zope.interface import implementer, alsoProvides, implements
 from zope.component import adapter, adapts
+import magic
 
 from edeposit.content.behaviors import (
     IFormat, 
