@@ -1,3 +1,6 @@
 [submodule "src/edeposit.theme"]
 	path = src/edeposit.theme
 	url = https://github.com/jstavel/edeposit.theme.git
+[submodule "src/edeposit.content"]
+	path = src/edeposit.content
+	url = https://github.com/jstavel/edeposit.content.git
