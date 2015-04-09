@@ -349,6 +349,16 @@ class OriginalFile(Container):
             IPloneTaskSender(CheckUpdates(uid=self.UID())).send()
 
     @property
+    def isbnAppearsAtRelatedAlephRecord(self):
+        if self.related_aleph_record:
+            record = getattr(self.related_aleph_record, 'to_object',None)
+            if record:
+                import pdb; pdb.set_trace()
+                return False
+
+        return False
+
+    @property
     def isClosed(self):
         if self.related_aleph_record:
             record = getattr(self.related_aleph_record, 'to_object',None)
