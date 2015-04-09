@@ -1,3 +1,4 @@
+00 04    * * *      ~/bin/ensure-producents-roles-consistency.sh  | logger -t edeposit
 30 04,11 * * *      ~/bin/renew-all-aleph-records.sh  | logger -t edeposit
 50 04,11 * * *      ~/bin/load-sysnumbers-from-aleph.sh | logger -t edeposit
 
