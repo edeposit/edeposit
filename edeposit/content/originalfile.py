@@ -552,6 +552,10 @@ class ChangeSourceView(form.SchemaForm):
         self.context.file = data['file']
         wft = api.portal.get_tool('portal_workflow')
         if self.context.file:
+            # If originalfile has aleph records and ISBN is at Aleph Records
+            # skip ISBN validation
+            # remove thumbnail
+            self.context.thumbnail = None
             wft.doActionFor(self.context, (self.context.isbn and 'submitDeclarationToISBNValidation')
                             or ('submitDeclarationToAntivirus'))
         self.request.response.redirect(self.context.absolute_url())
