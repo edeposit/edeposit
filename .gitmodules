@@ -1,0 +1,3 @@
+[submodule "src/edeposit.theme"]
+	path = src/edeposit.theme
+	url = https://github.com/jstavel/edeposit.theme.git
