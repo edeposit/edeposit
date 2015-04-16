@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="plone.formwidget.namedfile">
+
+    <adapter factory=".voucher.VoucherFileFieldWidget" />
+    <adapter factory=".originalfilesource.OriginalFileSourceFieldWidget" />
+
+    <z3c:widgetTemplate
+        mode="display"
+        widget="edeposit.content.widgets.interfaces.IVoucherFileWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="voucher_display.pt"
+        />
+
+    <z3c:widgetTemplate
+        mode="display"
+        widget="edeposit.content.widgets.interfaces.IOriginalFileSourceWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="originalfilesource_display.pt"
+        />
+
+</configure>

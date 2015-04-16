@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="edeposit.content">
+
+    <include package="plone.behavior" file="meta.zcml" />
+
+    <plone:behavior
+        title="Format"
+        description="Give format of a file attribute for Original File"
+        provides=".behaviors.IFormat"
+        factory=".originalfile_behaviors.Format"
+        />
+
+    <adapter factory=".originalfile_behaviors.CalibreFormat"/>
+
+    <plone:behavior
+        title="Informing about changes"
+        description="It helps with informing of a producent about changes that appeared"
+        provides=".behaviors.IChangesInformating"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        />
+
+</configure>

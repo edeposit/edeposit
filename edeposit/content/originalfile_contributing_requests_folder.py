@@ -19,8 +19,7 @@ from plone.namedfile.interfaces import IImageScaleTraversable
 
 from .originalfile_contributing_request import IOriginalFileContributingRequest
 from edeposit.content import MessageFactory as _
-import edeposit.amqp.aleph
-
+from edeposit.content.utils import is_valid_isbn
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 
 # Interface class; used to define content-type schema.
@@ -94,7 +93,7 @@ class ContributeForm(form.Form):
         if isbn:
             print "isbn appeared: ", isbn
             isbnWidget = self.widgets.get('isbn',None)
-            valid = edeposit.amqp.aleph.isbn.is_valid_isbn(isbn)
+            valid = is_valid_isbn(isbn)
             if not valid:
                 # validity error
                 print "isbn is not valid"

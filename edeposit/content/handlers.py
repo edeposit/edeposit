@@ -30,7 +30,14 @@ from edeposit.amqp.serializers import (
     deserialize
 )
 
-from edeposit.content.amqp import IAMQPHandler, IAMQPSender, parse_headers, make_headers
+from edeposit.content.amqp import (
+    IAMQPHandler,
+    IAMQPSender,
+    parse_headers,
+    make_headers,
+    AlephSearchDocumentResult,
+    AlephSearchSummaryRecordResult,
+)
 import json
 
 from collections import namedtuple
@@ -63,6 +70,20 @@ from edeposit.amqp.antivirus.structures import (
     ScanResult,
     ScanFile
 )
+
+from edeposit.amqp.calibre.structures import (
+    ConversionRequest,
+    ConversionResponse,
+)
+
+from edeposit.amqp.pdfgen.structures import (
+    PDF
+)
+
+from edeposit.content.tasks import *
+
+# (occur-1 "class " nil (list (current-buffer)) "*handlers: class*")
+# (occur-1 "def " nil (list(current-buffer)) "*handlers: def*")
 
 class IAMQPError(Interface):
     payload = Attribute("")
@@ -129,8 +150,24 @@ def handleAlephResponse(message, event):
                               exception = headers.get('exception'),
                               headers = headers)
         getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
     else:
         result = deserialize(json.dumps(message.body),globals())
+        dataKeys = session_data.keys()
+        # ResultFactory = None
+        # if 'renew-records-for-sysnumber' in dataKeys:
+        #     ResultFactory = AlephSearchDocumentResult
+        # elif 'load-summary-record-for-sysnumber' in dataKeys:
+        #     ResultFactory = AlephSearchSummaryRecordResult
+
+        # if ResultFactory:
+        #     records = result.records
+        #     if records:
+        #         newResult = ResultFactory(record = result.records[0])
+        #         getMultiAdapter((context,newResult),IAMQPHandler).handle()
+        #     else:
+        #         print "... there are no records at the result"
+        # else:
         getMultiAdapter((context,result),IAMQPHandler).handle()
         message.ack()
 
@@ -163,48 +200,118 @@ def handleAntivirusResponse(message, event):
                               exception = headers.get('exception'),
                               headers = headers)
         getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
     else:
         # Messages from Antivir has its own deserialization logic. 
         # So we will use it.
         result = deserialize(json.dumps(message.body),globals())
         getMultiAdapter((context,result),IAMQPHandler).handle()
         message.ack()
-
-    # if isinstance(data, ScanResult):
-    #     with api.env.adopt_user(username="system"):
-    #         if data.result: # some virus found
-    #             comment =u"v souboru %s je virus: %s" % (originalfile.file.filename, str(data.results))
-    #             wft.doActionFor(epublication,'notifySystemAction', comment=comment)
-    #             wft.doActionFor(originalfile, 'antivirusError', comment=comment)
-    #         else:
-    #             comment=u"soubor %s prošel antivirovou kontrolou" % (originalfile.file.filename,)
-    #             wft.doActionFor(epublication,'notifySystemAction', comment=comment)
-    #             if originalfile.isbn:
-    #                 wft.doActionFor(originalfile, 'antivirusOKisbnValidation')
-    #             else:
-    #                 wft.doActionFor(originalfile, 'antivirusOKisbnGeneration')
-    #             pass
-    #         pass
-    #     pass
-    # elif "exception" in headers:
-    #     with api.env.adopt_user(username="system"):
-    #         createContentInContainer(systemMessages,'edeposit.content.alephexception', 
-    #                                      title="".join([u"Chyba při volání služby Aleph: ",
-    #                                                     getattr(requestMessage,'isbn',""),
-    #                                                 ]),
-    #                                      message = "".join([ str(headers),
-    #                                                          str(data)
-    #                                                      ]),
-    #                                      isbn = getattr(requestMessage,'isbn',""),
-    #                                  )
-    #     print "There was an error in processing request ", headers["UUID"]
-    #     print headers["exception_name"] + ": " + headers["exception"]
-    # else:
-    #     print "unknown message"
-    #     print message.body
-
-    #message.ack()
     pass
+
+class ICalibreResponse(Interface):
+    """Message marker interface"""
+
+class CalibreResponseConsumer(Consumer):
+    grok.name('amqp.calibre-response-consumer')
+    connection_id = "calibre"
+    queue = "plone"
+    serializer = "plain"
+    marker = ICalibreResponse
+    pass
+
+@grok.subscribe(ICalibreResponse, IMessageArrivedEvent)
+def handleCalibreResponse(message, event):
+    print "handle calibre response"
+    wft = api.portal.get_tool('portal_workflow')
+    headers = message.header_frame.headers
+    (context, session_data) = parse_headers(headers)
+    if not context:
+        print "no context at headers"
+        message.ack()
+        return
+
+    if "exception" in headers:
+        amqpError = AMQPError(payload=message.body, 
+                              exception_name = headers.get('exception_name'),
+                              exception = headers.get('exception'),
+                              headers = headers)
+        getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
+    else:
+        result = deserialize(json.dumps(message.body),globals())
+        getMultiAdapter((context,result),IAMQPHandler).handle()
+        message.ack()
+
+class IPDFGenResponse(Interface):
+    """Message marker interface"""
+
+class PDFGenResponseConsumer(Consumer):
+    grok.name('amqp.pdfgen-response-consumer')
+    connection_id = "pdfgen"
+    queue = "plone"
+    serializer = "plain"
+    marker = IPDFGenResponse
+    pass
+
+@grok.subscribe(IPDFGenResponse, IMessageArrivedEvent)
+def handlePDFGenResponse(message, event):
+    print "handle pdfgen response"
+    wft = api.portal.get_tool('portal_workflow')
+    headers = message.header_frame.headers
+    (context, session_data) = parse_headers(headers)
+    if not context:
+        print "no context at headers"
+        message.ack()
+        return
+
+    if "exception" in headers:
+        amqpError = AMQPError(payload=message.body, 
+                              exception_name = headers.get('exception_name'),
+                              exception = headers.get('exception'),
+                              headers = headers)
+        getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
+    else:
+        result = deserialize(json.dumps(message.body),globals())
+        getMultiAdapter((context,result),IAMQPHandler).handle()
+        message.ack()
+
+class IPloneTask(Interface):
+    """Message marker interface"""
+
+class PloneTaskConsumer(Consumer):
+    grok.name('amqp.plone-task-consumer')
+    connection_id = "plone"
+    queue = "plone"
+    serializer = "plain"
+    marker = IPloneTask
+    pass
+
+@grok.subscribe(IPloneTask, IMessageArrivedEvent)
+def handlePloneTask(message, event):
+    headers = message.header_frame.headers or {}
+    (context, session_data) = parse_headers(headers)
+    if not context:
+        # we will attach default context of an amqp message:
+        # amqp folder.
+        print "... no context at headers so try AMQP Folder as default context"
+        pcatalog = api.portal.get_tool('portal_catalog') 
+        context = pcatalog(portal_type="edeposit.content.amqpfolder")[0].getObject()
+        session_data={}
+
+    if "exception" in headers:
+        amqpError = AMQPError(payload=message.body, 
+                              exception_name = headers.get('exception_name'),
+                              exception = headers.get('exception'),
+                              headers = headers)
+        getMultiAdapter((context,amqpError),IAMQPHandler).handle()
+        message.ack()
+    else:
+        result = deserialize(message._serialized_body,globals())
+        getMultiAdapter((context,result),IAMQPHandler).handle()
+        message.ack()
+
 
 # when ePublication is added
 def added(context,event):
@@ -231,9 +338,7 @@ def added(context,event):
                                   'v': '../'}
                                  ],
                           )
-    # context.invokeFactory('edeposit.content.messagesfolder','system-messages',
-    #                       title=u"Systémové zprávy")
-
+    pass
 
 def addedEPublicationFolder(context, event):
     def queryForStates(*args):
@@ -374,7 +479,7 @@ def addedAlephExportRequest(context, event):
         nakladatelVydavatel = epublication.nakladatel_vydavatel or "",
         datumVydani = str(epublication.rok_vydani),
         poradiVydani = epublication.poradi_vydani or "",
-        zpracovatelZaznamu = epublication.zpracovatel_zaznamu or "",
+        zpracovatelZaznamu = originalFile.zpracovatel_zaznamu or "",
         format = originalFile.format or "",
         url = originalFile.url or "",
         mistoVydani = epublication.misto_vydani,
@@ -397,6 +502,7 @@ def addedAlephExportRequest(context, event):
     wft.doActionFor(epublication, 'exportToAlephSubmitted')
     return
 
+
 # def addedAlephExportResult(context, event):
 #     logger.debug('added aleph export result')
 #     wft = api.portal.get_tool('portal_workflow')
@@ -415,10 +521,14 @@ def addedOriginalFile(context, event):
     context.relatedItems = [RelationValue(intids.getId(epublication))]
     pass
 
-def addedAlephRecord(context, event):
-    originalfile = aq_parent(aq_inner(context))
-    originalfile.updateAlephRelatedData()
+# def addedAlephRecord(context, event):
+#     originalfile = aq_parent(aq_inner(context))
+#     originalfile.updateAlephRelatedData()
 
+def updateFormat(context, event):
+    originalfile = aq_inner(context)
+    originalfile.updateFormat()
+    
 # class HandlerError(Exception):
 #     pass
 
@@ -438,7 +548,6 @@ def addedAlephRecord(context, event):
 #     context = getContentIfKeyExists('context_UID',uuidValue)
 #     if not context:
 #         raise HandlerError("chyba: toto uuid neexistuje: " + str(uuid))
-#     import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
 #     if uuidType == 'edeposit.originalfile-isbn-validation':
 #         pass
     

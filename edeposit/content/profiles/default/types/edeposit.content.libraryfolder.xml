@@ -14,6 +14,9 @@
   <property name="allowed_content_types">
     <element value="edeposit.content.library"/>
     <element value="Collection"/>
+    <element value="Image"/>
+    <element value="Link"/>
+    <element value="Document"/>
   </property>
   <property name="allow_discussion">True</property>
 

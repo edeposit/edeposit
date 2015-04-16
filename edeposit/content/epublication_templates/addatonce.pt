@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone"
+      metal:use-macro="context/main_template/macros/master">
+
+  <div metal:fill-slot="javascript_head_slot">
+    <script type="text/javascript">
+        (function($){
+                $(document).ready(function(){
+                        $('form[id="load-from-similar"]').prepOverlay({
+                                subtype:'ajax',
+                                filter:'#content>*',
+                                formselector:'form',
+                                redirect: function(el, responseText, pbo){
+                                        return "add-at-once";
+                                },
+                                noform: function(el,pbo){
+                                        return 'redirect';
+                                },
+                                config: {
+                                        onClose: function(el){
+                                                $('input[id="load-from-similar-widgets-load_isbn"]').removeAttr('disabled');
+                                        },
+                                },
+                        });
+                        $('input[id="load-from-similar-widgets-load_isbn"]')
+                                .on('click',function(){
+                                        $(this).attr('disabled','disabled');
+                                });
+                });
+        }(jQuery));
+    </script>
+  </div>
+
+  <metal:block fill-slot="main">
+    <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
+    
+    <div id="content-core">
+      <fieldset>
+        <form tal:replace="structure view/loadsimilarform"></form>
+      </fieldset>
+      <fieldset>
+        <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
+      </fieldset>
+    </div>
+  </metal:block>
+</html>

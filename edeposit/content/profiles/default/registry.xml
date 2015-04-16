@@ -43,4 +43,29 @@
       <element>11.        lékařské vědy (pouze pilíř II.)</element>
     </value>
   </record>
+  <record name="edeposit.content.librariesAccessingChoices">
+    <field type="plone.registry.field.Tuple">
+      <title i18n:translate="">Možnosti zpřístupnění knihovnám</title>
+      <value_type type="plone.registry.field.TextLine" />
+    </field>
+    <value>
+      <element>Žádná knihovna nemá přístup k ePublikaci</element>
+      <element>Všechny knihovny mají přístup k ePublikaci</element>
+      <element>Vybrané knihovny mají přístup</element>
+    </value>
+  </record>
+
+  <records interface="plone.app.querystring.interfaces.IQueryField"
+           prefix="plone.app.querystring.field.getAssignedProducentEditors">
+    <value key="title" i18n:translate="">Producent Editor</value>
+    <value key="description" i18n:translate="">The person that has role producent editor</value>
+    <value key="enabled">True</value>
+    <value key="sortable">True</value>
+    <value key="operations">
+      <element>plone.app.querystring.operation.string.is</element>
+      <element>plone.app.querystring.operation.string.currentUser</element>
+    </value>
+    <value key="group" i18n:translate="">Metadata</value>
+  </records>
+
 </registry>

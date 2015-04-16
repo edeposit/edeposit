@@ -1,0 +1,187 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="edeposit.content">
+
+  <!-- Include files -->
+  <include package="collective.zamqp" />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.handlers.IAMQPError
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileExceptionHandler"
+    />
+
+  <adapter
+    for="edeposit.content.aleph_record.IAlephRecord
+         edeposit.content.handlers.IAMQPError
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.AlephRecordExceptionHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.IScanResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileAntivirusResultHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.IISBNValidationResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileISBNValidateResultHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.ICountResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileCountResultHandler"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile
+         edeposit.content.amqp.IAlephExportResult
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.OriginalFileAlephExportResultHandler"
+    />
+
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.IAlephSearchResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.OriginalFileAlephSearchResultHandler"
+      />
+
+  <adapter
+      for="edeposit.content.aleph_record.IAlephRecord
+           edeposit.content.amqp.IAlephSearchResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.AlephRecordAlephSearchResultHandler"
+      />
+
+  <!-- <adapter -->
+  <!--     for="edeposit.content.originalfile.IOriginalFile -->
+  <!--          edeposit.content.amqp.IAlephSearchDocumentResult -->
+  <!--          " -->
+  <!--     provides="edeposit.content.amqp.IAMQPHandler" -->
+  <!--     factory=".amqp.OriginalFileAlephSearchDocumentResultHandler" -->
+  <!--     /> -->
+
+  <!-- <adapter -->
+  <!--     for="edeposit.content.originalfile.IOriginalFile -->
+  <!--          edeposit.content.amqp.IAlephSearchSummaryRecordResult -->
+  <!--          " -->
+  <!--     provides="edeposit.content.amqp.IAMQPHandler" -->
+  <!--     factory=".amqp.OriginalFileAlephSearchSummaryRecordResultHandler" -->
+  <!--     /> -->
+
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.ICalibreConversionResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.OriginalFileThumbnailGeneratingResultHandler"
+      />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.next_step.INextStep"
+    factory=".next_step.OriginalFileNextStep"
+    />
+
+  <adapter
+    for="edeposit.user.producent.IProducent
+         edeposit.content.handlers.IAMQPError
+         "
+    provides="edeposit.content.amqp.IAMQPHandler"
+    factory=".amqp.AgreementGenerationExceptionHandler"
+    />
+
+  <adapter
+      for="edeposit.user.producent.IProducent
+           edeposit.content.amqp.IPDFGenerationResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.AgreementGenerationResultHandler"
+      />
+
+  <adapter
+      for="edeposit.content.originalfile.IOriginalFile
+           edeposit.content.amqp.IPDFGenerationResult
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.VoucherGenerationResultHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.ISendEmailWithWorklistToGroup
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.SendEmailWithWorklistToGroupTaskHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.ISendEmailWithUserWorklist
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.SendEmailWithUserWorklistTaskHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.ILoadSysNumbersFromAleph
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.LoadSysNumbersFromAlephTaskHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.IRenewAlephRecords
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.RenewAlephRecordsTaskHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.IDoActionFor
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.DoActionForTaskHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.ICheckUpdates
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.CheckUpdatesTaskHandler"
+      />
+
+  <adapter
+      for="edeposit.content.amqp_folder.IAMQPFolder
+           edeposit.content.tasks.IEnsureProducentsRolesConsistency
+           "
+      provides="edeposit.content.amqp.IAMQPHandler"
+      factory=".amqp.EnsureProducentsRolesConsistencyTaskHandler"
+      />
+  
+</configure>
