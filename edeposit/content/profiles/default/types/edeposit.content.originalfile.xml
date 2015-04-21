@@ -15,6 +15,7 @@
     <element value="edeposit.content.isbn"/>
     <element value="edeposit.content.previewfile"/>
     <element value="edeposit.content.alephrecord"/>
+    <element value="Link"/>
   </property>
   <property name="allow_discussion">False</property>
 
@@ -24,9 +25,13 @@
 
   <property name="behaviors">
     <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
+    <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
     <element value="plone.app.relationfield.behavior.IRelatedItems"/>
     <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
     <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
+    <element value="edeposit.content.behaviors.IFormat"/>
+    <element value="edeposit.content.behaviors.IChangesInformating"/>
+    <!-- <element value="plone.app.dexterity.behaviors.discussion.IAllowDiscussion"/> -->
   </property>
 
   <!-- View information -->

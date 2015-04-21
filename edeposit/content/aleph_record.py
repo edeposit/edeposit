@@ -25,17 +25,11 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
     """
     E-Deposit Aleph Record
     """
-
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/aleph_record.xml to define the content type.
     isbn = schema.ASCIILine(
         title=_("ISBN"),
         description=_(u"Value of ISBN"),
         required = True,
-        )
-
+    )
 
     def getNazev(self):
         return self.title
@@ -76,6 +70,80 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
         description = _(u'Library that Aleph refers to metadata of this ePublication'),
         required = True,
     )
+    hasAcquisitionFields= schema.Bool (
+        title = _(u'has Acquisition Fields'),
+        description = _(u'This record has acquisition fields.'),
+        required = False,
+        default = False,
+    )
+    hasISBNAgencyFields= schema.Bool (
+        title = _(u'has ISBN Agency Fields'),
+        description = _(u'This record has ISBN Agency fields'),
+        required = False,
+        default = False,
+    )
+    hasDescriptiveCataloguingFields= schema.Bool (
+        title = _(u'has Descriptive Cataloguing Fields'),
+        description = u"",
+        required = False,
+        default = False,
+    )
+    hasDescriptiveCataloguingReviewFields= schema.Bool (
+        title = _(u'has Descriptive Cataloguing Review Fields'),
+        description = u"",
+        required = False,
+        default = False,
+    )
+    hasSubjectCataloguingFields= schema.Bool (
+        title = _(u'has Subject Cataloguing Fields'),
+        description = u"",
+        required = False,
+        default = False,
+    )
+    hasSubjectCataloguingReviewFields= schema.Bool (
+        title = _(u'has Subject Cataloguing Review Fields'),
+        description = u"",
+        required = False,
+        default = False,
+    )
+    isClosed= schema.Bool (
+        title = _(u'is closed out by Catalogizators'),
+        description = u"",
+        required = False,
+        default = False,
+    )
+    isSummaryRecord= schema.Bool (
+        title = _(u'is summary record'),
+        description = u"summaries other aleph records into one",
+        required = False,
+        default = False,
+    )
+    summary_record_aleph_sys_number  = schema.ASCIILine (
+        title = _(u'Aleph SysNumber of Summary Record'),
+        description = _(u'Internal SysNumber of a Summary Aleph Record for this ePublication'),
+        required = False,
+    )
+    summary_record_info = schema.ASCIILine (
+        title = _(u'Info about Summary Record'),
+        description = _(u'Informations about Summary Aleph Record for this ePublication'),
+        required = False,
+    )
+    internal_url = schema.ASCIILine (
+        title = _(u'Internal URL'),
+        description = _(u'link to eDeposit'),
+        required = False,
+    )
+    internal_urls = schema.List (
+        title = _(u'Internal URLs'),
+        description = _(u'links to eDeposit'),
+        value_type = schema.ASCIILine(),
+        required = False,
+    )
+    xml = NamedBlobFile (
+        title=_(u"XML file with MARC21"),
+        required = False,
+    )
+
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
@@ -84,10 +152,16 @@ class IAlephRecord(form.Schema, IImageScaleTraversable):
 
 class AlephRecord(Item):
     grok.implements(IAlephRecord)
+    
+    def findAndLoadChanges(self, data):
+        def isChanged(attr):
+            return getattr(self,attr,None) != data.get(attr,None)
 
-    # Add your class methods and properties here
-    pass
-
+        changedAttrs = filter(isChanged, data.keys())
+        # print "changedAttrs", changedAttrs
+        for attr in changedAttrs:
+            setattr(self, attr, data.get(attr,None) )
+        return changedAttrs
 
 # View class
 # The view will automatically use a similarly named template in

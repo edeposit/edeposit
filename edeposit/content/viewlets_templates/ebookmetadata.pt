@@ -1,0 +1,9 @@
+<div class="ebook-metadata"
+     id="ebook-metadata"
+     i18n:domain="plone">
+
+  <div tal:content="structure viewlet/main_metadata_form">
+    metadata
+  </div>
+  <a href="" tal:attributes="href viewlet/ebook/absolute_url">více ...</a>
+</div>

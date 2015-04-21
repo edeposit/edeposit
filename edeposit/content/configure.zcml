@@ -14,6 +14,9 @@
   
   <!-- Include files -->
   <include file="permissions.zcml" />
+  <include file="behaviors.zcml" />
+  <include file="senders.zcml" />
+  <include file="handlers.zcml" />
   <include package="collective.zamqp" />
 
   <browser:resourceDirectory
@@ -38,10 +41,10 @@
            zope.container.interfaces.IObjectAddedEvent"
       handler=".handlers.added"/>
 
-  <subscriber
-      for=".epublicationfolder.IePublicationFolder
-           zope.container.interfaces.IObjectModifiedEvent"
-      handler=".handlers.addedEPublicationFolder"/>
+  <!-- <subscriber -->
+  <!--     for=".originalfile.IOriginalFile -->
+  <!--          zope.lifecycleevent.IObjectModifiedEvent" -->
+  <!--     handler=".handlers.updateFormat"/> -->
 
   <subscriber
       for=".epublicationfolder.IePublicationFolder
@@ -93,93 +96,16 @@
   <!--          zope.intid.interfaces.IIntIdAddedEvent" -->
   <!--     handler=".handlers.addedOriginalFile"/> -->
 
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile"
-    provides="edeposit.content.amqp.IAMQPSender"
-    factory=".amqp.OriginalFileAntivirusRequestSender"
-    name="antivirus-check"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile"
-    provides="edeposit.content.amqp.IAMQPSender"
-    factory=".amqp.OriginalFileISNBValidateRequestSender"
-    name="isbn-validate"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile"
-    provides="edeposit.content.amqp.IAMQPSender"
-    factory=".amqp.OriginalFileISNBDuplicityCheckRequestSender"
-    name="isbn-duplicity-check"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile"
-    provides="edeposit.content.amqp.IAMQPSender"
-    factory=".amqp.OriginalFileSysNumberSearchRequestSender"
-    name="sysnumber-aleph-search"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile"
-    provides="edeposit.content.amqp.IAMQPSender"
-    factory=".amqp.OriginalFileExportToAlephRequestSender"
-    name="export-to-aleph"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile
-         edeposit.content.handlers.IAMQPError
-         "
-    provides="edeposit.content.amqp.IAMQPHandler"
-    factory=".amqp.OriginalFileExceptionHandler"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile
-         edeposit.content.amqp.IScanResult
-         "
-    provides="edeposit.content.amqp.IAMQPHandler"
-    factory=".amqp.OriginalFileAntivirusResultHandler"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile
-         edeposit.content.amqp.IISBNValidationResult
-         "
-    provides="edeposit.content.amqp.IAMQPHandler"
-    factory=".amqp.OriginalFileISBNValidateResultHandler"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile
-         edeposit.content.amqp.ICountResult
-         "
-    provides="edeposit.content.amqp.IAMQPHandler"
-    factory=".amqp.OriginalFileCountResultHandler"
-    />
-
-  <adapter
-    for="edeposit.content.originalfile.IOriginalFile
-         edeposit.content.amqp.IAlephExportResult
-         "
-    provides="edeposit.content.amqp.IAMQPHandler"
-    factory=".amqp.OriginalFileAlephExportResultHandler"
-    />
-
-  <adapter
-      for="edeposit.content.originalfile.IOriginalFile
-           edeposit.content.amqp.IAlephSearchResult
-           "
-      provides="edeposit.content.amqp.IAMQPHandler"
-      factory=".amqp.OriginalFileAlephSearchResultHandler"
-      />
+  <adapter factory=".originalfile.OriginalFilePrimaryFieldInfo"/>
+  <adapter factory=".originalfile.OriginalFileChangeSource"/>
+  <adapter factory=".epublication.MainMetadataFromEBook"/>
   
-  <subscriber
-      for=".aleph_record.IAlephRecord
-           zope.container.interfaces.IObjectAddedEvent"
-      handler=".handlers.addedAlephRecord"/>
+  <adapter factory=".originalfile_changes.OriginalFileChanges"/>
+
+  <!-- <subscriber -->
+  <!--     for=".aleph_record.IAlephRecord -->
+  <!--          zope.container.interfaces.IObjectAddedEvent" -->
+  <!--     handler=".handlers.addedAlephRecord"/> -->
 
   <!-- <browser:viewlet -->
   <!--       name="plone.contentactions" -->
@@ -190,6 +116,29 @@
   <!--       permission="zope2.View" -->
   <!--       /> -->
 
+  <browser:viewlet
+      name="edeposit.contentactions"
+      for="*"
+      view="plone.app.content.browser.interfaces.IFolderContentsView"
+      manager="plone.app.layout.viewlets.interfaces.IContentViews"
+      class=".viewlets.CustomContentActions"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="download"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".originalfile.Download"
+      permission="cmf.ManagePortal"
+      />
+  
+  <browser:page
+      name="display-file"
+      for="edeposit.content.originalfile.IOriginalFile"
+      class=".originalfile.DisplayFile"
+      permission="cmf.ManagePortal"
+      />
+  
   <!-- ePublication contributing -->
   <browser:page
         for="edeposit.content.epublication.IePublication"
@@ -201,7 +150,7 @@
 
   <browser:page
       for="edeposit.content.epublicationfolder.IePublicationFolder"
-      name="add-at-once"
+      name="add-form"
       class="edeposit.content.epublication.EPublicationAddForm"
       permission="cmf.ModifyPortalContent"
       />
@@ -229,4 +178,16 @@
 
 
   <!-- -*- extra stuff goes here -*- -->
+
+  <include package=".portlets" />
+  <include package=".widgets" />
+  <include package=".browser" />
+
+  <!-- <browser:page -->
+  <!--     name="z3cform_validate_field" -->
+  <!--     for="edeposit.content.epublication.IAddAtOnceForm" -->
+  <!--     class=".inline_validation.InlineValidationView" -->
+  <!--     permission="zope.Public" -->
+  <!--     /> -->
+  
 </configure>

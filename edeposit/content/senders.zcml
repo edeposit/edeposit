@@ -1,0 +1,110 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="edeposit.content">
+
+  <include package="collective.zamqp" />
+  
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileAntivirusRequestSender"
+    name="antivirus-check"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileISNBValidateRequestSender"
+    name="isbn-validate"
+    />
+
+  <adapter
+    for="edeposit.user.producent.IProducent"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.AgreementGenerationRequestSender"
+    name="agreement-generate"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.VoucherGenerationRequestSender"
+    name="voucher-generate"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileISNBDuplicityCheckRequestSender"
+    name="isbn-duplicity-check"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileSysNumberSearchRequestSender"
+    name="sysnumber-aleph-search"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileRenewAlephRecordsRequestSender"
+    name="renew-aleph-records"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileRenewAlephRecordsBySysNumberRequestSender"
+    name="renew-aleph-records-by-sysnumber"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileRenewAlephRecordsByICZSysNumberRequestSender"
+    name="renew-aleph-records-by-icz-sysnumber"
+    />
+
+  <!-- <adapter -->
+  <!--   for="edeposit.content.originalfile.IOriginalFile" -->
+  <!--   provides="edeposit.content.amqp.IAMQPSender" -->
+  <!--   factory=".amqp.OriginalFileLoadSummaryRecordRequestSender" -->
+  <!--   name="load-summary-aleph-record" -->
+  <!--   /> -->
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileExportToAlephRequestSender"
+    name="export-to-aleph"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileThumbnailRequestSender"
+    name="generate-thumbnail"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp.IAMQPSender"
+    factory=".amqp.OriginalFileContributionPDFGenerateRequestSender"
+    name="generate-contribution-pdf"
+    />
+
+  <adapter
+    for="edeposit.content.originalfile.IOriginalFile"
+    provides="edeposit.content.amqp_interfaces.IEmailSender"
+    factory=".amqp.OriginalFileHasBeenChangedSendEmail"
+    name="originalfile-has-been-changed"
+    />
+
+</configure>

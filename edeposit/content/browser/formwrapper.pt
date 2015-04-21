@@ -1,0 +1,3 @@
+<div class="load-from-similar-form">
+   <div tal:replace="structure view/contents" />
+</div>

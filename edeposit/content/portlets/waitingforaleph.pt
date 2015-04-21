@@ -1,0 +1,40 @@
+<dl class="portlet portletWaitingForAleph"
+    i18n:domain="edeposit.content">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span>Čekáme na Aleph</span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+       <ul>
+         <li><a tal:attributes="href string:${context/portal_url}/producents/content_status_comment?workflow_action=loadSysNumbersFromAleph"
+                title="" 
+                href="http://edeposit-test.nkp.cz/producents/content_status_comment?workflow_action=loadSysNumbersFromAleph" 
+                class="external-link" 
+                target="_self">načíst z Alephu</a></li>
+         <li><a tal:attributes="href string:${context/portal_url}/producents/originalfiles-waiting-for-aleph"
+                title="" 
+                href="http://edeposit-test.nkp.cz/producents/originalfiles-waiting-for-aleph" 
+                class="external-link"
+                target="_self">přehled originálů</a></li>
+         <li><a tal:attributes="href string:${context/portal_url}/producents/worklist-waiting-for-aleph"
+                title="" 
+                href="http://edeposit-test.nkp.cz/producents/worklist-waiting-for-aleph" 
+                class="external-link" 
+                target="_self">CSV s přehledem</a></li>
+         <li><a tal:attributes="href string:${context/portal_url}/producents/content_status_comment?workflow_action=sendEmailWithOriginalFilesWaitingForAleph"
+                title="" 
+                href="http://edeposit-test.nkp.cz/producents/content_status_comment?workflow_action=sendEmailWithOriginalFilesWaitingForAleph" 
+                class="external-link" 
+                target="_self">odeslat email akvizitorům</a></li>
+       </ul>
+    </dd>
+
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span></span>
+        <span class="portletBottomRight"></span>
+    </dd>
+</dl>

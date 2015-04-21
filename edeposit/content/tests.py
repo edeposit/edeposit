@@ -22,6 +22,14 @@ ztc.ZopeDocFileSuite(
 
 # -*- extra stuff goes here -*-
 
+        # Integration tests for AMQPFolder
+        ztc.ZopeDocFileSuite(
+            'AMQPFolder.txt',
+            package='edeposit.content',
+            optionflags = OPTION_FLAGS,
+            test_class=TestCase),
+
+
         # Integration tests for CatalogizationWorkPlansFolder
         ztc.ZopeDocFileSuite(
             'CatalogizationWorkPlansFolder.txt',
@@ -85,108 +93,6 @@ ztc.ZopeDocFileSuite(
             optionflags = OPTION_FLAGS,
             test_class=TestCase),
 
-
-        # Integration tests for AlephException
-        ztc.ZopeDocFileSuite(
-            'AlephException.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for AlephSearchSysNumberRequest
-        ztc.ZopeDocFileSuite(
-            'AlephSearchSysNumberRequest.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for SearchSysNumber
-        ztc.ZopeDocFileSuite(
-            'SearchSysNumber.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for AlephExportRequest
-        ztc.ZopeDocFileSuite(
-            'AlephExportRequest.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for AlephExportResult
-        ztc.ZopeDocFileSuite(
-            'AlephExportResult.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for AlephExportContent
-        ztc.ZopeDocFileSuite(
-            'AlephExportContent.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for ISBNValidationRequest
-        ztc.ZopeDocFileSuite(
-            'ISBNValidationRequest.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for ISBNValidateResult
-        ztc.ZopeDocFileSuite(
-            'ISBNValidateResult.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for ISBNCountResult
-        ztc.ZopeDocFileSuite(
-            'ISBNCountResult.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for ISBNValidationResult
-        ztc.ZopeDocFileSuite(
-            'ISBNValidationResult.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for MessagesFolder
-        ztc.ZopeDocFileSuite(
-            'MessagesFolder.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-
-        # Integration tests for ISBNCountRequest
-        ztc.ZopeDocFileSuite(
-            'ISBNCountRequest.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
-
-        # Integration tests for ISBNCheckRequest
-        ztc.ZopeDocFileSuite(
-            'ISBNCheckRequest.txt',
-            package='edeposit.content',
-            optionflags = OPTION_FLAGS,
-            test_class=TestCase),
 
 
 # Integration tests for ePeriodicalFolder
