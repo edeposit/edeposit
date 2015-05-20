@@ -25,6 +25,8 @@
 12 05,12 * * *      ~/bin/send-email-to-group-subject-cataloguers.sh | logger -t edeposit
 14 05,12 * * *      ~/bin/send-email-to-group-subject-cataloguing-reviewers.sh | logger -t edeposit
 
+20 05,12 * * *      ~/bin/send-emails-to-all-producents.sh | logger -t edeposit
+
 #50 11 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-preparing.sh | logger -t edeposit
 #52 11 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-review-preparing.sh | logger -t edeposit
 #
