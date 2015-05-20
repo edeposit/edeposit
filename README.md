@@ -85,3 +85,8 @@ Installation of RabbitMQ
 
         Producents and consuments will create its own bindings and queues.
         That's it!                
+
+Fonts configuration for AMQP PDFGen
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+see http://edeposit-amqp-pdfgen.readthedocs.org/en/latest/#open-suse

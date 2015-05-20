@@ -10,11 +10,17 @@
 00 05,12 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-preparing.sh | logger -t edeposit
 02 05,12 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-review-preparing.sh | logger -t edeposit
 
+03 05,12 * * *      ~/bin/send-emails-waiting-for-closed-descriptive-cataloguing-preparing.sh | logger -t edeposit
+03 05,12 * * *      ~/bin/send-emails-waiting-for-closed-descriptive-cataloguing-review-preparing.sh | logger -t edeposit
+
 04 05,12 * * *      ~/bin/send-email-to-group-descriptive-cataloguers.sh | logger -t edeposit
 06 05,12 * * *      ~/bin/send-email-to-group-descriptive-cataloguing-reviewers.sh | logger -t edeposit
 
 08 05,12 * * *      ~/bin/send-emails-waiting-for-subject-cataloguing-preparing.sh | logger -t edeposit
 10 05,12 * * *      ~/bin/send-emails-waiting-for-subject-cataloguing-review-preparing.sh | logger -t edeposit
+
+11 05,12 * * *      ~/bin/send-emails-waiting-for-closed-subject-cataloguing-preparing.sh | logger -t edeposit
+11 05,12 * * *      ~/bin/send-emails-waiting-for-closed-subject-cataloguing-review-preparing.sh | logger -t edeposit
 
 12 05,12 * * *      ~/bin/send-email-to-group-subject-cataloguers.sh | logger -t edeposit
 14 05,12 * * *      ~/bin/send-email-to-group-subject-cataloguing-reviewers.sh | logger -t edeposit
