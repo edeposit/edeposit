@@ -4,6 +4,7 @@
 
 00 05,12 * * *      ~/bin/send-emails-waiting-for-acquisition.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-waiting-for-proper-aleph-record-choosing.sh | logger -t edeposit
+00 05,12 * * *      ~/bin/send-emails-books-waiting-for-proper-aleph-record-choosing.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-generation.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-subject-validation.sh | logger -t edeposit
 
