@@ -8,6 +8,7 @@ package "E-Deposit" {
 () "OAI-PMH" as OAIPMH
 () "SCP" as SCP
 () "AMQP" as AMQP
+() "email" as EMAIL
 
 package "AMQP Middleware" {
 [RabbitMQ] ..> AMQP : používá
@@ -23,6 +24,10 @@ package "AMQP Middleware" {
 [RabbitMQ] <---> [LTP exporter]
 [RabbitMQ] <---> [IMAP service]
 [RabbitMQ] <---> [FTP service]
+[RabbitMQ] <---> [Storage service]
+[RabbitMQ] <---> [URN:NBN registration]
+[RabbitMQ] <---> [PDF generator]
+[RabbitMQ] <---> [REST server]
 }
 
 [RabbitMQ] ..> REST : používá
@@ -31,6 +36,7 @@ package "AMQP Middleware" {
 [Plone] <-down-> [RabbitMQ] : přijímá zprávy
 [Plone] ..> HTTP : používá
 [Plone] ..> OAIPMH : poskytuje bránu
+[Plone] ..> EMAIL: rozesílá emaily
 [FTP service] -left-> [ftp server] : čte příchozí ohlášení
 [FTP service] -left-> [ftp server] : nastavuje přístupy k účtům
 [ftp server]
@@ -52,6 +58,7 @@ package "NKP" {
 [Aleph exporter] --> [Aleph] : posílá nové metadata
 [ISBN validator] --> [Aleph] : kontroluje duplicitu ISBN
 [Aleph]
+[URN:NBN registration] --> [URN:NBN resolver]
 }
 
 
