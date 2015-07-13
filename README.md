@@ -55,6 +55,15 @@ Buildout of E-Deposit
 	jan@jan-XPS-L421X:/opt/edeposit$ ./bin/python bootstrap.py 
 	jan@jan-XPS-L421X:/opt/edeposit$ ./bin/buildout 
 
+Some extra work for edeposit.amq.storage
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This package uses newer version of ZODB. So it is imposible to install it by buildout.
+The package should be installed by pip but without dependecies:
+
+	jan@jan-XPS-L421X:/opt/edeposit$ ./bin/pip install -U --no-deps edeposit.amqp.storage
+
+     
 
 Installation of RabbitMQ
 ~~~~~~~~~~~~~~~~~~~~~~~~
