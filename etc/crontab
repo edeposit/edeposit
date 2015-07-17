@@ -8,6 +8,8 @@
 00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-generation.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-subject-validation.sh | logger -t edeposit
 
+00 05,12 * * *      ~/bin/send-emails-neznama-chyba.sh | logger -t edeposit
+
 00 05,12 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-preparing.sh | logger -t edeposit
 02 05,12 * * *      ~/bin/send-emails-waiting-for-descriptive-cataloguing-review-preparing.sh | logger -t edeposit
 
