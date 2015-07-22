@@ -1,1 +1,5 @@
-{"recipientsGroup": "Acquisitors", "worklist": "worklist-waiting-for-proper-aleph-record-choosing", "additionalEmails": ["stavel.jan@gmail.com", "alena.zalejska@pragodata.cz"], "__nt_name": "SendEmailWithWorklistToGroup", "subject": "Dokumenty cekajici na vyber spravneho aleph zaznamu"}
+{"recipientsGroup": "Acquisitors",
+ "collectionPath": "/producents/prehledy/originaly/cekaji-na-vyber-spravneho-zaznamu-z-alephu/",
+ "additionalEmails": ["stavel.jan@gmail.com", "alena.zalejska@pragodata.cz"], 
+ "__nt_name": "SendEmailWithCollectionToGroup",
+ "subject": "EDeposit: ePublikace cekajici na vyber spravneho aznamu"}
