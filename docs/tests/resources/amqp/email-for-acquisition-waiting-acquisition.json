@@ -1,1 +1,5 @@
-{"recipientsGroup": "Acquisitors", "worklist": "worklist-waiting-for-acquisition", "additionalEmails": ["stavel.jan@gmail.com", "alena.zalejska@pragodata.cz"], "__nt_name": "SendEmailWithWorklistToGroup", "subject": "Dokumenty cekajici na Akvizici"}
+{"recipientsGroup": "Acquisitors",
+ "collectionPath": "/producents/prehledy/originaly/akvizice/cekaji-na-akvizici",
+ "additionalEmails": ["stavel.jan@gmail.com", "alena.zalejska@pragodata.cz"], 
+ "__nt_name": "SendEmailWithCollectionToGroup",
+ "subject": "ePublikace: cekaji na akvizici"}
