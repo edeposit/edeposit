@@ -129,3 +129,13 @@ Create somewhere:
 - AMQP Tasks Folder
 
 No mather as you name it.
+
+Train AMQP Error Classificator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- upload corpus for NTLK ::
+
+  python -m textblob.download_corpora
+  
+- go to AMQP Classification Folder
+- click action ``Train Classificator``
+- upload csv with train data
