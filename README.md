@@ -117,3 +117,13 @@ Module `edeposit.amqp.ltp` must be installed outside of buildout environment.
 	edeposit-aplikace:/opt/edeposit # pip install -U edeposit.amqp.ltp
 	
 It is due to dependency on another version of ZODB than Plone application.
+
+
+Create necessary folders in an application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Log in an application as admin.
+
+Create somewhere:
+- AMQP Classification Folder
+- AMQP Tasks Folder
