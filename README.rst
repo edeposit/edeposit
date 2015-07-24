@@ -77,8 +77,7 @@ Installation of RabbitMQ
 
 download release from http://www.rabbitmq.com/download.html
         
-::
-        install rabbimq-server (latest version)
+install rabbimq-server (latest version)
         
   
 - add running server into supervisord configuration (in buildout deployment.cfg)
@@ -90,9 +89,8 @@ download release from http://www.rabbitmq.com/download.html
 into: /etc/rabbitmq
         
         - run rabbitmq
-        - login into web: http://localhost:15672
-
-::
+        - login into web: http://localhost:15672::
+        
           | user     | quest |
           | password | quest |
 
@@ -111,9 +109,8 @@ see http://edeposit-amqp-pdfgen.readthedocs.org/en/latest/#open-suse
 Module for LTP
 ~~~~~~~~~~~~~~
 
-Module `edeposit.amqp.ltp` must be installed outside of buildout environment.
+Module `edeposit.amqp.ltp` must be installed outside of buildout environment::
 
-::
 	edeposit-aplikace:/opt/edeposit # pip install -U edeposit.amqp.ltp
 	
 It is due to dependency on another version of ZODB than Plone application.
@@ -132,10 +129,12 @@ No mather as you name it.
 
 Train AMQP Error Classificator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- upload corpus for NTLK ::
+- upload corpus for NTLK::
 
-  python -m textblob.download_corpora
-  
+   edeposit@edeposit-aplikace:~> ./bin/pip install textblob
+   edeposit@edeposit-aplikace:~> ./bin/python -m textblob.download_corpora
+
+
 - go to AMQP Classification Folder
 - click action ``Train Classificator``
 - upload csv with train data
