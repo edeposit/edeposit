@@ -99,3 +99,13 @@ Fonts configuration for AMQP PDFGen
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 see http://edeposit-amqp-pdfgen.readthedocs.org/en/latest/#open-suse
+
+Module for LTP
+~~~~~~~~~~~~~~
+
+Module `edeposit.amqp.ltp` must be installed outside of buildout environment.
+
+::
+	edeposit-aplikace:/opt/edeposit # pip install -U edeposit.amqp.ltp
+	
+It is due to dependency on another version of ZODB than Plone application.
