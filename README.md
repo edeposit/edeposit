@@ -127,3 +127,5 @@ Log in an application as admin.
 Create somewhere:
 - AMQP Classification Folder
 - AMQP Tasks Folder
+
+No mather as you name it.
