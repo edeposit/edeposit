@@ -12,7 +12,9 @@ package "E-Deposit" {
 
 package "AMQP Middleware" {
 [RabbitMQ] ..> AMQP : používá
-[RabbitMQ] ..> SCP : používá
+[RabbitMQ] <---> [web harvester]
+[RabbitMQ] <---> [SCP service]
+[RabbitMQ] <---> [LTP exporter]
 [RabbitMQ] <---> [Aleph daemon]
 [RabbitMQ] <---> [ISBN validator]
 [RabbitMQ] <---> [Aleph exporter]
@@ -21,25 +23,34 @@ package "AMQP Middleware" {
 [RabbitMQ] <---> [PDF validator]
 [RabbitMQ] <---> [EPUB validator]
 [RabbitMQ] <---> [Kramerius exporter]
-[RabbitMQ] <---> [LTP exporter]
 [RabbitMQ] <---> [IMAP service]
 [RabbitMQ] <---> [FTP service]
-[RabbitMQ] <---> [Storage service]
-[RabbitMQ] <---> [URN:NBN registration]
 [RabbitMQ] <---> [PDF generator]
-[RabbitMQ] <---> [REST server]
 }
 
-[RabbitMQ] ..> REST : používá
+[Kramerius exporter] ..> REST : používá
+[Kramerius exporter] ..> SCP : používá
+
 [Plone] ..> AMQP : používá
 [Plone] <-down-> [RabbitMQ] : posílá zprávy
 [Plone] <-down-> [RabbitMQ] : přijímá zprávy
 [Plone] ..> HTTP : používá
 [Plone] ..> OAIPMH : poskytuje bránu
 [Plone] ..> EMAIL: rozesílá emaily
+[Plone] <---> [URN:NBN registration]
+
 [FTP service] -left-> [ftp server] : čte příchozí ohlášení
 [FTP service] -left-> [ftp server] : nastavuje přístupy k účtům
 [ftp server]
+
+() "HTTP" as HTTPStorage
+package "Storage" {
+[local RabbitMQ] <---> [RabbitMQ]
+[local RabbitMQ] <---> [Storage service]
+[Storage service]
+[Storage Web APP] ..> HTTPStorage : zpřístupňuje veřejné ePublikace
+}
+
 }
 
 package "NKP" {
