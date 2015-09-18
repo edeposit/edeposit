@@ -85,6 +85,11 @@ VyvojMB <---> [URN:NBN resolver]
 TestMB <---> [URN:NBN resolver]
 }
 
+node HNAS {
+database hnas {
+   [archive]
+}
+}
 }
 
 package "NDK" {
@@ -96,11 +101,6 @@ VyvojMB <---> [LTP]
 TestMB <---> [LTP]
 }
 
-node HNAS {
-database hnas {
-   [archive]
-}
-}
 }
 
 StorageMiddleware <---> archive
