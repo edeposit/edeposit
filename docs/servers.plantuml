@@ -1,0 +1,108 @@
+@startuml
+left to right direction
+title Servery a služby
+
+
+package "E-Deposit" {
+
+    node edeposit-aplikace.nkp.cz {
+    [Web Load Balancer] as Varnish <<varnish>>
+    [Web app] <<Plone>>
+    [Message Broker] <<RabbitMQ>>
+    [Supervisor systému] <<supervisord>>
+    [Middleware skripty] <<python, clojure>>
+    [Web app] <---> [Message Broker]
+    [Middleware skripty] <---> [Message Broker]
+    Varnish <---> [Web app]
+    }
+
+
+    node edeposit-vyvoj.nkp.cz {
+    [Web Load Balancer] as VyvojVarnish <<varnish>>
+    [Web app] as VyvojWeb <<Plone>>
+    [Message Broker] as VyvojMB <<RabbitMQ>>
+    [Supervisor systému] as VyvojSupervisor <<supervisord>>
+    [Middleware skripty] as VyvojMiddleware <<python, clojure>>
+    VyvojWeb <---> VyvojMB
+    VyvojMiddleware <---> VyvojMB
+    }
+
+    node edeposit-test.nkp.cz {
+    [Web Load Balancer] as TestVarnish <<varnish>>
+    [Web app] as TestWeb <<Plone>>
+    [Message Broker] as TestMB <<RabbitMQ>>
+    [Supervisor systému] as TestSupervisor <<supervisord>>
+    [Middleware skripty] as TestMiddleware <<python, clojure>>
+    TestWeb <---> TestMB
+    TestMiddleware <---> TestMB
+    }
+
+    node edeposit-storage.nkp.cz {
+       [Storage Web App] as StorageWeb <<bottle.py>>
+       [Message Broker] as StorageMB <<RabbitMQ>>
+       [Supervisor] as StorageSupervisor <<supervisord>>
+       [middleware scripts] as StorageMiddleware <<python>>
+       database data {
+         [Data server] <<ZODB>>
+       }
+
+       StorageWeb <---> [Data server]
+       StorageMB <---> [Data server]
+       StorageMiddleware <---> StorageMB
+       StorageMiddleware <---> [Data server]
+    }
+    [Message Broker] <---> StorageMB
+    VyvojMB <---> StorageMB
+    TestMB <---> StorageMB
+    Varnish <---> StorageWeb
+}
+
+cloud "Internet" {
+    [User]
+}
+
+[User] - Varnish
+[User] - TestVarnish
+[User] - VyvojVarnish
+
+package "NKP" {
+node 10.1.2.183 {
+[smtp server]
+[Web app] ---> [smtp server]
+}
+
+node aleph.nkp.cz {
+[Aleph]
+[Middleware skripty] <---> [Aleph]
+VyvojMB <---> [Aleph]
+TestMB <---> [Aleph]
+}
+
+node resolver.nkp.cz {
+[URN:NBN resolver]
+[Middleware skripty] <---> [URN:NBN resolver]
+VyvojMB <---> [URN:NBN resolver]
+TestMB <---> [URN:NBN resolver]
+}
+
+node HNAS {
+database hnas {
+   [archive]
+}
+}
+}
+
+package "NDK" {
+
+node ltp.nkp.cz{
+[LTP]
+[Middleware skripty] <---> [LTP]
+VyvojMB <---> [LTP]
+TestMB <---> [LTP]
+}
+
+}
+
+StorageMiddleware <---> archive
+
+@enduml
