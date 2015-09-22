@@ -8,6 +8,10 @@
 # To change this to support multiple backends, see the vcl man pages
 # for instructions.
 
+backend storage {
+        .host = "edeposit-storage.local";
+        .port = "http";
+}
 
 # Configure balancer server as back end
 backend balancer {
@@ -22,7 +26,15 @@ acl purge {
 
 sub vcl_recv {
     set req.grace = 10m;
+    if (req.url ~ "redirect-to-accessing" ){
+            set req.backend = storage;
+            set req.url = regsub(req.url,"^/@@redirect-to-accessing/","/UUID/");
+            return(lookup);
+    }
     set req.backend = balancer;
+
+    # Virtual host mangling
+    set req.url = "/VirtualHostBase/http/edeposit-aplikace.nkp.cz:80/edeposit/VirtualHostRoot" + req.url;
     
     if (req.request == "PURGE") {
         if (!client.ip ~ purge) {

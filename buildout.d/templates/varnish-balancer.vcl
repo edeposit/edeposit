@@ -3,6 +3,11 @@
 # This is an example of a split view caching setup without another proxy
 # like Apache in front of Varnish to rewrite urls into the VHM style.
 
+backend storage {
+        .host = "edeposit-storage.local";
+        .port = "http";
+}
+
 # Round-robin load balancing between four instances
 director balancer round-robin {
   { .backend = { .host = "${hosts:instance1}"; .port = "${ports:instance1}"; } }
@@ -16,6 +21,11 @@ acl purge {
 
 sub vcl_recv {
     set req.grace = 10m;
+    if (req.url ~ "redirect-to-accessing" ){
+            set req.backend = storage;
+            set req.url = regsub(req.url,"^/@@redirect-to-accessing/","/UUID/");
+            return(lookup);
+    }
     set req.backend = balancer;
     
     # Virtual host mangling
