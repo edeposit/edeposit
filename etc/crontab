@@ -30,3 +30,5 @@
 14 05,12 * * *      ~/bin/send-email-to-group-subject-cataloguing-reviewers.sh | logger -t edeposit
 
 20 05,12 * * *      ~/bin/send-emails-to-all-producents.sh | logger -t edeposit
+
+00 *     * * *      ~/bin/send-amqp-aleph-link-exportd-tick.py | logger -t edeposit
