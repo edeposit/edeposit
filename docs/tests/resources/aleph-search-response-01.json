@@ -28,7 +28,7 @@
             }, 
             "__nt_name": "AlephRecord", 
             "library": "CZE01", 
-            "base": "cze-dep", 
+            "base": "nkc", 
             "semantic_info": {
                 "hasISBNAgencyFields": false, 
                 "hasCatalogizationFields": false, 
