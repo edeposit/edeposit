@@ -40,6 +40,19 @@ CopyModifyMergeRepositoryTool.py
             ...
    
 
+Doplnit savepoint pro typ Message pro zamqp modul
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+viz https://github.com/edeposit/edeposit/issues/532#issuecomment-135751913
+
+hack, co vyradi NoRollbackSavepoints:
+
+CopyModifyMergeRepositoryTool.py(498)
+
+::
+
+    _savepoints = filter(lambda ss: not isinstance(ss,transaction._transaction.NoRollbackSavepoint), saved._savepoints)
+    saved._savepoints = _savepoints
+    
 Clone packages for E-Deposit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
