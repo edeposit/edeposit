@@ -1,5 +1,6 @@
-{ "__nt_name": "SendEmailWithWorklistToGroup",
-  "recipientsGroup": "Descriptive Cataloguing Administrators",
-  "worklist": "worklist-waiting-for-descriptive-cataloguing-preparing",
-  "additionalEmails": ["stavel.jan@gmail.com", "alena.zalejska@pragodata.cz"],
-  "subject": "Dokumenty cekajici na pripravu jmenneho popisu" }
+{"recipientsGroup": "Descriptive Cataloguing Administrators",
+ "collectionPath": "/producents/prehledy/originaly/jmenny-popis/cekaji-na-pripravu-jp",
+ "additionalEmails": ["stavel.jan@gmail.com", "alena.zalejska@pragodata.cz"],
+ "__nt_name": "SendEmailWithCollectionToGroup",
+ "subject": "ePublikace: cekaji na pripravu JP"}
+

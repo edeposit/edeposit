@@ -4,10 +4,13 @@
 
 00 05,12 * * *      ~/bin/send-emails-waiting-for-acquisition.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-waiting-for-proper-aleph-record-choosing.sh | logger -t edeposit
-00 05,12 * * *      ~/bin/send-emails-books-waiting-for-proper-aleph-record-choosing.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-generation.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-waiting-for-isbn-subject-validation.sh | logger -t edeposit
 00 05,12 * * *      ~/bin/send-emails-eperiodicals-waiting-for-acquisition.sh | logger -t edeposit
+
+00 05,12 * * *      ~/bin/send-emails-books-waiting-for-proper-aleph-record-choosing.sh | logger -t edeposit
+00 05,12 * * *      ~/bin/send-emails-books-waiting-for-acquisition.sh | logger -t edeposit
+00 05,12 * * *      ~/bin/send-emails-books-waiting-for-descriptive-cataloguing-preparing.sh | logger -t edeposit
 
 00 05,12 * * *      ~/bin/send-emails-neznama-chyba.sh | logger -t edeposit
 

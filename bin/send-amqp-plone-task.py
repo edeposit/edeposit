@@ -8,7 +8,7 @@ import os.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from local import updateMsg
+    from local_utils import updateMsg
 except:
     updateMsg = lambda msg: msg
 
